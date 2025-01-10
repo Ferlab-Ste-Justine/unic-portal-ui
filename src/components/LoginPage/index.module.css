@@ -1,0 +1,8 @@
+.loginLayout {
+  background-image: url('../../../public/background.svg'), linear-gradient(266deg, #28aae2 0.82%, #006095 98.04%);
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--gray-2);
+  height: 100vh;
+}
