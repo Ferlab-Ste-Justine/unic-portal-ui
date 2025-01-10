@@ -21,7 +21,6 @@
     "classnames": "^2.5.1",
     "next": "^14.2.16",
     "next-auth": "^4.24.10",
-    "nodemailer": "^6.9.16",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intl-universal": "^2.11.3"

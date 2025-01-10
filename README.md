@@ -7,7 +7,7 @@
 
 # unic-portal-ui
 
-Submission portal for the UNIC.
+UI portal for the UNIC.
 
 ## Getting Started
 
