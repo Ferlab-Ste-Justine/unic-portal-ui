@@ -1,14 +1,17 @@
-@table-selected-row-bg: @gray-2;
+@table-selected-row-bg: @blue-1;
+@table-selected-row-hover-bg: @blue-2;
 @table-expanded-row-bg: @gray-2;
+
 @table-header-bg: @gray-3;
 @table-header-bg-sm: @gray-3;
-@table-header-color: @gray-8;
-@table-header-sort-bg: @blue-1 !important;
-@table-body-sort-bg: @blue-1;
-@table-row-hover-bg: @gray-3;
-@table-header-filter-active-bg: @blue-1;
+@table-header-color: @gray-9;
+@table-header-sort-bg: @gray-3 !important;
 @table-header-sort-active-bg: @gray-4;
-@table-fixed-header-sort-active-bg: @blue-1;
+@table-header-filter-active-bg: @gray-3;
+
+@table-body-sort-bg: @gray-3;
+@table-row-hover-bg: @gray-3;
+@table-fixed-header-sort-active-bg: @gray-3;
 @table-font-size: 14px;
 @table-font-size-md: 14px;
 @table-font-size-sm: 14px;
@@ -39,13 +42,6 @@
     > tr:nth-child(even) {
       background-color: @gray-2;
     }
-    > tr {
-      background-color: white;
-    }
-  }
-
-  &-cell-fix-left {
-    background-color: inherit;
   }
 
   th {
@@ -56,11 +52,21 @@
   }
 
   // Empty
-  div[class$="-nested-loading"] {
+  div[class$='-nested-loading'] {
     &,
     .ant-spin-container,
     .ant-list-empty-text {
       height: 100%;
     }
   }
+}
+
+.ant-table-tbody > tr:nth-child(even):not(.ant-table-row-selected) td {
+  background-color: @gray-2;
+}
+.ant-table-tbody > tr:nth-child(even):not(.ant-table-row-selected) td.ant-table-column-sort {
+  background-color: @gray-3;
+}
+.ant-table-tbody > tr:nth-child(even):not(.ant-table-row-selected):hover td {
+  background-color: @gray-3;
 }

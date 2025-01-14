@@ -8,8 +8,8 @@
 
 @btn-disable-border: @gray-5;
 
-@btn-default-ghost-color: @gray-6;
-@btn-default-ghost-border: @gray-6;
+@btn-default-ghost-color: @gray-1;
+@btn-default-ghost-border: @gray-1;
 
 @btn-text-hover-bg: @gray-2;
 
@@ -55,7 +55,25 @@
 
     &:focus-visible {
       border-color: @gray-8;
-      box-shadow: 0 0 0 2px @gray-1, 0 0 0 3px @gray-8;
+      box-shadow: 0 0 0 2px @gray-1, 0 0 0 4px @gray-8;
+    }
+
+    &.@{btn-prefix-cls}-background-ghost:not(:disabled) {
+      &:hover {
+        border-color: @blue-3;
+        color: @blue-3;
+      }
+
+      &:active {
+        border-color: @blue-3;
+        color: @blue-3;
+      }
+
+      &:focus-visible {
+        border-color: @gray-1;
+        color: @gray-1;
+        border-width: 2px;
+      }
     }
 
     &.@{btn-prefix-cls}-dangerous:not(:disabled) {
@@ -78,27 +96,6 @@
       &:focus-visible {
         border-color: @red-7;
         box-shadow: 0 0 0 2px @gray-1, 0 0 0 4px @red-7;
-      }
-    }
-
-    &.@{btn-prefix-cls}-background-ghost:not(:disabled) {
-      border-color: @gray-1;
-      color: @gray-1;
-
-      &:hover {
-        color: @blue-3 !important;
-        border-color: @blue-3;
-      }
-
-      &:focus-visible {
-        color: @gray-1;
-        border: 2px solid @gray-1;
-        box-shadow: none;
-      }
-
-      &:active {
-        color: @blue-3;
-        border-color: @blue-3;
       }
     }
   }
@@ -146,24 +143,18 @@
     }
 
     &.@{btn-prefix-cls}-background-ghost:not(:disabled) {
-      background-color: @gold-4;
-      border-color: @gold-4;
-      color: @gray-8;
+      border-color: @blue-5;
+      color: @blue-5;
 
       &:hover {
-        background-color: @gold-5;
-        border-color: @gold-5;
+        border-color: @blue-3;
+        color: @blue-3;
       }
 
       &:focus-visible {
-        background-color: @gold-4;
-        border: 2px solid @gray-8;
-        box-shadow: 0 0 0 2px @gold-4, 0 0 0 3px @gold-4;
-      }
-
-      &:active {
-        background-color: @gold-6;
-        border-color: @gold-6;
+        border-color: @blue-3;
+        color: @blue-3;
+        border-width: 2px;
       }
     }
   }
@@ -189,11 +180,83 @@
   }
 
   &-link {
+    color: @blue-8;
+
     span {
       text-decoration: underline;
     }
-    span:hover {
-      text-decoration: none;
+
+    &:hover {
+      color: @blue-9;
+
+      span {
+        text-decoration: none !important;
+      }
+    }
+
+    &:focus,
+    &:active {
+      color: @blue-10;
+
+      span {
+        text-decoration: none !important;
+      }
+    }
+
+    &:focus-visible {
+      color: @blue-8;
+      border: 1px solid @blue-8;
+
+      span {
+        text-decoration: none !important;
+      }
+    }
+
+    &.@{btn-prefix-cls}-loading {
+      opacity: 65%;
+      color: @blue-9
+    }
+
+    &[disabled] {
+      span {
+        color: @gray-6 !important;
+      }
+
+      &:hover {
+        span {
+          text-decoration: underline !important;
+        }
+      }
+    }
+
+    &.@{btn-prefix-cls}-dangerous:not(:disabled) {
+      color: @red-7;
+      border: none;
+      background: transparent;
+
+      &.@{btn-prefix-cls}-loading {
+        opacity: 65%;
+        color: @red-7;
+        border: none;
+      }
+
+      &:hover {
+        color: @red-7;
+      }
+
+      &:focus {
+        color: @red-7;
+      }
+
+      &:active {
+        color: @red-7;
+      }
+
+      &:focus-visible {
+        outline: 1px solid @red-7;
+        color: @red-8;
+        box-shadow: none;
+      }
     }
   }
 }

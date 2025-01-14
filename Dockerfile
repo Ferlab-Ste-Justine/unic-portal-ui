@@ -33,8 +33,8 @@ COPY --from=builder /app/package.json ./
 # Install only production dependencies
 RUN npm install --only=production
 
-# Expose port 8000
-EXPOSE 8000
+# Expose port 3000
+EXPOSE 3000
 
 # Start the Next.js application
 CMD ["npm", "run", "start"]

@@ -4,7 +4,7 @@ const config = {
   UNIC_WEB_APP_COMMUNITY:
     process.env.NEXT_PUBLIC_UNIC_WEB_APP_COMMUNITY || 'https://portal.qa.unic.ferlab.bio/community',
   UNIC_WEB_SITE: process.env.NEXT_PUBLIC_UNIC_WEB_SITE || 'https://unic.ca',
-  SUPPORT_EMAIL: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || 'support-qa@unic.ca',
+  SUPPORT_EMAIL: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || 'support@unic.ca',
   DOMAIN_URL: process.env.NEXT_PUBLIC_DOMAIN || '.qa.unic.ferlab.bio',
   USERS_API_URL: process.env.NEXT_PUBLIC_USERS_API_URL || 'https://users.qa.unic.ferlab.bio',
   // Keycloak
