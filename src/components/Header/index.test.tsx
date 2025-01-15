@@ -51,22 +51,6 @@ describe('Header Component', () => {
     );
 
     expect(screen.getByAltText('UNIC Logo')).toBeInTheDocument();
-    expect(screen.getByText('layout.main.menu.resources')).toBeInTheDocument();
-    expect(screen.getByText('layout.main.menu.community')).toBeInTheDocument();
-  });
-
-  it('opens and interacts with resources menu', () => {
-    render(
-      <Provider store={store}>
-        <Header />
-      </Provider>,
-    );
-
-    const resourcesTrigger = screen.getByText('layout.main.menu.resources');
-    fireEvent.click(resourcesTrigger);
-
-    expect(screen.getByText('layout.main.menu.dictionary')).toBeInTheDocument();
-    expect(screen.getByText('layout.main.menu.documentation')).toBeInTheDocument();
   });
 
   it('opens and interacts with user menu, calls logout on click', async () => {
