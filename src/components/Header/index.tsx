@@ -18,14 +18,7 @@ import { LANG } from '@/types/constants';
 
 import styles from './index.module.css';
 
-const {
-  UNIC_DOCUMENTATION,
-  UNIC_DICTIONARY,
-  FERLOAD_GITHUB_URL,
-  UNIC_WEB_SITE,
-  SUPPORT_EMAIL,
-  UNIC_WEB_APP_COMMUNITY,
-} = config;
+const { SUPPORT_EMAIL, UNIC_WEB_APP_COMMUNITY } = config;
 
 export const getTargetLang = (lang: LANG) => (lang === LANG.FR ? LANG.EN : LANG.FR);
 
@@ -47,50 +40,6 @@ const Header = () => {
 
   const resourcesMenu: MenuProps = {
     items: [
-      {
-        key: 'dictionary',
-        label: (
-          <ExternalLink href={UNIC_DICTIONARY}>
-            <Space>
-              <ExternalLinkIcon width={14} height={14} />
-              {intl.get('layout.main.menu.dictionary')}
-            </Space>
-          </ExternalLink>
-        ),
-      },
-      {
-        key: 'documentation',
-        label: (
-          <ExternalLink href={UNIC_DOCUMENTATION}>
-            <Space>
-              <ExternalLinkIcon width={14} height={14} />
-              {intl.get('layout.main.menu.documentation')}
-            </Space>
-          </ExternalLink>
-        ),
-      },
-      {
-        key: 'downloadTool',
-        label: (
-          <ExternalLink href={FERLOAD_GITHUB_URL}>
-            <Space>
-              <ExternalLinkIcon width={14} height={14} />
-              {intl.get('layout.main.menu.downloadTool')}
-            </Space>
-          </ExternalLink>
-        ),
-      },
-      {
-        key: 'unic-website',
-        label: (
-          <ExternalLink href={UNIC_WEB_SITE}>
-            <Space>
-              <ExternalLinkIcon width={14} height={14} />
-              {intl.get('layout.main.menu.website')}
-            </Space>
-          </ExternalLink>
-        ),
-      },
       {
         type: 'divider',
       },

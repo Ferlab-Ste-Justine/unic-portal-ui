@@ -17,7 +17,7 @@ const RootLayout = ({ children }: React.PropsWithChildren) => {
   return (
     <html lang='en'>
       <head>
-        <link rel='icon' href='/ferlab.png' sizes='any' />
+        <link rel='icon' href='/favicon.ico' sizes='any' />
       </head>
       <body>
         <RootProvider>

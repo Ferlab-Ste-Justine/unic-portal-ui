@@ -1,6 +1,5 @@
 const config = {
   NODE_ENV: process.env.NODE_ENV || 'development',
-  UNIC_WEB_APP: process.env.NEXT_PUBLIC_UNIC_WEB_APP || 'https://portal.qa.unic.ferlab.bio',
   UNIC_WEB_APP_COMMUNITY:
     process.env.NEXT_PUBLIC_UNIC_WEB_APP_COMMUNITY || 'https://portal.qa.unic.ferlab.bio/community',
   UNIC_WEB_SITE: process.env.NEXT_PUBLIC_UNIC_WEB_SITE || 'https://unic.ca',
