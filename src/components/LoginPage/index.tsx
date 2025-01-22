@@ -1,4 +1,5 @@
 import { Button, Divider, Space, Typography } from 'antd';
+import Image from 'next/image';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
@@ -6,9 +7,10 @@ import { useAuth } from '@/app/api/auth/useAuth';
 import DataRelease from '@/components/DataRelease';
 import { getTargetLang } from '@/components/Header';
 import { globalActions, useLang } from '@/store/global';
-const { Text } = Typography;
 
 import styles from './index.module.css';
+
+const { Text } = Typography;
 
 const LoginPage = () => {
   const lang = useLang();
@@ -22,14 +24,14 @@ const LoginPage = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <img src='/login-img.svg' alt='logo' className={styles.sideImage} />
+      <Image src='/login-img.png' alt='login-img' width={738} height={1108} className={styles.sideImage} />
       <div className={styles.sideContentContainer}>
         <Button type='primary' className={styles.languageButton} onClick={handleChangeLang}>
           {getTargetLang(lang).toUpperCase()}
         </Button>
         <Space size={48} direction='vertical'>
           <div className={styles.logoContainer}>
-            <img src='/unic-logo.svg' alt='logo' />
+            <Image src='/unic-logo.svg' alt='logo' width={285} height={120} className={styles.logo} />
           </div>
           <div className={styles.loginStats}>
             <Text className={styles.statsTitle}>{intl.get('components.dataRelease.title')}</Text>
