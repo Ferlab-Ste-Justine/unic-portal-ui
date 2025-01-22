@@ -9,6 +9,8 @@ import { initialState, MessageArgsPropsCustom } from '@/store/global/types';
 import { fetchUser } from '@/store/user/thunks';
 import { LANG } from '@/types/constants';
 
+import { fetchStats } from './thunks';
+
 const getNavigatorLang = () => {
   if (typeof window !== 'undefined' && locales.hasOwnProperty(navigator?.language)) {
     return navigator?.language;
@@ -21,6 +23,8 @@ export const GlobalState: initialState = {
   notification: undefined,
   message: undefined,
   messagesToDestroy: [],
+  stats: undefined,
+  isFetchingStats: false,
 };
 
 const setLocalConfig = (locale: string) => {
@@ -61,6 +65,16 @@ const globalSlice = createSlice({
     }),
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchStats.pending, (state) => {
+      state.isFetchingStats = true;
+    });
+    builder.addCase(fetchStats.fulfilled, (state, action) => {
+      state.isFetchingStats = false;
+      state.stats = action.payload;
+    });
+    builder.addCase(fetchStats.rejected, (state) => {
+      state.isFetchingStats = false;
+    });
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       const locale = action.payload.locale || state.lang;
       setLocalConfig(locale);

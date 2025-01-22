@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <Image src='/login-img.png' alt='login-img' width={738} height={1108} className={styles.sideImage} />
+      <Image src='/login-img.png' alt='login-img' priority width={738} height={1108} className={styles.sideImage} />
       <div className={styles.sideContentContainer}>
         <Button type='primary' className={styles.languageButton} onClick={handleChangeLang}>
           {getTargetLang(lang).toUpperCase()}
