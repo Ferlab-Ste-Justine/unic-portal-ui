@@ -1,15 +1,35 @@
 'use client';
+import { gql, useQuery } from '@apollo/client';
+import intl from 'react-intl-universal';
+
+import Loading from '@/components/Loading';
+import PageLayout from '@/components/PageLayout';
 import { useLang } from '@/store/global';
 
-const RootPage = () => {
-  //TODO: understand why we need to force useLang to be reloaded here because its already done in provider
+const GET_STATS = gql`
+  query getStats {
+    getVariables {
+      #count
+      var_id
+    }
+    getTables {
+      #count
+      tab_id
+    }
+  }
+`;
+
+const HomePage = () => {
   useLang();
+  const { data, loading, error } = useQuery(GET_STATS);
+
   return (
-    <div>
-      <h1>Hello world</h1>
-      <p>This is the root page</p>
-    </div>
+    <PageLayout title={intl.get('screen.home.title')} subTitle={intl.get('screen.home.subTitle')}>
+      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      {loading && <Loading />}
+      {error && <p>Error: {JSON.stringify(error, null, 2)}</p>}
+    </PageLayout>
   );
 };
 
-export default RootPage;
+export default HomePage;

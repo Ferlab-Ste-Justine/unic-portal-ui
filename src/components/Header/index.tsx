@@ -1,9 +1,10 @@
-import { DownOutlined, LogoutOutlined, TeamOutlined } from '@ant-design/icons';
+import { DownOutlined, HomeOutlined, LogoutOutlined, ReadOutlined, TeamOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
 import { Button, Dropdown, MenuProps, PageHeader, Space } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
@@ -18,7 +19,7 @@ import { LANG } from '@/types/constants';
 
 import styles from './index.module.css';
 
-const { SUPPORT_EMAIL, UNIC_WEB_APP_COMMUNITY } = config;
+const { SUPPORT_EMAIL } = config;
 
 export const getTargetLang = (lang: LANG) => (lang === LANG.FR ? LANG.EN : LANG.FR);
 
@@ -26,6 +27,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const lang = useLang();
   const { userInfo } = useUser();
+  const currentPathName = usePathname();
+
   const userName = userInfo?.first_name;
 
   const { logout } = useAuth();
@@ -49,7 +52,7 @@ const Header = () => {
           <ExternalLink href={`mailto:${SUPPORT_EMAIL}`}>
             <Space>
               <ExternalLinkIcon width={14} height={14} />
-              {intl.get('layout.main.menu.contact')}
+              {intl.get('global.contact')}
             </Space>
           </ExternalLink>
         ),
@@ -88,22 +91,35 @@ const Header = () => {
         title={
           <div className={styles.headerNavList}>
             <Link href={'/'}>
-              <Image src={'/unic-logo.svg'} width={70} height={40} className={styles.logo} alt='UNIC Logo' />
+              <Image src={'/unic-logo-header.svg'} width={103} height={40} className={styles.logo} alt='UNIC Logo' />
             </Link>
+            <nav className={styles.headerNavList}>
+              <HeaderLink
+                to={'/'}
+                icon={<HomeOutlined />}
+                title={intl.get('global.home')}
+                currentPathName={currentPathName}
+              />
+              <HeaderLink
+                to={'/catalog'}
+                icon={<ReadOutlined />}
+                title={intl.get('global.catalog')}
+                currentPathName={currentPathName}
+              />
+            </nav>
           </div>
         }
         extra={
           <Space size={16}>
             <HeaderLink
-              currentPathName={'/'}
-              to={UNIC_WEB_APP_COMMUNITY}
+              currentPathName={currentPathName}
+              to={'/community'}
               icon={<TeamOutlined />}
-              title={intl.get('layout.main.menu.community')}
-              target='_blank'
+              title={intl.get('global.community')}
             />
             <Dropdown trigger={['click']} menu={resourcesMenu}>
               <div className={styles.menuTrigger}>
-                <span className={styles.userName}>{intl.get('layout.main.menu.resources')}</span>
+                <span className={styles.userName}>{intl.get('global.resources')}</span>
                 <DownOutlined />
               </div>
             </Dropdown>

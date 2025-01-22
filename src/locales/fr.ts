@@ -44,7 +44,11 @@ const fr = {
     delete: 'Supprimer',
     unknown: 'Inconnu',
     summary: 'Résumé',
-    viewInDataExploration: 'Voir sur la page Explorateur',
+    catalog: 'Catalogue',
+    home: 'Accueil',
+    community: 'Communauté',
+    resources: 'Ressources',
+    contact: 'Contact',
     errors: {
       403: "Désolé, vous n'êtes pas autorisé à accéder à cette page.",
       404: "Désolé, cette page n'existe pas.",
@@ -73,17 +77,6 @@ const fr = {
     },
   },
   layout: {
-    main: {
-      menu: {
-        dashboard: 'Tableau de bord',
-        studies: 'Études',
-        website: 'Site web',
-        documentation: 'Documentation',
-        community: 'Communauté',
-        resources: 'Ressources',
-        contact: 'Contact',
-      },
-    },
     user: {
       menu: {
         settings: 'Paramètres de profil',
@@ -104,12 +97,13 @@ const fr = {
           'Pour savoir comment soumettre vos données, faire une demande d’accès ou pour consulter des guides d’utilisation du portail, visitez le centre de documentation.',
         button: 'Centre de documentation',
       },
-      hosting: {
-        title: 'Données à héberger ?',
-        description:
-          'Le UNIC offre aux chercheurs une plateforme idéale pour entreposer et diffuser les données génomiques générées par les études cliniques et de recherche.',
-        button: 'Soumettre vos données',
-      },
+    },
+    home: {
+      title: "Portail de l'UnIC",
+      subTitle: 'Explorez le catalogue de données, gérez vos projets et accédez à vos jeux de données.',
+    },
+    catalog: {
+      title: "Catalogue de l'UnIC",
     },
   },
 };

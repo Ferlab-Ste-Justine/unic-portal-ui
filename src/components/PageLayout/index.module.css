@@ -1,0 +1,30 @@
+.container {
+    padding: 16px 24px;
+    background-color: var(--gray-3);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.headerPage {
+    width: 100%;
+    align-items: flex-start;
+}
+
+.titlePageWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.titlePage {
+    margin: 0 !important;
+}
+
+.subTitlePage {
+    color: var(--gray-7);
+}

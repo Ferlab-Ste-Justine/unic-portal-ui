@@ -44,8 +44,11 @@ const en = {
     delete: 'Delete',
     unknown: 'Unknown',
     summary: 'Summary',
-    copyToClipboard: 'Copy to clipboard',
-    viewInDataExploration: 'View in Data Explorer',
+    catalog: 'Catalog',
+    home: 'Home',
+    community: 'Community',
+    resources: 'Resources',
+    contact: 'Contact',
     errors: {
       403: 'Sorry, you are not authorized to access this page.',
       404: 'Sorry, the page you visited does not exist.',
@@ -75,17 +78,6 @@ const en = {
     },
   },
   layout: {
-    main: {
-      menu: {
-        dashboard: 'Dashboard',
-        studies: 'Studies',
-        website: 'Website',
-        documentation: 'Documentation',
-        community: 'Community',
-        resources: 'Resources',
-        contact: 'Contact',
-      },
-    },
     user: {
       menu: {
         settings: 'Profile settings',
@@ -106,12 +98,13 @@ const en = {
           'To learn how to submit your data, request access to data, or to read user guides for the portal, visit the Documentation Center.',
         button: 'Documentation Center',
       },
-      hosting: {
-        title: 'Need to Host Your Data?',
-        description:
-          'The UNIC offers an ideal platform for researchers to store and share genomic data produced by clinical and research studies.',
-        button: 'Submit your data',
-      },
+    },
+    home: {
+      title: 'UnIC Portail',
+      subTitle: 'Explore the data catalog, manage your projects, and access your datasets.',
+    },
+    catalog: {
+      title: 'UnIC Catalog',
     },
   },
 };

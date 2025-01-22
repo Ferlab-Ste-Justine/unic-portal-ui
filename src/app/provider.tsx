@@ -11,6 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { useAuth } from '@/app/api/auth/useAuth';
 import Loading from '@/components/Loading';
+import { ApolloWrapper } from '@/lib/graphql/ApolloWrapper';
 import locales from '@/locales';
 import { persistor, store } from '@/store';
 import { useLang } from '@/store/global';
@@ -46,13 +47,15 @@ const ANTDConfigProvider = ({ children }: React.PropsWithChildren) => {
 const RootProvider = ({ children }: React.PropsWithChildren) => {
   return (
     <SessionProvider>
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <ANTDConfigProvider>
-            <AuthProvider>{children}</AuthProvider>
-          </ANTDConfigProvider>
-        </PersistGate>
-      </Provider>
+      <ApolloWrapper>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <ANTDConfigProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </ANTDConfigProvider>
+          </PersistGate>
+        </Provider>
+      </ApolloWrapper>
     </SessionProvider>
   );
 };

@@ -1,5 +1,5 @@
 .mainHeader {
-  height: var(--main-header-height);
+  height: 64px;
   background-color: var(--gray-1) !important;
   box-shadow: 0 0 8px 0 rgba(38, 67, 111, 0.25);
   z-index: 1000;
@@ -10,9 +10,6 @@
 }
 .mainHeader .logo {
   margin-right: 10px;
-}
-.mainHeader .tagBeta {
-  padding: 1px 8px 1px 8px;
 }
 .mainHeader .headerNavList {
   display: flex;
