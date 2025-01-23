@@ -4,7 +4,7 @@ const config = {
   SUPPORT_EMAIL: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || '',
   DOMAIN_URL: process.env.NEXT_PUBLIC_DOMAIN || '',
   USERS_API_URL: process.env.NEXT_PUBLIC_USERS_API_URL || '',
-  DATA_API_URL: process.env.NEXT_PUBLIC_DATA_API_URL || '',
+  PORTAL_API_URL: process.env.NEXT_PUBLIC_PORTAL_API_URL || '',
   // Keycloak
   KC_REALM: process.env.NEXT_PUBLIC_KC_REALM || '',
   KC_AUTH_SERVER_URL: process.env.NEXT_PUBLIC_KC_AUTH_SERVER_URL || '',

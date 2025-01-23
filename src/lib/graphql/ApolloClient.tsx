@@ -2,10 +2,10 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 import config from '@/config';
 
-const { DATA_API_URL } = config;
+const { PORTAL_API_URL } = config;
 
 const client = new ApolloClient({
-  uri: `${DATA_API_URL}/graphql`,
+  uri: `${PORTAL_API_URL}/graphql`,
   cache: new InMemoryCache({
     addTypename: false,
     typePolicies: {
