@@ -1,8 +1,8 @@
-import { gql } from '@apollo/client';
+'use client';
+import { gql, useQuery } from '@apollo/client';
 import intl from 'react-intl-universal';
 
 import PageLayout from '@/components/PageLayout';
-import client from '@/lib/graphql/ApolloClient';
 
 const GET_CATALOG_DATA = gql`
   query getCatalogData {
@@ -21,9 +21,8 @@ const GET_CATALOG_DATA = gql`
   }
 `;
 
-const CatalogPage = async () => {
-  // SSR example
-  const { data } = await client.query({ query: GET_CATALOG_DATA });
+const CatalogPage = () => {
+  const { data } = useQuery(GET_CATALOG_DATA);
 
   return (
     <PageLayout title={intl.get('screen.catalog.title')}>
