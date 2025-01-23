@@ -101,6 +101,23 @@ const fr = {
     home: {
       title: "Portail de l'UnIC",
       subTitle: 'Explorez le catalogue de données, gérez vos projets et accédez à vos jeux de données.',
+      explore: 'Explorer',
+      warehouse: {
+        title: 'Entrepôt',
+        description: 'Explorez l’ensemble des variables de l’entrepôt de données par domaine',
+      },
+      researchProjects: {
+        title: 'Projets de recherche',
+        description: 'Explorez les dictionnaires de données des projets de recherche',
+      },
+      EQPProjects: {
+        title: 'Projets EQP',
+        description: 'Explorez les dictionnaires de données des projets d’amélioration de la qualité ',
+      },
+      hospitalSystems: {
+        title: 'Systèmes hospitaliers',
+        description: 'Explorez la liste des tables et variables des systèmes hospitaliers',
+      },
     },
     catalog: {
       title: "Catalogue de l'UnIC",

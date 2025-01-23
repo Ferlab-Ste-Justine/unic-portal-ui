@@ -100,8 +100,25 @@ const en = {
       },
     },
     home: {
-      title: 'UnIC Portail',
+      title: 'UnIC data portal',
       subTitle: 'Explore the data catalog, manage your projects, and access your datasets.',
+      explore: 'Explore',
+      warehouse: {
+        title: 'Warehouse',
+        description: 'Explore all data warehouse variables by domain',
+      },
+      researchProjects: {
+        title: 'Research Projects',
+        description: 'Explore research project data dictionaries',
+      },
+      EQPProjects: {
+        title: 'EQP Projects',
+        description: 'Explore data dictionaries from quality improvement projects',
+      },
+      hospitalSystems: {
+        title: 'Hospital Systems',
+        description: 'Explore the list of hospital system tables and variables',
+      },
     },
     catalog: {
       title: 'UnIC Catalog',

@@ -11,9 +11,10 @@ interface IHomePageProps {
   title: string;
   subTitle?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-const PageLayout = ({ title, subTitle, children }: IHomePageProps) => {
+const PageLayout = ({ title, subTitle, children, className }: IHomePageProps) => {
   useLang();
 
   return (
@@ -27,7 +28,7 @@ const PageLayout = ({ title, subTitle, children }: IHomePageProps) => {
           <br />
         </div>
       </Space>
-      <Layout className={styles.tabsContainer}>{children}</Layout>
+      <Layout className={className}>{children}</Layout>
     </Layout>
   );
 };
