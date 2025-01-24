@@ -11,10 +11,10 @@ const en = {
       participant: 'Participant',
       participants: 'Participants',
     },
-    source: {
-      participant_id: 'Source ID',
-      source: 'Source',
-      sources: 'Sources',
+    source_system: {
+      source_system_id: 'System Source ID',
+      source_system: 'Source System',
+      source_systems: 'Source Systems',
     },
     variable: {
       variable_id: 'Variable ID',
@@ -30,6 +30,11 @@ const en = {
       table_id: 'Table ID',
       table: 'Table',
       tables: 'Tables',
+    },
+    domain: {
+      domain_id: 'Domain ID',
+      domain: 'Domain',
+      domains: 'Domains',
     },
   },
   global: {
