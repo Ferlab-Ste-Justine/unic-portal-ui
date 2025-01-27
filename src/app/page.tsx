@@ -12,14 +12,11 @@ import styles from './page.module.css';
 
 const HomePage = () => {
   useLang();
-  const {
-    data: WarehouseData,
-    loading,
-    error,
-  } = useQuery(GET_RESOURCES_STATS, {
-    variables: { filterBy: [{ field: 'rs_type', value: 'warehouse' }] },
-  });
-  const warehouseStats = WarehouseData?.getResources?.hits?.[0]?.stat_etl;
+  const { data, loading, error } = useQuery(GET_RESOURCES_STATS);
+  const warehouseStats = data?.getResourcesStats?.warehouse;
+  // const researchProjectStats = data?.getResourcesStats?.research_project;
+  // const eqpStats = data?.getResourcesStats?.eqp;
+  // const sourceSystemStats = data?.getResourcesStats?.source_system;
 
   return (
     <PageLayout
