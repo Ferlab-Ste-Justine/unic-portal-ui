@@ -13,7 +13,6 @@ const config = {
   KC_LOGOUT_URL: `${process.env.NEXT_PUBLIC_KC_AUTH_SERVER_URL}/realms/${process.env.NEXT_PUBLIC_KC_REALM}/protocol/openid-connect/logout`,
   KC_TOKEN_URL: `${process.env.NEXT_PUBLIC_KC_AUTH_SERVER_URL}/realms/${process.env.NEXT_PUBLIC_KC_REALM}/protocol/openid-connect/token`,
   KC_USERINFO_URL: `${process.env.NEXT_PUBLIC_KC_AUTH_SERVER_URL}/realms/${process.env.NEXT_PUBLIC_KC_REALM}/protocol/openid-connect/userinfo`,
-  KC_GETUSER_URL: `${process.env.NEXT_PUBLIC_KC_AUTH_SERVER_URL}/admin/realms/${process.env.NEXT_PUBLIC_KC_REALM}/users`,
 };
 
 export default config;

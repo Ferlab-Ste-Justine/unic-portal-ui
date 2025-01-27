@@ -40,7 +40,7 @@ const DataRelease = ({ className = '' }: IDataReleaseProps) => {
             label={numberFormat(source_system_count)}
             Icon={<FileTextOutlined className={styles.dataReleaseIcon} />}
             className={styles.dataReleaseStatsLabel}
-            subLabel={intl.get('entities.source.sources')}
+            subLabel={intl.get('entities.source_system.source_systems')}
           />
         </Col>
         <Col flex='auto'>
