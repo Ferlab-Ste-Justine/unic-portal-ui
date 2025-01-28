@@ -17,4 +17,4 @@ jobs:
           username: ${{ secrets.FERLAB_DOCKER_HUB_USER }}
           password: ${{ secrets.FERLAB_DOCKER_HUB_TOKEN }}
           image: ferlabcrsj/unic-portal-ui
-          tag_format: "{semver}"
+          tag_format: "prod-{semver}"

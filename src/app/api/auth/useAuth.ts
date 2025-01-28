@@ -1,6 +1,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useCallback, useEffect } from 'react';
+import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
 import { persistor } from '@/store';
@@ -20,7 +21,8 @@ export const useAuth = () => {
   const redirectPath = searchParams.get('redirect') || '/';
 
   const handleLogin = async () => {
-    await signIn('keycloak', { callbackUrl: redirectPath });
+    const locale = intl.getInitOptions().currentLocale as string;
+    await signIn('keycloak', { callbackUrl: redirectPath }, { ui_locales: locale });
   };
 
   const handleLogout = useCallback(async () => {
