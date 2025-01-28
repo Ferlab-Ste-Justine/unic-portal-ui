@@ -3,33 +3,33 @@ const en = {
   entities: {
     project: {
       project_id: 'Project ID',
-      project: 'Project',
-      projects: 'Projects',
+      project: 'project',
+      projects: 'projects',
     },
     participant: {
       participant_id: 'Participant ID',
-      participant: 'Participant',
-      participants: 'Participants',
+      participant: 'participant',
+      participants: 'participants',
     },
     source_system: {
       source_system_id: 'System Source ID',
-      source_system: 'Source System',
-      source_systems: 'Source Systems',
+      source_system: 'source System',
+      source_systems: 'source Systems',
     },
     variable: {
       variable_id: 'Variable ID',
-      variable: 'Variable',
-      variables: 'Variables',
+      variable: 'variable',
+      variables: 'variables',
     },
     resource: {
       resources_id: 'Resources ID',
-      resource: 'Resource',
-      resources: 'Resources',
+      resource: 'resource',
+      resources: 'resources',
     },
     table: {
       table_id: 'Table ID',
-      table: 'Table',
-      tables: 'Tables',
+      table: 'table',
+      tables: 'tables',
     },
     domain: {
       domain_id: 'Domain ID',

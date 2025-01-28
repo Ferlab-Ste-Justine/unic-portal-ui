@@ -1,7 +1,12 @@
 .homeCard {
+    width: 680px;
     min-width: 600px;
-    height: fit-content;
+    height: 296px;
     background: linear-gradient(90deg, var(--gray-1) 60%, var(--purple-2) 100%);
+
+    @media (max-width: 1450px) {
+        width: 600px;
+    }
 }
 
 .homeBubbles {

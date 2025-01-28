@@ -2,23 +2,15 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 import { Button, Card, Tag, Typography } from 'antd';
 import intl from 'react-intl-universal';
 
+import { IStatsCardProps } from '@/components/HomeCards/type';
+
 import Bubbles from '../Bubbles';
 import AccountsStorage from './AccountsStorage';
 import styles from './WarehouseCard.module.css';
 
 const { Text } = Typography;
 
-interface IWarehouseCardProps {
-  stats?: {
-    table_count?: number;
-    variable_count?: number;
-    source_system_count?: number;
-    domain_count?: number;
-    project_count?: number;
-  };
-}
-
-const WarehouseCard = ({ stats }: IWarehouseCardProps) => {
+const WarehouseCard = ({ stats }: IStatsCardProps) => {
   return (
     <Card className={styles.homeCard}>
       <Bubbles className={styles.homeBubbles} />
@@ -42,7 +34,7 @@ const WarehouseCard = ({ stats }: IWarehouseCardProps) => {
             <b>{stats?.domain_count}</b> {intl.get('entities.domain.domains')}
           </Tag>
         </div>
-        <Button href={'/catalog'} className={styles.homeCardButton}>
+        <Button href={'/catalog#warehouse'} className={styles.homeCardButton}>
           {intl.get('screen.home.explore')}
           <ArrowRightOutlined />
         </Button>

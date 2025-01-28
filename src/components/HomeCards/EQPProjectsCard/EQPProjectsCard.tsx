@@ -2,20 +2,15 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 import { Button, Card, Tag, Typography } from 'antd';
 import intl from 'react-intl-universal';
 
+import { IStatsCardProps } from '@/components/HomeCards/type';
+
 import Bubbles from '../Bubbles';
 import styles from './EQPProjectsCard.module.css';
 import FinancialReport from './FinancialReport';
 
 const { Text } = Typography;
 
-interface IHomeCardProps {
-  stats: {
-    value: string;
-    label: string;
-  }[];
-}
-
-const EQPProjectsCard = ({ stats }: IHomeCardProps) => {
+const EQPProjectsCard = ({ stats }: IStatsCardProps) => {
   return (
     <Card className={styles.homeCard}>
       <Bubbles className={styles.homeBubbles} />
@@ -26,15 +21,14 @@ const EQPProjectsCard = ({ stats }: IHomeCardProps) => {
         </div>
         <Text className={styles.homeCardDescription}>{intl.get('screen.home.EQPProjects.description')}</Text>
         <div className={styles.homeCardStats}>
-          {stats.map((stat) => (
-            <div key={stat.label} className={styles.homeCardStat}>
-              <Tag className={styles.homeCardStatTag} color={'blue'}>
-                <b>{stat.value}</b> {stat.label}
-              </Tag>
-            </div>
-          ))}
+          <Tag className={styles.homeCardStatTag} color={'blue'}>
+            <b>{stats?.project_count || 1}</b> {intl.get('entities.project.projects')}
+          </Tag>
+          <Tag className={styles.homeCardStatTag} color={'blue'}>
+            <b>{stats?.variable_count}</b> {intl.get('entities.variable.variables')}
+          </Tag>
         </div>
-        <Button href={'/catalog'} className={styles.homeCardButton}>
+        <Button href={'/catalog#eqp'} className={styles.homeCardButton}>
           {intl.get('screen.home.explore')}
           <ArrowRightOutlined />
         </Button>
