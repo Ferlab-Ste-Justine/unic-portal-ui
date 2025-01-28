@@ -7,7 +7,7 @@ const Bubbles = ({ className, color = '' }: { className: string; color?: string 
     xmlns='http://www.w3.org/2000/svg'
     className={className}
   >
-    <g clip-path='url(#clip0_3585_1647)'>
+    <g clipPath='url(#clip0_3585_1647)'>
       <path
         d='M91.1536 263.552C61.5682 279.9 24.1971 269.001 8.10675 239.42C-8.2431 209.838 2.6568 172.472 32.2422 156.384C61.8277 140.036 99.1988 150.935 115.289 180.516C131.379 210.098 120.999 247.464 91.1536 263.552Z'
         fill={color}
