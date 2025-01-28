@@ -91,7 +91,14 @@ const Header = () => {
         title={
           <div className={styles.headerNavList}>
             <Link href={'/'}>
-              <Image src={'/unic-logo-header.svg'} width={103} height={40} className={styles.logo} alt='UNIC Logo' />
+              <Image
+                src={'/unic-logo-header.svg'}
+                width={103}
+                height={40}
+                className={styles.logo}
+                alt='UNIC Logo'
+                priority
+              />
             </Link>
             <nav className={styles.headerNavList}>
               <HeaderLink

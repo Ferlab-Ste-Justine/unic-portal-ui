@@ -1,32 +1,18 @@
 'use client';
-import { gql, useQuery } from '@apollo/client';
+import { Tabs } from 'antd';
 import intl from 'react-intl-universal';
 
 import PageLayout from '@/components/PageLayout';
 
-const GET_CATALOG_DATA = gql`
-  query getCatalogData {
-    getVariables {
-      var_id
-      var_name
-    }
-    getResources {
-      rs_id
-      rs_name
-    }
-    getTables {
-      tab_id
-      tab_name
-    }
-  }
-`;
-
 const CatalogPage = () => {
-  const { data } = useQuery(GET_CATALOG_DATA);
+  const items = [
+    { label: 'Tab 1', key: 'item-1', children: 'Content 1' },
+    { label: 'Tab 2', key: 'item-2', children: 'Content 2' },
+  ];
 
   return (
     <PageLayout title={intl.get('screen.catalog.title')}>
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      <Tabs items={items} />
     </PageLayout>
   );
 };

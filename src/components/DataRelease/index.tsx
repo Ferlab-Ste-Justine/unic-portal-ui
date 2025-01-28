@@ -2,6 +2,7 @@ import { FileTextOutlined, GoldOutlined, ReadOutlined } from '@ant-design/icons'
 import MultiLabel, { MultiLabelIconPositionEnum } from '@ferlab/ui/core/components/labels/MultiLabel';
 import { numberFormat } from '@ferlab/ui/core/utils/numberUtils';
 import { Col, Row, Spin } from 'antd';
+import { useEffect } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
@@ -17,8 +18,11 @@ interface IDataReleaseProps {
 const DataRelease = ({ className = '' }: IDataReleaseProps) => {
   const dispatch = useDispatch();
   const { stats } = useGlobals();
-  // @ts-expect-error - TS2339: Property 'stats' does not exist on type 'InitialState<unknown>'.
-  dispatch(fetchStats());
+
+  useEffect(() => {
+    // @ts-expect-error - TS2339: Property 'stats' does not exist on type 'InitialState<unknown>'.
+    dispatch(fetchStats());
+  }, [dispatch]);
 
   const { projects_count = 0, source_system_count = 0, variables_count = 0 } = stats || {};
 
