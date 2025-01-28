@@ -11,7 +11,6 @@ import styles from './page.module.css';
 
 const HomePage = () => {
   useLang();
-
   const { data } = useQuery(GET_RESOURCES_STATS);
   const warehouseStats = data?.getResourcesStats?.warehouse;
   const researchProjectStats = data?.getResourcesStats?.research_project;

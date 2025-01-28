@@ -47,15 +47,15 @@ const ANTDConfigProvider = ({ children }: React.PropsWithChildren) => {
 const RootProvider = ({ children }: React.PropsWithChildren) => {
   return (
     <SessionProvider>
-      <ApolloWrapper>
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <ANTDConfigProvider>
-              <AuthProvider>{children}</AuthProvider>
-            </ANTDConfigProvider>
-          </PersistGate>
-        </Provider>
-      </ApolloWrapper>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <ANTDConfigProvider>
+            <AuthProvider>
+              <ApolloWrapper>{children}</ApolloWrapper>
+            </AuthProvider>
+          </ANTDConfigProvider>
+        </PersistGate>
+      </Provider>
     </SessionProvider>
   );
 };

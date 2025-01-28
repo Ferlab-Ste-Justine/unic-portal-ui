@@ -26774,6 +26774,9 @@ div.ant-typography-edit-content.ant-typography-rtl {
   border-bottom-right-radius: 2px;
   background-color: white;
 }
+.ant-tabs-top > .ant-tabs-nav {
+  margin: 0;
+}
 .ant-table-cell a {
   text-decoration: underline;
 }
