@@ -1,3 +1,5 @@
+import { TColumnStates } from '@ferlab/ui/core/components/ProTable/types';
+
 export type TUser = {
   id: string;
   keycloak_id: string;
@@ -34,4 +36,26 @@ export type initialState = {
   isLoading: boolean;
   isUpdating: boolean;
   error?: string;
+};
+
+export enum PaginationViewPerQuery {
+  Ten = 10,
+  Twenty = 20,
+  Fifty = 50,
+  OneHundred = 100,
+}
+
+export type TUserTableConfig = {
+  columns?: TColumnStates;
+  viewPerQuery?: PaginationViewPerQuery;
+};
+
+export type TUserConfig = {
+  catalog?: {
+    tables?: {
+      resources?: TUserTableConfig;
+      tables?: TUserTableConfig;
+      variables?: TUserTableConfig;
+    };
+  };
 };

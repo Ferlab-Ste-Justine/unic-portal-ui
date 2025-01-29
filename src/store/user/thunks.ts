@@ -3,7 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { handleThunkApiReponse } from '@/lib/axios';
 import { UserApi } from '@/services/users-api';
 import { RootState } from '@/store/types';
-import { TUser, TUserUpdate } from '@/store/user/types';
+import { TUser, TUserConfig, TUserUpdate } from '@/store/user/types';
+import mergeDeep from '@/utils/mergeDeep';
 
 const fetchUser = createAsyncThunk<TUser, void, { rejectValue: string; state: RootState }>(
   'user/fetch',
@@ -54,4 +55,32 @@ const updateUser = createAsyncThunk<
   },
 );
 
-export { fetchUser, updateUser };
+const updateUserConfig = createAsyncThunk<TUserConfig, TUserConfig, { rejectValue: string; state: RootState }>(
+  'user/update/config',
+  async (config, thunkAPI) => {
+    const { user } = thunkAPI.getState();
+
+    const deepCopyUserConfig = JSON.parse(JSON.stringify(user.userInfo?.config));
+    const deepCopyNewConfig = JSON.parse(JSON.stringify(config));
+    const mergedConfig = mergeDeep<TUserConfig>(deepCopyUserConfig, deepCopyNewConfig);
+
+    const { error } = await UserApi.update({
+      config: mergedConfig,
+    });
+
+    return handleThunkApiReponse({
+      error: error,
+      data: mergedConfig,
+      reject: thunkAPI.rejectWithValue,
+    });
+  },
+  {
+    condition: (config) => {
+      if (Object.keys(config).length < 1) {
+        return false;
+      }
+    },
+  },
+);
+
+export { fetchUser, updateUser, updateUserConfig };
