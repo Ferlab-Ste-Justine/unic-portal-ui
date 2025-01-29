@@ -22,7 +22,7 @@
     "classnames": "^2.5.1",
     "graphql": "^16.10.0",
     "next": "^14.2.16",
-    "next-auth": "^4.24.10",
+    "next-auth": "^4.24.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intl-universal": "^2.11.3"
