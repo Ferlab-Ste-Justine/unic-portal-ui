@@ -10,13 +10,26 @@ const COOKIE_PREFIX = process.env.NODE_ENV === 'production' ? '__Secure-' : '';
 
 const keycloakConfig = {
   clientId: KC_CLIENT_ID,
-  clientSecret: '',
+  clientSecret: '', //No client secret because client is public
   issuer: `${KC_AUTH_SERVER_URL}/realms/${KC_REALM}`,
 };
 
 export const authOptions: AuthOptions = {
   providers: [KeycloakProvider(keycloakConfig)],
   callbacks: {
+    // async redirect({ url, baseUrl }) {
+    //   console.log('[redirect] url=', url);
+    //   console.log('[redirect] baseUrl=', baseUrl);
+    //   // Allows relative callback URLs
+    //   if (url.startsWith('/')) return `${baseUrl}${url}`;
+    //   // Allows callback URLs on the same origin
+    //   else if (new URL(url).origin === baseUrl) return url;
+    //   return baseUrl;
+    // },
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   console.log('[signIn] true');
+    //   return true;
+    // },
     async session({ session, token }) {
       // console.debug('[session] token', token);
       session.user.id = token.id || token.sub;
