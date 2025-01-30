@@ -17,19 +17,6 @@ const keycloakConfig = {
 export const authOptions: AuthOptions = {
   providers: [KeycloakProvider(keycloakConfig)],
   callbacks: {
-    // async redirect({ url, baseUrl }) {
-    //   console.log('[redirect] url=', url);
-    //   console.log('[redirect] baseUrl=', baseUrl);
-    //   // Allows relative callback URLs
-    //   if (url.startsWith('/')) return `${baseUrl}${url}`;
-    //   // Allows callback URLs on the same origin
-    //   else if (new URL(url).origin === baseUrl) return url;
-    //   return baseUrl;
-    // },
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   console.log('[signIn] true');
-    //   return true;
-    // },
     async session({ session, token }) {
       // console.debug('[session] token', token);
       session.user.id = token.id || token.sub;
@@ -77,20 +64,10 @@ export const authOptions: AuthOptions = {
       return _token;
     },
   },
-  // events: {
-  //   async signOut({ token }) {
-  //     const logOutUrl = new URL(
-  //       `${process.env.KEYCLOACK_ISSUER}/protocol/openid-connect/logout`,
-  //     );
-  //     logOutUrl.searchParams.set('id_token_hint', token.id_token!);
-  //
-  //     await fetch(logOutUrl);
-  //   },
-  // },
   secret: process.env.NEXTAUTH_SECRET,
   debug: true,
   pages: {
-    // signIn: '/',
+    signIn: '/login',
   },
   cookies: {
     sessionToken: {
