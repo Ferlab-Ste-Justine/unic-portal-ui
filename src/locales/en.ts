@@ -132,6 +132,12 @@ const en = {
     },
     catalog: {
       title: 'UnIC Catalog',
+      resources: {
+        search: 'Resource',
+        searchPlaceholder: 'Filter by resource',
+        select: 'Type of resource',
+        selectPlaceholder: 'Select',
+      },
     },
   },
 };

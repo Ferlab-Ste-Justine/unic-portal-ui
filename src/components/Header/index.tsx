@@ -1,4 +1,4 @@
-import { DownOutlined, HomeOutlined, LogoutOutlined, ReadOutlined, TeamOutlined } from '@ant-design/icons';
+import { DownOutlined, HomeOutlined, LogoutOutlined, ReadOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
 import { Button, Dropdown, MenuProps, PageHeader, Space } from 'antd';
@@ -118,12 +118,6 @@ const Header = () => {
         }
         extra={
           <Space size={16}>
-            <HeaderLink
-              currentPathName={currentPathName}
-              to={'/community'}
-              icon={<TeamOutlined />}
-              title={intl.get('global.community')}
-            />
             <Dropdown trigger={['click']} menu={resourcesMenu}>
               <div className={styles.menuTrigger}>
                 <span className={styles.userName}>{intl.get('global.resources')}</span>
