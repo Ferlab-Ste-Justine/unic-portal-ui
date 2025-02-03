@@ -2,7 +2,6 @@ const config = {
   NODE_ENV: process.env.NODE_ENV || '',
   UNIC_WEB_SITE: process.env.NEXT_PUBLIC_UNIC_WEB_SITE || '',
   SUPPORT_EMAIL: process.env.NEXT_PUBLIC_SUPPORT_EMAIL || '',
-  DOMAIN_URL: process.env.NEXT_PUBLIC_DOMAIN || '',
   USERS_API_URL: process.env.NEXT_PUBLIC_USERS_API_URL || '',
   PORTAL_API_URL: process.env.NEXT_PUBLIC_PORTAL_API_URL || '',
   // Keycloak
