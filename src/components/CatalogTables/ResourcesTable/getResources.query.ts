@@ -6,10 +6,10 @@ export const GET_RESOURCES = gql`
     $or: [FieldValueType]
     $from: Int
     $size: Int
-    $searchAfter: [String]
+    $search_after: [String]
     $sort: [SortOptionType]
   ) {
-    getResources(match: $match, or: $or, from: $from, size: $size, search_after: $searchAfter, sort: $sort) {
+    getResources(match: $match, or: $or, from: $from, size: $size, search_after: $search_after, sort: $sort) {
       total
       search_after
       hits {
@@ -29,5 +29,6 @@ export const GET_RESOURCES = gql`
         }
       }
     }
+    getResourcesType
   }
 `;

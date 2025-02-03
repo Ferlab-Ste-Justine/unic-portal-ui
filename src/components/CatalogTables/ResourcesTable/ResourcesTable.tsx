@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
-import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
+// import { SelectProps } from 'antd';
 import React, { useEffect, useState } from 'react';
-import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
+// import FiltersTable from '@/components/CatalogTables/FiltersTable';
 import { useLang } from '@/store/global';
 import { useUser } from '@/store/user';
 import { updateUserConfig } from '@/store/user/thunks';
@@ -14,16 +14,28 @@ import {
   DEFAULT_PAGE_SIZE,
   DEFAULT_QUERY_CONFIG,
   DEFAULT_RESOURCES_QUERY_SORT,
-  LANG,
 } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
+import { QueryOptions } from '@/types/queries';
 import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
 
+import getColumns from './getColumns';
 import { GET_RESOURCES } from './getResources.query';
 import styles from './ResourcesTable.module.css';
 
 const SCROLL_WRAPPER_ID = 'resources-table-scroll-wrapper';
+
+// uncomment and test for UNICWEB-40
+// const search_fields = [
+//   'rs_code',
+//   'rs_description_en',
+//   'rs_description_fr',
+//   'rs_name',
+//   'rs_project_pi',
+//   'rs_projet_erb',
+//   'rs_title',
+// ];
 
 const ResourcesTable = () => {
   const lang = useLang();
@@ -31,72 +43,32 @@ const ResourcesTable = () => {
   const dispatch = useDispatch();
 
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
+  /** queryConfig use for ProTable */
   const [queryConfig, setQueryConfig] = useState({
     ...DEFAULT_QUERY_CONFIG,
     sort: DEFAULT_RESOURCES_QUERY_SORT,
     size: userInfo?.config?.catalog?.tables?.resources?.viewPerQuery || DEFAULT_PAGE_SIZE,
   });
-  const variables = {
+
+  /** variables use for Query */
+  const variables: QueryOptions = {
     sort: queryConfig.sort,
     size: queryConfig.size,
-    searchAfter: queryConfig.searchAfter,
+    search_after: queryConfig.searchAfter,
   };
+  // uncomment for UNICWEB-40
+  // const { data, loading, refetch } = useQuery(GET_RESOURCES, { variables });
   const { data, loading } = useQuery(GET_RESOURCES, { variables });
   const total = data?.getResources?.total || 0;
   const hits = data?.getResources?.hits?.map((e: IResourceEntity) => ({ ...e, key: e.rs_id })) || [];
   const searchAfter = { tail: data?.getResources?.search_after };
+  // uncomment for UNICWEB-40
+  // const rs_types_options: SelectProps['options'] = data?.getResourcesType?.map((value: string) => ({
+  //   value,
+  //   label: value,
+  // }));
 
-  const getColumns = (): ProColumnType[] => [
-    {
-      dataIndex: 'rs_name',
-      key: 'rs_name',
-      title: intl.get('global.name'),
-      sorter: { multiple: 1 },
-      render: (key: string) => key || '-',
-    },
-    {
-      dataIndex: 'rs_type',
-      key: 'rs_type',
-      title: intl.get('global.type'),
-      sorter: { multiple: 1 },
-      render: (key: string) => key || '-',
-    },
-    {
-      dataIndex: 'rs_last_update',
-      key: 'rs_last_update',
-      title: intl.get('global.updatedAt'),
-      sorter: { multiple: 1 },
-      render: (key: string) => key || '-',
-    },
-    {
-      dataIndex: 'tables',
-      key: 'tables',
-      title: intl.get('entities.table.Tables'),
-      sorter: { multiple: 1 },
-      render: (tables: any[]) => tables?.length || '-',
-    },
-    {
-      dataIndex: 'variables',
-      key: 'variables',
-      title: intl.get('entities.variable.Variables'),
-      sorter: { multiple: 1 },
-      render: (variables: any[]) => variables?.length || '-',
-    },
-    {
-      dataIndex: 'rs_description_fr',
-      key: 'rs_description_fr',
-      title: intl.get('global.description'),
-      defaultHidden: lang === LANG.EN,
-      render: (key: string) => key || '-',
-    },
-    {
-      dataIndex: 'rs_description_en',
-      key: 'rs_description_en',
-      title: intl.get('global.description'),
-      defaultHidden: lang === LANG.FR,
-      render: (key: string) => key || '-',
-    },
-  ];
+  console.log('data==', data);
 
   /** first page button reset */
   useEffect(() => {
@@ -109,10 +81,18 @@ const ResourcesTable = () => {
 
   return (
     <div className={styles.container}>
+      {/*// uncomment for UNICWEB-40*/}
+      {/*<FiltersTable*/}
+      {/*  options={rs_types_options}*/}
+      {/*  search_fields={search_fields}*/}
+      {/*  refetch={refetch}*/}
+      {/*  variables={variables}*/}
+      {/*  selectField='rs_type'*/}
+      {/*/>*/}
       <ProTable
         tableId={'resources-table'}
         loading={loading}
-        columns={getColumns()}
+        columns={getColumns(lang)}
         dataSource={hits}
         bordered
         pagination={{
@@ -152,16 +132,6 @@ const ResourcesTable = () => {
           onColumnSortChange: (newState) =>
             // @ts-expect-error - unknown action
             dispatch(updateUserConfig({ catalog: { tables: { resources: { columns: newState } } } })),
-          extra: [
-            // <SetsManagementDropdown
-            //   results={results}
-            //   selectedKeys={selectedKeys}
-            //   selectedAllResults={selectedAllResults}
-            //   sqon={getCurrentSqon()}
-            //   type={SetType.VARIANT}
-            //   key="variants-set-management"
-            // />,
-          ],
         }}
       />
     </div>

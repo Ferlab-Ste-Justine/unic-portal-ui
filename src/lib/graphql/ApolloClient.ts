@@ -1,10 +1,11 @@
 import { ApolloClient, ApolloLink, createHttpLink, InMemoryCache } from '@apollo/client';
+import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
 import { setContext } from '@apollo/client/link/context';
 import { getSession } from 'next-auth/react';
 
 import config from '@/config';
 
-const { PORTAL_API_URL } = config;
+const { PORTAL_API_URL, NODE_ENV } = config;
 
 // Create an HTTP link for the GraphQL API
 const httpLink = createHttpLink({
@@ -38,5 +39,10 @@ const client = new ApolloClient({
     },
   },
 });
+
+if (NODE_ENV === 'development') {
+  loadDevMessages();
+  loadErrorMessages();
+}
 
 export default client;

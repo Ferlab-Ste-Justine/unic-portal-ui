@@ -5,8 +5,8 @@ import KeycloakProvider from 'next-auth/providers/keycloak';
 import config from '@/config';
 
 const { KC_AUTH_SERVER_URL, KC_CLIENT_ID, KC_REALM } = config;
-const COOKIES_LIFE_TIME = 24 * 60 * 60;
-const COOKIE_PREFIX = process.env.NODE_ENV === 'production' ? '__Secure-' : '';
+// const COOKIES_LIFE_TIME = 24 * 60 * 60;
+// const COOKIE_PREFIX = process.env.NODE_ENV === 'production' ? '__Secure-' : '';
 
 const keycloakConfig = {
   clientId: KC_CLIENT_ID,
@@ -69,63 +69,63 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: '/login',
   },
-  cookies: {
-    sessionToken: {
-      name: `${COOKIE_PREFIX}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-      },
-    },
-    callbackUrl: {
-      name: `${COOKIE_PREFIX}next-auth.callback-url`,
-      options: {
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-      },
-    },
-    csrfToken: {
-      name: `${COOKIE_PREFIX}next-auth.csrf-token`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-      },
-    },
-    pkceCodeVerifier: {
-      name: `${COOKIE_PREFIX}next-auth.pkce.code_verifier`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-        maxAge: COOKIES_LIFE_TIME,
-      },
-    },
-    state: {
-      name: `${COOKIE_PREFIX}next-auth.state`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-        maxAge: COOKIES_LIFE_TIME,
-      },
-    },
-    nonce: {
-      name: `${COOKIE_PREFIX}next-auth.nonce`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        secure: true,
-      },
-    },
-  },
+  // cookies: {
+  //   sessionToken: {
+  //     name: `${COOKIE_PREFIX}next-auth.session-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //     },
+  //   },
+  //   callbackUrl: {
+  //     name: `${COOKIE_PREFIX}next-auth.callback-url`,
+  //     options: {
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //     },
+  //   },
+  //   csrfToken: {
+  //     name: `${COOKIE_PREFIX}next-auth.csrf-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //     },
+  //   },
+  //   pkceCodeVerifier: {
+  //     name: `${COOKIE_PREFIX}next-auth.pkce.code_verifier`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //       maxAge: COOKIES_LIFE_TIME,
+  //     },
+  //   },
+  //   state: {
+  //     name: `${COOKIE_PREFIX}next-auth.state`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //       maxAge: COOKIES_LIFE_TIME,
+  //     },
+  //   },
+  //   nonce: {
+  //     name: `${COOKIE_PREFIX}next-auth.nonce`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: 'lax',
+  //       path: '/',
+  //       secure: true,
+  //     },
+  //   },
+  // },
 };
 
 const checkAuthentication = async (token: JWT) => {
