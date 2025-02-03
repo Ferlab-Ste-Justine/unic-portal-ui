@@ -131,6 +131,12 @@ const fr = {
     },
     catalog: {
       title: "Catalogue de l'UnIC",
+      resources: {
+        search: 'Ressources',
+        searchPlaceholder: 'Filtrer par ressource',
+        select: 'Type de ressource',
+        selectPlaceholder: 'Sélectionner',
+      },
     },
   },
 };
