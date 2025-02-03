@@ -39,6 +39,7 @@ const fr = {
     },
   },
   global: {
+    participants: 'Participants',
     back: 'Retour',
     retry: 'Recommencer',
     create: 'Créer',
