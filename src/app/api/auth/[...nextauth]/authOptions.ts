@@ -5,8 +5,8 @@ import KeycloakProvider from 'next-auth/providers/keycloak';
 import config from '@/config';
 
 const { KC_AUTH_SERVER_URL, KC_CLIENT_ID, KC_REALM } = config;
-const COOKIES_LIFE_TIME = 24 * 60 * 60;
-const COOKIE_PREFIX = process.env.NODE_ENV === 'production' ? '__Secure-' : '';
+// const COOKIES_LIFE_TIME = 24 * 60 * 60;
+// const COOKIE_PREFIX = process.env.NODE_ENV === 'production' ? '__Secure-' : '';
 
 const keycloakConfig = {
   clientId: KC_CLIENT_ID,
