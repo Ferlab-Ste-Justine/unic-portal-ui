@@ -3,9 +3,9 @@ const fr = {
   entities: {
     project: {
       project_id: 'Project ID',
-      project: 'project',
-      projects: 'projects',
-      Projects: 'Projects',
+      project: 'projet',
+      projects: 'projets',
+      Projects: 'Projets',
     },
     source_system: {
       source_system_id: 'Système source ID',
