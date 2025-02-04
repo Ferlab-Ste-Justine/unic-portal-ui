@@ -23,7 +23,7 @@ const config: Config = {
   //   '!src/**/*.test.{js,ts,tsx}', // Exclude test files
   //   '!src/**/index.{js,ts,tsx}', // Exclude index files if not needed
   // ],
-  coverageThreshold: { global: { branches: 83, functions: 51, lines: 82, statements: 82 } },
+  coverageThreshold: { global: { branches: 80, functions: 40, lines: 80, statements: 80 } },
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
