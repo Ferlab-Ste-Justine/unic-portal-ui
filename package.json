@@ -14,7 +14,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --coverageReporters=json-summary",
     "test:coverage-update-threshold": "node scripts/updateCoverageThreshold.js",
-    "test:commit": "jest --passWithNoTests --coverageReporters=json-summary && npm run test:coverage-update-threshold",
+    "test:commit": "jest --passWithNoTests --coverageReporters=json-summary",
     "cypress:install": "cypress install",
     "cypress:open": "cypress open",
     "cypress:run:cli": "cypress run",

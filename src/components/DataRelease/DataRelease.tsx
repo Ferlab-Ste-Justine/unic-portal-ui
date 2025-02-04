@@ -37,6 +37,13 @@ const DataRelease = ({ className = '' }: IDataReleaseProps) => {
           className={styles.dataReleaseStatsLabel}
           subLabel={<span className={styles.dataReleaseStatsSubLabel}>{intl.get('entities.project.Projects')}</span>}
         />
+        <MultiLabel
+          iconPosition={MultiLabelIconPositionEnum.Top}
+          label={numberFormat(projects_count)}
+          Icon={<ReadOutlined className={styles.dataReleaseIcon} />}
+          className={styles.dataReleaseStatsLabel}
+          subLabel={<span className={styles.dataReleaseStatsSubLabel}>{'faketitlefortest'}</span>}
+        />
       </Col>
       <Col flex='auto' className={styles.colDataReleaseContainer}>
         <MultiLabel
