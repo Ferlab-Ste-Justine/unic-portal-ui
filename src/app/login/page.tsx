@@ -19,7 +19,6 @@ const LoginPage = () => {
   const lang = useLang();
   const dispatch = useDispatch();
   const { login } = useAuth();
-
   const router = useRouter();
   const { isAuthenticated } = useAuth();
 
