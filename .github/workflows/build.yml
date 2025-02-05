@@ -2,6 +2,9 @@ name: Build
 
 on: [push]
 
+env:
+  HUSKY: 0  # Disable Husky during CI
+
 jobs:
   build:
     name: Build Image

@@ -12,6 +12,11 @@
     "theme:colors": "ferlabui-less2css src/styles/theme/ colors.less",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --coverageReporters=text-summary",
+    "test:coverage-update-threshold": "jest --coverage --coverageReporters=json-summary && node scripts/updateCoverageThreshold.js",
+    "test:commit": "jest --passWithNoTests --coverageReporters=json-summary",
+    "test:github": "jest --coverage --coverageReporters=text-summary",
+    "prepare": "[[ $CI != true ]] && husky || true",
     "cypress:install": "cypress install",
     "cypress:open": "cypress open",
     "cypress:run:cli": "cypress run",
@@ -66,7 +71,9 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --fix",
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
     "!src/cypress/**/*.{ts,tsx}": "echo Ignoring Cypress files"
   },
   "engines": {

@@ -1,1 +1,10 @@
 npx lint-staged
+
+# Run full Jest coverage check (to ensure it blocks commits if coverage is too low)
+npm run test -- --coverage --coverageReporters=text-summary
+
+# Capture Jest exit code
+if [ $? -ne 0 ]; then
+  echo "🚨 Commit blocked! Test coverage is too low."
+  exit 1
+fi

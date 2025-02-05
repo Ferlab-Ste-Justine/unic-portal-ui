@@ -16,6 +16,14 @@ const config: Config = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy', // Handles CSS imports
     '^@/(.*)$': '<rootDir>/src/$1', // Maps @/ to src folder
   },
+  collectCoverage: true,
+  // collectCoverageFrom: [
+  // 'src/**/*.{js,ts,tsx}', // Include all JS, TS, and TSX files in src/
+  //   '!src/**/*.d.ts', // Exclude TypeScript definition files
+  //   '!src/**/*.test.{js,ts,tsx}', // Exclude test files
+  //   '!src/**/index.{js,ts,tsx}', // Exclude index files if not needed
+  // ],
+  coverageThreshold: { global: { branches: 70, functions: 40, lines: 70, statements: 70 } },
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
