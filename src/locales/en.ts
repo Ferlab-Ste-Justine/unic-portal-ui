@@ -39,6 +39,7 @@ const en = {
     },
   },
   global: {
+    participants: 'Participants',
     back: 'Back',
     retry: 'Retry',
     create: 'Create',

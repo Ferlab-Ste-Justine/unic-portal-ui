@@ -1,14 +1,28 @@
 .dataReleaseContainer {
+  gap: 16px;
+}
+
+.colDataReleaseContainer {
+  background-color: var(--gray-4);
+  padding: 16px !important;
 }
 
 .dataReleaseIcon {
   color: var(--blue-7);
   font-size: 20px;
   margin-right: 8px;
+  gap: 4px;
 }
 
 .dataReleaseStatsLabel {
-  color: var(--gray-1);
+  color: var(--gray-8);
+  font-weight: 600;
+  display: flex;
+  gap: 4px;
+}
+
+.dataReleaseStatsSubLabel {
+  font-weight: 400;
 }
 
 .dataReleaseContainer .dataReleaseStatsLabel :global(.wrapper__label) {
