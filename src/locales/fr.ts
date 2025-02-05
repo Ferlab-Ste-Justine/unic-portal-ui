@@ -8,10 +8,10 @@ const fr = {
       Projects: 'Projets',
     },
     source_system: {
-      source_system_id: 'Système source ID',
-      source_system: 'système source',
-      source_systems: 'systèmes source',
-      Source_systems: 'Systèmes source',
+      source_system_id: 'Système hospitalier ID',
+      source_system: 'système hospitalier',
+      source_systems: 'systèmes hospitalier',
+      Source_systems: 'Systèmes hospitalier',
     },
     variable: {
       variable_id: 'Variable ID',
@@ -83,8 +83,6 @@ const fr = {
   components: {
     dataRelease: {
       title: 'Données disponibles',
-      dataReleaseLink: 'Version 1.0',
-      dataExploration: 'Exploration des données',
     },
   },
   layout: {

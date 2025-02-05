@@ -8,10 +8,10 @@ const en = {
       Projects: 'Projects',
     },
     source_system: {
-      source_system_id: 'System Source ID',
-      source_system: 'source System',
-      source_systems: 'source Systems',
-      Source_systems: 'Source Systems',
+      source_system_id: 'Hospital System ID',
+      source_system: 'hospital System',
+      source_systems: 'hospital Systems',
+      Source_systems: 'Hospital Systems',
     },
     variable: {
       variable_id: 'Variable ID',
@@ -84,8 +84,6 @@ const en = {
   components: {
     dataRelease: {
       title: 'Available Data',
-      dataReleaseLink: 'Version 1.0',
-      dataExploration: 'Data Exploration',
     },
   },
   layout: {
@@ -99,7 +97,7 @@ const en = {
   },
   screen: {
     loginPage: {
-      title: 'Portal of the UNIC Data Hub.',
+      title: 'Data portal of Univers Informationnel du CHU Sainte-Justine.',
       subTitle: 'Explore the data catalog, manage your projects, and access your datasets.',
       login: 'Login',
       signup: 'Sign up',
