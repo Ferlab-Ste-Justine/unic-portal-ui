@@ -1,5 +1,7 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { numberFormat } from '@ferlab/ui/core/utils/numberUtils';
 import { Button, Card, Tag, Typography } from 'antd';
+import Link from 'next/link';
 import intl from 'react-intl-universal';
 
 import { IStatsCardProps } from '@/components/HomeCards/type';
@@ -22,22 +24,24 @@ const WarehouseCard = ({ stats }: IStatsCardProps) => {
         <Text className={styles.homeCardDescription}>{intl.get('screen.home.warehouse.description')}</Text>
         <div className={styles.homeCardStats}>
           <Tag className={styles.homeCardStatTag} color={'orange'}>
-            <b>{stats?.table_count}</b> {intl.get('entities.table.tables')}
+            <b>{numberFormat(stats?.table_count || 0)}</b> {intl.get('entities.table.tables')}
           </Tag>
           <Tag className={styles.homeCardStatTag} color={'orange'}>
-            <b>{stats?.variable_count}</b> {intl.get('entities.variable.variables')}
+            <b>{numberFormat(stats?.variable_count || 0)}</b> {intl.get('entities.variable.variables')}
           </Tag>
           <Tag className={styles.homeCardStatTag} color={'orange'}>
-            <b>{stats?.source_system_count}</b> {intl.get('entities.source_system.source_systems')}
+            <b>{numberFormat(stats?.source_system_count || 0)}</b> {intl.get('entities.source_system.source_systems')}
           </Tag>
           <Tag className={styles.homeCardStatTag} color={'orange'}>
-            <b>{stats?.domain_count}</b> {intl.get('entities.domain.domains')}
+            <b>{numberFormat(stats?.domain_count || 0)}</b> {intl.get('entities.domain.domains')}
           </Tag>
         </div>
-        <Button href={'/catalog#warehouse'} className={styles.homeCardButton}>
-          {intl.get('screen.home.explore')}
-          <ArrowRightOutlined />
-        </Button>
+        <Link href={'/catalog#warehouse'}>
+          <Button>
+            {intl.get('screen.home.explore')}
+            <ArrowRightOutlined />
+          </Button>
+        </Link>
       </div>
     </Card>
   );

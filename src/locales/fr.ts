@@ -12,6 +12,7 @@ const fr = {
       source_system: 'système hospitalier',
       source_systems: 'systèmes hospitaliers',
       Source_systems: 'Systèmes hospitaliers',
+      systems: 'systèmes',
     },
     variable: {
       variable_id: 'Variable ID',
@@ -34,8 +35,8 @@ const fr = {
     domain: {
       domain_id: 'Domaine ID',
       domain: 'domaine',
-      domains: 'domains',
-      Domains: 'Domains',
+      domains: 'domaines',
+      Domains: 'Domaines',
     },
   },
   global: {

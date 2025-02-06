@@ -51,7 +51,3 @@
     flex-direction: row;
     gap: 16px;
 }
-
-.homeCardButton {
-    width: fit-content
-}
