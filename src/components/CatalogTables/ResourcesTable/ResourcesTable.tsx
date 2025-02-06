@@ -5,18 +5,19 @@ import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagi
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+// uncomment and test for UNICWEB-40
 // import FiltersTable from '@/components/CatalogTables/FiltersTable';
 import { useLang } from '@/store/global';
 import { useUser } from '@/store/user';
 import { updateUserConfig } from '@/store/user/thunks';
+import { IResourceEntity } from '@/types/entities';
+import { QueryOptions } from '@/types/queries';
 import {
   DEFAULT_PAGE_INDEX,
   DEFAULT_PAGE_SIZE,
   DEFAULT_QUERY_CONFIG,
   DEFAULT_RESOURCES_QUERY_SORT,
-} from '@/types/constants';
-import { IResourceEntity } from '@/types/entities';
-import { QueryOptions } from '@/types/queries';
+} from '@/utils/constants';
 import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
 
@@ -60,7 +61,7 @@ const ResourcesTable = () => {
   // const { data, loading, refetch } = useQuery(GET_RESOURCES, { variables });
   const { data, loading } = useQuery(GET_RESOURCES, { variables });
   const total = data?.getResources?.total || 0;
-  const hits = data?.getResources?.hits?.map((e: IResourceEntity) => ({ ...e, key: e.rs_id })) || [];
+  const hits: IResourceEntity[] = data?.getResources?.hits?.map((e: IResourceEntity) => ({ ...e, key: e.rs_id })) || [];
   const searchAfter = { tail: data?.getResources?.search_after };
   // uncomment for UNICWEB-40
   // const rs_types_options: SelectProps['options'] = data?.getResourcesType?.map((value: string) => ({
@@ -68,7 +69,7 @@ const ResourcesTable = () => {
   //   label: value,
   // }));
 
-  console.log('data==', data);
+  console.log('hits==', hits);
 
   /** first page button reset */
   useEffect(() => {
@@ -90,6 +91,7 @@ const ResourcesTable = () => {
       {/*  selectField='rs_type'*/}
       {/*/>*/}
       <ProTable
+        key={Math.random()} //Force the re-render with random key each render to display conditionally rs_description_fr and rs_description_en
         tableId={'resources-table'}
         loading={loading}
         columns={getColumns(lang)}
