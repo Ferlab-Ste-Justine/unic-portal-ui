@@ -9,8 +9,8 @@ const en = {
     },
     source_system: {
       source_system_id: 'Hospital System ID',
-      source_system: 'hospital System',
-      source_systems: 'hospital Systems',
+      source_system: 'hospital system',
+      source_systems: 'hospital systems',
       Source_systems: 'Hospital Systems',
       systems: 'systems',
     },
