@@ -41,21 +41,21 @@ const DataRelease = ({ className = '' }: IDataReleaseProps) => {
       <Col flex='auto' className={styles.colDataReleaseContainer}>
         <MultiLabel
           iconPosition={MultiLabelIconPositionEnum.Top}
+          label={numberFormat(participant_count)}
+          Icon={<UserOutlined className={styles.dataReleaseIcon} />}
+          className={styles.dataReleaseStatsLabel}
+          subLabel={<span className={styles.dataReleaseStatsSubLabel}>{intl.get('global.participants')}</span>}
+        />
+      </Col>
+      <Col flex='auto' className={styles.colDataReleaseContainer}>
+        <MultiLabel
+          iconPosition={MultiLabelIconPositionEnum.Top}
           label={numberFormat(source_system_count)}
           Icon={<FileTextOutlined className={styles.dataReleaseIcon} />}
           className={styles.dataReleaseStatsLabel}
           subLabel={
             <span className={styles.dataReleaseStatsSubLabel}>{intl.get('entities.source_system.Source_systems')}</span>
           }
-        />
-      </Col>
-      <Col flex='auto' className={styles.colDataReleaseContainer}>
-        <MultiLabel
-          iconPosition={MultiLabelIconPositionEnum.Top}
-          label={numberFormat(participant_count)}
-          Icon={<UserOutlined className={styles.dataReleaseIcon} />}
-          className={styles.dataReleaseStatsLabel}
-          subLabel={<span className={styles.dataReleaseStatsSubLabel}>{intl.get('global.participants')}</span>}
         />
       </Col>
       <Col flex='auto' className={styles.colDataReleaseContainer}>

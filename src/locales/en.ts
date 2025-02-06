@@ -83,7 +83,7 @@ const en = {
   },
   components: {
     dataRelease: {
-      title: 'Available Data',
+      title: 'Available data',
     },
   },
   layout: {

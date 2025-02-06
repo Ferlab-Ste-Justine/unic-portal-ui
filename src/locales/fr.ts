@@ -99,7 +99,7 @@ const fr = {
       title: "Portail de données de l'Univers Informationnel du CHU Sainte-Justine.",
       subTitle: 'Explorez le catalogue de données, gérez vos projets et accédez à vos jeux de données.',
       login: 'Connexion',
-      signup: 'Créer compte',
+      signup: 'Créer un compte',
       documentation: {
         title: 'Centre de documentation',
         description:
