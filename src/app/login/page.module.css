@@ -1,6 +1,6 @@
 .loginContainer {
   display: flex;
-  background-color: var(--gray-1);
+  background-color: var(--gray-2);
   height: 100vh;
 }
 
@@ -37,11 +37,6 @@
   padding: 16px 24px;
 }
 
-.statsDivider {
-  border-top: 1px solid var(--gray-6);
-  margin: 12px 0;
-}
-
 .statsTitle {
   color: var(--gray-8);
   font-weight: 600;
@@ -71,5 +66,13 @@
   .sideImage {
     display: none;
   }
+  .loginContainer {
+    background-image: url('../../../public/login-img-full.svg');
+  }
 }
 
+@media (max-width: 442px) {
+  .loginStats {
+    display: none;
+  }
+}

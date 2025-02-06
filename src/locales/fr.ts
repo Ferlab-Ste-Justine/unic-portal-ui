@@ -10,8 +10,8 @@ const fr = {
     source_system: {
       source_system_id: 'Système hospitalier ID',
       source_system: 'système hospitalier',
-      source_systems: 'systèmes hospitalier',
-      Source_systems: 'Systèmes hospitalier',
+      source_systems: 'systèmes hospitaliers',
+      Source_systems: 'Systèmes hospitaliers',
     },
     variable: {
       variable_id: 'Variable ID',

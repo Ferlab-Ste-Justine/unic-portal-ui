@@ -40,7 +40,7 @@ const LoginPage = () => {
         <Button type='primary' className={styles.languageButton} onClick={handleChangeLang}>
           {getTargetLang(lang).toUpperCase()}
         </Button>
-        <Space size={80} direction='vertical'>
+        <Space size={48} direction='vertical'>
           <div className={styles.logoContainer}>
             <Image src='/unic-logo.svg' alt='logo' width={285} height={120} className={styles.logo} />
           </div>
