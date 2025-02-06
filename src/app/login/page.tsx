@@ -1,5 +1,5 @@
 'use client';
-import { Button, Divider, Space, Typography } from 'antd';
+import { Button, Space, Typography } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -19,7 +19,6 @@ const LoginPage = () => {
   const lang = useLang();
   const dispatch = useDispatch();
   const { login } = useAuth();
-
   const router = useRouter();
   const { isAuthenticated } = useAuth();
 
@@ -36,7 +35,7 @@ const LoginPage = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <Image src='/login-img.png' alt='login-img' priority width={738} height={1108} className={styles.sideImage} />
+      <Image src='/login-img.svg' alt='login-img' priority width={600} height={1024} className={styles.sideImage} />
       <div className={styles.sideContentContainer}>
         <Button type='primary' className={styles.languageButton} onClick={handleChangeLang}>
           {getTargetLang(lang).toUpperCase()}
@@ -47,7 +46,6 @@ const LoginPage = () => {
           </div>
           <div className={styles.loginStats}>
             <Text className={styles.statsTitle}>{intl.get('components.dataRelease.title')}</Text>
-            <Divider className={styles.statsDivider} />
             <DataRelease className={styles.dataRelease} />
           </div>
           <Space size={16} direction='vertical'>
@@ -58,7 +56,7 @@ const LoginPage = () => {
             <Button type='primary' onClick={login} size={'large'} data-cy='Login'>
               {intl.get('screen.loginPage.login')}
             </Button>
-            <Button ghost onClick={login} size={'large'} data-cy='Signup'>
+            <Button type='ghost' onClick={login} size={'large'} data-cy='Signup'>
               {intl.get('screen.loginPage.signup')}
             </Button>
           </Space>

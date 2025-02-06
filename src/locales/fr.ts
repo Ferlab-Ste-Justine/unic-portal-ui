@@ -3,15 +3,15 @@ const fr = {
   entities: {
     project: {
       project_id: 'Project ID',
-      project: 'project',
-      projects: 'projects',
-      Projects: 'Projects',
+      project: 'projet',
+      projects: 'projets',
+      Projects: 'Projets',
     },
     source_system: {
-      source_system_id: 'Système source ID',
-      source_system: 'système source',
-      source_systems: 'systèmes source',
-      Source_systems: 'Systèmes source',
+      source_system_id: 'Système hospitalier ID',
+      source_system: 'système hospitalier',
+      source_systems: 'systèmes hospitaliers',
+      Source_systems: 'Systèmes hospitaliers',
     },
     variable: {
       variable_id: 'Variable ID',
@@ -39,6 +39,7 @@ const fr = {
     },
   },
   global: {
+    participants: 'Participants',
     back: 'Retour',
     retry: 'Recommencer',
     create: 'Créer',
@@ -82,8 +83,6 @@ const fr = {
   components: {
     dataRelease: {
       title: 'Données disponibles',
-      dataReleaseLink: 'Version 1.0',
-      dataExploration: 'Exploration des données',
     },
   },
   layout: {
@@ -100,7 +99,7 @@ const fr = {
       title: "Portail de données de l'Univers Informationnel du CHU Sainte-Justine.",
       subTitle: 'Explorez le catalogue de données, gérez vos projets et accédez à vos jeux de données.',
       login: 'Connexion',
-      signup: 'Créer compte',
+      signup: 'Créer un compte',
       documentation: {
         title: 'Centre de documentation',
         description:
