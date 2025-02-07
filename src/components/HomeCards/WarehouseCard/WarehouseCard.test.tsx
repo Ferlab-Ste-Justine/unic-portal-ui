@@ -51,4 +51,11 @@ describe('WarehouseCard Component', () => {
     const link = screen.getByRole('link', { name: 'screen.home.explore arrow-right' });
     expect(link).toHaveAttribute('href', '/catalog#warehouse');
   });
+
+  it('handles missing stats correctly', () => {
+    render(<WarehouseCard stats={undefined} />);
+
+    const zeroElements = screen.getAllByText(numberFormat(0)); // Find all instances of "0"
+    expect(zeroElements.length).toBe(4); // Ensure all 4 stats default to 0
+  });
 });

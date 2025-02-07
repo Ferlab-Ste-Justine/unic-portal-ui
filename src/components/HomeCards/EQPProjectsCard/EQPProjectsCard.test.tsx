@@ -47,4 +47,11 @@ describe('EQPProjectsCard Component', () => {
     const link = screen.getByRole('link', { name: 'screen.home.explore arrow-right' });
     expect(link).toHaveAttribute('href', '/catalog#eqp');
   });
+
+  it('handles missing stats correctly', () => {
+    render(<EQPProjectsCard stats={undefined} />);
+
+    expect(screen.getByText(numberFormat(1))).toBeInTheDocument(); // Default value for project_count
+    expect(screen.getByText(numberFormat(0))).toBeInTheDocument(); // Default value for variable_count
+  });
 });

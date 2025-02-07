@@ -109,7 +109,7 @@ const fr = {
       },
     },
     home: {
-      title: "Portail de l'UnIC",
+      title: "Portail de données de l'UnIC",
       subTitle: 'Explorez le catalogue de données, gérez vos projets et accédez à vos jeux de données.',
       explore: 'Explorer',
       warehouse: {
