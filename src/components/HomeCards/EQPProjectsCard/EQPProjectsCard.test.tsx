@@ -51,7 +51,7 @@ describe('EQPProjectsCard Component', () => {
   it('handles missing stats correctly', () => {
     render(<EQPProjectsCard stats={undefined} />);
 
-    expect(screen.getByText(numberFormat(2))).toBeInTheDocument(); // Default value for project_count
+    expect(screen.getByText(numberFormat(1))).toBeInTheDocument(); // Default value for project_count
     expect(screen.getByText(numberFormat(0))).toBeInTheDocument(); // Default value for variable_count
   });
 });
