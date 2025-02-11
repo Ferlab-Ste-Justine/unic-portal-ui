@@ -5,6 +5,7 @@ import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagi
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
 // uncomment and test for UNICWEB-40
 // import FiltersTable from '@/components/CatalogTables/FiltersTable';
 import { useLang } from '@/store/global';
@@ -22,7 +23,6 @@ import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
 
 import getColumns from './getColumns';
-import { GET_RESOURCES } from './getResources.query';
 import styles from './ResourcesTable.module.css';
 
 const SCROLL_WRAPPER_ID = 'resources-table-scroll-wrapper';
@@ -69,7 +69,11 @@ const ResourcesTable = () => {
   //   label: value,
   // }));
 
-  console.log('hits==', hits);
+  // console.log('hits==', hits);
+
+  const handleFilterBy = () => {
+    //TODO Do it for UNICWEB-40
+  };
 
   /** first page button reset */
   useEffect(() => {
@@ -94,9 +98,10 @@ const ResourcesTable = () => {
         key={Math.random()} //Force the re-render with random key each render to display conditionally rs_description_fr and rs_description_en
         tableId={'resources-table'}
         loading={loading}
-        columns={getColumns(lang)}
+        columns={getColumns(lang, handleFilterBy)}
         dataSource={hits}
         bordered
+        initialColumnState={userInfo?.config.catalog?.tables?.resources?.columns}
         pagination={{
           current: pageIndex,
           searchAfter,

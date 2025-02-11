@@ -1,2 +1,15 @@
 .container {
 }
+
+.popoverDescription {
+    max-width: 480px;
+}
+
+.colDescription {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* limit 2 lines */
+    -webkit-box-orient: vertical;
+    word-break: break-word; /* handle long word */
+}

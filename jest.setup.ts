@@ -15,24 +15,19 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // remove console.error warning
-const originalConsole = global.console;
-global.console = {
-  ...global.console,
-  error: (...args) => {
-    if (
-      typeof args[0] === 'string' &&
-      (args[0].includes('Support for defaultProps will be removed') ||
-        args[0].includes('act(...)') ||
-        args[0].includes(
-          'Warning: findDOMNode is deprecated and will be removed in the next major release. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node',
-        ) ||
-        args[0].includes(
-          'Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers.',
-        ))
-    ) {
-      return true;
-    }
-    // Show the original error for everything else
-    originalConsole.error(...args);
-  },
+const originalConsoleError = global.console.error;
+global.console.error = (...args) => {
+  const ignoredWarnings = [
+    'Support for defaultProps will be removed',
+    'act(...)',
+    'Warning: findDOMNode is deprecated and will be removed in the next major release. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node',
+    'Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers.',
+    'An error occurred! For more details, see the full error text at https://go.apollo.dev',
+  ];
+  const errorMessage = typeof args[0] === 'string' ? args[0] : '';
+  if (ignoredWarnings.some((warning) => errorMessage.includes(warning))) {
+    return;
+  }
+
+  originalConsoleError(...args);
 };
