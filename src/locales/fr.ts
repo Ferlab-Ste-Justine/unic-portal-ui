@@ -12,6 +12,7 @@ const fr = {
       source_system: 'système hospitalier',
       source_systems: 'systèmes hospitaliers',
       Source_systems: 'Systèmes hospitaliers',
+      systems: 'systèmes',
     },
     variable: {
       variable_id: 'Variable ID',
@@ -34,8 +35,8 @@ const fr = {
     domain: {
       domain_id: 'Domaine ID',
       domain: 'domaine',
-      domains: 'domains',
-      Domains: 'Domains',
+      domains: 'domaines',
+      Domains: 'Domaines',
     },
     code: 'Code',
     name: 'Nom',
@@ -115,7 +116,7 @@ const fr = {
       },
     },
     home: {
-      title: "Portail de l'UnIC",
+      title: "Portail de données de l'UnIC",
       subTitle: 'Explorez le catalogue de données, gérez vos projets et accédez à vos jeux de données.',
       explore: 'Explorer',
       warehouse: {

@@ -1,5 +1,7 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { numberFormat } from '@ferlab/ui/core/utils/numberUtils';
 import { Button, Card, Tag, Typography } from 'antd';
+import Link from 'next/link';
 import intl from 'react-intl-universal';
 
 import { IStatsCardProps } from '@/components/HomeCards/type';
@@ -22,16 +24,18 @@ const HospitalSystemsCard = ({ stats }: IStatsCardProps) => {
         <Text className={styles.homeCardDescription}>{intl.get('screen.home.hospitalSystems.description')}</Text>
         <div className={styles.homeCardStats}>
           <Tag className={styles.homeCardStatTag} color={'purple'}>
-            <b>{stats?.project_count || 1}</b> {intl.get('entities.project.projects')}
+            <b>{numberFormat(stats?.project_count || 1)}</b> {intl.get('entities.source_system.systems')}
           </Tag>
           <Tag className={styles.homeCardStatTag} color={'purple'}>
-            <b>{stats?.variable_count}</b> {intl.get('entities.variable.variables')}
+            <b>{numberFormat(stats?.variable_count || 0)}</b> {intl.get('entities.variable.variables')}
           </Tag>
         </div>
-        <Button href={'/catalog#source_system'} className={styles.homeCardButton}>
-          {intl.get('screen.home.explore')}
-          <ArrowRightOutlined />
-        </Button>
+        <Link href={'/catalog#source_system'}>
+          <Button>
+            {intl.get('screen.home.explore')}
+            <ArrowRightOutlined />
+          </Button>
+        </Link>
       </div>
     </Card>
   );
