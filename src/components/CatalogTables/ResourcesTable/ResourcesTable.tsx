@@ -11,16 +11,19 @@ import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
 import { useLang } from '@/store/global';
 import { useUser } from '@/store/user';
 import { updateUserConfig } from '@/store/user/thunks';
+import { IQueryConfig } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
 import { QueryOptions } from '@/types/queries';
 import {
   DEFAULT_PAGE_INDEX,
   DEFAULT_PAGE_SIZE,
   DEFAULT_QUERY_CONFIG,
+  DEFAULT_RESOURCES_FIELD_SORT,
   DEFAULT_RESOURCES_QUERY_SORT,
 } from '@/utils/constants';
 import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
+import { getProTableDictionary } from '@/utils/translation';
 
 import getColumns from './getColumns';
 import styles from './ResourcesTable.module.css';
@@ -45,7 +48,7 @@ const ResourcesTable = () => {
 
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   /** queryConfig use for ProTable */
-  const [queryConfig, setQueryConfig] = useState({
+  const [queryConfig, setQueryConfig] = useState<IQueryConfig>({
     ...DEFAULT_QUERY_CONFIG,
     sort: DEFAULT_RESOURCES_QUERY_SORT,
     size: userInfo?.config?.catalog?.tables?.resources?.viewPerQuery || DEFAULT_PAGE_SIZE,
@@ -62,20 +65,26 @@ const ResourcesTable = () => {
   const { data, loading } = useQuery(GET_RESOURCES, { variables });
   const total = data?.getResources?.total || 0;
   const hits: IResourceEntity[] = data?.getResources?.hits?.map((e: IResourceEntity) => ({ ...e, key: e.rs_id })) || [];
-  const searchAfter = { tail: data?.getResources?.search_after };
+  const searchAfter = {
+    head: queryConfig.operations?.previous
+      ? data?.getResources?.search_after
+      : [hits[0]?.[DEFAULT_RESOURCES_FIELD_SORT]?.toString()],
+    tail: queryConfig.operations?.previous
+      ? [hits[0]?.[DEFAULT_RESOURCES_FIELD_SORT]?.toString()]
+      : data?.getResources?.search_after,
+  };
+  const dataSource = queryConfig.operations?.previous ? hits.reverse() : hits;
+
   // uncomment for UNICWEB-40
   // const rs_types_options: SelectProps['options'] = data?.getResourcesType?.map((value: string) => ({
   //   value,
   //   label: value,
   // }));
 
-  // console.log('hits==', hits);
-
   const handleFilterBy = () => {
     //TODO Do it for UNICWEB-40
   };
 
-  /** first page button reset */
   useEffect(() => {
     if (queryConfig.firstPageFlag || !queryConfig.searchAfter) return;
     setQueryConfig({
@@ -95,13 +104,14 @@ const ResourcesTable = () => {
       {/*  selectField='rs_type'*/}
       {/*/>*/}
       <ProTable
-        key={Math.random()} //Force the re-render with random key each render to display conditionally rs_description_fr and rs_description_en
         tableId={'resources-table'}
         loading={loading}
         columns={getColumns(lang, handleFilterBy)}
-        dataSource={hits}
+        dataSource={dataSource}
         bordered
         initialColumnState={userInfo?.config.catalog?.tables?.resources?.columns}
+        dictionary={getProTableDictionary()}
+        showSorterTooltip={false}
         pagination={{
           current: pageIndex,
           searchAfter,
@@ -126,8 +136,8 @@ const ResourcesTable = () => {
           setQueryConfig({
             pageIndex: DEFAULT_PAGE_INDEX,
             size: queryConfig.size,
-            sort: formatQuerySortList(sorter) as [],
-          });
+            sort: formatQuerySortList(sorter),
+          } as IQueryConfig);
         }}
         headerConfig={{
           itemCount: {

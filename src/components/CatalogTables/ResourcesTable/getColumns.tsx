@@ -16,23 +16,29 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     key: 'rs_code',
     title: intl.get('entities.code'),
     sorter: { multiple: 1 },
-    render: (resource: IResourceEntity) =>
-      resource?.rs_is_project ? (
-        <Link href={`/project/${resource.rs_code}`}>{resource.rs_code}</Link>
-      ) : (
-        resource?.rs_code || TABLE_EMPTY_PLACE_HOLDER
-      ),
+    render: (resource: IResourceEntity) => {
+      if (!resource?.rs_code) return TABLE_EMPTY_PLACE_HOLDER;
+      if (resource?.rs_is_project) {
+        return <Link href={`/project/${resource.rs_code}`}>{resource.rs_code}</Link>;
+      } else if (resource.rs_type === 'source_system') {
+        return <Link href={`/hospital-system/${resource.rs_code}`}>{resource.rs_code}</Link>;
+      }
+      return resource.rs_code;
+    },
   },
   {
     key: 'rs_name',
     title: intl.get('entities.name'),
     sorter: { multiple: 1 },
-    render: (resource: IResourceEntity) =>
-      resource?.rs_is_project ? (
-        <Link href={`/project/${resource.rs_code}`}>{resource.rs_name}</Link>
-      ) : (
-        resource?.rs_name || TABLE_EMPTY_PLACE_HOLDER
-      ),
+    render: (resource: IResourceEntity) => {
+      if (!resource?.rs_name) return TABLE_EMPTY_PLACE_HOLDER;
+      if (resource?.rs_is_project) {
+        return <Link href={`/project/${resource.rs_code}`}>{resource.rs_name}</Link>;
+      } else if (resource.rs_type === 'source_system') {
+        return <Link href={`/hospital-system/${resource.rs_code}`}>{resource.rs_name}</Link>;
+      }
+      return resource.rs_name;
+    },
   },
   {
     dataIndex: 'rs_type',
@@ -57,6 +63,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     key: 'rs_project_creation_date',
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
+    showSorterTooltip: false,
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp, lang);

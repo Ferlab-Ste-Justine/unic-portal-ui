@@ -24,4 +24,5 @@ export interface IQueryConfig {
   searchAfter?: any[];
   firstPageFlag?: any[];
   operations?: IQueryOperationsConfig;
+  size: number;
 }

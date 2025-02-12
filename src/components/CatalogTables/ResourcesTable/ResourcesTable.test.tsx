@@ -24,7 +24,7 @@ describe('ResourcesTable', () => {
     request: {
       query: GET_RESOURCES,
       variables: {
-        sort: [{ field: 'rs_id', order: 'asc' }],
+        sort: [{ field: 'rs_code', order: 'asc' }],
         size: 10,
         search_after: undefined,
       },
@@ -39,9 +39,9 @@ describe('ResourcesTable', () => {
               rs_id: '1',
               rs_name: 'Resource 1',
               rs_type: 'Type A',
-              rs_last_update: '2024-02-11', // Ajouté
-              rs_description_en: 'Description EN 1', // Ajouté
-              rs_description_fr: 'Description FR 1', // Ajouté
+              rs_last_update: '2024-02-11',
+              rs_description_en: 'Description EN 1',
+              rs_description_fr: 'Description FR 1',
               rs_code: 'Code1',
               rs_is_project: true,
               rs_project_creation_date: '2022-01-01',
@@ -57,9 +57,9 @@ describe('ResourcesTable', () => {
               rs_id: '2',
               rs_name: 'Resource 2',
               rs_type: 'Type B',
-              rs_last_update: '2024-02-11', // Ajouté
-              rs_description_en: 'Description EN 2', // Ajouté
-              rs_description_fr: 'Description FR 2', // Ajouté
+              rs_last_update: '2024-02-11',
+              rs_description_en: 'Description EN 2',
+              rs_description_fr: 'Description FR 2',
               rs_code: 'Code2',
               rs_is_project: false,
               rs_project_creation_date: '2021-01-01',
@@ -108,7 +108,7 @@ describe('ResourcesTable', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText(/No Results/i)).toBeInTheDocument();
+      expect(screen.getAllByText('global.proTable.noResults')[0]).toBeInTheDocument();
     });
   });
 });
