@@ -41,6 +41,7 @@ export interface IVariableEntity {
   var_is_optional: boolean;
   var_description_en: string;
   var_description_fr: string;
+  var_from_source_systems: ISourceSystem[];
   var_source_type: ISourceType;
   stat_etl: IStatETL;
   tables: ITableEntity[];
@@ -50,14 +51,26 @@ export interface IResourceEntity {
   rs_id: number;
   rs_system_collection_starting_year: number;
   rs_type: string;
+  rs_title: string;
   rs_dict_current_version: string;
   rs_last_update: number;
   rs_description_en: string;
   rs_description_fr: string;
   rs_name: string;
   rs_code: string;
+  rs_project_pi: string;
+  rs_project_erb_id: string;
   rs_is_project: boolean;
+  rs_project_approval_date: number;
   stat_etl: IStatETL;
   variables: IVariableEntity[];
   tables: ITableEntity[];
+}
+
+export interface ISourceSystem {
+  published: boolean;
+  rs_code: string;
+  rs_id: string;
+  rs_name: string;
+  stat_etl: IStatETL;
 }

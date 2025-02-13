@@ -10,6 +10,11 @@ export type OrOption = {
   value: string | number;
 };
 
+export type TermOption = {
+  field: string;
+  value: string | number | boolean;
+};
+
 export type SortOption = {
   field: string;
   order: 'asc' | 'desc';
@@ -17,6 +22,7 @@ export type SortOption = {
 
 /** More options types allowed by API, but we only show necessary options here */
 export type QueryOptions = {
+  term?: TermOption[];
   match?: MatchOption[];
   or?: OrOption[];
   sort?: SortOption[];
