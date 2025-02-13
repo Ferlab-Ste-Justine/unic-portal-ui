@@ -2,6 +2,21 @@ import { IProTableDictionary } from '@ferlab/ui/core/components/ProTable/types';
 import { numberFormat } from '@ferlab/ui/core/utils/numberUtils';
 import intl from 'react-intl-universal';
 
+export const getTagNameByType = (type: string) => {
+  switch (type) {
+    case 'warehouse':
+      return intl.get('entities.warehouse');
+    case 'research_project':
+      return intl.get('entities.research_project');
+    case 'eqp':
+      return intl.get('entities.eqp');
+    case 'source_system':
+      return intl.get('entities.source_system.Source_system');
+    default:
+      return type;
+  }
+};
+
 export const getProTableDictionary = (): IProTableDictionary => ({
   numberFormat,
   table: {

@@ -8,6 +8,7 @@ import { IResourceEntity } from '@/types/entities';
 import { TABLE_EMPTY_PLACE_HOLDER } from '@/utils/constants';
 import formatDate from '@/utils/formatDate';
 import getTagColorByType from '@/utils/getTagColorByType';
+import { getTagNameByType } from '@/utils/translation';
 
 import styles from './ResourcesTable.module.css';
 
@@ -46,7 +47,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     title: intl.get('entities.type'),
     sorter: { multiple: 1 },
     render: (rs_type: string) =>
-      rs_type ? <Tag color={getTagColorByType(rs_type)}>{rs_type}</Tag> : TABLE_EMPTY_PLACE_HOLDER,
+      rs_type ? <Tag color={getTagColorByType(rs_type)}>{getTagNameByType(rs_type)}</Tag> : TABLE_EMPTY_PLACE_HOLDER,
   },
   {
     dataIndex: 'rs_last_update',

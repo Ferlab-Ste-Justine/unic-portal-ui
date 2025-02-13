@@ -1,4 +1,4 @@
-const getTagColorByType = (type = 'string') => {
+const getTagColorByType = (type: string) => {
   switch (type) {
     case 'warehouse':
       return 'orange';
