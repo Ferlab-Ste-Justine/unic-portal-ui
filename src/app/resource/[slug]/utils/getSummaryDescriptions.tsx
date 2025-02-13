@@ -63,6 +63,14 @@ const getSummaryDescriptions = (lang: LANG, resourceEntity?: IResourceEntity): I
         },
       ]
     : []),
+  ...(resourceEntity?.rs_system_collection_starting_year && resourceEntity?.rs_type == 'source_system'
+    ? [
+        {
+          label: intl.get('entities.startingYear'),
+          value: resourceEntity.rs_system_collection_starting_year,
+        },
+      ]
+    : []),
 ];
 
 export default getSummaryDescriptions;

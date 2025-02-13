@@ -5,6 +5,12 @@ import React from 'react';
 
 import { IEntityDescriptions } from '@/components/EntityPage/EntityDescription/types/entityPage';
 
+export interface IEntityDescriptionsItem {
+  label: React.ReactNode;
+  value?: React.ReactNode | string;
+  separator?: boolean;
+}
+
 import styles from './EntityDescriptions.module.css';
 
 const EntityDescriptions = ({ descriptions, id = '', loading, title }: IEntityDescriptions) => (
