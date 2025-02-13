@@ -116,7 +116,6 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
   {
     key: 'rs_description',
     title: intl.get('entities.description'),
-    ellipsis: true,
     render: (resource: IResourceEntity, record) => {
       console.log('record==', record);
       const description = lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en;
