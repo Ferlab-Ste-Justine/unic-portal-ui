@@ -17,6 +17,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     key: 'rs_code',
     title: intl.get('entities.code'),
     sorter: { multiple: 1 },
+    defaultHidden: true,
     render: (resource: IResourceEntity) => {
       if (!resource?.rs_code) return TABLE_EMPTY_PLACE_HOLDER;
       if (resource?.rs_is_project) {
@@ -64,7 +65,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     key: 'rs_project_creation_date',
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
-    showSorterTooltip: false,
+    defaultHidden: true,
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp, lang);
@@ -74,6 +75,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     dataIndex: 'rs_project_approval_date',
     key: 'rs_project_approval_date',
     title: intl.get('entities.approvedAt'),
+    defaultHidden: true,
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp, lang);
@@ -114,7 +116,9 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
   {
     key: 'rs_description',
     title: intl.get('entities.description'),
-    render: (resource: IResourceEntity) => {
+    ellipsis: true,
+    render: (resource: IResourceEntity, record) => {
+      console.log('record==', record);
       const description = lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en;
       if (!description) return TABLE_EMPTY_PLACE_HOLDER;
       return (
@@ -130,24 +134,28 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     dataIndex: 'rs_system_collection_starting_year',
     key: 'rs_system_collection_starting_year',
     title: intl.get('entities.rs_system_collection_starting_year'),
+    defaultHidden: true,
     render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
     dataIndex: 'rs_dict_current_version',
     key: 'rs_dict_current_version',
     title: intl.get('entities.rs_dict_current_version'),
+    defaultHidden: true,
     render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
     dataIndex: 'rs_project_erb_id',
     key: 'rs_project_erb_id',
     title: intl.get('entities.rs_project_erb_id'),
+    defaultHidden: true,
     render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
     dataIndex: 'rs_project_pi',
     key: 'rs_project_pi',
     title: intl.get('entities.rs_project_pi'),
+    defaultHidden: true,
     render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
 ];
