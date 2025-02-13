@@ -1,27 +1,29 @@
 import { defineConfig } from 'cypress';
+
+import pluginConfig from './cypress/plugins/index';
 import { getDateTime } from './cypress/support/utils';
 
 const { strDate, strTime } = getDateTime();
 
 const getName = (url = '', parallel = '') => {
   if (url.includes('unicweb-') || url.includes('unic-')) {
-    return url.replace('https://', '').split('.')[0].split('-').splice(2, 4).join('-')+'/'+parallel;
+    return url.replace('https://', '').split('.')[0].split('-').splice(2, 4).join('-') + '/' + parallel;
   } else {
-    return 'QA/'+parallel;
+    return 'QA/' + parallel;
   }
 };
 
 export default defineConfig({
-//  projectId: '',
+  //  projectId: '',
   chromeWebSecurity: true,
   video: false,
   screenshotOnRunFailure: true,
   viewportWidth: 1920,
   viewportHeight: 1080,
-  e2e: {/*
+  e2e: {
     setupNodeEvents(on, config) {
-      return require('./cypress/plugins/index.ts')(on, config);
-    },*/
+      return pluginConfig(on, config);
+    },
     baseUrl: 'https://portal.qa.unic.ferlab.bio/',
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     slowTestThreshold: 60000,
@@ -30,8 +32,8 @@ export default defineConfig({
     videosFolder: `cypress/videos/${getName(process.env.CYPRESS_BASE_URL, process.env.CYPRESS_PARALLEL)}`,
   },
   retries: {
-    "runMode": 2,
-    "openMode": 0
+    runMode: 2,
+    openMode: 0,
   },
   reporter: 'junit',
   reporterOptions: {
