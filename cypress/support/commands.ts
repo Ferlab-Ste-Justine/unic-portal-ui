@@ -67,7 +67,8 @@ Cypress.Commands.add('login', () => {
     cy.waitWhileSpin(oneMinute);
  });
  cy.visit('/');
- cy.get('[data-cy="Login"]').clickAndWait({force: true});
+ cy.get('[data-cy="Login"]').clickAndWait();
+ cy.wait(2000);
 
  cy.get('[class*="Header_langButton"]').invoke('text').then((invokeText) => {
    if (invokeText.includes("EN")) {
@@ -80,8 +81,8 @@ Cypress.Commands.add('logout', () => {
   cy.visit('/');
   cy.wait(2000);
 
-  cy.get('[class*="Header_menuTrigger"] [class*="anticon-down"]').eq(1).click({force: true});
-  cy.get('[data-menu-id*="logout"]').clickAndWait({force: true});
+  cy.get('[class*="Header_menuTrigger"] [class*="anticon-down"]').eq(1).click();
+  cy.get('[data-menu-id*="logout"]').clickAndWait();
 });
 
 Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
@@ -95,6 +96,21 @@ Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, method
 
   cy.waitWhileSpin(oneMinute);
   cy.wait(1000);
+});
+
+Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
+  cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
+  cy.visit(url);
+
+  for (let i = 0; i < nbCalls; i++) {
+    cy.wait('@getRouteMatcher', {timeout: oneMinute});
+  };
+
+  cy.waitWhileSpin(oneMinute);
+});
+
+Cypress.Commands.add('visitCatalog', () => {
+  cy.visitAndIntercept('/catalog', 'POST','**/graphql', 1);
 });
 
 Cypress.Commands.add('waitWhileSpin', (ms: number) => {
