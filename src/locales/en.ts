@@ -25,6 +25,7 @@ const en = {
       resources_id: 'Resources ID',
       resource: 'resource',
       resources: 'resources',
+      Resource: 'Resource',
       Resources: 'Resources',
     },
     table: {

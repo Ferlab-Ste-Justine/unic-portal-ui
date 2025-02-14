@@ -30,7 +30,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
   },
   {
     key: 'rs_code',
-    title: intl.get('entities.resource.resource'),
+    title: intl.get('entities.resource.Resource'),
     sorter: { multiple: 1 },
     render: (table: ITableEntity) => {
       if (!table?.resource?.rs_code) return TABLE_EMPTY_PLACE_HOLDER;

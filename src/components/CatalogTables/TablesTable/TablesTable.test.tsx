@@ -1,9 +1,11 @@
 import { MockedProvider } from '@apollo/client/testing';
+import { expect } from '@jest/globals';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import { GET_TABLES } from '@/lib/graphql/queries/getTables';
+import { updateUserConfig } from '@/store/user/thunks';
 import { DEFAULT_PAGE_SIZE } from '@/utils/constants';
 
 import TablesTable from './TablesTable';
@@ -11,22 +13,29 @@ import TablesTable from './TablesTable';
 jest.mock('react-intl-universal', () => ({
   get: jest.fn((key) => key),
 }));
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: jest.fn(),
+}));
+jest.mock('@/store/user/thunks', () => ({
+  updateUserConfig: jest.fn(),
+}));
 
 describe('TablesTable', () => {
-  // Mock Redux
   const mockStore = configureStore([]);
   const store = mockStore({
-    user: { userInfo: { config: { catalog: { tables: { resources: { viewPerQuery: 10, columns: [] } } } } } },
+    user: { userInfo: { config: { catalog: { tables: { tables: { viewPerQuery: 10, columns: [] } } } } } },
     global: { lang: 'en' },
   });
+  const mockDispatch = jest.fn();
+  (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
 
-  // Mock data for GET_TABLES query
   const mocks = [
     {
       request: {
         query: GET_TABLES,
         variables: {
-          sort: [{ field: 'tab_name', order: 'asc' }], // Updated from `[]` to expected default
+          sort: [{ field: 'tab_name', order: 'asc' }],
           size: DEFAULT_PAGE_SIZE,
           search_after: undefined,
         },
@@ -77,12 +86,86 @@ describe('TablesTable', () => {
       </MockedProvider>,
     );
 
-    // Wait for the data to load and the table to be rendered
     await waitFor(() => screen.getByText('Table 1'));
 
-    // Check if the tables are displayed
     expect(screen.getByText('Table 1')).toBeInTheDocument();
     expect(screen.getByText('Table 2')).toBeInTheDocument();
+  });
+
+  it('shows loading state while fetching data', async () => {
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <Provider store={store}>
+          <TablesTable />
+        </Provider>
+      </MockedProvider>,
+    );
+
+    expect(document.querySelector('.ant-spin-nested-loading')).toBeInTheDocument();
+  });
+
+  it('renders empty state when there is no data', async () => {
+    const emptyMock = [
+      {
+        request: {
+          query: GET_TABLES,
+          variables: {
+            sort: [{ field: 'tab_name', order: 'asc' }],
+            size: DEFAULT_PAGE_SIZE,
+            search_after: undefined,
+          },
+        },
+        result: {
+          data: {
+            getTables: {
+              total: 0,
+              search_after: null,
+              hits: [],
+            },
+          },
+        },
+      },
+    ];
+
+    render(
+      <MockedProvider mocks={emptyMock} addTypename={false}>
+        <Provider store={store}>
+          <TablesTable />
+        </Provider>
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByText('global.proTable.noResults')[0]).toBeInTheDocument();
+    });
+  });
+
+  it('handles query errors gracefully', async () => {
+    const errorMock = [
+      {
+        request: {
+          query: GET_TABLES,
+          variables: {
+            sort: [{ field: 'tab_name', order: 'asc' }],
+            size: DEFAULT_PAGE_SIZE,
+            search_after: undefined,
+          },
+        },
+        error: new Error('GraphQL error'),
+      },
+    ];
+
+    render(
+      <MockedProvider mocks={errorMock} addTypename={false}>
+        <Provider store={store}>
+          <TablesTable />
+        </Provider>
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByText('global.proTable.noResults')[0]).toBeInTheDocument();
+    });
   });
 
   it('supports pagination', async () => {
@@ -94,17 +177,47 @@ describe('TablesTable', () => {
       </MockedProvider>,
     );
 
-    // Wait for the data to load
     await waitFor(() => screen.getByText('Table 1'));
-
-    // Check initial page load
     expect(screen.getByText('Table 1')).toBeInTheDocument();
-
-    // Simulate a page change (example: page 2)
     fireEvent.click(screen.getByText('2'));
-
-    // Ensure the table updates (this should be verified with mock data that supports pagination)
-    // Check if the mock data changed for page 2
     expect(screen.getByText('Table 2')).toBeInTheDocument();
+  });
+
+  it('updates sorting when a column is clicked', async () => {
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <Provider store={store}>
+          <TablesTable />
+        </Provider>
+      </MockedProvider>,
+    );
+
+    await waitFor(() => screen.getByText('Table 1'));
+    const columnHeader = screen.getByText('entities.name');
+    fireEvent.click(columnHeader);
+    expect(screen.getByText('Table 1')).toBeInTheDocument();
+  });
+
+  it('dispatches updateUserConfig on column display change', async () => {
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <Provider store={store}>
+          <TablesTable />
+        </Provider>
+      </MockedProvider>,
+    );
+
+    // Ensure table is rendered
+    await waitFor(() => expect(screen.getByText('Table 1')).toBeInTheDocument());
+    // Open settings
+    fireEvent.click(screen.getByRole('button', { name: 'setting' }));
+    // Ensure the display option is available
+    const options = await waitFor(() => screen.getAllByText('entities.name'));
+    expect(options.length).toBeGreaterThan(1); // Ensure the index is valid
+    // Click the display option
+    fireEvent.click(options[1]);
+
+    // Assert that updateUserConfig was called
+    expect(updateUserConfig).toHaveBeenCalledTimes(1);
   });
 });
