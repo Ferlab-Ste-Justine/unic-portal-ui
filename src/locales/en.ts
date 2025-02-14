@@ -2,13 +2,11 @@
 const en = {
   entities: {
     project: {
-      project_id: 'Project ID',
       project: 'project',
       projects: 'projects',
       Projects: 'Projects',
     },
     source_system: {
-      source_system_id: 'Hospital System ID',
       source_system: 'hospital system',
       source_systems: 'hospital systems',
       Source_system: 'Hospital System',
@@ -16,20 +14,21 @@ const en = {
       systems: 'systems',
     },
     variable: {
-      variable_id: 'Variable ID',
       variable: 'variable',
+      Variable: 'Variable',
       variables: 'variables',
       Variables: 'Variables',
     },
     resource: {
-      resources_id: 'Resources ID',
       resource: 'resource',
+      Resource: 'Resource',
       resources: 'resources',
       Resources: 'Resources',
     },
     table: {
       table_id: 'Table ID',
       table: 'table',
+      Table: 'Table',
       tables: 'tables',
       Tables: 'Tables',
     },
