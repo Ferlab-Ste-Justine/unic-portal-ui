@@ -33,7 +33,7 @@ const WarehouseCard = ({ stats }: IStatsCardProps) => {
             <b>{numberFormat(stats?.source_system_count || 0)}</b> {intl.get('entities.source_system.source_systems')}
           </Tag>
           <Tag className={styles.homeCardStatTag} color={'orange'}>
-            <b>{numberFormat(stats?.domain_count || 0)}</b> {intl.get('entities.domain.domains')}
+            <b>{numberFormat(stats?.domain_count || 0)}</b> {intl.get('entities.domains')}
           </Tag>
         </div>
         <Link href={'/catalog#warehouse'}>

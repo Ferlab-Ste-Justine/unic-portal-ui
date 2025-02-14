@@ -11,6 +11,9 @@ export const DEFAULT_RESOURCES_QUERY_SORT = [
   { field: DEFAULT_RESOURCES_FIELD_SORT, order: SortDirection.Asc },
 ] as ISort[];
 
+export const DEFAULT_TABLES_FIELD_SORT = 'tab_name';
+export const DEFAULT_TABLES_QUERY_SORT = [{ field: DEFAULT_TABLES_FIELD_SORT, order: SortDirection.Asc }] as ISort[];
+
 export const DEFAULT_QUERY_CONFIG: IQueryConfig = {
   pageIndex: DEFAULT_PAGE_INDEX,
   sort: [],
