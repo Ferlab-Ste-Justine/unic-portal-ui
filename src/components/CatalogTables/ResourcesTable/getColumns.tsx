@@ -57,7 +57,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     sorter: { multiple: 1 },
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp, lang);
+      return formatDate(timestamp);
     },
   },
   {
@@ -68,7 +68,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     defaultHidden: true,
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp, lang);
+      return formatDate(timestamp);
     },
   },
   {
@@ -78,7 +78,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     defaultHidden: true,
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp, lang);
+      return formatDate(timestamp);
     },
   },
   {

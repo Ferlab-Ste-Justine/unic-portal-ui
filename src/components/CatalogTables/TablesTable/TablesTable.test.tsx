@@ -1,5 +1,4 @@
 import { MockedProvider } from '@apollo/client/testing';
-import { expect } from '@jest/globals';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider, useDispatch } from 'react-redux';
 import configureStore from 'redux-mock-store';

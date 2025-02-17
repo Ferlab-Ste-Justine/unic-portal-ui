@@ -23,7 +23,6 @@ import scrollToTop from '@/utils/scrollToTop';
 import { getProTableDictionary } from '@/utils/translation';
 
 import getColumns from './getColumns';
-import styles from './TablesTable.module.css';
 
 const SCROLL_WRAPPER_ID = 'tables-table-scroll-wrapper';
 
@@ -68,56 +67,54 @@ const TablesTable = () => {
   }, [queryConfig]);
 
   return (
-    <div className={styles.container}>
-      <ProTable
-        tableId={'tables-table'}
-        loading={loading}
-        columns={getColumns(lang)}
-        dataSource={dataSource}
-        bordered
-        initialColumnState={userInfo?.config.catalog?.tables?.tables?.columns}
-        dictionary={getProTableDictionary()}
-        showSorterTooltip={false}
-        pagination={{
-          current: pageIndex,
-          searchAfter,
-          queryConfig,
-          setQueryConfig,
-          onChange: (page: number) => {
-            scrollToTop(SCROLL_WRAPPER_ID);
-            setPageIndex(page);
-          },
-          onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
-            dispatch(
-              // @ts-expect-error - unknown action
-              updateUserConfig({
-                catalog: { tables: { tables: { ...userInfo?.config.catalog?.tables?.tables, viewPerQuery } } },
-              }),
-            );
-          },
-          defaultViewPerQuery: queryConfig.size,
-        }}
-        onChange={(_pagination, _filter, sorter) => {
-          setPageIndex(DEFAULT_PAGE_INDEX);
-          setQueryConfig({
-            pageIndex: DEFAULT_PAGE_INDEX,
-            size: queryConfig.size,
-            sort: formatQuerySortList(sorter),
-          } as IQueryConfig);
-        }}
-        headerConfig={{
-          itemCount: {
-            pageIndex: pageIndex,
-            pageSize: queryConfig.size,
-            total: total,
-          },
-          enableColumnSort: true,
-          onColumnSortChange: (newState) =>
+    <ProTable
+      tableId={'tables-table'}
+      loading={loading}
+      columns={getColumns(lang)}
+      dataSource={dataSource}
+      bordered
+      initialColumnState={userInfo?.config.catalog?.tables?.tables?.columns}
+      dictionary={getProTableDictionary()}
+      showSorterTooltip={false}
+      pagination={{
+        current: pageIndex,
+        searchAfter,
+        queryConfig,
+        setQueryConfig,
+        onChange: (page: number) => {
+          scrollToTop(SCROLL_WRAPPER_ID);
+          setPageIndex(page);
+        },
+        onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
+          dispatch(
             // @ts-expect-error - unknown action
-            dispatch(updateUserConfig({ catalog: { tables: { tables: { columns: newState } } } })),
-        }}
-      />
-    </div>
+            updateUserConfig({
+              catalog: { tables: { tables: { ...userInfo?.config.catalog?.tables?.tables, viewPerQuery } } },
+            }),
+          );
+        },
+        defaultViewPerQuery: queryConfig.size,
+      }}
+      onChange={(_pagination, _filter, sorter) => {
+        setPageIndex(DEFAULT_PAGE_INDEX);
+        setQueryConfig({
+          pageIndex: DEFAULT_PAGE_INDEX,
+          size: queryConfig.size,
+          sort: formatQuerySortList(sorter),
+        } as IQueryConfig);
+      }}
+      headerConfig={{
+        itemCount: {
+          pageIndex: pageIndex,
+          pageSize: queryConfig.size,
+          total: total,
+        },
+        enableColumnSort: true,
+        onColumnSortChange: (newState) =>
+          // @ts-expect-error - unknown action
+          dispatch(updateUserConfig({ catalog: { tables: { tables: { columns: newState } } } })),
+      }}
+    />
   );
 };
 

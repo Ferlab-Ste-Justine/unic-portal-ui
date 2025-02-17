@@ -1,14 +1,23 @@
 import { MockedProvider } from '@apollo/client/testing';
-import { render, screen, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { Provider, useDispatch } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
+import { updateUserConfig } from '@/store/user/thunks';
+import { DEFAULT_PAGE_SIZE } from '@/utils/constants';
 
 import ResourcesTable from './ResourcesTable';
 
 jest.mock('react-intl-universal', () => ({
   get: jest.fn((key) => key),
+}));
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: jest.fn(),
+}));
+jest.mock('@/store/user/thunks', () => ({
+  updateUserConfig: jest.fn(),
 }));
 
 describe('ResourcesTable', () => {
@@ -18,13 +27,15 @@ describe('ResourcesTable', () => {
     user: { userInfo: { config: { catalog: { tables: { resources: { viewPerQuery: 10, columns: [] } } } } } },
     global: { lang: 'en' },
   });
+  const mockDispatch = jest.fn();
+  (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
 
   // Mock GraphQL Query
   const mockResourcesQuery = {
     request: {
       query: GET_RESOURCES,
       variables: {
-        sort: [{ field: 'rs_code', order: 'asc' }],
+        sort: [{ field: 'rs_name', order: 'asc' }],
         size: 10,
         search_after: undefined,
       },
@@ -110,5 +121,86 @@ describe('ResourcesTable', () => {
     await waitFor(() => {
       expect(screen.getAllByText('global.proTable.noResults')[0]).toBeInTheDocument();
     });
+  });
+
+  it('supports pagination', async () => {
+    render(
+      <MockedProvider mocks={[mockResourcesQuery]} addTypename={false}>
+        <Provider store={store}>
+          <ResourcesTable />
+        </Provider>
+      </MockedProvider>,
+    );
+
+    await waitFor(() => screen.getByText('Resource 1'));
+    expect(screen.getByText('Resource 1')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('2'));
+    expect(screen.getByText('Resource 2')).toBeInTheDocument();
+  });
+
+  it('handles query errors gracefully', async () => {
+    const errorMock = [
+      {
+        request: {
+          query: GET_RESOURCES,
+          variables: {
+            sort: [{ field: 'rs_name', order: 'asc' }],
+            size: DEFAULT_PAGE_SIZE,
+            search_after: undefined,
+          },
+        },
+        error: new Error('GraphQL error'),
+      },
+    ];
+
+    render(
+      <MockedProvider mocks={errorMock} addTypename={false}>
+        <Provider store={store}>
+          <ResourcesTable />
+        </Provider>
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByText('global.proTable.noResults')[0]).toBeInTheDocument();
+    });
+  });
+
+  it('updates sorting when a column is clicked', async () => {
+    render(
+      <MockedProvider mocks={[mockResourcesQuery]} addTypename={false}>
+        <Provider store={store}>
+          <ResourcesTable />
+        </Provider>
+      </MockedProvider>,
+    );
+
+    await waitFor(() => screen.getByText('Resource 1'));
+    const columnHeader = screen.getByText('entities.name');
+    fireEvent.click(columnHeader);
+    expect(screen.getByText('Resource 1')).toBeInTheDocument();
+  });
+
+  it('dispatches updateUserConfig on column display change', async () => {
+    render(
+      <MockedProvider mocks={[mockResourcesQuery]} addTypename={false}>
+        <Provider store={store}>
+          <ResourcesTable />
+        </Provider>
+      </MockedProvider>,
+    );
+
+    // Ensure table is rendered
+    await waitFor(() => expect(screen.getByText('Resource 1')).toBeInTheDocument());
+    // Open settings
+    fireEvent.click(screen.getByRole('button', { name: 'setting' }));
+    // Ensure the display option is available
+    const options = await waitFor(() => screen.getAllByText('entities.name'));
+    expect(options.length).toBeGreaterThan(1); // Ensure the index is valid
+    // Click the display option
+    fireEvent.click(options[1]);
+
+    // Assert that updateUserConfig was called
+    expect(updateUserConfig).toHaveBeenCalledTimes(1);
   });
 });

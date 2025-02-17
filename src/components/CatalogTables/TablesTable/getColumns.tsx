@@ -7,8 +7,6 @@ import { ITableEntity } from '@/types/entities';
 import { TABLE_EMPTY_PLACE_HOLDER } from '@/utils/constants';
 import formatDate from '@/utils/formatDate';
 
-import styles from './TablesTable.module.css';
-
 const getColumns = (lang: LANG): ProColumnType[] => [
   {
     key: 'tab_name',
@@ -25,7 +23,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     render: (table: ITableEntity) => {
       const description = lang === LANG.FR ? table?.tab_label_fr : table?.tab_label_en;
       if (!description) return TABLE_EMPTY_PLACE_HOLDER;
-      return <div className={styles.colDescription}>{description}</div>;
+      return <div>{description}</div>;
     },
   },
   {
@@ -72,20 +70,22 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     dataIndex: 'tab_created_at',
     key: 'tab_created_at',
     title: intl.get('entities.createdAt'),
+    sorter: { multiple: 1 },
     defaultHidden: true,
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp, lang);
+      return formatDate(timestamp);
     },
   },
   {
     dataIndex: 'tab_last_update',
     key: 'tab_last_update',
     title: intl.get('entities.updatedAt'),
+    sorter: { multiple: 1 },
     defaultHidden: true,
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp, lang);
+      return formatDate(timestamp);
     },
   },
 ];

@@ -6,7 +6,7 @@ export const DEFAULT_PAGE_SIZE = 10;
 
 export const TABLE_EMPTY_PLACE_HOLDER = '-';
 
-export const DEFAULT_RESOURCES_FIELD_SORT = 'rs_code';
+export const DEFAULT_RESOURCES_FIELD_SORT = 'rs_name';
 export const DEFAULT_RESOURCES_QUERY_SORT = [
   { field: DEFAULT_RESOURCES_FIELD_SORT, order: SortDirection.Asc },
 ] as ISort[];
