@@ -83,7 +83,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
   },
   {
     key: 'tables',
-    title: intl.get('entities.table.Tables'),
+    title: intl.get('entities.table.Table'),
     render: (resource: IResourceEntity) => {
       if (!resource?.tables?.length) return TABLE_EMPTY_PLACE_HOLDER;
       //TODO Do it for UNICWEB-40
@@ -103,7 +103,7 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
   },
   {
     key: 'variables',
-    title: intl.get('entities.variable.Variables'),
+    title: intl.get('entities.variable.Variable'),
     render: (resource: IResourceEntity) => {
       if (!resource?.variables?.length) return TABLE_EMPTY_PLACE_HOLDER;
       //TODO Do it for UNICWEB-40

@@ -15,17 +15,19 @@ const fr = {
     },
     variable: {
       variable: 'variable',
+      Variable: 'Variable',
       variables: 'variables',
       Variables: 'Variables',
     },
     resource: {
       resource: 'ressource',
-      resources: 'ressources',
       Resource: 'Ressource',
+      resources: 'ressources',
       Resources: 'Ressources',
     },
     table: {
       table: 'table',
+      Table: 'Table',
       tables: 'tables',
       Tables: 'Tables',
       tab_entity_type: 'Entité',

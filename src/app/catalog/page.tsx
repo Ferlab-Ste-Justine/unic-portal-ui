@@ -13,7 +13,7 @@ import styles from './page.module.css';
 const CatalogPage = () => {
   useLang();
   const items = [
-    { label: 'Resources', key: 'ResourcesTable', children: <ResourcesTable /> },
+    { label: intl.get('entities.resource.Resources'), key: 'ResourcesTable', children: <ResourcesTable /> },
     { label: 'TablesTable', key: 'TablesTable', children: <TablesTable /> },
     { label: 'VariablesTable', key: 'VariablesTable', children: <VariablesTable /> },
   ];

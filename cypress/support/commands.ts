@@ -27,6 +27,64 @@ Cypress.Commands.add('clickAndWait', { prevSubject: 'element' }, (subject, optio
   cy.waitWhileSpin(oneMinute);
 });
 
+Cypress.Commands.add('login', () => {
+  cy.session(['user'], () => {
+    cy.visit('/');
+
+    cy.request({
+      url: `https://auth.qa.unic.ferlab.bio/realms/UNIC/protocol/openid-connect/auth`,
+      qs: {
+        client_id: 'unic-client',
+        redirect_uri: Cypress.config('baseUrl'),
+        kc_idp_hint: null,
+        scope: 'openid',
+        state: createUUID(),
+        nonce: createUUID(),
+        response_type: 'code',
+        response_mode: 'fragment',
+      },
+    }).then((response) => {
+      const html: HTMLElement = document.createElement('html');
+      html.innerHTML = response.body;
+
+      const script = html.getElementsByTagName('script')[0] as HTMLScriptElement;
+
+      eval(script.textContent ?? '');
+
+      const loginUrl: string = (window as any).kcContext.url.loginAction;
+
+      return cy.request({
+        form: true,
+        method: 'POST',
+        url: loginUrl,
+        followRedirect: false,
+        body: {
+          username: Cypress.env('user_username'),
+          password: Cypress.env('user_password'),
+        },
+      });
+    });
+    cy.waitWhileSpin(oneMinute);
+ });
+ cy.visit('/');
+ cy.get('[data-cy="Login"]').clickAndWait();
+ cy.wait(2000);
+
+ cy.get('[class*="Header_langButton"]').invoke('text').then((invokeText) => {
+   if (invokeText.includes("EN")) {
+     cy.get('[class*="Header_langButton"]').clickAndWait();
+   };
+ });
+});
+
+Cypress.Commands.add('logout', () => {
+  cy.visit('/');
+  cy.wait(2000);
+
+  cy.get('[class*="Header_menuTrigger"] [class*="anticon-down"]').eq(1).click();
+  cy.get('[data-menu-id*="logout"]').clickAndWait();
+});
+
 Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
   cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
 
@@ -38,6 +96,21 @@ Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, method
 
   cy.waitWhileSpin(oneMinute);
   cy.wait(1000);
+});
+
+Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
+  cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
+  cy.visit(url);
+
+  for (let i = 0; i < nbCalls; i++) {
+    cy.wait('@getRouteMatcher', {timeout: oneMinute});
+  };
+
+  cy.waitWhileSpin(oneMinute);
+});
+
+Cypress.Commands.add('visitCatalog', () => {
+  cy.visitAndIntercept('/catalog', 'POST','**/graphql', 1);
 });
 
 Cypress.Commands.add('waitWhileSpin', (ms: number) => {
