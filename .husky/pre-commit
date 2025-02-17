@@ -1,6 +1,7 @@
 npx lint-staged
 
 # Run full Jest coverage check (to ensure it blocks commits if coverage is too low)
+#npm run test -- --onlyChanged --passWithNoTests --coverage --coverageReporters=text-summary
 npm run test -- --coverage --changedSince=main --coverageReporters=text-summary
 
 # Capture Jest exit code

@@ -3,10 +3,6 @@ export enum LANG {
   FR = 'fr',
 }
 
-export const DEFAULT_OFFSET = 0;
-export const DEFAULT_PAGE_INDEX = 1;
-export const DEFAULT_PAGE_SIZE = 10;
-
 export enum SortDirection {
   Asc = 'asc',
   Desc = 'desc',
@@ -16,8 +12,6 @@ export interface ISort {
   field: string;
   order: SortDirection;
 }
-
-export const DEFAULT_RESOURCES_QUERY_SORT = [{ field: 'rs_id', order: SortDirection.Asc }] as ISort[];
 
 export interface IQueryOperationsConfig {
   previous?: boolean;
@@ -30,12 +24,5 @@ export interface IQueryConfig {
   searchAfter?: any[];
   firstPageFlag?: any[];
   operations?: IQueryOperationsConfig;
+  size: number;
 }
-
-export const DEFAULT_QUERY_CONFIG: IQueryConfig = {
-  pageIndex: DEFAULT_PAGE_INDEX,
-  sort: [],
-  searchAfter: undefined,
-  firstPageFlag: undefined,
-  operations: undefined,
-};

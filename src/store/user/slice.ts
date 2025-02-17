@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { fetchUser, updateUser } from '@/store/user/thunks';
+import { fetchUser, updateUser, updateUserConfig } from '@/store/user/thunks';
 import { initialState } from '@/store/user/types';
 
 export const UserState: initialState = {
@@ -49,6 +49,17 @@ const userSlice = createSlice({
       ...state,
       error: action.payload,
       isLoading: false,
+    }));
+    builder.addCase(updateUserConfig.fulfilled, (state, action) => ({
+      ...state,
+      userInfo: {
+        ...state.userInfo!,
+        config: action.payload,
+      },
+    }));
+    builder.addCase(updateUserConfig.rejected, (state, action) => ({
+      ...state,
+      error: action.payload,
     }));
   },
 });

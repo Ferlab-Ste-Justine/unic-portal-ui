@@ -21,6 +21,12 @@ export const GET_RESOURCES = gql`
         rs_name
         rs_code
         rs_is_project
+        rs_project_creation_date
+        rs_project_approval_date
+        rs_system_collection_starting_year
+        rs_dict_current_version
+        rs_project_erb_id
+        rs_project_pi
         variables {
           var_id
         }
