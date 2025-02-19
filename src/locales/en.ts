@@ -23,7 +23,6 @@ const en = {
       resource: 'resource',
       Resource: 'Resource',
       resources: 'resources',
-      Resource: 'Resource',
       Resources: 'Resources',
     },
     table: {
