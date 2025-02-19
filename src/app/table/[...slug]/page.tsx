@@ -9,6 +9,7 @@ import { useParams } from 'next/navigation';
 import React from 'react';
 import intl from 'react-intl-universal';
 
+import getHistory from '@/app/table/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/table/[...slug]/utils/getSummaryDescriptions';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription';
 import { GET_TABLE_ENTITY } from '@/lib/graphql/queries/getTableEntity.query';
@@ -17,11 +18,10 @@ import { ITableTEntity } from '@/types/entities';
 import { QueryOptions } from '@/types/queries';
 
 import styles from './page.module.css';
+import getVariablesDescriptions from './utils/getVariablesDescriptions';
 
 const EntityTablePage = () => {
   const { slug } = useParams() as { slug: string };
-
-  console.log(slug);
 
   const resourceCode = decodeURI(slug[0]);
   const tabName = decodeURI(slug[1]);
@@ -38,8 +38,6 @@ const EntityTablePage = () => {
 
   const { data, loading } = useQuery(GET_TABLE_ENTITY, { variables });
 
-  console.log('data', data);
-
   const table: ITableTEntity = data?.getTables?.hits[0];
 
   if (!table && !loading) {
@@ -51,7 +49,7 @@ const EntityTablePage = () => {
       <div className={styles.titleHeader}>
         <ReadOutlined />
         <div className={styles.titleSeparator}>/</div>
-        <Link href={`/resource/${table?.resource?.rs_code}`}>{table?.resource.rs_name}</Link>
+        <Link className={styles.titleLinkSeparator} href={`/resource/${table?.resource?.rs_code}`}>{table?.resource.rs_name}</Link>
         <div className={styles.titleSeparator}>/</div>
         <Title className={styles.title} level={4}>
           {table?.tab_name}
@@ -65,18 +63,18 @@ const EntityTablePage = () => {
           descriptions={getSummaryDescriptions(lang, table)}
           title={intl.get('global.summary')}
         />
-        {/*<EntityDescriptions*/}
-        {/*  id={'variables'}*/}
-        {/*  loading={loading}*/}
-        {/*  descriptions={getVariablesDescriptions(lang, resource)}*/}
-        {/*  title={intl.get('entities.variable.Variables')}*/}
-        {/*/>*/}
-        {/*<EntityDescriptions*/}
-        {/*  id={'currentVersion'}*/}
-        {/*  loading={loading}*/}
-        {/*  descriptions={getCurrentVersionDescriptions(lang, resource)}*/}
-        {/*  title={intl.get('global.currentVersion')}*/}
-        {/*/>*/}
+        <EntityDescriptions
+          id={'variables'}
+          loading={loading}
+          descriptions={getVariablesDescriptions(lang, table)}
+          title={intl.get('entities.variable.Variables')}
+        />
+        <EntityDescriptions
+          id={'currentVersion'}
+          loading={loading}
+          descriptions={getHistory(lang, table)}
+          title={intl.get('global.history')}
+        />
       </div>
     </div>
   );

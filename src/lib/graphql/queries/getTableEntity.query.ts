@@ -17,6 +17,11 @@ export const GET_TABLE_ENTITY = gql`
         tab_entity_type
         tab_domain
         tab_row_filter
+        tab_last_update
+        tab_created_at
+        stat_etl {
+          variable_count
+        }
         resource {
           rs_code
           rs_name

@@ -37,10 +37,9 @@ const getSummaryDescriptions = (lang: LANG, tableEntity?: ITableTEntity): IEntit
   },
   {
     label: (
-      //TODO fix tooltip message
       <>
-        {intl.get('entities.row_filter')}
-        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.versionTooltip')}>
+        {intl.get('entities.rowFilter')}
+        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.rowFilterTooltip')}>
           <InfoCircleOutlined className={styles.tooltipIcon} />
         </Tooltip>
       </>
