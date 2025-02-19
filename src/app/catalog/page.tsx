@@ -14,8 +14,8 @@ const CatalogPage = () => {
   useLang();
   const items = [
     { label: intl.get('entities.resource.Resources'), key: 'ResourcesTable', children: <ResourcesTable /> },
-    { label: 'TablesTable', key: 'TablesTable', children: <TablesTable /> },
-    { label: 'VariablesTable', key: 'VariablesTable', children: <VariablesTable /> },
+    { label: intl.get('entities.table.Tables'), key: 'TablesTable', children: <TablesTable /> },
+    { label: intl.get('entities.variable.Variables'), key: 'VariablesTable', children: <VariablesTable /> },
   ];
 
   return (

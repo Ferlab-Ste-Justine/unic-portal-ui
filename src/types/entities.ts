@@ -12,12 +12,17 @@ export interface ISourceType {
   rs_code: string;
 }
 
-export interface ITableTEntity {
+export interface ITableEntity {
   tab_id: number;
   tab_name: string;
-  tab_description_en: string;
-  tab_description_fr: string;
+  tab_label_en: string;
+  tab_label_fr: string;
+  resource: IResourceEntity;
+  tab_entity_type: string;
+  tab_domain: string;
   stat_etl: IStatETL;
+  tab_created_at: string;
+  tab_last_update: string;
 }
 
 export interface IVariableEntity {
@@ -38,7 +43,7 @@ export interface IVariableEntity {
   var_description_fr: string;
   var_source_type: ISourceType;
   stat_etl: IStatETL;
-  tables: ITableTEntity[];
+  tables: ITableEntity[];
 }
 
 export interface IResourceEntity {
@@ -54,5 +59,5 @@ export interface IResourceEntity {
   rs_is_project: boolean;
   stat_etl: IStatETL;
   variables: IVariableEntity[];
-  tables: ITableTEntity[];
+  tables: ITableEntity[];
 }
