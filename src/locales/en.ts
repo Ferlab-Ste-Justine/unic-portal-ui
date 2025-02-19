@@ -22,7 +22,6 @@ const en = {
     resource: {
       resource: 'resource',
       resources: 'resources',
-      Resource: 'Resource',
       Resources: 'Resources',
     },
     table: {
