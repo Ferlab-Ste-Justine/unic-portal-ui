@@ -70,14 +70,14 @@ describe('Tableau Ressources - Valider les liens disponibles', () => {
 
 describe('Tableau Ressources - Valider les fonctionnalités du tableau', () => {
   it('Valider les fonctionnalités du tableau - Tri Code', () => {
-    cy.sortTableAndWait('Code');
+    cy.sortTableAndIntercept('Code', 1);
     cy.validateTableFirstRow('bronchiolite', 0);
     cy.sortTableAndIntercept('Code', 1);
     cy.validateTableFirstRow('warehouse', 0);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Name', () => {
-    cy.sortTableAndIntercept('Name', 1);
+    cy.sortTableAndWait('Name');
     cy.validateTableFirstRow('Biobank Respiratoire', 1);
     cy.sortTableAndIntercept('Name', 1);
     cy.validateTableFirstRow('warehouse', 1);
