@@ -103,6 +103,7 @@ const TablesTable = () => {
           title={intl.get('screen.catalog.resources.select')}
           placeholder={intl.get('screen.catalog.selectPlaceholder')}
           handleSetVariables={handleSetVariables}
+          variables={variables}
         />
       </div>
       <ProTable
