@@ -47,10 +47,14 @@ const EntityTablePage = () => {
   return (
     <div>
       <div className={styles.titleHeader}>
-        <ReadOutlined />
-        <div className={styles.titleSeparator}>/</div>
-        <Link className={styles.titleLinkSeparator} href={`/resource/${table?.resource?.rs_code}`}>{table?.resource.rs_name}</Link>
-        <div className={styles.titleSeparator}>/</div>
+        <Link className={styles.titleHeaderLink} href={'/catalog'}>
+          <ReadOutlined />
+          <div className={styles.titleSeparator}>/</div>
+        </Link>
+        <Link className={styles.titleHeaderLink} href={`/resource/${table?.resource?.rs_code}`}>
+          {table?.resource.rs_name}
+          <div className={styles.titleSeparator}>/</div>
+        </Link>
         <Title className={styles.title} level={4}>
           {table?.tab_name}
         </Title>

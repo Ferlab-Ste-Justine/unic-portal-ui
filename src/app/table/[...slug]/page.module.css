@@ -6,12 +6,16 @@
     padding-top: 16px;
 }
 .titleHeader .title {
-    margin-left: 8px;
     margin-bottom: 0;
     font-size: 16px;
 }
 .titleHeader .titleSeparator {
     margin-left: 8px;
+}
+
+.titleHeaderLink {
+    display: flex;
+    margin-right: 8px;
 }
 
 .titleHeader .titleLinkSeparator {

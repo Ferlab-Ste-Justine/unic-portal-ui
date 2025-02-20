@@ -74,6 +74,15 @@ describe('Table Entity', () => {
     expect(screen.getByText('entities.variable.Variables')).toBeInTheDocument();
     expect(screen.getByText('global.history')).toBeInTheDocument();
   });
+
+  it('proper links should be in table entity page', () => {
+    render(<EntityTablePage />);
+    const allLinks = screen.getAllByRole('link');
+
+    expect(allLinks[0]).toHaveAttribute('href', '/catalog');
+    expect(allLinks[1]).toHaveAttribute('href', '/resource/bronchiolite');
+    //todo add missing link back to catalogue (filtered) when available
+  });
 });
 
 it('calls useQuery with GET_TABLE_ENTITY', () => {
