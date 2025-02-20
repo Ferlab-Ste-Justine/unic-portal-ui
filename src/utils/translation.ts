@@ -2,8 +2,8 @@ import { IProTableDictionary } from '@ferlab/ui/core/components/ProTable/types';
 import { numberFormat } from '@ferlab/ui/core/utils/numberUtils';
 import intl from 'react-intl-universal';
 
-export const getTagNameByType = (type: string) => {
-  switch (type) {
+export const getRSLabelNameByType = (rs_type: string) => {
+  switch (rs_type) {
     case 'warehouse':
       return intl.get('entities.warehouse');
     case 'research_project':
@@ -13,7 +13,7 @@ export const getTagNameByType = (type: string) => {
     case 'source_system':
       return intl.get('entities.source_system.Source_system');
     default:
-      return type;
+      return rs_type;
   }
 };
 

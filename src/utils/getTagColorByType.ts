@@ -8,6 +8,8 @@ const getTagColorByType = (type: string) => {
       return 'blue';
     case 'source_system':
       return 'purple';
+    default:
+      return '';
   }
 };
 

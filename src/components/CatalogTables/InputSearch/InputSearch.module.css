@@ -1,0 +1,12 @@
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 50%;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.icon {
+    color: var(--gray-6)
+}

@@ -167,8 +167,9 @@ const en = {
         search: 'Resource',
         searchPlaceholder: 'Filter by resource',
         select: 'Type of resource',
-        selectPlaceholder: 'Select',
       },
+      selectPlaceholder: 'Select',
+      clearFilters: 'Clear filters',
     },
   },
 };

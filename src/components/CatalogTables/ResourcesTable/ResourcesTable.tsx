@@ -1,13 +1,13 @@
 import { useQuery } from '@apollo/client';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
-// import { SelectProps } from 'antd';
+import { SelectProps } from 'antd';
 import React, { useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
+import InputSelect from '@/components/CatalogTables/InputSelect';
 import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
-// uncomment and test for UNICWEB-40
-// import FiltersTable from '@/components/CatalogTables/FiltersTable';
 import { useLang } from '@/store/global';
 import { useUser } from '@/store/user';
 import { updateUserConfig } from '@/store/user/thunks';
@@ -23,23 +23,12 @@ import {
 } from '@/utils/constants';
 import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
-import { getProTableDictionary } from '@/utils/translation';
+import { getProTableDictionary, getRSLabelNameByType } from '@/utils/translation';
 
 import getColumns from './getColumns';
 import styles from './ResourcesTable.module.css';
 
 const SCROLL_WRAPPER_ID = 'resources-table-scroll-wrapper';
-
-// uncomment and test for UNICWEB-40
-// const search_fields = [
-//   'rs_code',
-//   'rs_description_en',
-//   'rs_description_fr',
-//   'rs_name',
-//   'rs_project_pi',
-//   'rs_projet_erb',
-//   'rs_title',
-// ];
 
 const ResourcesTable = () => {
   const lang = useLang();
@@ -55,13 +44,17 @@ const ResourcesTable = () => {
   });
 
   /** variables use for Query */
-  const variables: QueryOptions = {
+  const initialVariables: QueryOptions = {
     sort: queryConfig.sort,
     size: queryConfig.size,
     search_after: queryConfig.searchAfter,
   };
-  // uncomment for UNICWEB-40
-  // const { data, loading, refetch } = useQuery(GET_RESOURCES, { variables });
+
+  const [variables, setVariables] = useState<QueryOptions>(initialVariables);
+  const handleSetVariables = (newVariables: QueryOptions) => {
+    setVariables({ ...variables, ...newVariables });
+  };
+
   const { data, loading } = useQuery(GET_RESOURCES, { variables });
   const total = data?.getResources?.total || 0;
   const hits: IResourceEntity[] = data?.getResources?.hits?.map((e: IResourceEntity) => ({ ...e, key: e.rs_id })) || [];
@@ -75,15 +68,32 @@ const ResourcesTable = () => {
   };
   const dataSource = queryConfig.operations?.previous ? hits.reverse() : hits;
 
-  // uncomment for UNICWEB-40
-  // const rs_types_options: SelectProps['options'] = data?.getResourcesType?.map((value: string) => ({
-  //   value,
-  //   label: value,
-  // }));
+  const rs_type_options: SelectProps['options'] = data?.getResourcesType?.map((rs_type: string) => ({
+    value: rs_type,
+    label: getRSLabelNameByType(rs_type),
+  }));
+  const [rsTypeOptions, setRsTypeOptions] = useState(rs_type_options);
 
   const handleFilterBy = () => {
-    //TODO Do it for UNICWEB-40
+    //TODO Do it for UNICWEB-41
   };
+
+  //TODO adjusted it for UNICWEB-36
+  const hasFilter = !!variables.or?.length;
+  const handleClearFilters = () => {
+    setVariables(initialVariables);
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      setRsTypeOptions(
+        data?.getResourcesType?.map((rs_type: string) => ({
+          value: rs_type,
+          label: getRSLabelNameByType(rs_type),
+        })),
+      );
+    }
+  }, [data?.getResourcesType, loading]);
 
   useEffect(() => {
     if (queryConfig.firstPageFlag || !queryConfig.searchAfter) return;
@@ -95,14 +105,17 @@ const ResourcesTable = () => {
 
   return (
     <div className={styles.container}>
-      {/*// uncomment for UNICWEB-40*/}
-      {/*<FiltersTable*/}
-      {/*  options={rs_types_options}*/}
-      {/*  search_fields={search_fields}*/}
-      {/*  refetch={refetch}*/}
-      {/*  variables={variables}*/}
-      {/*  selectField='rs_type'*/}
-      {/*/>*/}
+      <div className={styles.filtersRow}>
+        {/*//TODO: ADD InputSearch here for UNICWEB-36*/}
+        <InputSelect
+          options={rsTypeOptions}
+          selectField='rs_type'
+          title={intl.get('screen.catalog.resources.select')}
+          placeholder={intl.get('screen.catalog.selectPlaceholder')}
+          handleSetVariables={handleSetVariables}
+          variables={variables}
+        />
+      </div>
       <ProTable
         tableId={'resources-table'}
         loading={loading}
@@ -140,6 +153,8 @@ const ResourcesTable = () => {
           } as IQueryConfig);
         }}
         headerConfig={{
+          hasFilter,
+          clearFilter: handleClearFilters,
           itemCount: {
             pageIndex: pageIndex,
             pageSize: queryConfig.size,
