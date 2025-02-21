@@ -7,6 +7,10 @@
     line-height: 20px;
 }
 
+.title {
+    font-weight: 600;
+}
+
 .icon {
     color: var(--gray-6)
 }

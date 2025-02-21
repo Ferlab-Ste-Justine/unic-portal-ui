@@ -1,10 +1,9 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Input, Typography } from 'antd';
 import debounce from 'lodash/debounce';
-import React, { useEffect, useState } from 'react';
-import intl from 'react-intl-universal';
+import React, { useState } from 'react';
 
-import { MatchOption, QueryOptions } from '@/types/queries';
+import { QueryOptions } from '@/types/queries';
 
 import styles from './InputSearch.module.css';
 
@@ -22,48 +21,58 @@ const { Text } = Typography;
 // ];
 const InputSearch = ({
   search_fields,
-  refetch,
+  handleSetVariables,
   variables,
+  title,
+  placeholder,
 }: {
   search_fields: string[];
-  refetch: any;
+  handleSetVariables: any;
   variables: QueryOptions;
+  title: string;
+  placeholder: string;
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [search, setSearch] = useState('');
-  const [match, setMatch] = useState<MatchOption[]>();
 
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const charsCount = e.target.value.length;
     /** According to analyse, trigger search only with 3 chars (or 0 to reset) */
     if (charsCount === 0 || charsCount > 2) {
       setSearch(e.target.value);
+      handleSearch(e.target.value);
     }
   };
   const onKeyUpSearch = (e: any) => {
     if (e.key === 'Enter') {
       setSearch(e.target.value);
+      handleSearch(e.target.value);
     }
   };
 
-  useEffect(() => {
+  const handleSearch = (_search: string) => {
     /** add all search_fields with ES fuzzy and wildcard */
-    const match = search
-      ? search_fields.map((field) => ({ field, value: `*${search}*`, useFuzzy: true, useWildcard: true }))
+    const match = _search
+      ? search_fields.map((field) => ({ field, value: `*${_search}*`, useFuzzy: true, useWildcard: true }))
       : undefined;
 
-    setMatch(match);
-  }, [search, search_fields]);
-
-  useEffect(() => {
     const _variables = { ...variables, match };
-    refetch(_variables);
-  }, [refetch, match, search_fields, variables]);
+
+    handleSetVariables(_variables);
+  };
+
+  /** reset selects when variables is reset by parent component fn handleClearFilters */
+  // useEffect(() => {
+  //   if (!variables?.match?.length) {
+  //     setSearch('');
+  //   }
+  // }, [variables]);
 
   return (
     <div className={styles.filter}>
-      <Text>{intl.get('screen.catalog.resources.search')}</Text>
+      <Text className={styles.title}>{title}</Text>
       <Input
-        placeholder={intl.get('screen.catalog.resources.searchPlaceholder')}
+        placeholder={placeholder}
         onChange={debounce(onChangeSearch, 500)}
         onKeyUp={onKeyUpSearch}
         suffix={<SearchOutlined className={styles.icon} />}

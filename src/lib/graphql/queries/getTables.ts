@@ -19,6 +19,8 @@ export const GET_TABLES = gql`
         tab_label_fr
         resource {
           rs_code
+          rs_name
+          rs_type
         }
         tab_entity_type
         tab_domain
@@ -29,5 +31,7 @@ export const GET_TABLES = gql`
         tab_last_update
       }
     }
+    getTablesResourceTypes
+    getTablesResourceNames(match: $match, or: $or)
   }
 `;

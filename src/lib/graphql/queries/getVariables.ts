@@ -30,8 +30,14 @@ export const GET_VARIABLES = gql`
         }
         resource {
           rs_code
+          rs_type
+          rs_name
         }
       }
     }
+    getVariablesResourceTypes
+    getVariablesResourceCodes
+    getVariablesResourceNames(match: $match, or: $or)
+    getVariablesTableNames(match: $match, or: $or)
   }
 `;

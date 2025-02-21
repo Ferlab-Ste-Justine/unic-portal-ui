@@ -9,19 +9,23 @@ import styles from './InputSelect.module.css';
 const { Text } = Typography;
 
 const InputSelect = ({
+  operator,
   options = [],
   selectField,
   title,
   placeholder,
   handleSetVariables,
   variables,
+  mode,
 }: {
+  operator: 'match' | 'or';
   options: SelectProps['options'];
   selectField: string;
   title: string;
   placeholder: string;
   handleSetVariables: any;
   variables: QueryOptions;
+  mode?: SelectProps['mode'];
 }) => {
   const [selects, setSelects] = useState<string[]>([]);
 
@@ -45,20 +49,32 @@ const InputSelect = ({
   };
 
   const onChangeSelect = (selects: string[]) => {
-    setSelects(selects);
-    handleSelect(selects);
+    if (Array.isArray(selects)) {
+      setSelects(selects);
+      handleSelect(selects);
+    } else {
+      setSelects(selects ? [selects] : []);
+      handleSelect(selects ? [selects] : []);
+    }
   };
 
   const handleSelect = (selects: string[]) => {
     /** add all selects fields as OR */
-    const or = selects?.length ? selects.map((value) => ({ field: selectField, value })) : undefined;
-    const variables = { or };
-    handleSetVariables(variables);
+
+    const values = selects?.length ? selects.map((value) => ({ field: selectField, value })) : [];
+    /** Keep the fields that are not the same as the selectField to replace only the ones that are by new Values */
+    const otherFieldsOnOperator = variables?.[operator]?.filter((element) => element.field !== selectField) || [];
+
+    const _variables = {
+      ...variables,
+      [operator]: [...otherFieldsOnOperator, ...values],
+    };
+    handleSetVariables(_variables);
   };
 
   /** reset selects when variables is reset by parent component fn handleClearFilters */
   useEffect(() => {
-    if (!variables?.or?.length) {
+    if (!variables?.or?.length && !variables?.match?.length) {
       setSelects([]);
     }
   }, [variables]);
@@ -67,12 +83,13 @@ const InputSelect = ({
     <div className={styles.filter}>
       <Text className={styles.title}>{title}</Text>
       <Select
-        mode='multiple'
+        showSearch={mode !== 'multiple'}
+        mode={mode}
         placeholder={placeholder}
         onChange={onChangeSelect}
         options={options}
         allowClear
-        showArrow
+        showArrow={mode === 'multiple'}
         tagRender={tagRender}
         value={selects}
       />

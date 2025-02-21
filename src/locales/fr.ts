@@ -18,18 +18,24 @@ const fr = {
       Variable: 'Variable',
       variables: 'variables',
       Variables: 'Variables',
+      typeOf: 'Type de variable',
+      filterBy: 'Filter par variable',
     },
     resource: {
       resource: 'ressource',
       Resource: 'Ressource',
       resources: 'ressources',
       Resources: 'Ressources',
+      typeOf: 'Type de ressource',
+      filterBy: 'Filter par ressource',
     },
     table: {
       table: 'table',
       Table: 'Table',
       tables: 'tables',
       Tables: 'Tables',
+      typeOf: 'Type de table',
+      filterBy: 'Filter par table',
       tab_entity_type: 'Entité',
       variable_count: 'Nombre de variables',
     },
@@ -73,6 +79,7 @@ const fr = {
     community: 'Communauté',
     resources: 'Ressources',
     contact: 'Contact',
+    select: 'Sélectionner',
     proTable: {
       results: 'Résultats',
       result: 'Résultat',
@@ -161,13 +168,6 @@ const fr = {
     },
     catalog: {
       title: "Catalogue de l'UnIC",
-      resources: {
-        search: 'Ressources',
-        searchPlaceholder: 'Filtrer par ressource',
-        select: 'Type de ressource',
-      },
-      selectPlaceholder: 'Sélectionner',
-      clearFilters: 'Réinitialiser les filtres',
     },
   },
 };

@@ -108,10 +108,12 @@ const ResourcesTable = () => {
       <div className={styles.filtersRow}>
         {/*//TODO: ADD InputSearch here for UNICWEB-36*/}
         <InputSelect
+          operator={'or'}
+          mode={'multiple'}
           options={rsTypeOptions}
           selectField='rs_type'
-          title={intl.get('screen.catalog.resources.select')}
-          placeholder={intl.get('screen.catalog.selectPlaceholder')}
+          title={intl.get('entities.resource.typeOf')}
+          placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}
           variables={variables}
         />

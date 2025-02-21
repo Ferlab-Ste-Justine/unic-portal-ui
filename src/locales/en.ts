@@ -18,12 +18,16 @@ const en = {
       Variable: 'Variable',
       variables: 'variables',
       Variables: 'Variables',
+      typeOf: 'Type of variable',
+      filterBy: 'Filter by variable',
     },
     resource: {
       resource: 'resource',
       resources: 'resources',
       Resource: 'Resource',
       Resources: 'Resources',
+      typeOf: 'Type of resource',
+      filterBy: 'Filter by resource',
     },
     table: {
       table_id: 'Table ID',
@@ -31,6 +35,8 @@ const en = {
       Table: 'Table',
       tables: 'tables',
       Tables: 'Tables',
+      typeOf: 'Type of table',
+      filterBy: 'Filter by table',
       tab_entity_type: 'Entity',
       variable_count: 'Variable Count',
     },
@@ -74,6 +80,7 @@ const en = {
     community: 'Community',
     resources: 'Resources',
     contact: 'Contact',
+    select: 'Select',
     proTable: {
       results: 'Results',
       result: 'Result',
@@ -83,7 +90,7 @@ const en = {
       selectedPlural: 'items selected',
       selectAllResults: 'Select all results',
       clear: 'Clear',
-      clearFilters: 'Clear filters',
+      clearFilters: 'Reset filters',
       tableExport: 'Export as TSV',
       reset: 'Reset',
       columns: 'Columns',
@@ -163,13 +170,6 @@ const en = {
     },
     catalog: {
       title: 'UnIC Catalog',
-      resources: {
-        search: 'Resource',
-        searchPlaceholder: 'Filter by resource',
-        select: 'Type of resource',
-      },
-      selectPlaceholder: 'Select',
-      clearFilters: 'Clear filters',
     },
   },
 };

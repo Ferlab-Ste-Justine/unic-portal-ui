@@ -49,7 +49,6 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     key: 'var_from_source_systems.rs_code',
     dataIndex: 'var_from_source_systems',
     title: intl.get('entities.source'),
-    sorter: { multiple: 1 },
     render: (var_from_source_systems: ISourceType[]) => {
       if (!var_from_source_systems?.length) return TABLE_EMPTY_PLACE_HOLDER;
       return var_from_source_systems.map((sourceSystem: ISourceType) => sourceSystem.rs_code).join(', ');
@@ -58,7 +57,6 @@ const getColumns = (lang: LANG): ProColumnType[] => [
   {
     key: 'table.tab_name',
     title: intl.get('entities.table.Table'),
-    sorter: { multiple: 1 },
     render: (variable: IVariableEntity) => {
       if (!variable?.table?.tab_name) return TABLE_EMPTY_PLACE_HOLDER;
       return <Link href={`/table/${variable.table.tab_name}`}>{variable.table.tab_name}</Link>;

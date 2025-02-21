@@ -10,6 +10,7 @@ describe('InputSelect Component', () => {
   const mockHandleSetVariables = jest.fn();
 
   const defaultProps = {
+    operator: 'or' as const,
     options: [
       { value: 'option1', label: 'Option 1' },
       { value: 'option2', label: 'Option 2' },
@@ -18,6 +19,8 @@ describe('InputSelect Component', () => {
     title: 'Test Title',
     placeholder: 'Select an option',
     handleSetVariables: mockHandleSetVariables,
+    variables: {},
+    mode: 'multiple' as const,
   };
 
   beforeEach(() => {
@@ -35,17 +38,17 @@ describe('InputSelect Component', () => {
     render(<InputSelect {...defaultProps} />);
 
     const selectElement = screen.getByText('Select an option');
-    fireEvent.mouseDown(selectElement);
+    fireEvent.mouseDown(selectElement); // Open the dropdown
 
     const option = screen.getByText('Option 1');
-    fireEvent.click(option);
+    fireEvent.click(option); // Select option
 
     expect(mockHandleSetVariables).toHaveBeenCalledWith({
       or: [{ field: 'testField', value: 'option1' }],
     });
   });
 
-  it('calls handleSetVariables with empty when all options are cleared', () => {
+  it('calls handleSetVariables with an empty array when all options are cleared', () => {
     render(<InputSelect {...defaultProps} />);
 
     const selectElement = screen.getByText('Select an option');
@@ -59,7 +62,9 @@ describe('InputSelect Component', () => {
     // Clear selection
     fireEvent.click(screen.getByLabelText('close'));
 
-    expect(mockHandleSetVariables).toHaveBeenCalledWith({ or: undefined });
+    expect(mockHandleSetVariables).toHaveBeenCalledWith({
+      or: [],
+    });
   });
 
   it('renders selected options as tags with correct colors', () => {

@@ -44,13 +44,13 @@ const TablesTable = () => {
   });
 
   /** variables use for Query */
-  const _variables: QueryOptions = {
+  const initialVariables: QueryOptions = {
     sort: queryConfig.sort,
     size: queryConfig.size,
     search_after: queryConfig.searchAfter,
   };
 
-  const [variables, setVariables] = useState<QueryOptions>(_variables);
+  const [variables, setVariables] = useState<QueryOptions>(initialVariables);
   const handleSetVariables = (newVariables: QueryOptions) => {
     setVariables({ ...variables, ...newVariables });
   };
@@ -68,22 +68,39 @@ const TablesTable = () => {
   };
   const dataSource = queryConfig.operations?.previous ? hits.reverse() : hits;
 
-  const rs_type_options: SelectProps['options'] = data?.getResourcesType?.map((rs_type: string) => ({
-    value: rs_type,
-    label: getRSLabelNameByType(rs_type),
+  const rs_type_options: SelectProps['options'] = data?.getTablesResourceTypes?.map((value: string) => ({
+    value,
+    label: getRSLabelNameByType(value),
+  }));
+  const rs_name_options: SelectProps['options'] = data?.getTablesResourceNames?.map((value: string) => ({
+    value,
+    label: value,
   }));
   const [rsTypeOptions, setRsTypeOptions] = useState(rs_type_options);
+  const [rsNameOptions, setRsNameOptions] = useState(rs_name_options);
+
+  //TODO adjusted it for UNICWEB-36
+  const hasFilter = !!variables.or?.length || !!variables.match?.length;
+  const handleClearFilters = () => {
+    setVariables(initialVariables);
+  };
 
   useEffect(() => {
     if (!loading) {
       setRsTypeOptions(
-        data?.getResourcesType?.map((rs_type: string) => ({
-          value: rs_type,
-          label: getRSLabelNameByType(rs_type),
+        data?.getTablesResourceTypes?.map((value: string) => ({
+          value,
+          label: getRSLabelNameByType(value),
+        })),
+      );
+      setRsNameOptions(
+        data?.getTablesResourceNames?.map((value: string) => ({
+          value,
+          label: value,
         })),
       );
     }
-  }, [data?.getResourcesType, loading]);
+  }, [data?.getTablesResourceNames, data?.getTablesResourceTypes, loading]);
 
   useEffect(() => {
     if (queryConfig.firstPageFlag || !queryConfig.searchAfter) return;
@@ -96,12 +113,22 @@ const TablesTable = () => {
   return (
     <div className={styles.container}>
       <div className={styles.filtersRow}>
-        {/*//TODO: ADD InputSearch here for UNICWEB-36*/}
         <InputSelect
+          operator={'match'}
+          options={rsNameOptions}
+          selectField='resource.rs_name'
+          title={intl.get('entities.resource.Resource')}
+          placeholder={intl.get('entities.resource.filterBy')}
+          handleSetVariables={handleSetVariables}
+          variables={variables}
+        />
+        <InputSelect
+          operator={'or'}
+          mode={'multiple'}
           options={rsTypeOptions}
-          selectField='rs_type'
-          title={intl.get('screen.catalog.resources.select')}
-          placeholder={intl.get('screen.catalog.selectPlaceholder')}
+          selectField='resource.rs_type'
+          title={intl.get('entities.resource.typeOf')}
+          placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}
           variables={variables}
         />
@@ -143,6 +170,8 @@ const TablesTable = () => {
           } as IQueryConfig);
         }}
         headerConfig={{
+          hasFilter,
+          clearFilter: handleClearFilters,
           itemCount: {
             pageIndex: pageIndex,
             pageSize: queryConfig.size,
