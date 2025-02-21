@@ -3,9 +3,9 @@ import intl from 'react-intl-universal';
 
 import { IEntityDescriptionsItem } from '@/components/EntityPage/EntityDescription/types/entityPage';
 import { LANG } from '@/types/constants';
-import { ITableTEntity } from '@/types/entities';
+import { ITableEntity } from '@/types/entities';
 
-const getCurrentVersionDescriptions = (lang: LANG, tableEntity?: ITableTEntity): IEntityDescriptionsItem[] => [
+const getCurrentVersionDescriptions = (lang: LANG, tableEntity?: ITableEntity): IEntityDescriptionsItem[] => [
   {
     label: intl.get('entities.createdAt'),
     value: tableEntity?.tab_created_at

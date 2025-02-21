@@ -8,9 +8,9 @@ import intl from 'react-intl-universal';
 import styles from '@/app/resource/[slug]/page.module.css';
 import { IEntityDescriptionsItem } from '@/components/EntityPage/EntityDescription/types/entityPage';
 import { LANG } from '@/types/constants';
-import { ITableTEntity } from '@/types/entities';
+import { ITableEntity } from '@/types/entities';
 
-const getSummaryDescriptions = (lang: LANG, tableEntity?: ITableTEntity): IEntityDescriptionsItem[] => [
+const getSummaryDescriptions = (lang: LANG, tableEntity?: ITableEntity): IEntityDescriptionsItem[] => [
   {
     label: intl.get('entities.name'),
     value: tableEntity?.tab_name || TABLE_EMPTY_PLACE_HOLDER,
@@ -28,11 +28,11 @@ const getSummaryDescriptions = (lang: LANG, tableEntity?: ITableTEntity): IEntit
     value: (lang == LANG.FR ? tableEntity?.tab_label_fr : tableEntity?.tab_label_en) || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
-    label: intl.get('entities.entity_type'),
+    label: intl.get('entities.table.tab_entity_type'),
     value: tableEntity?.tab_entity_type || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
-    label: intl.get('entities.domain.Domain'),
+    label: intl.get('entities.Domain'),
     value: tableEntity?.tab_domain || TABLE_EMPTY_PLACE_HOLDER,
   },
   {

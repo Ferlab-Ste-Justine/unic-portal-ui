@@ -4,9 +4,9 @@ import intl from 'react-intl-universal';
 
 import { IEntityDescriptionsItem } from '@/components/EntityPage/EntityDescription/types/entityPage';
 import { LANG } from '@/types/constants';
-import { ITableTEntity } from '@/types/entities';
+import { ITableEntity } from '@/types/entities';
 
-const getVariablesDescriptions = (lang: LANG, tableEntity?: ITableTEntity): IEntityDescriptionsItem[] => {
+const getVariablesDescriptions = (lang: LANG, tableEntity?: ITableEntity): IEntityDescriptionsItem[] => {
   return [
     {
       label: intl.get('entities.number_variables'),

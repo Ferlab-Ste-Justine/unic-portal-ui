@@ -22,6 +22,7 @@ export interface ITableEntity {
   resource: IResourceEntity;
   tab_entity_type: string;
   tab_domain: string;
+  tab_row_filter: string;
   stat_etl: IStatETL;
   tab_created_at: string;
   tab_last_update: string;
@@ -60,14 +61,6 @@ export interface IResourceEntity {
   stat_etl: IStatETL;
   variables: IVariableEntity[];
   tables: ITableEntity[];
-}
-
-export interface ISourceSystem {
-  published: boolean;
-  rs_code: string;
-  rs_id: string;
-  rs_name: string;
-  stat_etl: IStatETL;
 }
 
 export interface ISourceSystem {

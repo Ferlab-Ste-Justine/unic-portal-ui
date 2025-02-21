@@ -80,8 +80,6 @@ const en = {
     delete: 'Delete',
     unknown: 'Unknown',
     summary: 'Summary',
-    variables: 'Variables',
-    currentVersion: 'Version courante',
     catalog: 'Catalog',
     home: 'Home',
     community: 'Community',

@@ -14,7 +14,7 @@ import getSummaryDescriptions from '@/app/table/[...slug]/utils/getSummaryDescri
 import EntityDescriptions from '@/components/EntityPage/EntityDescription';
 import { GET_TABLE_ENTITY } from '@/lib/graphql/queries/getTableEntity.query';
 import { useLang } from '@/store/global';
-import { ITableTEntity } from '@/types/entities';
+import { ITableEntity } from '@/types/entities';
 import { QueryOptions } from '@/types/queries';
 
 import styles from './page.module.css';
@@ -38,7 +38,7 @@ const EntityTablePage = () => {
 
   const { data, loading } = useQuery(GET_TABLE_ENTITY, { variables });
 
-  const table: ITableTEntity = data?.getTables?.hits[0];
+  const table: ITableEntity = data?.getTables?.hits[0];
 
   if (!table && !loading) {
     return <Empty description={intl.get('entities.no_data')} imageType='row' size='large' />;
