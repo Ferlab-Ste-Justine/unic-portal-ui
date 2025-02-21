@@ -85,36 +85,36 @@ Cypress.Commands.add('logout', () => {
   cy.get('[data-menu-id*="logout"]').clickAndWait();
 });
 
-Cypress.Commands.add('resetColumns', () => {
-  cy.get('[data-icon="setting"]').clickAndWait();
-  cy.get('button[class*="ColumnSelector_ProTablePopoverColumnResetBtn"]').clickAndWait({force: true});
-  cy.get('button[class*="ColumnSelector_ProTablePopoverColumnResetBtn"]').should('be.disabled');
-  cy.get('[data-icon="setting"]').clickAndWait();
-  cy.get('[class*="Header_ProTableHeader"]').clickAndWait();
+Cypress.Commands.add('resetColumns', (eq: number = 0) => {
+  cy.get('[data-icon="setting"]').eq(eq).clickAndWait();
+  cy.get('button[class*="ColumnSelector_ProTablePopoverColumnResetBtn"]').eq(0).clickAndWait({force: true});
+  cy.get('button[class*="ColumnSelector_ProTablePopoverColumnResetBtn"]').eq(0).should('be.disabled');
+  cy.get('[data-icon="setting"]').eq(eq).clickAndWait();
+  cy.get('[class*="Header_ProTableHeader"]').eq(eq).clickAndWait();
 });
 
-Cypress.Commands.add('showColumn', (column: string|RegExp) => {
-  cy.get('[data-icon="setting"]').clickAndWait();
+Cypress.Commands.add('showColumn', (column: string|RegExp, eq: number = 0) => {
+  cy.get('[data-icon="setting"]').eq(eq).clickAndWait();
 
   cy.intercept('PUT', '**/user').as('getPOSTuser');
   cy.get('[class*="ColumnSelector_ProTablePopoverColumnListWrapper"]').contains(column).find('[type="checkbox"]').check();
   cy.wait('@getPOSTuser', {timeout: oneMinute});
 
-  cy.get('[class*="Header_ProTableHeader"]').clickAndWait();
+  cy.get('[class*="Header_ProTableHeader"]').eq(eq).clickAndWait();
 });
 
-Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: number) => {
+Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: number, eq: number = 0) => {
   cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
 
-  cy.get('thead[class="ant-table-thead"]').contains(column).clickAndWait({force: true});
+  cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).clickAndWait({force: true});
 
   for (let i = 0; i < nbCalls; i++) {
     cy.wait('@getPOSTgraphql', {timeout: oneMinute});
   };
 });
 
-Cypress.Commands.add('sortTableAndWait', (column: string|RegExp) => {
-  cy.get('thead[class="ant-table-thead"]').contains(column).click({force: true});
+Cypress.Commands.add('sortTableAndWait', (column: string|RegExp, eq: number = 0) => {
+  cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).click({force: true});
   cy.wait(1000);
 });
 
@@ -131,53 +131,53 @@ Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, method
   cy.wait(1000);
 });
 
-Cypress.Commands.add('validatePaging', (total: string|RegExp, eqSelect: number) => {
+Cypress.Commands.add('validatePaging', (total: string|RegExp, eq: number = 0) => {
   if (typeof total === 'string') {
     total = new RegExp(total);
   }
 
-  cy.get('span[class*="ant-select-selection-item"]').eq(eqSelect).clickAndWait({force: true});
+  cy.get('span[class*="ant-select-selection-item"]').eq(eq).clickAndWait({force: true});
   cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
-  cy.validateTableResultsCount(new RegExp('(Results 1 - 100 of '+total.source+'|'+total.source+' Results)'));
+  cy.validateTableResultsCount(new RegExp('(Results 1 - 100 of '+total.source+'|'+total.source+' Results)'), true, eq);
 
-  cy.get('span[class*="ant-select-selection-item"]').eq(eqSelect).clickAndWait({force: true});
+  cy.get('span[class*="ant-select-selection-item"]').eq(eq).clickAndWait({force: true});
   cy.get('div[class*="ant-select-item-option-content"]').contains('20 ').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
-  cy.validateTableResultsCount(new RegExp('Results 1 - 20 of '+total.source));
+  cy.validateTableResultsCount(new RegExp('Results 1 - 20 of '+total.source), true, eq);
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('be.disabled');
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('be.disabled');
 
   cy.wait(2000);
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Next').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
-  cy.validateTableResultsCount(new RegExp('Results 21 - 40 of '+total.source));
+  cy.validateTableResultsCount(new RegExp('Results 21 - 40 of '+total.source), true, eq);
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('not.be.disabled');
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('not.be.disabled');
 
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Next').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
-  cy.validateTableResultsCount(new RegExp('(Results 41 - 60 of '+total.source+'|Results 41 - '+total.source+' of '+total.source+')'));
+  cy.validateTableResultsCount(new RegExp('(Results 41 - 60 of '+total.source+'|Results 41 - '+total.source+' of '+total.source+')'), true, eq);
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('not.be.disabled');
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('not.be.disabled');
 
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
-  cy.validateTableResultsCount(new RegExp('Results 21 - 40 of '+total.source));
+  cy.validateTableResultsCount(new RegExp('Results 21 - 40 of '+total.source), true, eq);
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('not.be.disabled');
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('not.be.disabled');
 
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
-  cy.validateTableResultsCount(new RegExp('Results 1 - 20 of '+total.source));
+  cy.validateTableResultsCount(new RegExp('Results 1 - 20 of '+total.source), true, eq);
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('be.disabled');
   cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('be.disabled');
 });
 
-Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq: number, hasCheckbox: boolean = false) => {
-  cy.get('.ant-spin-container').should('not.have.class', 'ant-spin-blur', {timeout: 5*1000});
+Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq: number = 0, hasCheckbox: boolean = false, selector: string = '') => {
+  cy.waitWhileSpin(oneMinute);
   cy.wait(1000);
-  cy.get('tr[class*="ant-table-row"]').eq(0)
+  cy.get(selector+' tr[class*="ant-table-row"]').eq(0)
   .then(($firstRow) => {
     cy.wrap($firstRow).find('td').eq(eq).contains(expectedValue).should('exist');
     if (hasCheckbox) {
@@ -188,9 +188,9 @@ Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq:
   });
 });
 
-Cypress.Commands.add('validateTableResultsCount', (expectedCount: string|RegExp, shouldExist: boolean = true) => {
+Cypress.Commands.add('validateTableResultsCount', (expectedCount: string|RegExp, shouldExist: boolean = true, eq: number = 0) => {
   const strExist = shouldExist ? 'exist' : 'not.exist';
-  cy.get('div[class*="ProTableHeader"]').contains(expectedCount).should(strExist);
+  cy.get('div[class*="ProTableHeader"]').eq(eq).contains(expectedCount).should(strExist);
 });
 
 Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
@@ -204,9 +204,19 @@ Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, rout
   cy.waitWhileSpin(oneMinute);
 });
 
-Cypress.Commands.add('visitCatalog', () => {
-  cy.visitAndIntercept('/catalog', 'POST','**/graphql', 1);
-  cy.resetColumns();
+Cypress.Commands.add('visitCatalog', (tab?: string) => {
+  const strTab = tab !== undefined ? tab : 'Resources';
+  let eq = 0;
+
+  if (tab === 'Tables') {
+    eq = 1;
+  } else if (tab === 'Variables') {
+    eq = 2;
+  };
+
+  cy.visitAndIntercept('/catalog/', 'POST','**/graphql', 1);
+  cy.get(`[data-node-key="${strTab}Table"]`).clickAndWait();
+  cy.resetColumns(eq);
 });
 
 Cypress.Commands.add('waitWhileSpin', (ms: number) => {
