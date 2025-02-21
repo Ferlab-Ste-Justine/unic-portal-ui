@@ -10,7 +10,7 @@ beforeEach(() => {
   cy.showColumn('Updated On', 1);
 });
 
-describe('Tableau Ressources - Vérifier les informations affichées', () => {
+describe('Tableau Tables - Vérifier les informations affichées', () => {
   it('Titre', () => {
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
   });
@@ -31,7 +31,7 @@ describe('Tableau Ressources - Vérifier les informations affichées', () => {
   });
 });
 
-describe('Tableau Ressources - Valider les liens disponibles', () => {
+describe('Tableau Tables - Valider les liens disponibles', () => {
   it('Lien Name', () => {
     cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(0).find('[href]').clickAndWait();
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC data portal').should('exist');
@@ -43,7 +43,7 @@ describe('Tableau Ressources - Valider les liens disponibles', () => {
   });
 });
 
-describe('Tableau Ressources - Valider les fonctionnalités du tableau', () => {
+describe('Tableau Tables - Valider les fonctionnalités du tableau', () => {
   it('Valider les fonctionnalités du tableau - Tri Name', () => {
     cy.sortTableAndWait('Name', 1);
     cy.validateTableFirstRow('accouchement', 0, false, '[id="rc-tabs-0-panel-TablesTable"]');
