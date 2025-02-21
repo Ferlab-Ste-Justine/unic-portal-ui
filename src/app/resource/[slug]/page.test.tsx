@@ -22,7 +22,7 @@ jest.mock('next/navigation', () => ({
   useParams: jest.fn(),
 }));
 
-describe('Resource Entity', () => {
+describe('Resource Entity - Project', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (useQuery as jest.Mock).mockReturnValue({
@@ -107,6 +107,75 @@ describe('Resource Entity', () => {
     expect(screen.getByText('entities.researcher')).toBeInTheDocument();
     expect(screen.getByText('entities.rs_project_erb_id')).toBeInTheDocument();
     expect(screen.getByText('screen.home.hospitalSystems.title')).toBeInTheDocument();
+  });
+
+  it('entity should not contain Starting Year field when project', () => {
+    render(<EntityResourcePage />);
+
+    expect(() => screen.getByText('entities.startingYear')).toThrow();
+  });
+});
+
+describe('Resource Entity - Systeme Hospitalier', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useQuery as jest.Mock).mockReturnValue({
+      data: {
+        getResources: {
+          hits: [
+            {
+              rs_id: 12,
+              rs_type: 'source_system',
+              rs_title: 'Investigations et prise en charge des pancréatites aiguës en pédiatrie',
+              rs_last_update: 1723832407556,
+              rs_description_en:
+                'Retrospective study whose objective is to evaluate the epidemiology and clinical management of acute pancreatitis in patients at Sainte Justine University Hospital.',
+              rs_description_fr:
+                'Étude rétrospective dont l’objectif est d’évaluer l’épidémiologie et la gestion clinique de la pancréatite aigüe chez les patients du CHU Sainte Justine.',
+              rs_name: 'Pancréatite Aigüe',
+              rs_code: 'simapp',
+              rs_project_erb_id: 'Some one',
+              rs_is_project: false,
+              rs_project_pi: 'Dr Some',
+              rs_project_approval_date: 1580169600000,
+              rs_dict_current_version: '1',
+              rs_system_collection_starting_year: 1991,
+              stat_etl: {
+                variable_count: 57,
+                table_count: 3,
+              },
+              variables: [
+                {
+                  var_name: 'dateConge',
+                  var_from_source_systems: [
+                    {
+                      rs_name: 'clinibaseci',
+                      stat_etl: {
+                        variable_count: 587,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+      loading: false,
+    });
+    (useParams as jest.Mock).mockReturnValue({ slug: ['simapp'] });
+  });
+
+  test('should display current path using router', () => {
+    render(<EntityResourcePage />);
+    const titleEl = screen.getByRole('heading', { level: 4 });
+    expect(titleEl).toHaveTextContent('Pancréatite Aigüe');
+  });
+
+  it('entity should contain Starting Year field when Hostital Systeme', () => {
+    render(<EntityResourcePage />);
+
+    expect(screen.getByText('entities.startingYear')).toBeInTheDocument();
   });
 });
 

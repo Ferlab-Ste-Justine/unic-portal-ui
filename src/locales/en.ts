@@ -78,7 +78,6 @@ const en = {
     delete: 'Delete',
     unknown: 'Unknown',
     summary: 'Summary',
-    variables: 'Variables',
     catalog: 'Catalog',
     home: 'Home',
     community: 'Community',

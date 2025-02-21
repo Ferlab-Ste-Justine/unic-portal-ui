@@ -69,11 +69,3 @@ export interface ISourceSystem {
   rs_name: string;
   stat_etl: IStatETL;
 }
-
-export interface ISourceSystem {
-  published: boolean;
-  rs_code: string;
-  rs_id: string;
-  rs_name: string;
-  stat_etl: IStatETL;
-}

@@ -77,7 +77,6 @@ const fr = {
     delete: 'Supprimer',
     unknown: 'Inconnu',
     summary: 'Résumé',
-    variables: 'Variables',
     catalog: 'Catalogue',
     home: 'Accueil',
     community: 'Communauté',
