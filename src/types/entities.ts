@@ -36,12 +36,22 @@ export interface IVariableEntity {
   var_name: string;
   var_path: string;
   var_value_type: string;
+  var_default: boolean;
+  var_is_path: boolean;
+  var_is_scale_to_fit: boolean;
+  var_is_composite: boolean;
+  var_is_array: boolean;
+  var_is_required: boolean;
+  var_is_optional: boolean;
+  var_source_type: ISourceType;
+  var_derivation_algorithm: string;
+  var_notes: string;
   stat_etl: IStatETL;
-  table: ITableEntity;
   resource: IResourceEntity;
   var_label_fr: string;
   var_label_en: string;
   var_from_source_systems: ISourceType[];
+  table: ITableEntity;
   search_after: string[];
 }
 

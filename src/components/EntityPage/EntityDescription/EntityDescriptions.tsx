@@ -7,7 +7,7 @@ import { IEntityDescriptions } from '@/components/EntityPage/EntityDescription/t
 
 import styles from './EntityDescriptions.module.css';
 
-const EntityDescriptions = ({ descriptions, id = '', loading, title }: IEntityDescriptions) => (
+const EntityDescriptions = ({ descriptions, id = '', loading, title, extraComponent }: IEntityDescriptions) => (
   <div className={styles.entityDescription}>
     <Card className={styles.card} id={id} loading={loading} title={title}>
       {descriptions.length > 0 ? (
@@ -19,6 +19,7 @@ const EntityDescriptions = ({ descriptions, id = '', loading, title }: IEntityDe
               </Descriptions.Item>
             ))}
           </Descriptions>
+          {extraComponent}
         </Space>
       ) : (
         <Empty align='left' noPadding showImage={false} />

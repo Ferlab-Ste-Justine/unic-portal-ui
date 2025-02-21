@@ -13,12 +13,23 @@ export const GET_VARIABLE_ENTITY = gql`
       hits {
         var_name
         var_value_type
+        var_derivation_algorithm
+        var_notes
+        var_label_fr
+        var_label_en
         resource {
           rs_name
           rs_code
         }
         table {
           tab_name
+        }
+        value_set {
+          values {
+            vsval_code
+            vsval_label_en
+            vsval_label_fr
+          }
         }
       }
     }
