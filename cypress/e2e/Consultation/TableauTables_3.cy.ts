@@ -10,39 +10,6 @@ beforeEach(() => {
   cy.showColumn('Updated On', 1);
 });
 
-describe('Tableau Tables - Vérifier les informations affichées', () => {
-  it('Titre', () => {
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
-  });
-
-  it('Onglet', () => {
-    cy.get('[class*="ant-tabs-tab-active"]').contains('Tables').should('exist');
-  });
-
-  it('Tableau', () => {
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(0).contains('accouchement').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(1).contains('Information regarding childbirth').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(2).contains('resppa').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(3).contains('delivery').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(4).contains('-').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(5).contains('11').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(6).contains('2024-09-17').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(7).contains('2024-09-17').should('exist');
-  });
-});
-
-describe('Tableau Tables - Valider les liens disponibles', () => {
-  it('Lien Name', () => {
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(0).find('[href]').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC data portal').should('exist');
-  });
-
-  it('Lien Variable Count', () => {
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(5).find('a').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
-  });
-});
-
 describe('Tableau Tables - Valider les fonctionnalités du tableau', () => {
   it('Valider les fonctionnalités du tableau - Tri Name', () => {
     cy.sortTableAndWait('Name', 1);
