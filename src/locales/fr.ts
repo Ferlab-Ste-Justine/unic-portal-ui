@@ -51,6 +51,9 @@ const fr = {
     rs_dict_current_version: 'Version',
     rs_project_erb_id: 'ID Nagano',
     rs_project_pi: 'Chercheur principal',
+    label: 'Libellé',
+    source: 'Source',
+    source_name: 'Nom de la source',
   },
   global: {
     participants: 'Participants',
