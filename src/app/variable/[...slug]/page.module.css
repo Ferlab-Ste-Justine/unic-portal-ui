@@ -31,6 +31,9 @@
 
 .entityPageContainer {
     padding: var(--default-page-content-padding);
+    .tag {
+        color: red;
+    }
 }
 
 .summaryTitle {
@@ -44,15 +47,6 @@
 .variables
 {
     display: flex;
-
-    .hospitalSystem {
-        display: flex;
-    }
-
-    .hospitalSystem ~ .hospitalSystem::before {
-        content: ', ';
-        margin-right: 5px;
-    }
 }
 
 .tooltipIcon {

@@ -6,6 +6,7 @@ export interface IEntityDescriptions {
   loading: boolean;
   noDataLabel?: string;
   title: string;
+  extraComponent?: React.ReactNode;
 }
 
 export interface IEntityDescriptionsItem {
