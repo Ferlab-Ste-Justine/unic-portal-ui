@@ -45,7 +45,7 @@ const EntityTablePage = () => {
   }
 
   return (
-    <div>
+    <>
       <div className={styles.titleHeader}>
         <Link className={styles.titleHeaderLink} href={'/catalog'}>
           <ReadOutlined />
@@ -80,7 +80,7 @@ const EntityTablePage = () => {
           title={intl.get('global.history')}
         />
       </div>
-    </div>
+    </>
   );
 };
 
