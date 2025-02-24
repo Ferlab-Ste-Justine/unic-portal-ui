@@ -16,6 +16,10 @@
 
 .titleHeader .titleHeaderLink {
     display: flex;
+    color: var(--gray-7);
+    &:hover {
+        color: var(--gray-7) !important;
+    }
 }
 
 .titleHeader .extra {
