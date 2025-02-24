@@ -20,12 +20,8 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     defaultHidden: true,
     render: (resource: IResourceEntity) => {
       if (!resource?.rs_code) return TABLE_EMPTY_PLACE_HOLDER;
-      if (resource?.rs_is_project) {
-        return <Link href={`/project/${resource.rs_code}`}>{resource.rs_code}</Link>;
-      } else if (resource.rs_type === 'source_system') {
-        return <Link href={`/hospital-system/${resource.rs_code}`}>{resource.rs_code}</Link>;
-      }
-      return resource.rs_code;
+
+      return <Link href={`/resource/${resource.rs_code}`}>{resource.rs_code}</Link>;
     },
   },
   {
@@ -34,12 +30,8 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     sorter: { multiple: 1 },
     render: (resource: IResourceEntity) => {
       if (!resource?.rs_name) return TABLE_EMPTY_PLACE_HOLDER;
-      if (resource?.rs_is_project) {
-        return <Link href={`/project/${resource.rs_code}`}>{resource.rs_name}</Link>;
-      } else if (resource.rs_type === 'source_system') {
-        return <Link href={`/hospital-system/${resource.rs_code}`}>{resource.rs_name}</Link>;
-      }
-      return resource.rs_name;
+
+      return <Link href={`/resource/${resource.rs_code}`}>{resource.rs_name}</Link>;
     },
   },
   {

@@ -6969,7 +6969,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
   border-right: none;
 }
 .ant-descriptions-bordered .ant-descriptions-item-label {
-  background-color: #fafafa;
+  background-color: #f8fafc;
 }
 .ant-descriptions-bordered .ant-descriptions-item-label::after {
   display: none;
@@ -27026,6 +27026,9 @@ a:hover {
 }
 a:active {
   color: #0c4a6e !important;
+}
+.ant-descriptions-item-label {
+  color: #1c3863 !important;
 }
 html {
   color: blue !important;

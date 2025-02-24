@@ -1,0 +1,60 @@
+.titleHeader {
+    display: flex;
+    align-items: center;
+    color: var(--heading-color);
+    padding-left: 24px;
+    padding-top: 16px;
+}
+.titleHeader .title {
+    margin-left: 8px;
+    margin-bottom: 0;
+    font-size: 16px;
+}
+.titleHeader .titleSeparator {
+    margin-left: 8px;
+}
+
+.titleHeader .titleHeaderLink {
+    display: flex;
+    color: var(--gray-7);
+    &:hover {
+        color: var(--gray-7) !important;
+    }
+}
+
+.titleHeader .extra {
+    margin-left: auto;
+}
+.titleHeader .icon {
+    font-size: var(--entity-icon-size);
+}
+
+.entityPageContainer {
+    padding: var(--default-page-content-padding);
+}
+
+.summaryTitle {
+    width: 100%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.variables
+{
+    display: flex;
+
+    .hospitalSystem {
+        display: flex;
+    }
+
+    .hospitalSystem ~ .hospitalSystem::before {
+        content: ', ';
+        margin-right: 5px;
+    }
+}
+
+.tooltipIcon {
+    padding-left: 4px;
+}
