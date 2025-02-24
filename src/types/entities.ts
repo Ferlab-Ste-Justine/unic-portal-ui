@@ -11,6 +11,7 @@ export interface ISourceType {
   rs_name: string;
   rs_code: string;
   published: boolean;
+  stat_etl: IStatETL;
 }
 
 export interface ITableEntity {
