@@ -10,6 +10,7 @@ export interface ISourceType {
   rs_id: number;
   rs_name: string;
   rs_code: string;
+  published: boolean;
 }
 
 export interface ITableEntity {
@@ -28,23 +29,16 @@ export interface ITableEntity {
 export interface IVariableEntity {
   var_id: number;
   var_last_update: number;
-  var_created_at: Date;
+  var_created_at: number;
   var_name: string;
   var_path: string;
   var_value_type: string;
-  var_default: boolean;
-  var_is_path: boolean;
-  var_is_scale_to_fit: boolean;
-  var_is_composite: boolean;
-  var_is_array: boolean;
-  var_is_required: boolean;
-  var_is_optional: boolean;
-  var_description_en: string;
-  var_description_fr: string;
-  var_from_source_systems: ISourceSystem[];
-  var_source_type: ISourceType;
   stat_etl: IStatETL;
-  tables: ITableEntity[];
+  table: ITableEntity;
+  resource: IResourceEntity;
+  var_label_fr: string;
+  var_label_en: string;
+  var_from_source_systems: ISourceType[];
 }
 
 export interface IResourceEntity {

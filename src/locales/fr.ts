@@ -58,6 +58,9 @@ const fr = {
     rs_project_erb_id: 'ID Nagano',
     rs_project_pi: 'Chercheur principal',
     no_data: 'Aucune donnée',
+    label: 'Libellé',
+    source: 'Source',
+    source_name: 'Nom de la source',
   },
   global: {
     participants: 'Participants',

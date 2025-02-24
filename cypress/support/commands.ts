@@ -145,33 +145,33 @@ Cypress.Commands.add('validatePaging', (total: string|RegExp, eq: number = 0) =>
   cy.get('div[class*="ant-select-item-option-content"]').contains('20 ').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Results 1 - 20 of '+total.source), true, eq);
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('be.disabled');
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('Previous').parent('button').should('be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('First').parent('button').should('be.disabled');
 
   cy.wait(2000);
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Next').clickAndWait({force: true});
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('Next').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Results 21 - 40 of '+total.source), true, eq);
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('not.be.disabled');
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('not.be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('Previous').parent('button').should('not.be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('First').parent('button').should('not.be.disabled');
 
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Next').clickAndWait({force: true});
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('Next').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('(Results 41 - 60 of '+total.source+'|Results 41 - '+total.source+' of '+total.source+')'), true, eq);
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('not.be.disabled');
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('not.be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('Previous').parent('button').should('not.be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('First').parent('button').should('not.be.disabled');
 
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').clickAndWait({force: true});
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('Previous').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Results 21 - 40 of '+total.source), true, eq);
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('not.be.disabled');
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('not.be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('Previous').parent('button').should('not.be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('First').parent('button').should('not.be.disabled');
 
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').clickAndWait({force: true});
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('First').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Results 1 - 20 of '+total.source), true, eq);
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('Previous').parent('button').should('be.disabled');
-  cy.get('div[class*="Pagination"]').find('button[type="button"]').contains('First').parent('button').should('be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('Previous').parent('button').should('be.disabled');
+  cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('First').parent('button').should('be.disabled');
 });
 
 Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq: number = 0, hasCheckbox: boolean = false, selector: string = '') => {
