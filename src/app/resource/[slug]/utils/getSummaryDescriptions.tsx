@@ -37,7 +37,7 @@ const getSummaryDescriptions = (lang: LANG, resourceEntity?: IResourceEntity): I
       TABLE_EMPTY_PLACE_HOLDER
     ),
   },
-  ...(resourceEntity?.rs_is_project || resourceEntity?.rs_type == 'eqp'
+  ...(resourceEntity?.rs_is_project
     ? [
         {
           label: intl.get('entities.researcher'),
@@ -53,7 +53,7 @@ const getSummaryDescriptions = (lang: LANG, resourceEntity?: IResourceEntity): I
         },
       ]
     : []),
-  ...(resourceEntity?.rs_is_project || resourceEntity?.rs_type == 'eqp'
+  ...(resourceEntity?.rs_is_project
     ? [
         {
           label: intl.get('entities.approvedAt'),
