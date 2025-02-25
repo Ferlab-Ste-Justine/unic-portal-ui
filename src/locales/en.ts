@@ -49,6 +49,7 @@ const en = {
     updatedAt: 'Updated On',
     createdAt: 'Created On',
     approvedAt: 'Approved On',
+    startingYear: 'Collection Starting Year',
     publishedOn: 'Published On',
     description: 'Description',
     number_variables: 'Variable Count',

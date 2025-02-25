@@ -37,7 +37,7 @@ const getSummaryDescriptions = (lang: LANG, resourceEntity?: IResourceEntity): I
       TABLE_EMPTY_PLACE_HOLDER
     ),
   },
-  ...(resourceEntity?.rs_is_project || resourceEntity?.rs_type == 'eqp'
+  ...(resourceEntity?.rs_is_project
     ? [
         {
           label: intl.get('entities.researcher'),
@@ -53,13 +53,21 @@ const getSummaryDescriptions = (lang: LANG, resourceEntity?: IResourceEntity): I
         },
       ]
     : []),
-  ...(resourceEntity?.rs_is_project || resourceEntity?.rs_type == 'eqp'
+  ...(resourceEntity?.rs_is_project
     ? [
         {
           label: intl.get('entities.approvedAt'),
           value: resourceEntity?.rs_project_approval_date
             ? new Date(resourceEntity?.rs_project_approval_date).toLocaleDateString('en-CA')
             : TABLE_EMPTY_PLACE_HOLDER,
+        },
+      ]
+    : []),
+  ...(resourceEntity?.rs_system_collection_starting_year && resourceEntity?.rs_type == 'source_system'
+    ? [
+        {
+          label: intl.get('entities.startingYear'),
+          value: resourceEntity.rs_system_collection_starting_year,
         },
       ]
     : []),

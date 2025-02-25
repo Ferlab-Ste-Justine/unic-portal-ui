@@ -43,13 +43,14 @@
 
 .variables
 {
-    display: flex;
+    display: ruby;
 
     .hospitalSystem {
         display: flex;
+        white-space: nowrap;
     }
 
-    .hospitalSystem ~ .hospitalSystem::before {
+    .hospitalSystem:not(:last-child):after {
         content: ', ';
         margin-right: 5px;
     }

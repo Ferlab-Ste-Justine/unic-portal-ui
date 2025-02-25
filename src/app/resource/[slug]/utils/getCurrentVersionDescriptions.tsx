@@ -20,9 +20,13 @@ const getCurrentVersionDescriptions = (lang: LANG, resourceEntity?: IResourceEnt
     label: (
       <>
         {intl.get('entities.rs_dict_current_version')}
-        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.versionTooltip')}>
-          <InfoCircleOutlined className={styles.tooltipIcon} />
-        </Tooltip>
+        {resourceEntity?.rs_is_project ? (
+          <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.versionTooltip')}>
+            <InfoCircleOutlined className={styles.tooltipIcon} />
+          </Tooltip>
+        ) : (
+          ''
+        )}
       </>
     ),
     value: resourceEntity?.rs_last_update ? resourceEntity?.rs_dict_current_version : TABLE_EMPTY_PLACE_HOLDER,

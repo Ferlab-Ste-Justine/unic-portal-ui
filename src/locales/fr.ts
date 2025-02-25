@@ -48,6 +48,7 @@ const fr = {
     updatedAt: 'Modifié le',
     createdAt: 'Créé le',
     approvedAt: 'Approuvé le',
+    startingYear: 'Début de la collecte',
     publishedOn: 'Publiée le',
     description: 'Description',
     number_variables: 'Nombre de variables',

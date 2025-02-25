@@ -16,6 +16,7 @@ export const GET_RESOURCE_ENTITY = gql`
         rs_last_update
         rs_description_en
         rs_description_fr
+        rs_system_collection_starting_year
         rs_name
         rs_code
         rs_project_erb_id
