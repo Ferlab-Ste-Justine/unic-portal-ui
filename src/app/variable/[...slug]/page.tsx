@@ -2,9 +2,7 @@
 
 import { ReadOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
-import { TABLE_EMPTY_PLACE_HOLDER } from '@ferlab/ui/core/common/constants';
 import Empty from '@ferlab/ui/core/components/Empty/index';
-import { Card, Descriptions, Space, Table } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -20,14 +18,14 @@ import { IVariableEntity } from '@/types/entities';
 import { QueryOptions } from '@/types/queries';
 
 import styles from './page.module.css';
-import EntityTable from '@ferlab/ui/core/pages/EntityPage/EntityTable';
+import { Table } from 'antd';
 
 const EntityVariablePage = () => {
   const { slug } = useParams() as { slug: string };
 
-  const resourceCode = decodeURI(slug[0]);
-  const tabName = decodeURI(slug[1]);
-  const varName = decodeURI(slug[2]);
+  const resourceCode = decodeURIComponent(slug[0]);
+  const tabName = decodeURIComponent(slug[1]);
+  const varName = decodeURIComponent(slug[2]);
 
   const variables: QueryOptions = {
     match: [
@@ -48,39 +46,18 @@ const EntityVariablePage = () => {
     return <Empty description={intl.get('entities.no_data')} imageType='row' size='large' />;
   }
 
-
-   console.log(variable);
-
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
+  const dataSource = variable?.value_set?.values || [];
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Values',
+      dataIndex: 'vsval_code',
+      key: 'vsval_code',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'Libelle',
+      dataIndex: 'vsval_label_en',
+      key: 'vsval_label_en',
     },
   ];
 

@@ -15,7 +15,13 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     sorter: { multiple: 1 },
     render: (variable: IVariableEntity) => {
       if (!variable?.var_name) return TABLE_EMPTY_PLACE_HOLDER;
-      return <Link href={`/variable/${variable.var_name}`}>{variable.var_name}</Link>;
+      return (
+        <Link
+          href={`/variable/${variable.resource.rs_code}/${variable.table.tab_name}/${encodeURIComponent(variable.var_name)}`}
+        >
+          {variable.var_name}
+        </Link>
+      );
     },
   },
   {

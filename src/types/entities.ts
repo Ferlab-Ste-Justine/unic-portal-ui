@@ -51,6 +51,7 @@ export interface IVariableEntity {
   var_label_fr: string;
   var_label_en: string;
   var_from_source_systems: ISourceType[];
+  value_set: IValueSetType;
   table: ITableEntity;
   search_after: string[];
 }
@@ -74,6 +75,16 @@ export interface IResourceEntity {
   variables: IVariableEntity[];
   tables: ITableEntity[];
   search_after: string[];
+}
+
+export interface IValueSetType {
+  values: IValueType[];
+}
+
+export interface IValueType {
+  vsval_code: string;
+  vsval_label_en: string;
+  vsval_label_fr: string;
 }
 
 export interface ISourceSystem {
