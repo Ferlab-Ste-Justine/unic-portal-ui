@@ -14,7 +14,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     sorter: { multiple: 1 },
     render: (table: ITableEntity) => {
       if (!table?.tab_name) return TABLE_EMPTY_PLACE_HOLDER;
-      return <Link href={`/table/${table.tab_name}`}>{table.tab_name}</Link>;
+      return <Link href={`/table/${table.resource.rs_code}/${table.tab_name}`}>{table.tab_name}</Link>;
     },
   },
   {

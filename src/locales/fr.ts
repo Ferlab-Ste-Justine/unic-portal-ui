@@ -45,6 +45,8 @@ const fr = {
     name: 'Nom',
     title: 'Titre',
     type: 'Type',
+    rowFilter: 'Filtre de ligne',
+    rowFilterTooltip: 'Filtre appliqué aux entités de la table',
     updatedAt: 'Modifié le',
     createdAt: 'Créé le',
     approvedAt: 'Approuvé le',
@@ -83,6 +85,7 @@ const fr = {
     resources: 'Ressources',
     contact: 'Contact',
     currentVersion: 'Version courrante',
+    history: 'Historique',
     proTable: {
       results: 'Résultats',
       result: 'Résultat',

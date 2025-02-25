@@ -46,6 +46,8 @@ const en = {
     name: 'Name',
     title: 'Title',
     type: 'Type',
+    rowFilter: 'Row Filter',
+    rowFilterTooltip: 'Filter applied to table entities',
     updatedAt: 'Updated On',
     createdAt: 'Created On',
     approvedAt: 'Approved On',
@@ -84,6 +86,7 @@ const en = {
     resources: 'Resources',
     contact: 'Contact',
     currentVersion: 'Current version',
+    history: 'History',
     proTable: {
       results: 'Results',
       result: 'Result',

@@ -22,6 +22,7 @@ export interface ITableEntity {
   resource: IResourceEntity;
   tab_entity_type: string;
   tab_domain: string;
+  tab_row_filter: string;
   stat_etl: IStatETL;
   tab_created_at: string;
   tab_last_update: string;

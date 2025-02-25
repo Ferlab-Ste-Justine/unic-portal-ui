@@ -59,7 +59,9 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     sorter: { multiple: 1 },
     render: (variable: IVariableEntity) => {
       if (!variable?.table?.tab_name) return TABLE_EMPTY_PLACE_HOLDER;
-      return <Link href={`/table/${variable.table.tab_name}`}>{variable.table.tab_name}</Link>;
+      return (
+        <Link href={`/table/${variable.resource.rs_code}/${variable.table.tab_name}`}>{variable.table.tab_name}</Link>
+      );
     },
   },
   {
