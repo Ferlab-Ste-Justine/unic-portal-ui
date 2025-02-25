@@ -13,7 +13,7 @@ beforeEach(() => {
 describe('Tableau Tables - Valider les liens disponibles', () => {
   it('Lien Name', () => {
     cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(0).find('[href]').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC data portal').should('exist');
+    cy.get('[class*="page_titleHeader"]').contains('accouchement').should('exist');
   });
 
   it('Lien Variable Count', () => {
