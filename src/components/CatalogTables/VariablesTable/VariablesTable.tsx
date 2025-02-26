@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
 import { SelectProps } from 'antd';
+import { OptionProps } from 'antd/lib/select';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
@@ -69,26 +70,10 @@ const VariablesTable = () => {
   };
   const dataSource = queryConfig.operations?.previous ? hits.reverse() : hits;
 
-  const rs_type_options: SelectProps['options'] = data?.getVariablesResourceTypes?.map((value: string) => ({
-    value,
-    label: getRSLabelNameByType(value),
-  }));
-  const rs_code_options: SelectProps['options'] = data?.getVariablesResourceCodes?.map((value: string) => ({
-    value,
-    label: value,
-  }));
-  const rs_name_options: SelectProps['options'] = data?.getVariablesResourceNames?.map((value: string) => ({
-    value,
-    label: value,
-  }));
-  const tab_name_options: SelectProps['options'] = data?.getVariablesTableNames?.map((value: string) => ({
-    value,
-    label: value,
-  }));
-  const [rsTypeOptions, setRsTypeOptions] = useState(rs_type_options);
-  const [rsCodeOptions, setRsCodeOptions] = useState(rs_code_options);
-  const [rsNameOptions, setRsNameOptions] = useState(rs_name_options);
-  const [tabNameOptions, setTabNameOptions] = useState(tab_name_options);
+  const [rsTypeOptions, setRsTypeOptions] = useState<SelectProps['options']>();
+  const [rsCodeOptions, setRsCodeOptions] = useState<SelectProps['options']>();
+  const [rsNameOptions, setRsNameOptions] = useState<SelectProps['options']>();
+  const [tabNameOptions, setTabNameOptions] = useState<SelectProps['options']>();
 
   //TODO adjusted it for UNICWEB-36
   const hasFilter = !!variables.or?.length;
@@ -99,10 +84,12 @@ const VariablesTable = () => {
   useEffect(() => {
     if (!loading) {
       setRsTypeOptions(
-        data?.getVariablesResourceTypes?.map((value: string) => ({
-          value: value,
-          label: getRSLabelNameByType(value),
-        })),
+        data?.getVariablesResourceTypes
+          ?.map((value: string) => ({
+            value: value,
+            label: getRSLabelNameByType(value),
+          }))
+          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
       );
       setRsCodeOptions(
         data?.getVariablesResourceCodes?.map((value: string) => ({
@@ -139,6 +126,16 @@ const VariablesTable = () => {
     });
   }, [queryConfig]);
 
+  useEffect(() => {
+    setVariables({
+      sort: queryConfig.sort,
+      size: queryConfig.size,
+      search_after: queryConfig.searchAfter,
+    });
+  }, [queryConfig.sort, queryConfig.size, queryConfig.searchAfter]);
+
+  //TODO: add serach to Source
+
   return (
     <div className={styles.container}>
       <div className={styles.filtersRow}>
@@ -169,6 +166,7 @@ const VariablesTable = () => {
           placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}
           variables={variables}
+          showSearch={false}
         />
         <InputSelect
           operator={'or'}
@@ -179,6 +177,7 @@ const VariablesTable = () => {
           placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}
           variables={variables}
+          showSearch={true}
         />
       </div>
       <ProTable

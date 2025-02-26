@@ -73,6 +73,6 @@ describe('InputSelect Component', () => {
     fireEvent.mouseDown(screen.getByText('Select an option'));
     fireEvent.click(screen.getByText('Option 1'));
 
-    expect(getTagColorByType).toHaveBeenCalledWith('option1');
+    expect(getTagColorByType).toHaveBeenCalledWith('option1', 'var(--blue-8)');
   });
 });

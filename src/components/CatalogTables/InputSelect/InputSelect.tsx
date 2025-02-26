@@ -17,6 +17,7 @@ const InputSelect = ({
   handleSetVariables,
   variables,
   mode,
+  showSearch = true,
 }: {
   operator: 'match' | 'or';
   options: SelectProps['options'];
@@ -26,6 +27,7 @@ const InputSelect = ({
   handleSetVariables: any;
   variables: QueryOptions;
   mode?: SelectProps['mode'];
+  showSearch?: boolean;
 }) => {
   const [selects, setSelects] = useState<string[]>([]);
 
@@ -37,7 +39,7 @@ const InputSelect = ({
     };
     return (
       <Tag
-        color={getTagColorByType(value)}
+        color={getTagColorByType(value, 'var(--blue-8)')}
         onMouseDown={onPreventMouseDown}
         closable={closable}
         onClose={onClose}
@@ -83,7 +85,7 @@ const InputSelect = ({
     <div className={styles.filter}>
       <Text className={styles.title}>{title}</Text>
       <Select
-        showSearch={mode !== 'multiple'}
+        showSearch={showSearch}
         mode={mode}
         placeholder={placeholder}
         onChange={onChangeSelect}

@@ -1,4 +1,4 @@
-const getTagColorByType = (type: string) => {
+const getTagColorByType = (type: string, defaultColor?: string) => {
   switch (type) {
     case 'warehouse':
       return 'orange';
@@ -9,7 +9,7 @@ const getTagColorByType = (type: string) => {
     case 'source_system':
       return 'purple';
     default:
-      return '';
+      return defaultColor || '';
   }
 };
 

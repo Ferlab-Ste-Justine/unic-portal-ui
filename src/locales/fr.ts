@@ -20,7 +20,7 @@ const fr = {
       variables: 'variables',
       Variables: 'Variables',
       typeOf: 'Type de variable',
-      filterBy: 'Filter par variable',
+      filterBy: 'Filtrer par variable',
     },
     resource: {
       resource: 'ressource',
@@ -28,7 +28,7 @@ const fr = {
       resources: 'ressources',
       Resources: 'Ressources',
       typeOf: 'Type de ressource',
-      filterBy: 'Filter par ressource',
+      filterBy: 'Filtrer par ressource',
     },
     table: {
       table: 'table',
@@ -36,7 +36,7 @@ const fr = {
       tables: 'tables',
       Tables: 'Tables',
       typeOf: 'Type de table',
-      filterBy: 'Filter par table',
+      filterBy: 'Filtrer par table',
       tab_entity_type: 'Entité',
       variable_count: 'Nombre de variables',
     },

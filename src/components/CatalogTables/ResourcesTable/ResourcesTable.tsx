@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
 import { SelectProps } from 'antd';
+import { OptionProps } from 'antd/lib/select';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
@@ -68,11 +69,7 @@ const ResourcesTable = () => {
   };
   const dataSource = queryConfig.operations?.previous ? hits.reverse() : hits;
 
-  const rs_type_options: SelectProps['options'] = data?.getResourcesType?.map((rs_type: string) => ({
-    value: rs_type,
-    label: getRSLabelNameByType(rs_type),
-  }));
-  const [rsTypeOptions, setRsTypeOptions] = useState(rs_type_options);
+  const [rsTypeOptions, setRsTypeOptions] = useState<SelectProps['options']>();
 
   const handleFilterBy = () => {
     //TODO Do it for UNICWEB-41
@@ -87,10 +84,12 @@ const ResourcesTable = () => {
   useEffect(() => {
     if (!loading) {
       setRsTypeOptions(
-        data?.getResourcesType?.map((rs_type: string) => ({
-          value: rs_type,
-          label: getRSLabelNameByType(rs_type),
-        })),
+        data?.getResourcesType
+          ?.map((rs_type: string) => ({
+            value: rs_type,
+            label: getRSLabelNameByType(rs_type),
+          }))
+          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
       );
     }
   }, [data?.getResourcesType, loading]);
@@ -102,6 +101,14 @@ const ResourcesTable = () => {
       firstPageFlag: queryConfig.searchAfter,
     });
   }, [queryConfig]);
+
+  useEffect(() => {
+    setVariables({
+      sort: queryConfig.sort,
+      size: queryConfig.size,
+      search_after: queryConfig.searchAfter,
+    });
+  }, [queryConfig.sort, queryConfig.size, queryConfig.searchAfter]);
 
   return (
     <div className={styles.container}>
@@ -116,6 +123,7 @@ const ResourcesTable = () => {
           placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}
           variables={variables}
+          showSearch={false}
         />
       </div>
       <ProTable

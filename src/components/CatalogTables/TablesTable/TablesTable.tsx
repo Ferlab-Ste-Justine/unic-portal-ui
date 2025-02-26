@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
 import { SelectProps } from 'antd';
+import { OptionProps } from 'antd/lib/select';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
@@ -68,16 +69,8 @@ const TablesTable = () => {
   };
   const dataSource = queryConfig.operations?.previous ? hits.reverse() : hits;
 
-  const rs_type_options: SelectProps['options'] = data?.getTablesResourceTypes?.map((value: string) => ({
-    value,
-    label: getRSLabelNameByType(value),
-  }));
-  const rs_name_options: SelectProps['options'] = data?.getTablesResourceNames?.map((value: string) => ({
-    value,
-    label: value,
-  }));
-  const [rsTypeOptions, setRsTypeOptions] = useState(rs_type_options);
-  const [rsNameOptions, setRsNameOptions] = useState(rs_name_options);
+  const [rsTypeOptions, setRsTypeOptions] = useState<SelectProps['options']>();
+  const [rsNameOptions, setRsNameOptions] = useState<SelectProps['options']>();
 
   //TODO adjusted it for UNICWEB-36
   const hasFilter = !!variables.or?.length || !!variables.match?.length;
@@ -88,10 +81,12 @@ const TablesTable = () => {
   useEffect(() => {
     if (!loading) {
       setRsTypeOptions(
-        data?.getTablesResourceTypes?.map((value: string) => ({
-          value,
-          label: getRSLabelNameByType(value),
-        })),
+        data?.getTablesResourceTypes
+          ?.map((value: string) => ({
+            value,
+            label: getRSLabelNameByType(value),
+          }))
+          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
       );
       setRsNameOptions(
         data?.getTablesResourceNames?.map((value: string) => ({
@@ -109,6 +104,14 @@ const TablesTable = () => {
       firstPageFlag: queryConfig.searchAfter,
     });
   }, [queryConfig]);
+
+  useEffect(() => {
+    setVariables({
+      sort: queryConfig.sort,
+      size: queryConfig.size,
+      search_after: queryConfig.searchAfter,
+    });
+  }, [queryConfig.sort, queryConfig.size, queryConfig.searchAfter]);
 
   return (
     <div className={styles.container}>
@@ -131,6 +134,7 @@ const TablesTable = () => {
           placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}
           variables={variables}
+          showSearch={false}
         />
       </div>
       <ProTable
