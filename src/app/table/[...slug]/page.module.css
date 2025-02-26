@@ -1,0 +1,55 @@
+.titleHeader {
+    display: flex;
+    align-items: center;
+    color: var(--heading-color);
+    padding-left: 24px;
+    padding-top: 16px;
+}
+.titleHeader .title {
+    margin-bottom: 0;
+    font-size: 16px;
+}
+.titleHeader .titleSeparator {
+    margin-left: 8px;
+}
+
+.titleHeader .titleHeaderLink {
+    display: flex;
+    margin-right: 8px;
+    color: var(--gray-7);
+    &:hover {
+        color: var(--gray-7) !important;
+    }
+}
+
+.titleHeader .titleLinkSeparator {
+    margin-left: 8px;
+}
+
+.titleHeader .extra {
+    margin-left: auto;
+}
+.titleHeader .icon {
+    font-size: var(--entity-icon-size);
+}
+
+.entityPageContainer {
+    padding: var(--default-page-content-padding);
+}
+
+.summaryTitle {
+    width: 100%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.variables
+{
+    display: flex;
+}
+
+.tooltipIcon {
+    padding-left: 4px;
+}

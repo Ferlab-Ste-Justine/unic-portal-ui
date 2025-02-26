@@ -11,6 +11,7 @@ export interface ISourceType {
   rs_name: string;
   rs_code: string;
   published: boolean;
+  stat_etl: IStatETL;
 }
 
 export interface ITableEntity {
@@ -21,6 +22,7 @@ export interface ITableEntity {
   resource: IResourceEntity;
   tab_entity_type: string;
   tab_domain: string;
+  tab_row_filter: string;
   stat_etl: IStatETL;
   tab_created_at: string;
   tab_last_update: string;
@@ -45,14 +47,26 @@ export interface IResourceEntity {
   rs_id: number;
   rs_system_collection_starting_year: number;
   rs_type: string;
+  rs_title: string;
   rs_dict_current_version: string;
   rs_last_update: number;
   rs_description_en: string;
   rs_description_fr: string;
   rs_name: string;
   rs_code: string;
+  rs_project_pi: string;
+  rs_project_erb_id: string;
   rs_is_project: boolean;
+  rs_project_approval_date: number;
   stat_etl: IStatETL;
   variables: IVariableEntity[];
   tables: ITableEntity[];
+}
+
+export interface ISourceSystem {
+  published: boolean;
+  rs_code: string;
+  rs_id: string;
+  rs_name: string;
+  stat_etl: IStatETL;
 }

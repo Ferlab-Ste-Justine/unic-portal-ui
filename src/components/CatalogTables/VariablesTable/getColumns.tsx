@@ -38,7 +38,6 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     key: 'var_from_source_systems.rs_name',
     dataIndex: 'var_from_source_systems',
     title: intl.get('entities.source_name'),
-    sorter: { multiple: 1 },
     defaultHidden: true,
     render: (var_from_source_systems: ISourceType[]) => {
       if (!var_from_source_systems?.length) return TABLE_EMPTY_PLACE_HOLDER;
@@ -59,7 +58,9 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.table.Table'),
     render: (variable: IVariableEntity) => {
       if (!variable?.table?.tab_name) return TABLE_EMPTY_PLACE_HOLDER;
-      return <Link href={`/table/${variable.table.tab_name}`}>{variable.table.tab_name}</Link>;
+      return (
+        <Link href={`/table/${variable.resource.rs_code}/${variable.table.tab_name}`}>{variable.table.tab_name}</Link>
+      );
     },
   },
   {
