@@ -103,11 +103,12 @@ const ResourcesTable = () => {
   }, [queryConfig]);
 
   useEffect(() => {
-    setVariables({
+    setVariables((v) => ({
+      ...v,
       sort: queryConfig.sort,
       size: queryConfig.size,
       search_after: queryConfig.searchAfter,
-    });
+    }));
   }, [queryConfig.sort, queryConfig.size, queryConfig.searchAfter]);
 
   return (
@@ -135,6 +136,7 @@ const ResourcesTable = () => {
         initialColumnState={userInfo?.config.catalog?.tables?.resources?.columns}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
+        size={'small'}
         pagination={{
           current: pageIndex,
           searchAfter,

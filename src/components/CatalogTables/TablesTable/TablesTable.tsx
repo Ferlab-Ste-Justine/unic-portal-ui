@@ -106,11 +106,12 @@ const TablesTable = () => {
   }, [queryConfig]);
 
   useEffect(() => {
-    setVariables({
+    setVariables((v) => ({
+      ...v,
       sort: queryConfig.sort,
       size: queryConfig.size,
       search_after: queryConfig.searchAfter,
-    });
+    }));
   }, [queryConfig.sort, queryConfig.size, queryConfig.searchAfter]);
 
   return (
@@ -146,6 +147,7 @@ const TablesTable = () => {
         initialColumnState={userInfo?.config.catalog?.tables?.tables?.columns}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
+        size={'small'}
         pagination={{
           current: pageIndex,
           searchAfter,

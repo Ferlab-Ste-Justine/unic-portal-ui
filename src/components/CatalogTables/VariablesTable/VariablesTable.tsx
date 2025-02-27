@@ -127,11 +127,12 @@ const VariablesTable = () => {
   }, [queryConfig]);
 
   useEffect(() => {
-    setVariables({
+    setVariables((v) => ({
+      ...v,
       sort: queryConfig.sort,
       size: queryConfig.size,
       search_after: queryConfig.searchAfter,
-    });
+    }));
   }, [queryConfig.sort, queryConfig.size, queryConfig.searchAfter]);
 
   return (
@@ -184,6 +185,7 @@ const VariablesTable = () => {
         columns={getColumns(lang)}
         dataSource={dataSource}
         bordered
+        size={'small'}
         initialColumnState={userInfo?.config.catalog?.tables?.variables?.columns}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
