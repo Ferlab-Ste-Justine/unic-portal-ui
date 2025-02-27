@@ -76,7 +76,7 @@ const ResourcesTable = () => {
   };
 
   //TODO adjusted it for UNICWEB-36
-  const hasFilter = !!variables.or?.length;
+  const hasFilter = !!variables.or?.length || !!variables.match?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
   };

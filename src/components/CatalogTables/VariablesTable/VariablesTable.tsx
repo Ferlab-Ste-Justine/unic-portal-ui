@@ -76,7 +76,7 @@ const VariablesTable = () => {
   const [tabNameOptions, setTabNameOptions] = useState<SelectProps['options']>();
 
   //TODO adjusted it for UNICWEB-36
-  const hasFilter = !!variables.or?.length;
+  const hasFilter = !!variables.or?.length || !!variables.match?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
   };
@@ -133,8 +133,6 @@ const VariablesTable = () => {
       search_after: queryConfig.searchAfter,
     });
   }, [queryConfig.sort, queryConfig.size, queryConfig.searchAfter]);
-
-  //TODO: add serach to Source
 
   return (
     <div className={styles.container}>
