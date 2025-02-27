@@ -61,12 +61,11 @@ const InputSelect = ({
   };
 
   const handleSelect = (selects: string[]) => {
-    /** add all selects fields as OR */
-
     const values = selects?.length ? selects.map((value) => ({ field: selectField, value })) : [];
     /** Keep the fields that are not the same as the selectField to replace only the ones that are by new Values */
     const otherFieldsOnOperator = variables?.[operator]?.filter((element) => element.field !== selectField) || [];
 
+    /** update variables current operator and keep others */
     const _variables = {
       ...variables,
       [operator]: [...otherFieldsOnOperator, ...values],
