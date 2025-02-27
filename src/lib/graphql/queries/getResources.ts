@@ -3,13 +3,20 @@ import { gql } from '@apollo/client';
 export const GET_RESOURCES = gql`
   query getResources(
     $match: [FieldValueType]
-    $or: [FieldValueType]
+    $orGroups: [[FieldValueType]]
     $from: Int
     $size: Int
     $search_after: [String]
     $sort: [SortOptionType]
   ) {
-    getResources(match: $match, or: $or, from: $from, size: $size, search_after: $search_after, sort: $sort) {
+    getResources(
+      match: $match
+      orGroups: $orGroups
+      from: $from
+      size: $size
+      search_after: $search_after
+      sort: $sort
+    ) {
       total
       search_after
       hits {

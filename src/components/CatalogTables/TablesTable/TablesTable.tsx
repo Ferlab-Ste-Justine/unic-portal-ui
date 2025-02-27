@@ -73,7 +73,7 @@ const TablesTable = () => {
   const [rsNameOptions, setRsNameOptions] = useState<SelectProps['options']>();
 
   //TODO adjusted it for UNICWEB-36
-  const hasFilter = !!variables.or?.length || !!variables.match?.length;
+  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
   };
@@ -127,7 +127,7 @@ const TablesTable = () => {
           variables={variables}
         />
         <InputSelect
-          operator={'or'}
+          operator={'orGroups'}
           mode={'multiple'}
           options={rsTypeOptions}
           selectField='resource.rs_type'

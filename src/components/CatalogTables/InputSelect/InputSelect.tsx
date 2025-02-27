@@ -19,7 +19,7 @@ const InputSelect = ({
   mode,
   showSearch = true,
 }: {
-  operator: 'match' | 'or';
+  operator: 'match' | 'or' | 'orGroups';
   options: SelectProps['options'];
   selectField: string;
   title: string;
@@ -63,19 +63,29 @@ const InputSelect = ({
   const handleSelect = (selects: string[]) => {
     const values = selects?.length ? selects.map((value) => ({ field: selectField, value })) : [];
     /** Keep the fields that are not the same as the selectField to replace only the ones that are by new Values */
-    const otherFieldsOnOperator = variables?.[operator]?.filter((element) => element.field !== selectField) || [];
+
+    let otherFieldsOnOperator = [];
+    if (operator === 'orGroups') {
+      otherFieldsOnOperator =
+        variables?.[operator]?.filter((group) => {
+          const isCurrentFieldGroup = group.some((element) => element.field === selectField);
+          return !isCurrentFieldGroup;
+        }) || [];
+    } else {
+      otherFieldsOnOperator = variables?.[operator]?.filter((element) => element.field !== selectField) || [];
+    }
 
     /** update variables current operator and keep others */
     const _variables = {
       ...variables,
-      [operator]: [...otherFieldsOnOperator, ...values],
+      [operator]: operator === 'orGroups' ? [...otherFieldsOnOperator, values] : [...otherFieldsOnOperator, ...values],
     };
     handleSetVariables(_variables);
   };
 
-  /** reset selects when variables is reset by parent component fn handleClearFilters */
+  /** Reset selects when variables are cleared by parent */
   useEffect(() => {
-    if (!variables?.or?.length && !variables?.match?.length) {
+    if (!variables?.or?.length && !variables?.match?.length && !variables?.orGroups?.length) {
       setSelects([]);
     }
   }, [variables]);

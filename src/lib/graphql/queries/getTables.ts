@@ -3,13 +3,13 @@ import { gql } from '@apollo/client';
 export const GET_TABLES = gql`
   query getTables(
     $match: [FieldValueType]
-    $or: [FieldValueType]
+    $orGroups: [[FieldValueType]]
     $from: Int
     $size: Int
     $search_after: [String]
     $sort: [SortOptionType]
   ) {
-    getTables(match: $match, or: $or, from: $from, size: $size, search_after: $search_after, sort: $sort) {
+    getTables(match: $match, orGroups: $orGroups, from: $from, size: $size, search_after: $search_after, sort: $sort) {
       total
       search_after
       hits {
@@ -33,6 +33,6 @@ export const GET_TABLES = gql`
     }
     #skip 'or' operator on multiple to keep them filled
     getTablesResourceTypes(match: $match)
-    getTablesResourceNames(match: $match, or: $or)
+    getTablesResourceNames(match: $match, orGroups: $orGroups)
   }
 `;

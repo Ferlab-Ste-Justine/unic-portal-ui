@@ -3,13 +3,20 @@ import { gql } from '@apollo/client';
 export const GET_VARIABLES = gql`
   query getVariables(
     $match: [FieldValueType]
-    $or: [FieldValueType]
+    $orGroups: [[FieldValueType]]
     $from: Int
     $size: Int
     $search_after: [String]
     $sort: [SortOptionType]
   ) {
-    getVariables(match: $match, or: $or, from: $from, size: $size, search_after: $search_after, sort: $sort) {
+    getVariables(
+      match: $match
+      orGroups: $orGroups
+      from: $from
+      size: $size
+      search_after: $search_after
+      sort: $sort
+    ) {
       total
       search_after
       hits {
@@ -38,7 +45,7 @@ export const GET_VARIABLES = gql`
     #skip 'or' operator on multiple to keep them filled
     getVariablesResourceTypes(match: $match)
     getVariablesResourceCodes(match: $match)
-    getVariablesResourceNames(match: $match, or: $or)
-    getVariablesTableNames(match: $match, or: $or)
+    getVariablesResourceNames(match: $match, orGroups: $orGroups)
+    getVariablesTableNames(match: $match, orGroups: $orGroups)
   }
 `;
