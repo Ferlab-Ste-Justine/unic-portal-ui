@@ -206,17 +206,19 @@ Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, rout
 
 Cypress.Commands.add('visitCatalog', (tab?: string) => {
   const strTab = tab !== undefined ? tab : 'Resources';
-  let eq = 0;
-
-  if (tab === 'Tables') {
-    eq = 1;
-  } else if (tab === 'Variables') {
-    eq = 2;
-  };
+  let eq = strTab === 'Resources' ? 0 : 1;
 
   cy.visitAndIntercept('/catalog/', 'POST','**/graphql', 1);
   cy.get(`[data-node-key="${strTab}Table"]`).clickAndWait();
   cy.resetColumns(eq);
+});
+
+Cypress.Commands.add('visitResourceEntity', (code: string) => {
+  cy.visitAndIntercept(`/resource/${code}`, 'POST','**/graphql', 1);
+});
+
+Cypress.Commands.add('visitTableEntity', (resource: string, name: string) => {
+  cy.visitAndIntercept(`/table/${resource}/${name}`, 'POST','**/graphql', 1);
 });
 
 Cypress.Commands.add('waitWhileSpin', (ms: number) => {
