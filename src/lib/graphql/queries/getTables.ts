@@ -31,8 +31,7 @@ export const GET_TABLES = gql`
         tab_last_update
       }
     }
-    #skip 'or' operator on multiple to keep them filled
-    getTablesResourceTypes(match: $match)
+    getTablesResourceTypes(match: $match, orGroups: $orGroups)
     getTablesResourceNames(match: $match, orGroups: $orGroups)
   }
 `;

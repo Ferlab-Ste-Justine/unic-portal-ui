@@ -116,7 +116,7 @@ const ResourcesTable = () => {
       <div className={styles.filtersRow}>
         {/*//TODO: ADD InputSearch here for UNICWEB-36*/}
         <InputSelect
-          operator={'or'}
+          operator={'orGroups'}
           mode={'multiple'}
           options={rsTypeOptions}
           selectField='rs_type'

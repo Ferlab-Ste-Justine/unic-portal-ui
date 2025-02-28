@@ -83,17 +83,9 @@ const VariablesTable = () => {
 
   useEffect(() => {
     if (!loading) {
-      setRsTypeOptions(
-        data?.getVariablesResourceTypes
-          ?.map((value: string) => ({
-            value: value,
-            label: getRSLabelNameByType(value),
-          }))
-          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
-      );
-      setRsCodeOptions(
-        data?.getVariablesResourceCodes?.map((value: string) => ({
-          value: value,
+      setTabNameOptions(
+        data?.getVariablesTableNames?.map((value: string) => ({
+          value,
           label: value,
         })),
       );
@@ -103,12 +95,36 @@ const VariablesTable = () => {
           label: value,
         })),
       );
-      setTabNameOptions(
-        data?.getVariablesTableNames?.map((value: string) => ({
-          value,
-          label: value,
-        })),
-      );
+      /** Check if resource.rs_type is present in variables to keep the dropdown filled */
+      if (
+        !variables?.orGroups?.length ||
+        variables?.orGroups?.every((group) => group.every((element) => element.field !== 'resource.rs_type'))
+      ) {
+        setRsTypeOptions(
+          data?.getVariablesResourceTypes
+            ?.map((value: string) => ({
+              value: value,
+              label: getRSLabelNameByType(value),
+            }))
+            ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
+        );
+      }
+      /** Check if var_from_source_systems.rs_code is present in variables to keep the dropdown filled */
+      if (
+        !variables?.orGroups?.length ||
+        variables?.orGroups?.every((group) =>
+          group.every((element) => {
+            return element.field !== 'var_from_source_systems.rs_code';
+          }),
+        )
+      ) {
+        setRsCodeOptions(
+          data?.getVariablesResourceCodes?.map((value: string) => ({
+            value: value,
+            label: value,
+          })),
+        );
+      }
     }
   }, [
     data?.getVariablesResourceCodes,
@@ -116,6 +132,7 @@ const VariablesTable = () => {
     data?.getVariablesResourceTypes,
     data?.getVariablesTableNames,
     loading,
+    variables?.orGroups,
   ]);
 
   useEffect(() => {
@@ -171,7 +188,7 @@ const VariablesTable = () => {
           operator={'orGroups'}
           mode={'multiple'}
           options={rsCodeOptions}
-          selectField='resource.rs_code'
+          selectField='var_from_source_systems.rs_code'
           title={intl.get('entities.source')}
           placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}

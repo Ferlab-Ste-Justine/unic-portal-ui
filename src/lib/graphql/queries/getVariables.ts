@@ -42,9 +42,8 @@ export const GET_VARIABLES = gql`
         }
       }
     }
-    #skip 'or' operator on multiple to keep them filled
-    getVariablesResourceTypes(match: $match)
-    getVariablesResourceCodes(match: $match)
+    getVariablesResourceTypes(match: $match, orGroups: $orGroups)
+    getVariablesResourceCodes(match: $match, orGroups: $orGroups)
     getVariablesResourceNames(match: $match, orGroups: $orGroups)
     getVariablesTableNames(match: $match, orGroups: $orGroups)
   }

@@ -64,21 +64,23 @@ const InputSelect = ({
     const values = selects?.length ? selects.map((value) => ({ field: selectField, value })) : [];
     /** Keep the fields that are not the same as the selectField to replace only the ones that are by new Values */
 
-    let otherFieldsOnOperator = [];
+    let operatorVariables = [];
     if (operator === 'orGroups') {
-      otherFieldsOnOperator =
+      const otherFieldsOnOperator =
         variables?.[operator]?.filter((group) => {
           const isCurrentFieldGroup = group.some((element) => element.field === selectField);
           return !isCurrentFieldGroup;
         }) || [];
+      operatorVariables = values?.length ? [...otherFieldsOnOperator, values] : otherFieldsOnOperator;
     } else {
-      otherFieldsOnOperator = variables?.[operator]?.filter((element) => element.field !== selectField) || [];
+      const otherFieldsOnOperator = variables?.[operator]?.filter((element) => element.field !== selectField) || [];
+      operatorVariables = [...otherFieldsOnOperator, ...values];
     }
 
     /** update variables current operator and keep others */
     const _variables = {
       ...variables,
-      [operator]: operator === 'orGroups' ? [...otherFieldsOnOperator, values] : [...otherFieldsOnOperator, ...values],
+      [operator]: operatorVariables,
     };
     handleSetVariables(_variables);
   };

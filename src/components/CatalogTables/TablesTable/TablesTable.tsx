@@ -80,22 +80,28 @@ const TablesTable = () => {
 
   useEffect(() => {
     if (!loading) {
-      setRsTypeOptions(
-        data?.getTablesResourceTypes
-          ?.map((value: string) => ({
-            value,
-            label: getRSLabelNameByType(value),
-          }))
-          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
-      );
       setRsNameOptions(
         data?.getTablesResourceNames?.map((value: string) => ({
           value,
           label: value,
         })),
       );
+      /** Check if resource.rs_type is present in variables to keep the dropdown filled */
+      if (
+        !variables?.orGroups?.length ||
+        variables?.orGroups?.every((group) => group.every((element) => element.field !== 'resource.rs_type'))
+      ) {
+        setRsTypeOptions(
+          data?.getTablesResourceTypes
+            ?.map((value: string) => ({
+              value,
+              label: getRSLabelNameByType(value),
+            }))
+            ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
+        );
+      }
     }
-  }, [data?.getTablesResourceNames, data?.getTablesResourceTypes, loading]);
+  }, [data?.getTablesResourceNames, data?.getTablesResourceTypes, loading, variables?.orGroups]);
 
   useEffect(() => {
     if (queryConfig.firstPageFlag || !queryConfig.searchAfter) return;
