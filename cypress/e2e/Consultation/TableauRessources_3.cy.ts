@@ -1,4 +1,5 @@
 /// <reference types="cypress"/>
+import { oneMinute } from 'cypress/support/utils';
 import '../../support/commands';
 
 beforeEach(() => {
@@ -11,6 +12,7 @@ beforeEach(() => {
   cy.showColumn('Version');
   cy.showColumn('Nagano ID');
   cy.showColumn('Principal Investigator');
+  cy.waitWhileSpin(oneMinute);
 });
 
 describe('Tableau Ressources - Valider les fonctionnalités du tableau', () => {

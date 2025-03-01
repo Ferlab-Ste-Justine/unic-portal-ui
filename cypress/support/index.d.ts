@@ -16,6 +16,8 @@ declare namespace Cypress {
     validateTableResultsCount(expectedCount: string|RegExp, shouldExist: boolean = true, eq: number = 0): cy & CyEventEmitter;
     visitAndIntercept(url: string, methodHTTP: string, routeMatcher: string, nbCalls: number): cy & CyEventEmitter;
     visitCatalog(tab?: string): cy & CyEventEmitter;
+    visitResourceEntity(code: string): cy & CyEventEmitter;
+    visitTableEntity(resource: string, name: string): cy & CyEventEmitter;
     waitWhileSpin(ms: number): cy & CyEventEmitter;
   }
 }
