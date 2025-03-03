@@ -144,8 +144,8 @@ const VariablesTable = () => {
           searchFields={searchFields}
           handleSetVariables={handleSetVariables}
           variables={variables}
-          title={intl.get('entities.table.Table')}
-          placeholder={intl.get('entities.table.filterBy')}
+          title={intl.get('entities.variable.Variable')}
+          placeholder={intl.get('entities.variable.filterBy')}
         />
         <InputSelect
           operator={'match'}
