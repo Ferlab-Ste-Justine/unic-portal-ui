@@ -88,7 +88,6 @@ const TablesTable = () => {
           label: value,
         })),
       );
-      /** Check if resource.rs_type is present in variables to keep the dropdown filled */
       setRsTypeOptions(
         data?.getTablesResourceTypes
           ?.map((value: string) => ({
