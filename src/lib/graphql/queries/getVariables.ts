@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const GET_VARIABLES = gql`
   query getVariables(
     $match: [FieldValueType]
+    $or: [FieldValueType]
     $orGroups: [[FieldValueType]]
     $from: Int
     $size: Int
@@ -11,6 +12,7 @@ export const GET_VARIABLES = gql`
   ) {
     getVariables(
       match: $match
+      or: $or
       orGroups: $orGroups
       from: $from
       size: $size
@@ -42,9 +44,9 @@ export const GET_VARIABLES = gql`
         }
       }
     }
-    getVariablesResourceTypes(match: $match, orGroups: $orGroups)
-    getVariablesResourceCodes(match: $match, orGroups: $orGroups)
-    getVariablesResourceNames(match: $match, orGroups: $orGroups)
-    getVariablesTableNames(match: $match, orGroups: $orGroups)
+    getVariablesResourceTypes(match: $match, orGroups: $orGroups, or: $or)
+    getVariablesResourceCodes(match: $match, orGroups: $orGroups, or: $or)
+    getVariablesResourceNames(match: $match, orGroups: $orGroups, or: $or)
+    getVariablesTableNames(match: $match, orGroups: $orGroups, or: $or)
   }
 `;

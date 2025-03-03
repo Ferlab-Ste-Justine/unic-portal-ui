@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const GET_RESOURCES = gql`
   query getResources(
     $match: [FieldValueType]
+    $or: [FieldValueType]
     $orGroups: [[FieldValueType]]
     $from: Int
     $size: Int
@@ -11,6 +12,7 @@ export const GET_RESOURCES = gql`
   ) {
     getResources(
       match: $match
+      or: $or
       orGroups: $orGroups
       from: $from
       size: $size
@@ -42,6 +44,6 @@ export const GET_RESOURCES = gql`
         }
       }
     }
-    getResourcesType
+    getResourcesType(match: $match, or: $or, orGroups: $orGroups)
   }
 `;

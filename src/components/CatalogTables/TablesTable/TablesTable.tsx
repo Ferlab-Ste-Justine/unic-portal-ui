@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
+import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
 import styles from '@/components/CatalogTables/ResourcesTable/ResourcesTable.module.css';
 import { GET_TABLES } from '@/lib/graphql/queries/getTables';
@@ -30,6 +31,8 @@ import { getProTableDictionary, getRSLabelNameByType } from '@/utils/translation
 import getColumns from './getColumns';
 
 const SCROLL_WRAPPER_ID = 'tables-table-scroll-wrapper';
+
+const searchFields = ['tab_label_en', 'tab_label_fr', 'tab_name'];
 
 const TablesTable = () => {
   const lang = useLang();
@@ -72,8 +75,7 @@ const TablesTable = () => {
   const [rsTypeOptions, setRsTypeOptions] = useState<SelectProps['options']>();
   const [rsNameOptions, setRsNameOptions] = useState<SelectProps['options']>();
 
-  //TODO adjusted it for UNICWEB-36
-  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length;
+  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
   };
@@ -87,21 +89,16 @@ const TablesTable = () => {
         })),
       );
       /** Check if resource.rs_type is present in variables to keep the dropdown filled */
-      if (
-        !variables?.orGroups?.length ||
-        variables?.orGroups?.every((group) => group.every((element) => element.field !== 'resource.rs_type'))
-      ) {
-        setRsTypeOptions(
-          data?.getTablesResourceTypes
-            ?.map((value: string) => ({
-              value,
-              label: getRSLabelNameByType(value),
-            }))
-            ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
-        );
-      }
+      setRsTypeOptions(
+        data?.getTablesResourceTypes
+          ?.map((value: string) => ({
+            value,
+            label: getRSLabelNameByType(value),
+          }))
+          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
+      );
     }
-  }, [data?.getTablesResourceNames, data?.getTablesResourceTypes, loading, variables?.orGroups]);
+  }, [data?.getTablesResourceNames, data?.getTablesResourceTypes, loading]);
 
   useEffect(() => {
     if (queryConfig.firstPageFlag || !queryConfig.searchAfter) return;
@@ -123,6 +120,13 @@ const TablesTable = () => {
   return (
     <div className={styles.container}>
       <div className={styles.filtersRow}>
+        <InputSearch
+          searchFields={searchFields}
+          handleSetVariables={handleSetVariables}
+          variables={variables}
+          title={intl.get('entities.table.Table')}
+          placeholder={intl.get('entities.table.filterBy')}
+        />
         <InputSelect
           operator={'match'}
           options={rsNameOptions}
