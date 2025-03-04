@@ -6,7 +6,9 @@ import { QueryOptions } from '@/types/queries';
 import getTagColorByType from '@/utils/getTagColorByType';
 
 import styles from './InputSelect.module.css';
+
 const { Text } = Typography;
+const { Option } = Select;
 
 const InputSelect = ({
   operator,
@@ -43,7 +45,7 @@ const InputSelect = ({
         onMouseDown={onPreventMouseDown}
         closable={closable}
         onClose={onClose}
-        style={{ marginRight: 3 }}
+        className={styles.tag}
       >
         {label}
       </Tag>
@@ -100,12 +102,18 @@ const InputSelect = ({
         mode={mode}
         placeholder={placeholder}
         onChange={onChangeSelect}
-        options={options}
+        options={mode === 'tags' ? undefined : options}
         allowClear
-        showArrow={mode === 'multiple'}
+        showArrow={(mode === 'multiple' || mode === 'tags') && !selects?.length}
         tagRender={tagRender}
         value={selects}
-      />
+      >
+        {options?.map(({ value, label }) => (
+          <Option key={value} value={value} label={label}>
+            <Tag color={getTagColorByType(value as string, 'var(--blue-8)')}>{label}</Tag>
+          </Option>
+        ))}
+      </Select>
     </div>
   );
 };

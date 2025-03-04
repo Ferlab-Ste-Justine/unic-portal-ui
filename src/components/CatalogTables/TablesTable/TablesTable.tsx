@@ -39,7 +39,6 @@ const TablesTable = () => {
   const { userInfo } = useUser();
   const dispatch = useDispatch();
 
-  const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   /** queryConfig use for ProTable */
   const [queryConfig, setQueryConfig] = useState<IQueryConfig>({
     ...DEFAULT_QUERY_CONFIG,
@@ -56,7 +55,16 @@ const TablesTable = () => {
 
   const [variables, setVariables] = useState<QueryOptions>(initialVariables);
   const handleSetVariables = (newVariables: QueryOptions) => {
-    setVariables({ ...variables, ...newVariables });
+    setVariables((v) => ({
+      ...v,
+      ...newVariables,
+    }));
+    /** reset pagination on filters changes */
+    setQueryConfig((q) => ({
+      ...q,
+      searchAfter: undefined,
+      pageIndex: DEFAULT_PAGE_INDEX,
+    }));
   };
 
   const { data, loading } = useQuery(GET_TABLES, { variables });
@@ -78,6 +86,12 @@ const TablesTable = () => {
   const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
+    /** reset pagination on filters changes */
+    setQueryConfig((q) => ({
+      ...q,
+      searchAfter: undefined,
+      pageIndex: DEFAULT_PAGE_INDEX,
+    }));
   };
 
   useEffect(() => {
@@ -97,15 +111,7 @@ const TablesTable = () => {
           ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
       );
     }
-  }, [data?.getTablesResourceNames, data?.getTablesResourceTypes, loading]);
-
-  useEffect(() => {
-    if (queryConfig.firstPageFlag || !queryConfig.searchAfter) return;
-    setQueryConfig({
-      ...queryConfig,
-      firstPageFlag: queryConfig.searchAfter,
-    });
-  }, [queryConfig]);
+  }, [data?.getTablesResourceNames, data?.getTablesResourceTypes, loading, lang]);
 
   useEffect(() => {
     setVariables((v) => ({
@@ -137,7 +143,7 @@ const TablesTable = () => {
         />
         <InputSelect
           operator={'orGroups'}
-          mode={'multiple'}
+          mode={'tags'}
           options={rsTypeOptions}
           selectField='resource.rs_type'
           title={intl.get('entities.resource.typeOf')}
@@ -158,13 +164,13 @@ const TablesTable = () => {
         showSorterTooltip={false}
         size={'small'}
         pagination={{
-          current: pageIndex,
+          current: queryConfig.pageIndex,
           searchAfter,
           queryConfig,
           setQueryConfig,
           onChange: (page: number) => {
             scrollToTop(SCROLL_WRAPPER_ID);
-            setPageIndex(page);
+            setQueryConfig((q) => ({ ...q, pageIndex: page }));
           },
           onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
             dispatch(
@@ -177,18 +183,17 @@ const TablesTable = () => {
           defaultViewPerQuery: queryConfig.size,
         }}
         onChange={(_pagination, _filter, sorter) => {
-          setPageIndex(DEFAULT_PAGE_INDEX);
-          setQueryConfig({
+          setQueryConfig((q) => ({
+            ...q,
             pageIndex: DEFAULT_PAGE_INDEX,
-            size: queryConfig.size,
-            sort: formatQuerySortList(sorter),
-          } as IQueryConfig);
+            sort: formatQuerySortList(sorter, DEFAULT_TABLES_QUERY_SORT),
+          }));
         }}
         headerConfig={{
           hasFilter,
           clearFilter: handleClearFilters,
           itemCount: {
-            pageIndex: pageIndex,
+            pageIndex: queryConfig.pageIndex,
             pageSize: queryConfig.size,
             total: total,
           },
