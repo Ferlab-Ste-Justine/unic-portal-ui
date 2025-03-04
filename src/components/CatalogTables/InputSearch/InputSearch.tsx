@@ -25,11 +25,9 @@ const InputSearch = ({
   const [search, setSearch] = useState('');
 
   const handleSearch = (_search: string) => {
-    /** add all searchFields with ES and wildcard ON */
+    /** add all searchFields as OR with wildcard on */
     const or = _search ? searchFields.map((field) => ({ field, value: `*${_search}*`, useWildcard: true })) : [];
-    const otherFieldsOnOperator = variables?.or?.filter((element) => element.useWildcard !== true) || [];
-    const orVariables = [...otherFieldsOnOperator, ...or];
-    const _variables = { ...variables, or: orVariables };
+    const _variables = { ...variables, or };
     handleSetVariables(_variables);
   };
 
