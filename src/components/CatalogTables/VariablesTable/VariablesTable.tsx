@@ -36,7 +36,6 @@ const VariablesTable = () => {
   const { userInfo } = useUser();
   const dispatch = useDispatch();
 
-  const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   /** queryConfig use for ProTable */
   const [queryConfig, setQueryConfig] = useState<IQueryConfig>({
     ...DEFAULT_QUERY_CONFIG,
@@ -53,7 +52,16 @@ const VariablesTable = () => {
 
   const [variables, setVariables] = useState<QueryOptions>(initialVariables);
   const handleSetVariables = (newVariables: QueryOptions) => {
-    setVariables({ ...variables, ...newVariables });
+    setVariables((v) => ({
+      ...v,
+      ...newVariables,
+    }));
+    /** reset pagination on filters changes */
+    setQueryConfig((q) => ({
+      ...q,
+      searchAfter: undefined,
+      pageIndex: DEFAULT_PAGE_INDEX,
+    }));
   };
 
   const { data, loading } = useQuery(GET_VARIABLES, { variables });
@@ -79,6 +87,12 @@ const VariablesTable = () => {
   const hasFilter = !!variables.orGroups?.length || !!variables.match?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
+    /** reset pagination on filters changes */
+    setQueryConfig((q) => ({
+      ...q,
+      searchAfter: undefined,
+      pageIndex: DEFAULT_PAGE_INDEX,
+    }));
   };
 
   useEffect(() => {
@@ -95,36 +109,20 @@ const VariablesTable = () => {
           label: value,
         })),
       );
-      /** Check if resource.rs_type is present in variables to keep the dropdown filled */
-      if (
-        !variables?.orGroups?.length ||
-        variables?.orGroups?.every((group) => group.every((element) => element.field !== 'resource.rs_type'))
-      ) {
-        setRsTypeOptions(
-          data?.getVariablesResourceTypes
-            ?.map((value: string) => ({
-              value: value,
-              label: getRSLabelNameByType(value),
-            }))
-            ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
-        );
-      }
-      /** Check if var_from_source_systems.rs_code is present in variables to keep the dropdown filled */
-      if (
-        !variables?.orGroups?.length ||
-        variables?.orGroups?.every((group) =>
-          group.every((element) => {
-            return element.field !== 'var_from_source_systems.rs_code';
-          }),
-        )
-      ) {
-        setRsCodeOptions(
-          data?.getVariablesResourceCodes?.map((value: string) => ({
+      setRsTypeOptions(
+        data?.getVariablesResourceTypes
+          ?.map((value: string) => ({
             value: value,
-            label: value,
-          })),
-        );
-      }
+            label: getRSLabelNameByType(value),
+          }))
+          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
+      );
+      setRsCodeOptions(
+        data?.getVariablesResourceCodes?.map((value: string) => ({
+          value: value,
+          label: value,
+        })),
+      );
     }
   }, [
     data?.getVariablesResourceCodes,
@@ -132,7 +130,7 @@ const VariablesTable = () => {
     data?.getVariablesResourceTypes,
     data?.getVariablesTableNames,
     loading,
-    variables?.orGroups,
+    lang,
   ]);
 
   useEffect(() => {
@@ -175,7 +173,7 @@ const VariablesTable = () => {
         />
         <InputSelect
           operator={'orGroups'}
-          mode={'multiple'}
+          mode={'tags'}
           options={rsTypeOptions}
           selectField='resource.rs_type'
           title={intl.get('entities.resource.typeOf')}
@@ -207,13 +205,13 @@ const VariablesTable = () => {
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
         pagination={{
-          current: pageIndex,
+          current: queryConfig.pageIndex,
           searchAfter,
           queryConfig,
           setQueryConfig,
           onChange: (page: number) => {
             scrollToTop(SCROLL_WRAPPER_ID);
-            setPageIndex(page);
+            setQueryConfig((q) => ({ ...q, pageIndex: page }));
           },
           onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
             dispatch(
@@ -226,18 +224,17 @@ const VariablesTable = () => {
           defaultViewPerQuery: queryConfig.size,
         }}
         onChange={(_pagination, _filter, sorter) => {
-          setPageIndex(DEFAULT_PAGE_INDEX);
-          setQueryConfig({
+          setQueryConfig((q) => ({
+            ...q,
             pageIndex: DEFAULT_PAGE_INDEX,
-            size: queryConfig.size,
-            sort: formatQuerySortList(sorter),
-          } as IQueryConfig);
+            sort: formatQuerySortList(sorter, DEFAULT_VARIABLES_QUERY_SORT),
+          }));
         }}
         headerConfig={{
           hasFilter,
           clearFilter: handleClearFilters,
           itemCount: {
-            pageIndex: pageIndex,
+            pageIndex: queryConfig.pageIndex,
             pageSize: queryConfig.size,
             total: total,
           },
