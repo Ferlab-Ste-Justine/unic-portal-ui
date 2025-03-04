@@ -112,14 +112,6 @@ const TablesTable = () => {
   }, [data?.getTablesResourceNames, data?.getTablesResourceTypes, loading, lang]);
 
   useEffect(() => {
-    if (queryConfig.firstPageFlag || !queryConfig.searchAfter) return;
-    setQueryConfig({
-      ...queryConfig,
-      firstPageFlag: queryConfig.searchAfter,
-    });
-  }, [queryConfig]);
-
-  useEffect(() => {
     setVariables((v) => ({
       ...v,
       sort: queryConfig.sort,
