@@ -2,7 +2,12 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import InputSearch from './InputSearch';
 
-jest.mock('lodash/debounce', () => (fn: any) => fn); // Mock debounce for instant execution
+jest.mock('lodash/debounce', () =>
+  jest.fn((fn) => {
+    fn.cancel = jest.fn();
+    return fn;
+  }),
+);
 
 describe('InputSearch Component', () => {
   const mockHandleSetVariables = jest.fn();
@@ -66,16 +71,12 @@ describe('InputSearch Component', () => {
     });
   });
 
-  it('clears search when variables are reset', () => {
+  it('clears search when variables are reset', async () => {
     const { rerender } = render(<InputSearch {...defaultProps} />);
     const input = screen.getByPlaceholderText('Search something');
-
     fireEvent.change(input, { target: { value: 'test' } });
-
     expect(input).toHaveValue('test');
-
     rerender(<InputSearch {...defaultProps} variables={{ or: [] }} />);
-
     expect(input).toHaveValue('');
   });
 });

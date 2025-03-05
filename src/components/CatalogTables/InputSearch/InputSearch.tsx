@@ -31,11 +31,14 @@ const InputSearch = ({
     handleSetVariables(_variables);
   };
 
+  const debouncedHandleSearch = debounce(handleSearch, 500);
+
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
   const onPressEnter = () => {
+    debouncedHandleSearch.cancel(); // Cancel debounce on Enter
     handleSearch(search);
   };
 
@@ -44,14 +47,12 @@ const InputSearch = ({
     const hasSearchInVariables = variables?.or?.some(({ field }) => searchFields.includes(field));
     /** According to analyse, trigger search only with 3 chars (or 0 to reset) and after 500ms */
     if ((charsCount === 0 && hasSearchInVariables) || charsCount > 2) {
-      const handleSearchDebounced = debounce(() => {
-        handleSearch(search);
-      }, 500);
-      handleSearchDebounced();
+      debouncedHandleSearch(search);
     }
-    /** need to keep handleSearch out of dependencies */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+    return () => {
+      debouncedHandleSearch.cancel(); // Clear pending debounce on unmount or rerender
+    };
+  }, [debouncedHandleSearch, search, searchFields, variables?.or]);
 
   /** Reset search when variables are cleared by parent */
   useEffect(() => {

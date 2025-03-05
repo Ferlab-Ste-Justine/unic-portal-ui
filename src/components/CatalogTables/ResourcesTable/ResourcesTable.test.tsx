@@ -147,7 +147,10 @@ describe('ResourcesTable', () => {
         request: {
           query: GET_RESOURCES,
           variables: {
-            sort: [{ field: 'rs_name', order: 'asc' }],
+            sort: [
+              { field: 'rs_name', order: 'asc' },
+              { field: 'rs_id', order: 'asc' },
+            ],
             size: DEFAULT_PAGE_SIZE,
             search_after: undefined,
           },
