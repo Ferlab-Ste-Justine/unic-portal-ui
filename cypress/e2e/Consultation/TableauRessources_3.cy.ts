@@ -46,6 +46,7 @@ describe('Tableau Ressources - Valider les fonctionnalités du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Tri Created On', () => {
     cy.sortTableAndIntercept('Created On', 1);
+    cy.wait(2000);
     cy.validateTableFirstRow('2022-02-14', 4);
     cy.sortTableAndIntercept('Created On', 1);
     cy.validateTableFirstRow(/^\d{4}-\d{2}-\d{2}$/, 4);
@@ -53,7 +54,7 @@ describe('Tableau Ressources - Valider les fonctionnalités du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     cy.sortTableAndWait('Code');
-    cy.sortTableAndIntercept('Name', 1);
+    cy.sortTableAndWait('Name');
     cy.sortTableAndIntercept('Name', 1);
     cy.validateTableFirstRow('bronchiolite', 0);
   });

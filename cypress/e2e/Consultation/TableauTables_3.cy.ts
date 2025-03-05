@@ -55,7 +55,7 @@ describe('Tableau Tables - Valider les fonctionnalités du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     cy.sortTableAndIntercept('Resource', 1, 1);
-    cy.sortTableAndIntercept('Name', 1, 1);
+    cy.sortTableAndWait('Name', 1);
     cy.validateTableFirstRow('consultation_complication', 0, false, '[id="rc-tabs-0-panel-TablesTable"]');
   });
 

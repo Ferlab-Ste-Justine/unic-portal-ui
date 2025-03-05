@@ -41,8 +41,9 @@ const InputSearch = ({
 
   useEffect(() => {
     const charsCount = search.length;
+    const hasSearchInVariables = variables?.or?.some(({ field }) => searchFields.includes(field));
     /** According to analyse, trigger search only with 3 chars (or 0 to reset) and after 500ms */
-    if (charsCount === 0 || charsCount > 2) {
+    if ((charsCount === 0 && hasSearchInVariables) || charsCount > 2) {
       const handleSearchDebounced = debounce(() => {
         handleSearch(search);
       }, 500);
