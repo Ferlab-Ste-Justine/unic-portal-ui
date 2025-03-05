@@ -25,6 +25,7 @@ describe('Tableau Ressources - Vérifier les informations affichées', () => {
   });
 
   it('Tableau', () => {
+    cy.get('[data-row-key="59"] [class="ant-table-cell"]', {timeout: oneMinute}).should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(0).contains('bronchiolite').should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(1).contains('LVC-Bronchiolite-HSJ').should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(2).contains('Research').should('exist');
