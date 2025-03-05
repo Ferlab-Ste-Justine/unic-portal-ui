@@ -11,7 +11,6 @@ export const GET_TABLES = gql`
   ) {
     getTables(match: $match, orGroups: $orGroups, from: $from, size: $size, search_after: $search_after, sort: $sort) {
       total
-      search_after
       hits {
         tab_id
         tab_name
@@ -29,6 +28,7 @@ export const GET_TABLES = gql`
         }
         tab_created_at
         tab_last_update
+        search_after
       }
     }
     getTablesResourceTypes(match: $match, orGroups: $orGroups)

@@ -19,7 +19,6 @@ import {
   DEFAULT_PAGE_INDEX,
   DEFAULT_PAGE_SIZE,
   DEFAULT_QUERY_CONFIG,
-  DEFAULT_VARIABLES_FIELD_SORT,
   DEFAULT_VARIABLES_QUERY_SORT,
 } from '@/utils/constants';
 import formatQuerySortList from '@/utils/formatQuerySortList';
@@ -68,14 +67,9 @@ const VariablesTable = () => {
   const total = data?.getVariables?.total || 0;
   const hits: IVariableEntity[] =
     data?.getVariables?.hits?.map((e: IVariableEntity) => ({ ...e, key: e.var_id })) || [];
-  const searchAfter = {
-    head: queryConfig.operations?.previous
-      ? data?.getVariables?.search_after
-      : [hits[0]?.[DEFAULT_VARIABLES_FIELD_SORT]?.toString()],
-    tail: queryConfig.operations?.previous
-      ? [hits[0]?.[DEFAULT_VARIABLES_FIELD_SORT]?.toString()]
-      : data?.getVariables?.search_after,
-  };
+  const head = queryConfig.operations?.previous ? hits[hits.length - 1]?.search_after : hits[0]?.search_after;
+  const tail = queryConfig.operations?.previous ? hits[0]?.search_after : hits[hits.length - 1]?.search_after;
+  const searchAfter = { head, tail };
   const dataSource = queryConfig.operations?.previous ? hits.reverse() : hits;
 
   const [rsTypeOptions, setRsTypeOptions] = useState<SelectProps['options']>();
@@ -203,7 +197,13 @@ const VariablesTable = () => {
           setQueryConfig,
           onChange: (page: number) => {
             scrollToTop(SCROLL_WRAPPER_ID);
-            setQueryConfig((q) => ({ ...q, pageIndex: page }));
+            setQueryConfig((q) => ({
+              ...q,
+              pageIndex: page,
+              sort: page === 1 ? DEFAULT_VARIABLES_QUERY_SORT : q.sort,
+              searchAfter: page === 1 ? undefined : q.searchAfter,
+              operations: page === 1 ? undefined : q.operations,
+            }));
           },
           onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
             dispatch(
@@ -216,11 +216,11 @@ const VariablesTable = () => {
           defaultViewPerQuery: queryConfig.size,
         }}
         onChange={(_pagination, _filter, sorter) => {
-          setQueryConfig((q) => ({
-            ...q,
+          setQueryConfig({
             pageIndex: DEFAULT_PAGE_INDEX,
+            size: queryConfig.size,
             sort: formatQuerySortList(sorter, DEFAULT_VARIABLES_QUERY_SORT),
-          }));
+          });
         }}
         headerConfig={{
           hasFilter,
