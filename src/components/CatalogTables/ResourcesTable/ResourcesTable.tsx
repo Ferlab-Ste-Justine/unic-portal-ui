@@ -1,13 +1,14 @@
 import { useQuery } from '@apollo/client';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
-// import { SelectProps } from 'antd';
+import { SelectProps } from 'antd';
+import { OptionProps } from 'antd/lib/select';
 import React, { useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
+import InputSelect from '@/components/CatalogTables/InputSelect';
 import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
-// uncomment and test for UNICWEB-40
-// import FiltersTable from '@/components/CatalogTables/FiltersTable';
 import { useLang } from '@/store/global';
 import { useUser } from '@/store/user';
 import { updateUserConfig } from '@/store/user/thunks';
@@ -18,35 +19,22 @@ import {
   DEFAULT_PAGE_INDEX,
   DEFAULT_PAGE_SIZE,
   DEFAULT_QUERY_CONFIG,
-  DEFAULT_RESOURCES_FIELD_SORT,
   DEFAULT_RESOURCES_QUERY_SORT,
 } from '@/utils/constants';
 import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
-import { getProTableDictionary } from '@/utils/translation';
+import { getProTableDictionary, getRSLabelNameByType } from '@/utils/translation';
 
 import getColumns from './getColumns';
 import styles from './ResourcesTable.module.css';
 
 const SCROLL_WRAPPER_ID = 'resources-table-scroll-wrapper';
 
-// uncomment and test for UNICWEB-40
-// const search_fields = [
-//   'rs_code',
-//   'rs_description_en',
-//   'rs_description_fr',
-//   'rs_name',
-//   'rs_project_pi',
-//   'rs_projet_erb',
-//   'rs_title',
-// ];
-
 const ResourcesTable = () => {
   const lang = useLang();
   const { userInfo } = useUser();
   const dispatch = useDispatch();
 
-  const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   /** queryConfig use for ProTable */
   const [queryConfig, setQueryConfig] = useState<IQueryConfig>({
     ...DEFAULT_QUERY_CONFIG,
@@ -55,54 +43,90 @@ const ResourcesTable = () => {
   });
 
   /** variables use for Query */
-  const variables: QueryOptions = {
+  const initialVariables: QueryOptions = {
     sort: queryConfig.sort,
     size: queryConfig.size,
     search_after: queryConfig.searchAfter,
   };
-  // uncomment for UNICWEB-40
-  // const { data, loading, refetch } = useQuery(GET_RESOURCES, { variables });
+
+  const [variables, setVariables] = useState<QueryOptions>(initialVariables);
+  const handleSetVariables = (newVariables: QueryOptions) => {
+    setVariables((v) => ({
+      ...v,
+      ...newVariables,
+    }));
+    /** reset pagination on filters changes */
+    setQueryConfig((q) => ({
+      ...q,
+      searchAfter: undefined,
+      pageIndex: DEFAULT_PAGE_INDEX,
+    }));
+  };
+
   const { data, loading } = useQuery(GET_RESOURCES, { variables });
   const total = data?.getResources?.total || 0;
   const hits: IResourceEntity[] = data?.getResources?.hits?.map((e: IResourceEntity) => ({ ...e, key: e.rs_id })) || [];
-  const searchAfter = {
-    head: queryConfig.operations?.previous
-      ? data?.getResources?.search_after
-      : [hits[0]?.[DEFAULT_RESOURCES_FIELD_SORT]?.toString()],
-    tail: queryConfig.operations?.previous
-      ? [hits[0]?.[DEFAULT_RESOURCES_FIELD_SORT]?.toString()]
-      : data?.getResources?.search_after,
-  };
+  const head = queryConfig.operations?.previous ? hits[hits.length - 1]?.search_after : hits[0]?.search_after;
+  const tail = queryConfig.operations?.previous ? hits[0]?.search_after : hits[hits.length - 1]?.search_after;
+  const searchAfter = { head, tail };
   const dataSource = queryConfig.operations?.previous ? hits.reverse() : hits;
 
-  // uncomment for UNICWEB-40
-  // const rs_types_options: SelectProps['options'] = data?.getResourcesType?.map((value: string) => ({
-  //   value,
-  //   label: value,
-  // }));
+  const [rsTypeOptions, setRsTypeOptions] = useState<SelectProps['options']>();
 
   const handleFilterBy = () => {
-    //TODO Do it for UNICWEB-40
+    //TODO Do it for UNICWEB-41
+  };
+
+  //TODO adjusted it for UNICWEB-36
+  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length;
+  const handleClearFilters = () => {
+    setVariables(initialVariables);
+    /** reset pagination on filters changes */
+    setQueryConfig((q) => ({
+      ...q,
+      searchAfter: undefined,
+      pageIndex: DEFAULT_PAGE_INDEX,
+    }));
   };
 
   useEffect(() => {
-    if (queryConfig.firstPageFlag || !queryConfig.searchAfter) return;
-    setQueryConfig({
-      ...queryConfig,
-      firstPageFlag: queryConfig.searchAfter,
-    });
-  }, [queryConfig]);
+    if (!loading) {
+      setRsTypeOptions(
+        data?.getResourcesType
+          ?.map((rs_type: string) => ({
+            value: rs_type,
+            label: getRSLabelNameByType(rs_type),
+          }))
+          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
+      );
+    }
+  }, [data?.getResourcesType, loading, lang]);
+
+  useEffect(() => {
+    setVariables((v) => ({
+      ...v,
+      sort: queryConfig.sort,
+      size: queryConfig.size,
+      search_after: queryConfig.searchAfter,
+    }));
+  }, [queryConfig.sort, queryConfig.size, queryConfig.searchAfter]);
 
   return (
     <div className={styles.container}>
-      {/*// uncomment for UNICWEB-40*/}
-      {/*<FiltersTable*/}
-      {/*  options={rs_types_options}*/}
-      {/*  search_fields={search_fields}*/}
-      {/*  refetch={refetch}*/}
-      {/*  variables={variables}*/}
-      {/*  selectField='rs_type'*/}
-      {/*/>*/}
+      <div className={styles.filtersRow}>
+        {/*//TODO: ADD InputSearch here for UNICWEB-36*/}
+        <InputSelect
+          operator={'orGroups'}
+          mode={'tags'}
+          options={rsTypeOptions}
+          selectField='rs_type'
+          title={intl.get('entities.resource.typeOf')}
+          placeholder={intl.get('global.select')}
+          handleSetVariables={handleSetVariables}
+          variables={variables}
+          showSearch={false}
+        />
+      </div>
       <ProTable
         tableId={'resources-table'}
         loading={loading}
@@ -112,14 +136,21 @@ const ResourcesTable = () => {
         initialColumnState={userInfo?.config.catalog?.tables?.resources?.columns}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
+        size={'small'}
         pagination={{
-          current: pageIndex,
+          current: queryConfig.pageIndex,
           searchAfter,
           queryConfig,
           setQueryConfig,
           onChange: (page: number) => {
             scrollToTop(SCROLL_WRAPPER_ID);
-            setPageIndex(page);
+            setQueryConfig((q) => ({
+              ...q,
+              pageIndex: page,
+              sort: page === 1 ? DEFAULT_RESOURCES_QUERY_SORT : q.sort,
+              searchAfter: page === 1 ? undefined : q.searchAfter,
+              operations: page === 1 ? undefined : q.operations,
+            }));
           },
           onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
             dispatch(
@@ -132,16 +163,17 @@ const ResourcesTable = () => {
           defaultViewPerQuery: queryConfig.size,
         }}
         onChange={(_pagination, _filter, sorter) => {
-          setPageIndex(DEFAULT_PAGE_INDEX);
           setQueryConfig({
             pageIndex: DEFAULT_PAGE_INDEX,
             size: queryConfig.size,
-            sort: formatQuerySortList(sorter),
-          } as IQueryConfig);
+            sort: formatQuerySortList(sorter, DEFAULT_RESOURCES_QUERY_SORT),
+          });
         }}
         headerConfig={{
+          hasFilter,
+          clearFilter: handleClearFilters,
           itemCount: {
-            pageIndex: pageIndex,
+            pageIndex: queryConfig.pageIndex,
             pageSize: queryConfig.size,
             total: total,
           },

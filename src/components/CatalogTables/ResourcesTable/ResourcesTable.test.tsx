@@ -35,7 +35,10 @@ describe('ResourcesTable', () => {
     request: {
       query: GET_RESOURCES,
       variables: {
-        sort: [{ field: 'rs_name', order: 'asc' }],
+        sort: [
+          { field: 'rs_name', order: 'asc' },
+          { field: 'rs_id', order: 'asc' },
+        ],
         size: 10,
         search_after: undefined,
       },
