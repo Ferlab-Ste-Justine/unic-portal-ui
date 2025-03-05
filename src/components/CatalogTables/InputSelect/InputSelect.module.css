@@ -1,0 +1,20 @@
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 50%;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.title {
+    font-weight: 600;
+}
+
+.tag {
+    margin-right: 3px !important;
+    & > span[class*='ant-tag'] {
+        margin-right: 0;
+        padding: 0;
+    }
+}

@@ -10,6 +10,8 @@ export type OrOption = {
   value: string | number;
 };
 
+export type OrGroups = OrOption[];
+
 export type TermOption = {
   field: string;
   value: string | number | boolean;
@@ -25,6 +27,7 @@ export type QueryOptions = {
   term?: TermOption[];
   match?: MatchOption[];
   or?: OrOption[];
+  orGroups?: OrGroups[];
   sort?: SortOption[];
   from?: number; // Only used if `search_after` is not set
   size?: number;

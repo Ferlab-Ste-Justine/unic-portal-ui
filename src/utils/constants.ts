@@ -6,17 +6,19 @@ export const DEFAULT_PAGE_SIZE = 10;
 
 export const TABLE_EMPTY_PLACE_HOLDER = '-';
 
-export const DEFAULT_RESOURCES_FIELD_SORT = 'rs_name';
 export const DEFAULT_RESOURCES_QUERY_SORT = [
-  { field: DEFAULT_RESOURCES_FIELD_SORT, order: SortDirection.Asc },
+  { field: 'rs_name', order: SortDirection.Asc },
+  { field: 'rs_id', order: SortDirection.Asc },
 ] as ISort[];
 
-export const DEFAULT_TABLES_FIELD_SORT = 'tab_name';
-export const DEFAULT_TABLES_QUERY_SORT = [{ field: DEFAULT_TABLES_FIELD_SORT, order: SortDirection.Asc }] as ISort[];
+export const DEFAULT_TABLES_QUERY_SORT = [
+  { field: 'tab_name', order: SortDirection.Asc },
+  { field: 'tab_id', order: SortDirection.Asc },
+] as ISort[];
 
-export const DEFAULT_VARIABLES_FIELD_SORT = 'var_name';
 export const DEFAULT_VARIABLES_QUERY_SORT = [
-  { field: DEFAULT_VARIABLES_FIELD_SORT, order: SortDirection.Asc },
+  { field: 'var_name', order: SortDirection.Asc },
+  { field: 'var_id', order: SortDirection.Asc },
 ] as ISort[];
 
 export const DEFAULT_QUERY_CONFIG: IQueryConfig = {

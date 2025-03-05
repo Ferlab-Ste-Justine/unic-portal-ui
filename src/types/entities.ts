@@ -26,6 +26,7 @@ export interface ITableEntity {
   stat_etl: IStatETL;
   tab_created_at: string;
   tab_last_update: string;
+  search_after: string[];
 }
 
 export interface IVariableEntity {
@@ -41,6 +42,7 @@ export interface IVariableEntity {
   var_label_fr: string;
   var_label_en: string;
   var_from_source_systems: ISourceType[];
+  search_after: string[];
 }
 
 export interface IResourceEntity {
@@ -61,6 +63,7 @@ export interface IResourceEntity {
   stat_etl: IStatETL;
   variables: IVariableEntity[];
   tables: ITableEntity[];
+  search_after: string[];
 }
 
 export interface ISourceSystem {

@@ -6,7 +6,7 @@ import { IEntityDescriptionsItem } from '@/components/EntityPage/EntityDescripti
 import { LANG } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
 import getTagColorByType from '@/utils/getTagColorByType';
-import { getTagNameByType } from '@/utils/translation';
+import { getRSLabelNameByType } from '@/utils/translation';
 
 import styles from '../page.module.css';
 
@@ -32,7 +32,7 @@ const getSummaryDescriptions = (lang: LANG, resourceEntity?: IResourceEntity): I
   {
     label: intl.get('entities.type'),
     value: resourceEntity?.rs_type ? (
-      <Tag color={getTagColorByType(resourceEntity?.rs_type)}>{getTagNameByType(resourceEntity?.rs_type)}</Tag>
+      <Tag color={getTagColorByType(resourceEntity?.rs_type)}>{getRSLabelNameByType(resourceEntity?.rs_type)}</Tag>
     ) : (
       TABLE_EMPTY_PLACE_HOLDER
     ),

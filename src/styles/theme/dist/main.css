@@ -26980,6 +26980,9 @@ div.ant-typography-edit-content.ant-typography-rtl {
   color: #531dab;
   background-color: #efdbff;
 }
+.ant-tag-close-icon {
+  color: inherit;
+}
 .ant-tag a {
   color: inherit;
 }
