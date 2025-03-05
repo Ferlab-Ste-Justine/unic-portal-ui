@@ -34,7 +34,10 @@ describe('VariablesTable', () => {
       request: {
         query: GET_VARIABLES,
         variables: {
-          sort: [{ field: 'var_name', order: 'asc' }],
+          sort: [
+            { field: 'var_name', order: 'asc' },
+            { field: 'var_id', order: 'asc' },
+          ],
           size: DEFAULT_PAGE_SIZE,
           search_after: undefined,
         },

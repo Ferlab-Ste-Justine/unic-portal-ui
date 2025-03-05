@@ -34,7 +34,10 @@ describe('TablesTable', () => {
       request: {
         query: GET_TABLES,
         variables: {
-          sort: [{ field: 'tab_name', order: 'asc' }],
+          sort: [
+            { field: 'tab_name', order: 'asc' },
+            { field: 'tab_id', order: 'asc' },
+          ],
           size: DEFAULT_PAGE_SIZE,
           search_after: undefined,
         },

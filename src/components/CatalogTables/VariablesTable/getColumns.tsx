@@ -56,6 +56,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
   {
     key: 'table.tab_name',
     title: intl.get('entities.table.Table'),
+    sorter: { multiple: 1 },
     render: (variable: IVariableEntity) => {
       if (!variable?.table?.tab_name) return TABLE_EMPTY_PLACE_HOLDER;
       return (

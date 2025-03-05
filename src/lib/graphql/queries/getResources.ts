@@ -20,7 +20,6 @@ export const GET_RESOURCES = gql`
       sort: $sort
     ) {
       total
-      search_after
       hits {
         rs_id
         rs_type
@@ -42,6 +41,7 @@ export const GET_RESOURCES = gql`
         tables {
           tab_id
         }
+        search_after
       }
     }
     getResourcesType(match: $match, or: $or, orGroups: $orGroups)

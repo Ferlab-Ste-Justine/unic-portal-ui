@@ -20,7 +20,6 @@ export const GET_VARIABLES = gql`
       sort: $sort
     ) {
       total
-      search_after
       hits {
         var_id
         var_name
@@ -42,6 +41,7 @@ export const GET_VARIABLES = gql`
           rs_type
           rs_name
         }
+        search_after
       }
     }
     getVariablesResourceTypes(match: $match, orGroups: $orGroups, or: $or)

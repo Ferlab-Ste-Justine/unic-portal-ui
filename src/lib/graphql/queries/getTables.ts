@@ -20,7 +20,6 @@ export const GET_TABLES = gql`
       sort: $sort
     ) {
       total
-      search_after
       hits {
         tab_id
         tab_name
@@ -38,6 +37,7 @@ export const GET_TABLES = gql`
         }
         tab_created_at
         tab_last_update
+        search_after
       }
     }
     getTablesResourceTypes(match: $match, orGroups: $orGroups, or: $or)
