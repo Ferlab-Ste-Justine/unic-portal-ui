@@ -53,7 +53,7 @@ describe('Tableau Ressources - Valider les fonctionnalités du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     cy.sortTableAndWait('Code');
-    cy.sortTableAndIntercept('Name', 1);
+    cy.sortTableAndWait('Name');
     cy.sortTableAndIntercept('Name', 1);
     cy.validateTableFirstRow('bronchiolite', 0);
   });
