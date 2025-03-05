@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import debounce from 'lodash/debounce';
 
 import InputSearch from './InputSearch';
 
@@ -40,17 +41,16 @@ describe('InputSearch Component', () => {
     expect(input).toHaveValue('abc');
   });
 
-  it('calls handleSetVariables on pressing Enter', () => {
+  it('calls handleSetVariables on onPressEnter', async () => {
     render(<InputSearch {...defaultProps} />);
     const input = screen.getByPlaceholderText('Search something');
-
-    fireEvent.change(input, { target: { value: 'test' } });
-    fireEvent.keyPress(input, { key: 'Enter', code: 'Enter', charCode: 13 });
-
+    fireEvent.change(input, { target: { value: 'te' } });
+    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', charCode: 13 });
+    expect(mockHandleSetVariables).toHaveBeenCalledTimes(1);
     expect(mockHandleSetVariables).toHaveBeenCalledWith({
       or: [
-        { field: 'field1', value: '*test*', useWildcard: true },
-        { field: 'field2', value: '*test*', useWildcard: true },
+        { field: 'field1', value: '*te*', useWildcard: true },
+        { field: 'field2', value: '*te*', useWildcard: true },
       ],
     });
   });
@@ -77,6 +77,24 @@ describe('InputSearch Component', () => {
     fireEvent.change(input, { target: { value: 'test' } });
     expect(input).toHaveValue('test');
     rerender(<InputSearch {...defaultProps} variables={{ or: [] }} />);
+    expect(input).toHaveValue('');
+  });
+
+  it('cancels debounce on unmount', () => {
+    const { unmount } = render(<InputSearch {...defaultProps} />);
+    const input = screen.getByPlaceholderText('Search something');
+    fireEvent.change(input, { target: { value: 'tes' } });
+    unmount();
+    expect(jest.mocked(debounce).mock.results[0].value.cancel).toHaveBeenCalled();
+  });
+
+  it('clears search when empty value is entered', async () => {
+    const { rerender } = render(<InputSearch {...defaultProps} />);
+    const input = screen.getByPlaceholderText('Search something');
+    fireEvent.change(input, { target: { value: 'test' } });
+    expect(input).toHaveValue('test');
+    rerender(<InputSearch {...defaultProps} variables={{ or: [] }} />);
+    fireEvent.change(input, { target: { value: '' } });
     expect(input).toHaveValue('');
   });
 });
