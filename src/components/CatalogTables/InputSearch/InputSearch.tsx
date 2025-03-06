@@ -52,7 +52,9 @@ const InputSearch = ({
     return () => {
       debouncedHandleSearch.cancel(); // Clear pending debounce on unmount or rerender
     };
-  }, [debouncedHandleSearch, search, searchFields, variables?.or]);
+    /** Need to skip deps but search to avoid loop */
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
 
   /** Reset search when variables are cleared by parent */
   useEffect(() => {
