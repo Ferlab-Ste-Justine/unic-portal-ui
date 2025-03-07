@@ -1,7 +1,9 @@
 import { Select, SelectProps, Tag, Typography } from 'antd';
+import queryString from 'query-string';
 import { CustomTagProps } from 'rc-select/lib/BaseSelect';
 import React, { useEffect, useState } from 'react';
 
+import useHash from '@/lib/hooks/useHash';
 import { QueryOptions } from '@/types/queries';
 import getTagColorByType from '@/utils/getTagColorByType';
 
@@ -32,6 +34,8 @@ const InputSelect = ({
   showSearch?: boolean;
 }) => {
   const [selects, setSelects] = useState<string[]>([]);
+  const { hash, setHash } = useHash();
+  const hashParams = hash.split('?')[1];
 
   const tagRender = (props: CustomTagProps) => {
     const { label, value, closable, onClose } = props;
@@ -62,7 +66,7 @@ const InputSelect = ({
     }
   };
 
-  const handleSelect = (selects: string[]) => {
+  const handleSelect = (selects: string[], mode?: string) => {
     const values = selects?.length ? selects.map((value) => ({ field: selectField, value })) : [];
     /** Keep the fields that are not the same as the selectField to replace only the ones that are by new Values */
 
@@ -73,10 +77,11 @@ const InputSelect = ({
           const isCurrentFieldGroup = group.some((element) => element.field === selectField);
           return !isCurrentFieldGroup;
         }) || [];
-      operatorVariables = values?.length ? [...otherFieldsOnOperator, values] : otherFieldsOnOperator;
+      operatorVariables =
+        mode === 'removeAll' ? [values] : values?.length ? [...otherFieldsOnOperator, values] : otherFieldsOnOperator;
     } else {
       const otherFieldsOnOperator = variables?.[operator]?.filter((element) => element.field !== selectField) || [];
-      operatorVariables = [...otherFieldsOnOperator, ...values];
+      operatorVariables = mode === 'removeAll' ? values : [...otherFieldsOnOperator, ...values];
     }
 
     /** update variables current operator and keep others */
@@ -93,6 +98,21 @@ const InputSelect = ({
       setSelects([]);
     }
   }, [variables]);
+
+  useEffect(() => {
+    if (hashParams) {
+      const hashParamsObj = queryString.parse(hashParams) as { filterField: string; filterValue: string };
+      if (hashParamsObj?.filterField === selectField) {
+        setSelects([hashParamsObj.filterValue]);
+        handleSelect([hashParamsObj.filterValue], 'removeAll');
+        setHash('');
+      } else if (hashParamsObj?.filterField !== selectField) {
+        setSelects([]);
+      }
+    }
+    /** need to keep handleSelect out of dependencies */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hashParams, selectField]);
 
   return (
     <div className={styles.filter}>
