@@ -27,12 +27,12 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     },
   },
   {
-    key: 'resource.rs_code',
+    key: 'resource.rs_name',
     title: intl.get('entities.resource.Resource'),
     sorter: { multiple: 1 },
     render: (table: ITableEntity) => {
-      if (!table?.resource?.rs_code) return TABLE_EMPTY_PLACE_HOLDER;
-      return table.resource.rs_code;
+      if (!table?.resource?.rs_name) return TABLE_EMPTY_PLACE_HOLDER;
+      return <Link href={`/resource/${table.resource.rs_code}`}>{table.resource.rs_name}</Link>;
     },
   },
   {
@@ -60,10 +60,11 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.table.variable_count'),
     render: (table: ITableEntity) => {
       if (!table?.stat_etl?.variable_count) return TABLE_EMPTY_PLACE_HOLDER;
-      //TODO Do it for UNICWEB-40
-      //Analyse:
-      //Vers le tableau Variables filtré sur la table
-      return <Link href={`/catalog#variables?table=${table.tab_name}`}>{table.stat_etl.variable_count}</Link>;
+      return (
+        <Link href={`/catalog#variables?filterField=table.tab_name&filterValue=${table.tab_name}`}>
+          {table.stat_etl.variable_count}
+        </Link>
+      );
     },
   },
   {

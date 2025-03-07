@@ -1,13 +1,23 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import useHash from '@/lib/hooks/useHash';
 import getTagColorByType from '@/utils/getTagColorByType';
 
 import InputSelect from './InputSelect';
 
 jest.mock('@/utils/getTagColorByType', () => jest.fn(() => 'blue')); // Mock tag color function
+jest.mock('query-string', () => ({
+  parse: jest.fn(),
+}));
+jest.mock('@/lib/hooks/useHash');
 
 describe('InputSelect Component', () => {
   const mockHandleSetVariables = jest.fn();
+  const mockSetHash = jest.fn();
+  (useHash as jest.Mock).mockReturnValue({
+    hash: '',
+    setHash: mockSetHash,
+  });
 
   const defaultProps = {
     operator: 'or' as const,

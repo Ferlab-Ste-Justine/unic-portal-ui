@@ -84,10 +84,6 @@ const ResourcesTable = () => {
 
   const [rsTypeOptions, setRsTypeOptions] = useState<SelectProps['options']>();
 
-  const handleFilterBy = () => {
-    //TODO Do it for UNICWEB-41
-  };
-
   const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
@@ -98,6 +94,19 @@ const ResourcesTable = () => {
       pageIndex: DEFAULT_PAGE_INDEX,
     }));
   };
+
+  useEffect(() => {
+    if (!loading) {
+      setRsTypeOptions(
+        data?.getResourcesType
+          ?.map((rs_type: string) => ({
+            value: rs_type,
+            label: getRSLabelNameByType(rs_type),
+          }))
+          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
+      );
+    }
+  }, [data?.getResourcesType, loading, lang]);
 
   useEffect(() => {
     if (!loading) {
@@ -146,7 +155,7 @@ const ResourcesTable = () => {
       <ProTable
         tableId={'resources-table'}
         loading={loading}
-        columns={getColumns(lang, handleFilterBy)}
+        columns={getColumns(lang)}
         dataSource={dataSource}
         bordered
         initialColumnState={userInfo?.config.catalog?.tables?.resources?.columns}
