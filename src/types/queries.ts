@@ -1,21 +1,11 @@
-export type MatchOption = {
+export type FieldValueType = {
   field: string;
-  value: string | number;
+  value: string | number | boolean;
   useWildcard?: boolean; // Enable wildcard search
   useFuzzy?: boolean; // Enable fuzzy search
 };
 
-export type OrOption = {
-  field: string;
-  value: string | number;
-};
-
-export type OrGroups = OrOption[];
-
-export type TermOption = {
-  field: string;
-  value: string | number | boolean;
-};
+export type OrGroups = FieldValueType[];
 
 export type SortOption = {
   field: string;
@@ -24,9 +14,9 @@ export type SortOption = {
 
 /** More options types allowed by API, but we only show necessary options here */
 export type QueryOptions = {
-  term?: TermOption[];
-  match?: MatchOption[];
-  or?: OrOption[];
+  term?: FieldValueType[];
+  match?: FieldValueType[];
+  or?: FieldValueType[];
   orGroups?: OrGroups[];
   sort?: SortOption[];
   from?: number; // Only used if `search_after` is not set

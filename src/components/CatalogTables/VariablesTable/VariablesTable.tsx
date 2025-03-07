@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
+import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
 import { GET_VARIABLES } from '@/lib/graphql/queries/getVariables';
 import { useLang } from '@/store/global';
@@ -29,6 +30,8 @@ import getColumns from './getColumns';
 import styles from './VariablesTable.module.css';
 
 const SCROLL_WRAPPER_ID = 'variables-table-scroll-wrapper';
+
+const searchFields = ['var_label_en', 'var_label_fr', 'var_name'];
 
 const VariablesTable = () => {
   const lang = useLang();
@@ -77,8 +80,7 @@ const VariablesTable = () => {
   const [rsNameOptions, setRsNameOptions] = useState<SelectProps['options']>();
   const [tabNameOptions, setTabNameOptions] = useState<SelectProps['options']>();
 
-  //TODO adjusted it for UNICWEB-36
-  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length;
+  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
     /** reset pagination on filters changes */
@@ -139,6 +141,13 @@ const VariablesTable = () => {
   return (
     <div className={styles.container}>
       <div className={styles.filtersRow}>
+        <InputSearch
+          searchFields={searchFields}
+          handleSetVariables={handleSetVariables}
+          variables={variables}
+          title={intl.get('entities.variable.Variable')}
+          placeholder={intl.get('entities.variable.filterBy')}
+        />
         <InputSelect
           operator={'match'}
           options={tabNameOptions}

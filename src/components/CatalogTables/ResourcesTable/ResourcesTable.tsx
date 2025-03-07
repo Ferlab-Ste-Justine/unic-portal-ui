@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
+import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
 import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
 import { useLang } from '@/store/global';
@@ -29,6 +30,16 @@ import getColumns from './getColumns';
 import styles from './ResourcesTable.module.css';
 
 const SCROLL_WRAPPER_ID = 'resources-table-scroll-wrapper';
+
+const searchFields = [
+  'rs_code',
+  'rs_description_en',
+  'rs_description_fr',
+  'rs_name',
+  'rs_project_pi',
+  'rs_projet_erb',
+  'rs_title',
+];
 
 const ResourcesTable = () => {
   const lang = useLang();
@@ -77,8 +88,7 @@ const ResourcesTable = () => {
     //TODO Do it for UNICWEB-41
   };
 
-  //TODO adjusted it for UNICWEB-36
-  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length;
+  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
     /** reset pagination on filters changes */
@@ -114,7 +124,13 @@ const ResourcesTable = () => {
   return (
     <div className={styles.container}>
       <div className={styles.filtersRow}>
-        {/*//TODO: ADD InputSearch here for UNICWEB-36*/}
+        <InputSearch
+          searchFields={searchFields}
+          handleSetVariables={handleSetVariables}
+          variables={variables}
+          title={intl.get('entities.resource.Resource')}
+          placeholder={intl.get('entities.resource.filterBy')}
+        />
         <InputSelect
           operator={'orGroups'}
           mode={'tags'}

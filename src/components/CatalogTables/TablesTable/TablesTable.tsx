@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
+import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
 import styles from '@/components/CatalogTables/ResourcesTable/ResourcesTable.module.css';
 import { GET_TABLES } from '@/lib/graphql/queries/getTables';
@@ -29,6 +30,8 @@ import { getProTableDictionary, getRSLabelNameByType } from '@/utils/translation
 import getColumns from './getColumns';
 
 const SCROLL_WRAPPER_ID = 'tables-table-scroll-wrapper';
+
+const searchFields = ['tab_label_en', 'tab_label_fr', 'tab_name'];
 
 const TablesTable = () => {
   const lang = useLang();
@@ -74,8 +77,7 @@ const TablesTable = () => {
   const [rsTypeOptions, setRsTypeOptions] = useState<SelectProps['options']>();
   const [rsNameOptions, setRsNameOptions] = useState<SelectProps['options']>();
 
-  //TODO adjusted it for UNICWEB-36
-  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length;
+  const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
     /** reset pagination on filters changes */
@@ -117,6 +119,13 @@ const TablesTable = () => {
   return (
     <div className={styles.container}>
       <div className={styles.filtersRow}>
+        <InputSearch
+          searchFields={searchFields}
+          handleSetVariables={handleSetVariables}
+          variables={variables}
+          title={intl.get('entities.table.Table')}
+          placeholder={intl.get('entities.table.filterBy')}
+        />
         <InputSelect
           operator={'match'}
           options={rsNameOptions}

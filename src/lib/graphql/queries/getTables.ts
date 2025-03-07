@@ -3,13 +3,22 @@ import { gql } from '@apollo/client';
 export const GET_TABLES = gql`
   query getTables(
     $match: [FieldValueType]
+    $or: [FieldValueType]
     $orGroups: [[FieldValueType]]
     $from: Int
     $size: Int
     $search_after: [String]
     $sort: [SortOptionType]
   ) {
-    getTables(match: $match, orGroups: $orGroups, from: $from, size: $size, search_after: $search_after, sort: $sort) {
+    getTables(
+      match: $match
+      or: $or
+      orGroups: $orGroups
+      from: $from
+      size: $size
+      search_after: $search_after
+      sort: $sort
+    ) {
       total
       hits {
         tab_id
@@ -31,7 +40,7 @@ export const GET_TABLES = gql`
         search_after
       }
     }
-    getTablesResourceTypes(match: $match, orGroups: $orGroups)
-    getTablesResourceNames(match: $match, orGroups: $orGroups)
+    getTablesResourceTypes(match: $match, orGroups: $orGroups, or: $or)
+    getTablesResourceNames(match: $match, orGroups: $orGroups, or: $or)
   }
 `;

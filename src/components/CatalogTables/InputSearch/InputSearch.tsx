@@ -1,7 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Input, Typography } from 'antd';
 import debounce from 'lodash/debounce';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { QueryOptions } from '@/types/queries';
 
@@ -9,74 +9,70 @@ import styles from './InputSearch.module.css';
 
 const { Text } = Typography;
 
-//TODO: FREE SEARCH IS FOR UNICWEB-36
-// const search_fields = [
-//   'rs_code',
-//   'rs_description_en',
-//   'rs_description_fr',
-//   'rs_name',
-//   'rs_project_pi',
-//   'rs_projet_erb',
-//   'rs_title',
-// ];
 const InputSearch = ({
-  search_fields,
+  searchFields,
   handleSetVariables,
   variables,
   title,
   placeholder,
 }: {
-  search_fields: string[];
+  searchFields: string[];
   handleSetVariables: any;
   variables: QueryOptions;
   title: string;
   placeholder: string;
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [search, setSearch] = useState('');
 
-  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const charsCount = e.target.value.length;
-    /** According to analyse, trigger search only with 3 chars (or 0 to reset) */
-    if (charsCount === 0 || charsCount > 2) {
-      setSearch(e.target.value);
-      handleSearch(e.target.value);
-    }
-  };
-  const onKeyUpSearch = (e: any) => {
-    if (e.key === 'Enter') {
-      setSearch(e.target.value);
-      handleSearch(e.target.value);
-    }
-  };
-
   const handleSearch = (_search: string) => {
-    /** add all search_fields with ES fuzzy and wildcard */
-    const match = _search
-      ? search_fields.map((field) => ({ field, value: `*${_search}*`, useFuzzy: true, useWildcard: true }))
-      : undefined;
-
-    const _variables = { ...variables, match };
-
+    /** add all searchFields as OR with wildcard on */
+    const or = _search ? searchFields.map((field) => ({ field, value: `*${_search}*`, useWildcard: true })) : [];
+    const _variables = { ...variables, or };
     handleSetVariables(_variables);
   };
 
-  /** reset selects when variables is reset by parent component fn handleClearFilters */
-  // useEffect(() => {
-  //   if (!variables?.match?.length) {
-  //     setSearch('');
-  //   }
-  // }, [variables]);
+  const debouncedHandleSearch = debounce(handleSearch, 500);
+
+  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  const onPressEnter = () => {
+    debouncedHandleSearch.cancel(); // Cancel debounce on Enter
+    handleSearch(search);
+  };
+
+  useEffect(() => {
+    const charsCount = search.length;
+    const hasSearchInVariables = variables?.or?.some(({ field }) => searchFields.includes(field));
+    /** According to analyse, trigger search only with 3 chars (or 0 to reset) and after 500ms */
+    if ((charsCount === 0 && hasSearchInVariables) || charsCount > 2) {
+      debouncedHandleSearch(search);
+    }
+    return () => {
+      debouncedHandleSearch.cancel(); // Clear pending debounce on unmount or rerender
+    };
+    /** Need to skip deps but search to avoid loop */
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
+
+  /** Reset search when variables are cleared by parent */
+  useEffect(() => {
+    if (!variables?.orGroups?.length && !variables?.match?.length && !variables?.or?.length) {
+      setSearch('');
+    }
+  }, [variables]);
 
   return (
     <div className={styles.filter}>
       <Text className={styles.title}>{title}</Text>
       <Input
         placeholder={placeholder}
-        onChange={debounce(onChangeSearch, 500)}
-        onKeyUp={onKeyUpSearch}
+        onChange={onChangeSearch}
+        onPressEnter={onPressEnter}
         suffix={<SearchOutlined className={styles.icon} />}
         allowClear
+        value={search}
       />
     </div>
   );
