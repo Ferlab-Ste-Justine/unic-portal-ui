@@ -45,7 +45,7 @@ describe('HospitalSystemsCard Component', () => {
     render(<HospitalSystemsCard stats={mockStats} />);
 
     const link = screen.getByRole('link', { name: 'screen.home.explore arrow-right' });
-    expect(link).toHaveAttribute('href', '/catalog#source_system');
+    expect(link).toHaveAttribute('href', '/catalog#resource?filterField=rs_type&filterValue=source_system');
   });
 
   it('handles missing stats correctly', () => {
