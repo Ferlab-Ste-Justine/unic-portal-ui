@@ -109,19 +109,6 @@ const ResourcesTable = () => {
   }, [data?.getResourcesType, loading, lang]);
 
   useEffect(() => {
-    if (!loading) {
-      setRsTypeOptions(
-        data?.getResourcesType
-          ?.map((rs_type: string) => ({
-            value: rs_type,
-            label: getRSLabelNameByType(rs_type),
-          }))
-          ?.sort((a: OptionProps, b: OptionProps) => a.label.localeCompare(b.label)),
-      );
-    }
-  }, [data?.getResourcesType, loading, lang]);
-
-  useEffect(() => {
     setVariables((v) => ({
       ...v,
       sort: queryConfig.sort,

@@ -32,6 +32,8 @@ const CatalogPage = () => {
     if (isValidTab) {
       setActiveTab(tab);
       setHash('');
+    } else if (tab) {
+      setHash('');
     }
   }, [isValidTab, setHash, tab]);
 

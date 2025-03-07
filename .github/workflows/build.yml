@@ -1,6 +1,10 @@
 name: Build
 
-on: [push]
+on:
+  push:
+  pull_request:
+    branches:
+      - main
 
 env:
   HUSKY: 0  # Disable Husky during CI
