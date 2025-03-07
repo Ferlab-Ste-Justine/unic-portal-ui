@@ -4,6 +4,7 @@ declare namespace Cypress {
   interface Chainable {
     clickAndIntercept(selector: string, methodHTTP: string, routeMatcher: string, nbCalls: number, eq?: number): cy & CyEventEmitter;
     clickAndWait(options?: Partial<ClickOptions>): Chainable<Element>;
+    inputDropdownSelectValue(tab: string, eq: number, valueLabel: string, isMultiSelect: boolean = false): cy & CyEventEmitter
     login(): cy & CyEventEmitter;
     logout(): cy & CyEventEmitter;
     resetColumns(eq: number = 0): cy & CyEventEmitter;

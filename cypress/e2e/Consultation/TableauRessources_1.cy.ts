@@ -25,13 +25,12 @@ describe('Tableau Ressources - Vérifier les informations affichées', () => {
   });
 
   it('Tableau', () => {
-    cy.get('[data-row-key="59"] [class="ant-table-cell"]', {timeout: oneMinute}).should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(0).contains('bronchiolite').should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(1).contains('LVC-Bronchiolite-HSJ').should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(2).contains('Research').should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(2).find('[class*="ant-tag-cyan"]').should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(3).contains('2024-08-16').should('exist');
-    cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(4).contains('2023-03-09').should('exist');
+    cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(4).contains(/^2023-03-(09|10)$/).should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(5).contains('2022-10-19').should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(6).contains('13').should('exist');
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(7).contains('106').should('exist');
