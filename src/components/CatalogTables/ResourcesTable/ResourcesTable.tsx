@@ -84,10 +84,6 @@ const ResourcesTable = () => {
 
   const [rsTypeOptions, setRsTypeOptions] = useState<SelectProps['options']>();
 
-  const handleFilterBy = () => {
-    //TODO Do it for UNICWEB-41
-  };
-
   const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
     setVariables(initialVariables);
@@ -146,7 +142,7 @@ const ResourcesTable = () => {
       <ProTable
         tableId={'resources-table'}
         loading={loading}
-        columns={getColumns(lang, handleFilterBy)}
+        columns={getColumns(lang)}
         dataSource={dataSource}
         bordered
         initialColumnState={userInfo?.config.catalog?.tables?.resources?.columns}

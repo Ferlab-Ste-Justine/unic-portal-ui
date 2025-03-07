@@ -45,7 +45,7 @@ describe('ResearchProjectsCard Component', () => {
     render(<ResearchProjectsCard stats={mockStats} />);
 
     const link = screen.getByRole('link', { name: 'screen.home.explore arrow-right' });
-    expect(link).toHaveAttribute('href', '/catalog#research_project');
+    expect(link).toHaveAttribute('href', '/catalog#resource?filterField=rs_type&filterValue=research_project');
   });
 
   it('handles missing stats correctly', () => {
