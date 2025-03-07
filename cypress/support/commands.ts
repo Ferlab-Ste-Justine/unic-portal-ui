@@ -27,6 +27,17 @@ Cypress.Commands.add('clickAndWait', { prevSubject: 'element' }, (subject, optio
   cy.waitWhileSpin(oneMinute);
 });
 
+Cypress.Commands.add('inputDropdownSelectValue', (tab: string, eq: number, valueLabel: string, isMultiSelect: boolean = false) => {
+  cy.get(`[id*="${tab}"] [class*="InputSelect_filter"]`).eq(eq).type(valueLabel);
+  if (isMultiSelect) {
+    cy.get(`[class*="ant-select-dropdown"] [label="${valueLabel}"]`).clickAndWait();
+    cy.get(`[id*="${tab}"] [class*="InputSelect_title"]`).eq(eq).click();
+  }
+  else {
+    cy.get(`[class*="ant-select-dropdown"] [title="${valueLabel}"]`).clickAndWait();
+  }
+});
+
 Cypress.Commands.add('login', () => {
   cy.session(['user'], () => {
     cy.visit('/');

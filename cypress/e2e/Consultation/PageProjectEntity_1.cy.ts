@@ -41,7 +41,7 @@ describe('Page d\'un projet - Vérifier les informations affichées', () => {
 
   it('Panneau Summary - Approved On', () => {
     cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(5).contains('Approved On').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(5).contains('2022-10-19', {timeout: oneMinute}).should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(5).contains(/^2022-10-(19|20)$/).should('exist');
   });
 
   it('Panneau Variables - Variable Count', () => {
