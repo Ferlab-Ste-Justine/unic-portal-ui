@@ -58,8 +58,44 @@ describe('VariablesTable', () => {
             total: 2,
             search_after: null,
             hits: [
-              { var_id: '1', var_name: 'Variable 1' },
-              { var_id: '2', var_name: 'Variable 2' },
+              {
+                var_id: '1',
+                var_name: 'Variable 1',
+                resource: {
+                  rs_name: 'rs_name 1',
+                  rs_code: 'rs_code 1',
+                },
+                variable: {
+                  var_label_fr: 'var_label_fr 1',
+                  var_label_en: 'var_label_en 1',
+                },
+                tab_label: 'tab_label',
+                var_value_type: 'var_value_type',
+                var_from_source_systems: [
+                  {
+                    rs_name: 'rs_name 1',
+                    rs_code: 'rs_code 1',
+                  },
+                  {
+                    rs_name: 'rs_name 2',
+                    rs_code: 'rs_code 2',
+                  },
+                ],
+                table: {
+                  tab_name: 'tab_name 1',
+                },
+                var_created_at: new Date(),
+                var_last_update: new Date(),
+              },
+              {
+                var_id: '2',
+                var_name: 'Variable 2',
+                resource: { rs_name: 'rs_name 2', rs_code: 'rs_code 2' },
+                variable: {
+                  var_label_fr: 'var_label_fr 1',
+                  var_label_en: 'var_label_en 1',
+                },
+              },
             ],
           },
         },
