@@ -3,7 +3,7 @@
   margin-bottom: 6px;
 }
 
-.entityDescription{
+.entityCard{
   .card *[class$=-descriptions-item-label] {
     width: 200px;
   }

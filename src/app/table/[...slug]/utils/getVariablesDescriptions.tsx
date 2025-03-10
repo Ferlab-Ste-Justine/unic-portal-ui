@@ -2,7 +2,7 @@ import { TABLE_EMPTY_PLACE_HOLDER } from '@ferlab/ui/core/common/constants';
 import Link from 'next/link';
 import intl from 'react-intl-universal';
 
-import { IEntityDescriptionsItem } from '@/components/EntityPage/EntityDescription/types/entityPage';
+import { IEntityDescriptionsItem } from '@/components/EntityPage/types/entityPage';
 import { LANG } from '@/types/constants';
 import { ITableEntity } from '@/types/entities';
 

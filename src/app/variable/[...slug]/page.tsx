@@ -3,22 +3,24 @@
 import { ReadOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
 import Empty from '@ferlab/ui/core/components/Empty/index';
+import { Table } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import intl from 'react-intl-universal';
 
-import getCategoryDescriptions from '@/app/variable/[...slug]/utils/getCategoryDescriptions';
+import getHistory from '@/app/variable/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/variable/[...slug]/utils/getSummaryDescriptions';
-import EntityDescriptions from '@/components/EntityPage/EntityDescription';
+import EntityCard from '@/components/EntityPage/EntityCard/EntityCard';
+import EntityDescriptions from '@/components/EntityPage/EntityDescriptionNew/EntityDescriptions';
 import { GET_VARIABLE_ENTITY } from '@/lib/graphql/queries/getVariableEntity.query';
 import { useLang } from '@/store/global';
+import { LANG } from '@/types/constants';
 import { IVariableEntity } from '@/types/entities';
 import { QueryOptions } from '@/types/queries';
 
 import styles from './page.module.css';
-import { Table } from 'antd';
 
 const EntityVariablePage = () => {
   const { slug } = useParams() as { slug: string };
@@ -53,10 +55,11 @@ const EntityVariablePage = () => {
       title: 'Values',
       dataIndex: 'vsval_code',
       key: 'vsval_code',
+      width: 360,
     },
     {
       title: 'Libelle',
-      dataIndex: 'vsval_label_en',
+      dataIndex: lang === LANG.EN ? 'vsval_label_en' : 'vsval_label_fr',
       key: 'vsval_label_en',
     },
   ];
@@ -85,19 +88,16 @@ const EntityVariablePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityDescriptions
-          id={'summary'}
-          loading={loading}
-          descriptions={getSummaryDescriptions(lang, variable)}
-          title={intl.get('global.summary')}
-        />
-        <EntityDescriptions
-          id={'currentVersion'}
-          loading={loading}
-          descriptions={getCategoryDescriptions(lang, variable)}
-          title={intl.get('global.categories')}
-          extraComponent={<Table dataSource={dataSource} columns={columns} />}
-        />
+        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+          <EntityDescriptions descriptions={getSummaryDescriptions(lang, variable)} />
+        </EntityCard>
+        <EntityCard id={'currentVersion'} loading={loading} title={intl.get('global.categories')}>
+          <Table dataSource={dataSource} columns={columns} bordered pagination={false} size='small' />
+        </EntityCard>
+        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+          <EntityDescriptions descriptions={getHistory(lang, variable)} />
+        </EntityCard>
+
       </div>
     </div>
   );

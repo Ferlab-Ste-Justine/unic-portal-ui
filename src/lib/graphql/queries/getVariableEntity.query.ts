@@ -17,6 +17,8 @@ export const GET_VARIABLE_ENTITY = gql`
         var_notes
         var_label_fr
         var_label_en
+        var_created_at
+        var_last_update
         resource {
           rs_name
           rs_code

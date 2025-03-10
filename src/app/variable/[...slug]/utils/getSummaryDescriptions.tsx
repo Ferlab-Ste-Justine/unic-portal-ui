@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import intl from 'react-intl-universal';
 
-import { IEntityDescriptionsItem } from '@/components/EntityPage/EntityDescription/types/entityPage';
+import { IEntityDescriptionsItem } from '@/components/EntityPage/types/entityPage';
 import { LANG } from '@/types/constants';
 import { IVariableEntity } from '@/types/entities';
 

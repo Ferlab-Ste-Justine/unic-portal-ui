@@ -31,8 +31,9 @@
 
 .entityPageContainer {
     padding: var(--default-page-content-padding);
-    .tag {
-        color: red;
+
+    span::first-letter {
+        text-transform: capitalize;
     }
 }
 

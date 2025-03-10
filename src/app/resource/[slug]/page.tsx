@@ -12,7 +12,8 @@ import intl from 'react-intl-universal';
 import getCurrentVersionDescriptions from '@/app/resource/[slug]/utils/getCurrentVersionDescriptions';
 import getSummaryDescriptions from '@/app/resource/[slug]/utils/getSummaryDescriptions';
 import getVariablesDescriptions from '@/app/resource/[slug]/utils/getVariablesDescriptions';
-import EntityDescriptions from '@/components/EntityPage/EntityDescription';
+import EntityCard from '@/components/EntityPage/EntityCard';
+import EntityDescriptions from '@/components/EntityPage/EntityDescriptionNew/EntityDescriptions';
 import { GET_RESOURCE_ENTITY } from '@/lib/graphql/queries/getResourceEntity.query';
 import { useLang } from '@/store/global';
 import { IResourceEntity } from '@/types/entities';
@@ -56,24 +57,15 @@ const EntityResourcePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityDescriptions
-          id={'summary'}
-          loading={loading}
-          descriptions={getSummaryDescriptions(lang, resource)}
-          title={intl.get('global.summary')}
-        />
-        <EntityDescriptions
-          id={'variables'}
-          loading={loading}
-          descriptions={getVariablesDescriptions(lang, resource)}
-          title={intl.get('entities.variable.Variables')}
-        />
-        <EntityDescriptions
-          id={'currentVersion'}
-          loading={loading}
-          descriptions={getCurrentVersionDescriptions(lang, resource)}
-          title={intl.get('global.currentVersion')}
-        />
+        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+          <EntityDescriptions descriptions={getSummaryDescriptions(lang, resource)} />
+        </EntityCard>
+        <EntityCard id={'variables'} loading={loading} title={intl.get('entities.variable.Variables')}>
+          <EntityDescriptions descriptions={getVariablesDescriptions(lang, resource)} />
+        </EntityCard>
+        <EntityCard id={'currentVersion2'} loading={loading} title={intl.get('global.currentVersion')}>
+          <EntityDescriptions descriptions={getCurrentVersionDescriptions(lang, resource)} />
+        </EntityCard>
       </div>
     </div>
   );
