@@ -12,7 +12,7 @@ import { getRSLabelNameByType } from '@/utils/translation';
 
 import styles from './ResourcesTable.module.css';
 
-const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
+const getColumns = (lang: LANG): ProColumnType[] => [
   {
     key: 'rs_code',
     title: intl.get('entities.code'),
@@ -20,7 +20,6 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     defaultHidden: true,
     render: (resource: IResourceEntity) => {
       if (!resource?.rs_code) return TABLE_EMPTY_PLACE_HOLDER;
-
       return <Link href={`/resource/${resource.rs_code}`}>{resource.rs_code}</Link>;
     },
   },
@@ -30,7 +29,6 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     sorter: { multiple: 1 },
     render: (resource: IResourceEntity) => {
       if (!resource?.rs_name) return TABLE_EMPTY_PLACE_HOLDER;
-
       return <Link href={`/resource/${resource.rs_code}`}>{resource.rs_name}</Link>;
     },
   },
@@ -82,19 +80,20 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     title: intl.get('entities.table.Table'),
     render: (resource: IResourceEntity) => {
       if (!resource?.tables?.length) return TABLE_EMPTY_PLACE_HOLDER;
-      //TODO Do it for UNICWEB-40
-      //Analyse:
-      //IF rs_is_project THEN hyperlink  to @Catalogue filtered on Project facette
-      // ELSE IF rs_type = source_system THEN filtered on Source System facette.
-      // Focused on the table tab
-      let filter = {};
+      let filterField = '';
+      let filterValue = '';
       if (resource.rs_is_project) {
-        filter = { rs_name: resource.rs_name };
+        filterField = 'resource.rs_name';
+        filterValue = resource.rs_name;
       } else if (resource.rs_type === 'source_system') {
-        filter = { rs_type: 'source_system' };
+        filterField = 'resource.rs_type';
+        filterValue = resource.rs_type;
       }
-
-      return <a onClick={() => handleFilterBy(filter)}>{resource.tables.length}</a>;
+      return (
+        <Link href={`/catalog#tables?filterField=${filterField}&filterValue=${filterValue}`}>
+          {resource.tables.length}
+        </Link>
+      );
     },
   },
   {
@@ -102,11 +101,11 @@ const getColumns = (lang: LANG, handleFilterBy: any): ProColumnType[] => [
     title: intl.get('entities.variable.Variable'),
     render: (resource: IResourceEntity) => {
       if (!resource?.variables?.length) return TABLE_EMPTY_PLACE_HOLDER;
-      //TODO Do it for UNICWEB-40
-      //Analyse:
-      //Vers le tableau Variables filtré sur Ressource
-      //par resource.rs_name
-      return <Link href={`/catalog#variables?resource=${resource.rs_name}`}>{resource.variables?.length}</Link>;
+      return (
+        <Link href={`/catalog#variables?filterField=resource.rs_name&filterValue=${resource.rs_name}`}>
+          {resource.variables?.length}
+        </Link>
+      );
     },
   },
   {
