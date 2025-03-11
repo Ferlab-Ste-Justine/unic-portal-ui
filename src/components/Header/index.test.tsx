@@ -7,6 +7,7 @@ import configureStore from 'redux-mock-store';
 import { useAuth } from '@/app/api/auth/useAuth';
 import Header from '@/components/Header';
 
+jest.mock('@/lib/hooks/useNotification');
 jest.mock('@/app/api/auth/useAuth');
 jest.mock('@/store/global', () => ({
   globalActions: {

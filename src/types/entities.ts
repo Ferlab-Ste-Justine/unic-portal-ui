@@ -60,6 +60,7 @@ export interface IResourceEntity {
   rs_project_erb_id: string;
   rs_is_project: boolean;
   rs_project_approval_date: number;
+  rs_project_creation_date: number;
   stat_etl: IStatETL;
   variables: IVariableEntity[];
   tables: ITableEntity[];

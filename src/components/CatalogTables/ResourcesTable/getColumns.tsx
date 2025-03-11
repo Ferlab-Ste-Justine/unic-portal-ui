@@ -1,10 +1,10 @@
-import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Popover, Tag } from 'antd';
 import Link from 'next/link';
 import intl from 'react-intl-universal';
 
 import { LANG } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
+import { ColumnType } from '@/types/tables';
 import { TABLE_EMPTY_PLACE_HOLDER } from '@/utils/constants';
 import formatDate from '@/utils/formatDate';
 import getTagColorByType from '@/utils/getTagColorByType';
@@ -12,17 +12,12 @@ import { getRSLabelNameByType } from '@/utils/translation';
 
 import styles from './ResourcesTable.module.css';
 
-interface ColumnType extends ProColumnType {
-  renderDownload?: React.ReactNode;
-}
-
 const getColumns = (lang: LANG): ColumnType[] => [
   {
     key: 'rs_code',
     title: intl.get('entities.code'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-    // renderDownload: (resource: IResourceEntity) => resource?.rs_code,
     render: (resource: IResourceEntity) => {
       if (!resource?.rs_code) return TABLE_EMPTY_PLACE_HOLDER;
       return <Link href={`/resource/${resource.rs_code}`}>{resource.rs_code}</Link>;
@@ -54,7 +49,9 @@ const getColumns = (lang: LANG): ColumnType[] => [
     key: 'rs_last_update',
     title: intl.get('entities.updatedAt'),
     sorter: { multiple: 1 },
-    render: (timestamp: string) => {
+    renderDownload: (resource: IResourceEntity) =>
+      resource?.rs_last_update ? formatDate(resource.rs_last_update) : TABLE_EMPTY_PLACE_HOLDER,
+    render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
     },
@@ -65,7 +62,9 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-    render: (timestamp: string) => {
+    renderDownload: (resource: IResourceEntity) =>
+      resource?.rs_project_creation_date ? formatDate(resource.rs_project_creation_date) : TABLE_EMPTY_PLACE_HOLDER,
+    render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
     },
@@ -75,8 +74,9 @@ const getColumns = (lang: LANG): ColumnType[] => [
     key: 'rs_project_approval_date',
     title: intl.get('entities.approvedAt'),
     defaultHidden: true,
-    // renderDownload: (timestamp: string) => formatDate(timestamp),
-    render: (timestamp: string) => {
+    renderDownload: (resource: IResourceEntity) =>
+      resource?.rs_project_approval_date ? formatDate(resource.rs_project_approval_date) : TABLE_EMPTY_PLACE_HOLDER,
+    render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
     },
@@ -84,6 +84,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
   {
     key: 'tables',
     title: intl.get('entities.table.Table'),
+    renderDownload: (resource: IResourceEntity) => resource?.tables?.length,
     render: (resource: IResourceEntity) => {
       if (!resource?.tables?.length) return TABLE_EMPTY_PLACE_HOLDER;
       let filterField = '';
@@ -105,6 +106,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
   {
     key: 'variables',
     title: intl.get('entities.variable.Variable'),
+    renderDownload: (resource: IResourceEntity) => resource?.variables?.length,
     render: (resource: IResourceEntity) => {
       if (!resource?.variables?.length) return TABLE_EMPTY_PLACE_HOLDER;
       return (
@@ -115,8 +117,13 @@ const getColumns = (lang: LANG): ColumnType[] => [
     },
   },
   {
-    key: 'rs_description',
+    key: 'rs_description_en',
+    // key: lang === LANG.FR ? 'rs_description_fr' : 'rs_description_en',
     title: intl.get('entities.description'),
+    renderDownload: (resource: IResourceEntity) => {
+      const description = lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en;
+      return description || TABLE_EMPTY_PLACE_HOLDER;
+    },
     render: (resource: IResourceEntity) => {
       const description = lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en;
       if (!description) return TABLE_EMPTY_PLACE_HOLDER;
