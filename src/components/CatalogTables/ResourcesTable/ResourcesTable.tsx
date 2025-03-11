@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
+import DownloadTSVButton from '@/components/CatalogTables/DownloadTSVButton';
 import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
 import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
@@ -95,6 +96,21 @@ const ResourcesTable = () => {
     }));
   };
 
+  const userColumns: { key: string; visible: boolean }[] = userInfo?.config.catalog?.tables?.resources?.columns || [];
+  const columns = getColumns(lang);
+  const columnsToDownload: { key: string; label: string }[] = [];
+  for (const userColumn of userColumns) {
+    if (userColumn.visible) {
+      const col = columns.find((c) => c.key === userColumn.key);
+      if (col) {
+        columnsToDownload.push({
+          key: col.key,
+          label: col.title,
+        });
+      }
+    }
+  }
+
   useEffect(() => {
     if (!loading) {
       setRsTypeOptions(
@@ -142,7 +158,7 @@ const ResourcesTable = () => {
       <ProTable
         tableId={'resources-table'}
         loading={loading}
-        columns={getColumns(lang)}
+        columns={columns}
         dataSource={dataSource}
         bordered
         initialColumnState={userInfo?.config.catalog?.tables?.resources?.columns}
@@ -193,6 +209,15 @@ const ResourcesTable = () => {
           onColumnSortChange: (newState) =>
             // @ts-expect-error - unknown action
             dispatch(updateUserConfig({ catalog: { tables: { resources: { columns: newState } } } })),
+          extra: [
+            <DownloadTSVButton
+              key={'download-resources'}
+              variables={variables}
+              tableName={'resources'}
+              columns={columnsToDownload}
+              GQL_QUERY={GET_RESOURCES}
+            />,
+          ],
         }}
       />
     </div>

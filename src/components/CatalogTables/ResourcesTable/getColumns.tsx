@@ -12,12 +12,17 @@ import { getRSLabelNameByType } from '@/utils/translation';
 
 import styles from './ResourcesTable.module.css';
 
-const getColumns = (lang: LANG): ProColumnType[] => [
+interface ColumnType extends ProColumnType {
+  renderDownload?: React.ReactNode;
+}
+
+const getColumns = (lang: LANG): ColumnType[] => [
   {
     key: 'rs_code',
     title: intl.get('entities.code'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    // renderDownload: (resource: IResourceEntity) => resource?.rs_code,
     render: (resource: IResourceEntity) => {
       if (!resource?.rs_code) return TABLE_EMPTY_PLACE_HOLDER;
       return <Link href={`/resource/${resource.rs_code}`}>{resource.rs_code}</Link>;
@@ -70,6 +75,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     key: 'rs_project_approval_date',
     title: intl.get('entities.approvedAt'),
     defaultHidden: true,
+    // renderDownload: (timestamp: string) => formatDate(timestamp),
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
