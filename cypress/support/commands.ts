@@ -216,11 +216,11 @@ Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, rout
 });
 
 Cypress.Commands.add('visitCatalog', (tab?: string) => {
-  const strTab = tab !== undefined ? tab : 'Resources';
-  let eq = strTab === 'Resources' ? 0 : 1;
+  const strTab = tab !== undefined ? tab : 'resources';
+  let eq = strTab === 'resources' ? 0 : 1;
 
   cy.visitAndIntercept('/catalog/', 'POST','**/graphql', 1);
-  cy.get(`[data-node-key="${strTab}Table"]`).clickAndWait();
+  cy.get(`[data-node-key="${strTab}"]`).clickAndWait();
   cy.resetColumns(eq);
 });
 

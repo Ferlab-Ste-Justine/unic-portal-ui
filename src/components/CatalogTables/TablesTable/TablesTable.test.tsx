@@ -4,6 +4,7 @@ import { Provider, useDispatch } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import { GET_TABLES } from '@/lib/graphql/queries/getTables';
+import useHash from '@/lib/hooks/useHash';
 import { updateUserConfig } from '@/store/user/thunks';
 import { DEFAULT_PAGE_SIZE } from '@/utils/constants';
 
@@ -19,6 +20,10 @@ jest.mock('react-redux', () => ({
 jest.mock('@/store/user/thunks', () => ({
   updateUserConfig: jest.fn(),
 }));
+jest.mock('@/lib/hooks/useHash');
+jest.mock('query-string', () => ({
+  parse: jest.fn(),
+}));
 
 describe('TablesTable', () => {
   const mockStore = configureStore([]);
@@ -28,6 +33,11 @@ describe('TablesTable', () => {
   });
   const mockDispatch = jest.fn();
   (useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch);
+  const mockSetHash = jest.fn();
+  (useHash as jest.Mock).mockReturnValue({
+    hash: '',
+    setHash: mockSetHash,
+  });
 
   const mocks = [
     {
