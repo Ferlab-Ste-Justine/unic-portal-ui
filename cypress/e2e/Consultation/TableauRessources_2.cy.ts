@@ -27,10 +27,16 @@ describe('Tableau Ressources - Valider les liens disponibles', () => {
   it('Lien Table', () => {
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(6).find('a').clickAndWait();
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
+    cy.get('[data-node-key="tables"]').should('have.class', 'ant-tabs-tab-active');
+    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"] [title="LVC-Bronchiolite-HSJ"]').should('exist');
+    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^13 Results$| of 13$)/).should('exist');
   });
 
   it('Lien Variable', () => {
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(7).find('a').clickAndWait();
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
+    cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
+    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="LVC-Bronchiolite-HSJ"]').should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^106 Results$| of 106$)/).should('exist');
   });
 });

@@ -3,7 +3,7 @@ import '../../support/commands';
 
 beforeEach(() => {
   cy.login();
-  cy.visitCatalog('Tables');
+  cy.visitCatalog('tables');
 });
 
 describe('Tableau Tables - Colonnes du tableau', () => {

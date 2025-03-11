@@ -3,7 +3,7 @@ import '../../support/commands';
 
 beforeEach(() => {
   cy.login();
-  cy.visitCatalog('Variables');
+  cy.visitCatalog('variables');
   cy.showColumn('Source Name', 1);
   cy.showColumn('Created On', 1);
   cy.showColumn('Updated On', 1);
