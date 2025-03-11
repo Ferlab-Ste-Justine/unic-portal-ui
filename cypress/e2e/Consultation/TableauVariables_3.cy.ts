@@ -33,7 +33,7 @@ describe('Tableau Variables - Valider les fonctionnalités du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Tri Resource', () => {
     cy.sortTableAndIntercept('Resource', 1, 1);
-    cy.validateTableFirstRow('bronchiolite', 6, false, '[id*="panel-variables"]');
+    cy.validateTableFirstRow('CHORIO-BACT', 6, false, '[id*="panel-variables"]');
     cy.sortTableAndIntercept('Resource', 1, 1);
     cy.validateTableFirstRow('warehouse', 6, false, '[id*="panel-variables"]');
   });
