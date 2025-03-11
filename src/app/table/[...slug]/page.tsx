@@ -12,7 +12,7 @@ import intl from 'react-intl-universal';
 import getHistory from '@/app/table/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/table/[...slug]/utils/getSummaryDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard';
-import EntityDescriptions from '@/components/EntityPage/EntityDescriptionNew/EntityDescriptions';
+import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
 import { GET_TABLE_ENTITY } from '@/lib/graphql/queries/getTableEntity.query';
 import { useLang } from '@/store/global';
 import { ITableEntity } from '@/types/entities';

@@ -7,13 +7,13 @@ import { Table } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import intl from 'react-intl-universal';
 
 import getHistory from '@/app/variable/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/variable/[...slug]/utils/getSummaryDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard/EntityCard';
-import EntityDescriptions from '@/components/EntityPage/EntityDescriptionNew/EntityDescriptions';
+import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
 import { GET_VARIABLE_ENTITY } from '@/lib/graphql/queries/getVariableEntity.query';
 import { useLang } from '@/store/global';
 import { LANG } from '@/types/constants';
@@ -21,6 +21,8 @@ import { IVariableEntity } from '@/types/entities';
 import { QueryOptions } from '@/types/queries';
 
 import styles from './page.module.css';
+
+const MAX_TABLE_HEIGHT = 272;
 
 const EntityVariablePage = () => {
   const { slug } = useParams() as { slug: string };
@@ -37,10 +39,21 @@ const EntityVariablePage = () => {
     ],
     size: 1,
   };
+  const [scroll, setScroll] = useState<{ y: number } | undefined>(undefined);
 
   const lang = useLang();
 
   const { data, loading } = useQuery(GET_VARIABLE_ENTITY, { variables });
+
+  const tableRef = useCallback(
+    (node: any) => {
+      const height = node?.clientHeight ?? 0;
+      if (height > MAX_TABLE_HEIGHT) {
+        setScroll({ y: MAX_TABLE_HEIGHT });
+      } else setScroll(undefined);
+    },
+    [loading, data],
+  );
 
   const variable: IVariableEntity = data?.getVariables?.hits[0];
 
@@ -92,12 +105,20 @@ const EntityVariablePage = () => {
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, variable)} />
         </EntityCard>
         <EntityCard id={'currentVersion'} loading={loading} title={intl.get('global.categories')}>
-          <Table dataSource={dataSource} columns={columns} bordered pagination={false} size='small' />
+          <Table
+            className={styles.entityTable}
+            ref={tableRef}
+            dataSource={dataSource}
+            columns={columns}
+            bordered
+            pagination={false}
+            size='small'
+            scroll={scroll}
+          />
         </EntityCard>
         <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
           <EntityDescriptions descriptions={getHistory(lang, variable)} />
         </EntityCard>
-
       </div>
     </div>
   );

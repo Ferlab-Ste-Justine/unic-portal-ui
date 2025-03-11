@@ -53,3 +53,14 @@
 .tooltipIcon {
     padding-left: 4px;
 }
+
+.entityTable {
+    tbody {
+        tr {
+            td {
+                background-color: var(--gray-1) !important;
+            }
+        }
+    }
+}
+
