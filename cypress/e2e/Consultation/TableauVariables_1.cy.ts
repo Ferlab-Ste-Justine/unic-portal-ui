@@ -26,7 +26,7 @@ describe('Tableau Variables - Vérifier les informations affichées', () => {
     cy.get('[data-row-key="76476"] [class="ant-table-cell"]').eq(3).contains('-').should('exist');
     cy.get('[data-row-key="76476"] [class="ant-table-cell"]').eq(4).contains('-').should('exist');
     cy.get('[data-row-key="76476"] [class="ant-table-cell"]').eq(5).contains('weekly_summary').should('exist');
-    cy.get('[data-row-key="76476"] [class="ant-table-cell"]').eq(6).contains('surveillancegermes').should('exist');
+    cy.get('[data-row-key="76476"] [class="ant-table-cell"]').eq(6).contains('Germes').should('exist');
     cy.get('[data-row-key="76476"] [class="ant-table-cell"]').eq(7).contains('2024-09-17').should('exist');
     cy.get('[data-row-key="76476"] [class="ant-table-cell"]').eq(8).contains('2024-09-17').should('exist');
   });

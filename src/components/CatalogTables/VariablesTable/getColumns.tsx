@@ -23,8 +23,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.label'),
     render: (variable: IVariableEntity) => {
       const description = lang === LANG.FR ? variable?.var_label_fr : variable?.var_label_en;
-      if (!description) return TABLE_EMPTY_PLACE_HOLDER;
-      return <div>{description}</div>;
+      return description || TABLE_EMPTY_PLACE_HOLDER;
     },
   },
   {
@@ -65,12 +64,12 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     },
   },
   {
-    key: 'resource.rs_code',
+    key: 'resource.rs_name',
     title: intl.get('entities.resource.Resource'),
     sorter: { multiple: 1 },
     render: (variable: IVariableEntity) => {
-      if (!variable?.resource?.rs_code) return TABLE_EMPTY_PLACE_HOLDER;
-      return <Link href={`/resource/${variable.resource.rs_code}`}>{variable.resource.rs_code}</Link>;
+      if (!variable?.resource?.rs_name) return TABLE_EMPTY_PLACE_HOLDER;
+      return <Link href={`/resource/${variable.resource.rs_code}`}>{variable.resource.rs_name}</Link>;
     },
   },
   {
