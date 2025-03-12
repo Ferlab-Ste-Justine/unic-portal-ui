@@ -129,7 +129,7 @@ const en = {
     report: {
       error: {
         title: 'Error',
-        message: 'We were unable to generate the report at this time. Please try again later or ',
+        message: 'We were unable to generate the report at this time. Please try again later.',
       },
       inProgress: {
         title: 'Processing',

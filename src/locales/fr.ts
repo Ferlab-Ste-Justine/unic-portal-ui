@@ -127,7 +127,7 @@ const fr = {
     report: {
       error: {
         title: 'Erreur',
-        message: "Nous n'avons pas pu générer le rapport pour le moment. Veuillez réessayer plus tard ou ",
+        message: "Nous n'avons pas pu générer le rapport pour le moment. Veuillez réessayer plus tard.",
       },
       inProgress: {
         title: 'Traitement',
