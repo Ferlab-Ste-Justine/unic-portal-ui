@@ -4,11 +4,11 @@ import { Tooltip } from 'antd';
 import Link from 'next/link';
 import intl from 'react-intl-universal';
 
+import { IEntityDescriptionsItem } from '@/components/EntityPage/types/entityPage';
 import { LANG } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
 
 import styles from '../page.module.css';
-import { IEntityDescriptionsItem } from '@/components/EntityPage/types/entityPage';
 
 const extractVariableCounts = (resourceEntity?: IResourceEntity) => {
   const variablesCountsMap = new Map<string, number>();

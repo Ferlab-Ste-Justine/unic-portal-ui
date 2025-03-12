@@ -5,7 +5,8 @@ import { render, screen } from '@testing-library/react';
 import { useParams } from 'next/navigation';
 
 import EntityTablePage from '@/app/table/[...slug]/page';
-import { GET_TABLE_ENTITY } from '@/lib/graphql/queries/getTableEntity.query';
+import EntityVariablePage from '@/app/variable/[...slug]/page';
+import { GET_VARIABLE_ENTITY } from '@/lib/graphql/queries/getVariableEntity.query';
 
 jest.mock('@apollo/client', () => ({
   useQuery: jest.fn(),
@@ -22,36 +23,52 @@ jest.mock('next/navigation', () => ({
   useParams: jest.fn(),
 }));
 
-describe('Table Entity', () => {
+describe('Variable Entity', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (useQuery as jest.Mock).mockReturnValue({
       data: {
-        getTables: {
+        getVariables: {
           hits: [
             {
-              tab_id: 2077,
-              tab_created_at: 1726516882462,
-              tab_entity_type: 'diagnosis',
-              tab_label_en: 'Patient diagnosis',
-              tab_label_fr: 'Diagnostic du patient',
-              tab_last_update: 1726516882462,
-              tab_name: 'patient_diagnosis',
+              var_name: 'labTestStatus',
+              var_value_type: 'string',
+              var_derivation_algorithm: 'AS IS',
+              var_notes: null,
+              var_label_fr: 'Statut du test',
+              var_label_en: 'Status of the laboratory test performed',
+              var_created_at: 1723832573323,
+              var_last_update: 1723832573323,
               resource: {
-                rs_id: 59,
-                rs_code: 'bronchiolite',
-                rs_is_project: true,
-                rs_description_en:
-                  'Study aimed at evaluating practices surrounding the management of bronchiolitis at the CHUSJ',
-                rs_description_fr:
-                  'Étude visant à évaluer les pratiques entourant la prise en charge de la bronchiolite au CHUSJ',
-                rs_type: 'research_project',
-                rs_name: 'LVC-Bronchiolite-HSJ',
-                rs_title:
-                  'Low-value care; and variation in practice for children hospitalized with bronchiolitis at the CHU Sainte-Justine',
+                rs_name: 'warehouse',
+                rs_code: 'warehouse',
               },
-              stat_etl: {
-                variable_count: 3,
+              table: {
+                tab_name: 'lab_results',
+              },
+              value_set: {
+                values: [
+                  {
+                    vsval_code: 'Corrected',
+                    vsval_label_en: 'Corrected',
+                    vsval_label_fr: 'Corrigée',
+                  },
+                  {
+                    vsval_code: 'Canceled',
+                    vsval_label_en: 'Canceled',
+                    vsval_label_fr: 'Annulé',
+                  },
+                  {
+                    vsval_code: 'Final',
+                    vsval_label_en: 'Final',
+                    vsval_label_fr: 'Final',
+                  },
+                  {
+                    vsval_code: 'Pending',
+                    vsval_label_en: 'Pending',
+                    vsval_label_fr: 'En attente',
+                  },
+                ],
               },
             },
           ],
@@ -59,43 +76,52 @@ describe('Table Entity', () => {
       },
       loading: false,
     });
-    (useParams as jest.Mock).mockReturnValue({ slug: ['bronchiolite', 'patient_diagnosis'] });
+    (useParams as jest.Mock).mockReturnValue({ slug: ['warehouse', 'lab_results', 'labTestStatus'] });
   });
 
   test('should display current path using router', () => {
-    render(<EntityTablePage />);
+    render(<EntityVariablePage />);
     const titleEl = screen.getByRole('heading', { level: 4 });
-    expect(titleEl).toHaveTextContent('patient_diagnosis');
+    expect(titleEl).toHaveTextContent('labTestStatus');
   });
 
   it('renders all Entity Descriptions', () => {
-    render(<EntityTablePage />);
+    render(<EntityVariablePage />);
     expect(screen.getByText('global.summary')).toBeInTheDocument();
-    expect(screen.getByText('entities.variable.Variables')).toBeInTheDocument();
+    expect(screen.getByText('global.categories')).toBeInTheDocument();
     expect(screen.getByText('global.history')).toBeInTheDocument();
   });
 
-  it('proper links should be in table entity page', () => {
-    render(<EntityTablePage />);
+  it('proper links should be in variable entity page', () => {
+    render(<EntityVariablePage />);
     const allLinks = screen.getAllByRole('link');
 
     expect(allLinks[0]).toHaveAttribute('href', '/catalog');
-    expect(allLinks[1]).toHaveAttribute('href', '/resource/bronchiolite');
-    //todo add missing link back to catalogue (filtered) when available
+    expect(allLinks[1]).toHaveAttribute('href', '/resource/warehouse');
+    expect(allLinks[2]).toHaveAttribute('href', '/table/warehouse/lab_results');
   });
-});
 
-it('calls useQuery with GET_TABLE_ENTITY', () => {
-  render(<EntityTablePage />);
+  it('renders Category rows in Table', () => {
+    render(<EntityVariablePage />);
+    const tableHeadersName = screen.getAllByRole('cell', { name: 'Corrected' });
+    const tableHeadersLabel = screen.getAllByRole('cell', { name: 'Corrigée' });
+    expect(tableHeadersName.length).toBe(1);
+    expect(tableHeadersLabel.length).toBe(1);
+  });
 
-  expect(useQuery).toHaveBeenCalledWith(GET_TABLE_ENTITY, {
-    variables: {
-      match: [
-        { field: 'resource.rs_code', value: 'bronchiolite' },
-        { field: 'tab_name', value: 'patient_diagnosis' },
-      ],
-      size: 1,
-    },
+  it('calls useQuery with GET_VARIABLE_ENTITY', () => {
+    render(<EntityVariablePage />);
+
+    expect(useQuery).toHaveBeenCalledWith(GET_VARIABLE_ENTITY, {
+      variables: {
+        match: [
+          { field: 'resource.rs_code', value: 'warehouse' },
+          { field: 'table.tab_name', value: 'lab_results' },
+          { field: 'var_name', value: 'labTestStatus' },
+        ],
+        size: 1,
+      },
+    });
   });
 });
 

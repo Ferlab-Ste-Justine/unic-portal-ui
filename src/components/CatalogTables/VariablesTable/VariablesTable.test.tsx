@@ -91,6 +91,9 @@ describe('VariablesTable', () => {
                 var_id: '2',
                 var_name: 'Variable 2',
                 resource: { rs_name: 'rs_name 2', rs_code: 'rs_code 2' },
+                table: {
+                  tab_name: 'tab_name 2',
+                },
                 variable: {
                   var_label_fr: 'var_label_fr 1',
                   var_label_en: 'var_label_en 1',

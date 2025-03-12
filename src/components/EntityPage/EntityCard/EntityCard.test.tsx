@@ -26,18 +26,5 @@ describe('DataRelease Component', () => {
     );
 
     expect(screen.getByText('Test Title')).toBeInTheDocument();
-    expect(screen.getByText('testLabel1')).toBeInTheDocument();
-    expect(screen.getByText('testLabel2')).toBeInTheDocument();
-  });
-
-  it('should empty if no value', () => {
-    render(
-      <EntityCard loading={false} title={'Test Title'}>
-        <></>
-      </EntityCard>,
-    );
-
-    expect(screen.getByText('testLabel1')).toBeInTheDocument();
-    expect(screen.getByText('-')).toBeInTheDocument();
   });
 });

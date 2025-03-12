@@ -30,9 +30,8 @@ describe('DataRelease Component', () => {
   });
 
   it('should render without crashing', () => {
-    render(<EntityDescriptions descriptions={descriptions} loading={false} title={'Test Title'} />);
+    render(<EntityDescriptions descriptions={descriptions} />);
 
-    expect(screen.getByText('Test Title')).toBeInTheDocument();
     expect(screen.getByText('testLabel1')).toBeInTheDocument();
     expect(screen.getByText('testLabel2')).toBeInTheDocument();
   });
@@ -45,8 +44,6 @@ describe('DataRelease Component', () => {
             label: 'testLabel1',
           },
         ]}
-        loading={false}
-        title={'Test Title'}
       />,
     );
 

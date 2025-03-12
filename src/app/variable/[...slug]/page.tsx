@@ -17,7 +17,7 @@ import EntityDescriptions from '@/components/EntityPage/EntityDescription/Entity
 import { GET_VARIABLE_ENTITY } from '@/lib/graphql/queries/getVariableEntity.query';
 import { useLang } from '@/store/global';
 import { LANG } from '@/types/constants';
-import { IVariableEntity } from '@/types/entities';
+import { IValueType, IVariableEntity } from '@/types/entities';
 import { QueryOptions } from '@/types/queries';
 
 import styles from './page.module.css';
@@ -25,6 +25,8 @@ import styles from './page.module.css';
 const MAX_TABLE_HEIGHT = 272;
 
 const EntityVariablePage = () => {
+  const [scroll, setScroll] = useState<{ y: number } | undefined>(undefined);
+
   const { slug } = useParams() as { slug: string };
 
   const resourceCode = decodeURIComponent(slug[0]);
@@ -39,7 +41,6 @@ const EntityVariablePage = () => {
     ],
     size: 1,
   };
-  const [scroll, setScroll] = useState<{ y: number } | undefined>(undefined);
 
   const lang = useLang();
 
@@ -61,17 +62,17 @@ const EntityVariablePage = () => {
     return <Empty description={intl.get('entities.no_data')} imageType='row' size='large' />;
   }
 
-  const dataSource = variable?.value_set?.values || [];
+  const dataSource = variable?.value_set?.values.map((v: IValueType) => ({ ...v, key: v.vsval_code })) || [];
 
   const columns = [
     {
-      title: 'Values',
+      title: intl.get('entities.values'),
       dataIndex: 'vsval_code',
       key: 'vsval_code',
       width: 360,
     },
     {
-      title: 'Libelle',
+      title: intl.get('entities.label'),
       dataIndex: lang === LANG.EN ? 'vsval_label_en' : 'vsval_label_fr',
       key: 'vsval_label_en',
     },
@@ -116,7 +117,7 @@ const EntityVariablePage = () => {
             scroll={scroll}
           />
         </EntityCard>
-        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+        <EntityCard id={'summary'} loading={loading} title={intl.get('global.history')}>
           <EntityDescriptions descriptions={getHistory(lang, variable)} />
         </EntityCard>
       </div>
