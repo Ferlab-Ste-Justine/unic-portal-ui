@@ -114,6 +114,20 @@ describe('Resource Entity - Project', () => {
 
     expect(() => screen.getByText('entities.startingYear')).toThrow();
   });
+  it('proper links should be in table entity page', () => {
+    render(<EntityResourcePage />);
+    const allLinks = screen.getAllByRole('link');
+
+    //2 title links
+    expect(allLinks[0]).toHaveAttribute('href', '/catalog');
+    expect(allLinks[1]).toHaveAttribute('href', '/resource/bronchiolite');
+    //2 table links
+    expect(allLinks[2]).toHaveAttribute('href', '/resource/bronchiolite');
+    expect(allLinks[3]).toHaveAttribute(
+      'href',
+      '/catalog#variables?filterField=table.tab_name&filterValue=patient_diagnosis',
+    );
+  });
 });
 
 describe('Resource Entity - Systeme Hospitalier', () => {

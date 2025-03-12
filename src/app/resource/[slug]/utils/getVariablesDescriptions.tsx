@@ -11,13 +11,15 @@ import { IResourceEntity } from '@/types/entities';
 import styles from '../page.module.css';
 
 const extractVariableCounts = (resourceEntity?: IResourceEntity) => {
-  const variablesCountsMap = new Map<string, number>();
+  const variablesCountsMap = new Map<string, { rs_code: string; count: number }>();
 
   resourceEntity?.variables?.forEach((v) =>
-    v.var_from_source_systems?.forEach((s) => variablesCountsMap.set(s.rs_name, s.stat_etl?.variable_count)),
+    v.var_from_source_systems?.forEach((s) =>
+      variablesCountsMap.set(s.rs_name, { rs_code: s.rs_code, count: s.stat_etl?.variable_count }),
+    ),
   );
 
-  return [...variablesCountsMap].sort((v1, v2) => v2[1] - v1[1]);
+  return [...variablesCountsMap].sort((v1, v2) => v2[1].count - v1[1].count);
 };
 
 const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity): IEntityDescriptionsItem[] => {
@@ -28,9 +30,7 @@ const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity):
       label: intl.get('entities.number_variables'),
       value: resourceEntity?.stat_etl?.variable_count ? (
         <div>
-          <Link
-            href={''} //TODO fix URL
-          >
+          <Link href={`/catalog#variables?filterField=resource.rs_name&filterValue=${resourceEntity.rs_name}`}>
             {resourceEntity?.stat_etl?.variable_count}
           </Link>
           {` (${intl.get('global.in')} ${resourceEntity?.stat_etl?.table_count} ${intl.get('entities.table.tables')})`}
@@ -56,7 +56,9 @@ const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity):
                   ? variablesCounts.map((value, key) => (
                       <span className={styles.hospitalSystem} key={key}>
                         <div>{`${value[0]} (`}</div>
-                        <Link href={''}>{`${value[1]})`}</Link>
+                        <Link
+                          href={`/catalog#variables?filterField=var_from_source_systems.rs_code&filterValue=${value[1].rs_code}`}
+                        >{`${value[1].count})`}</Link>
                       </span>
                     ))
                   : TABLE_EMPTY_PLACE_HOLDER}
