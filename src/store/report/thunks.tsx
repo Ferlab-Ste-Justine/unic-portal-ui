@@ -1,11 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { DocumentNode, FieldNode, OperationDefinitionNode } from 'graphql';
+import { DocumentNode } from 'graphql';
 import intl from 'react-intl-universal';
+import fetchAllData from 'src/utils/TSV/fetchAllData';
 
-import client from '@/lib/graphql/ApolloClient';
 import { globalActions } from '@/store/global';
 import { QueryOptions } from '@/types/queries';
 import formatDate from '@/utils/formatDate';
+import download from '@/utils/TSV/download';
+import formatData from '@/utils/TSV/formatData';
 
 const showErrorReportNotif = (thunkApi: any) =>
   thunkApi.dispatch(
@@ -16,68 +18,6 @@ const showErrorReportNotif = (thunkApi: any) =>
       duration: 5,
     }),
   );
-
-const downloadTSV = async (data: Record<string, any>[], filename: string) => {
-  if (!data.length) return;
-
-  const headers = Object.keys(data[0]);
-  const tsvRows = data.map((row) => headers.map((header) => String(row[header] ?? '')).join('\t'));
-  const tsvContent = [headers.join('\t'), ...tsvRows].join('\n');
-  const blob = new Blob([tsvContent], { type: 'text/tab-separated-values;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-
-  URL.revokeObjectURL(url);
-};
-
-const fetchAllData = async (query: DocumentNode, variables: QueryOptions) => {
-  let allData: any[] = [];
-  let searchAfter = null;
-
-  // Get the query name dynamically from the first field in the selection set
-  const operationDefinition = query.definitions.find(
-    (def) => def.kind === 'OperationDefinition',
-  ) as OperationDefinitionNode;
-  const queryName = (operationDefinition?.selectionSet?.selections[0] as FieldNode)?.name?.value;
-
-  do {
-    const { data } = await client.query({
-      query,
-      variables: { ...variables, search_after: searchAfter, size: 10000 },
-    });
-
-    const hits: any[] = data?.[queryName]?.hits || [];
-    allData = allData.concat(hits);
-    searchAfter = hits.length ? hits[hits.length - 1].search_after : null;
-  } while (searchAfter);
-
-  return allData;
-};
-
-const formatDataForTSV = (data: any[], columns: any[]): Record<string, any>[] => {
-  return data.map((item) => {
-    const formattedItem: Record<string, any> = {};
-
-    columns.forEach(({ key, label, renderDownload }) => {
-      if (renderDownload && typeof renderDownload === 'function') {
-        /** render custom function if exists */
-        formattedItem[label] = renderDownload(item);
-      } else if (Array.isArray(item[key])) {
-        /** split array into string */
-        formattedItem[label] = item[key].join(',');
-      } else {
-        /** render default value */
-        formattedItem[label] = item[key] ?? '-';
-      }
-    });
-
-    return formattedItem;
-  });
-};
 
 const fetchTsvReport = createAsyncThunk<
   void,
@@ -101,10 +41,10 @@ const fetchTsvReport = createAsyncThunk<
     );
 
     const data = await fetchAllData(query, variables);
-    const formattedData = formatDataForTSV(data, columns);
+    const formattedData = formatData(data, columns);
     const formattedDate = formatDate(new Date());
     const formattedFileName = `unic-${tableName}-${formattedDate}.tsv`;
-    await downloadTSV(formattedData, formattedFileName);
+    await download(formattedData, formattedFileName);
 
     thunkAPI.dispatch(globalActions.destroyMessages([messageKey]));
     thunkAPI.dispatch(

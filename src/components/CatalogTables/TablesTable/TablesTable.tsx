@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
 import styles from '@/components/CatalogTables/ResourcesTable/ResourcesTable.module.css';
+import DownloadTSVButton from '@/components/DownloadTSVButton';
 import { GET_TABLES } from '@/lib/graphql/queries/getTables';
 import { useLang } from '@/store/global';
 import { useUser } from '@/store/user';
@@ -88,6 +89,9 @@ const TablesTable = () => {
     }));
   };
 
+  const userColumns = userInfo?.config.catalog?.tables?.tables?.columns || [];
+  const columns = getColumns(lang);
+
   useEffect(() => {
     if (!loading) {
       setRsNameOptions(
@@ -150,10 +154,10 @@ const TablesTable = () => {
       <ProTable
         tableId={'tables-table'}
         loading={loading}
-        columns={getColumns(lang)}
+        columns={columns}
         dataSource={dataSource}
         bordered
-        initialColumnState={userInfo?.config.catalog?.tables?.tables?.columns}
+        initialColumnState={userColumns}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
         size={'small'}
@@ -201,6 +205,16 @@ const TablesTable = () => {
           onColumnSortChange: (newState) =>
             // @ts-expect-error - unknown action
             dispatch(updateUserConfig({ catalog: { tables: { tables: { columns: newState } } } })),
+          extra: [
+            <DownloadTSVButton
+              key={'download-tables'}
+              tableName={'tables'}
+              variables={variables}
+              query={GET_TABLES}
+              userColumns={userColumns}
+              columns={columns}
+            />,
+          ],
         }}
       />
     </div>

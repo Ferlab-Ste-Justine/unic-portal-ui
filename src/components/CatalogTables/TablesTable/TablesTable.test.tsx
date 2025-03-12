@@ -10,6 +10,7 @@ import { DEFAULT_PAGE_SIZE } from '@/utils/constants';
 
 import TablesTable from './TablesTable';
 
+jest.mock('@/components/DownloadTSVButton', () => jest.fn());
 jest.mock('react-intl-universal', () => ({
   get: jest.fn((key) => key),
 }));

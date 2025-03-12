@@ -1,13 +1,13 @@
-import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import Link from 'next/link';
 import intl from 'react-intl-universal';
 
 import { LANG } from '@/types/constants';
 import { ITableEntity } from '@/types/entities';
+import { ColumnType } from '@/types/tables';
 import { TABLE_EMPTY_PLACE_HOLDER } from '@/utils/constants';
 import formatDate from '@/utils/formatDate';
 
-const getColumns = (lang: LANG): ProColumnType[] => [
+const getColumns = (lang: LANG): ColumnType[] => [
   {
     key: 'tab_name',
     title: intl.get('entities.name'),
@@ -18,12 +18,12 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     },
   },
   {
-    key: 'tab_label',
+    key: 'tab_label_en',
     title: intl.get('entities.description'),
+    renderDownload: (table: ITableEntity) => (lang === LANG.FR ? table?.tab_label_fr : table?.tab_label_en),
     render: (table: ITableEntity) => {
       const description = lang === LANG.FR ? table?.tab_label_fr : table?.tab_label_en;
-      if (!description) return TABLE_EMPTY_PLACE_HOLDER;
-      return <div>{description}</div>;
+      return description || TABLE_EMPTY_PLACE_HOLDER;
     },
   },
   {
@@ -41,9 +41,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.table.tab_entity_type'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-    render: (key: string) => {
-      return key || TABLE_EMPTY_PLACE_HOLDER;
-    },
+    render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
     dataIndex: 'tab_domain',
@@ -51,12 +49,10 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.Domain'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-    render: (key: string) => {
-      return key || TABLE_EMPTY_PLACE_HOLDER;
-    },
+    render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
-    key: 'variable_count',
+    key: 'stat_etl.variable_count',
     title: intl.get('entities.table.variable_count'),
     render: (table: ITableEntity) => {
       if (!table?.stat_etl?.variable_count) return TABLE_EMPTY_PLACE_HOLDER;
@@ -73,6 +69,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    renderDownload: (table: ITableEntity) => formatDate(table?.tab_created_at),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
@@ -84,6 +81,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.updatedAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    renderDownload: (table: ITableEntity) => formatDate(table?.tab_last_update),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);

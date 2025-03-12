@@ -49,8 +49,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     key: 'rs_last_update',
     title: intl.get('entities.updatedAt'),
     sorter: { multiple: 1 },
-    renderDownload: (resource: IResourceEntity) =>
-      resource?.rs_last_update ? formatDate(resource.rs_last_update) : TABLE_EMPTY_PLACE_HOLDER,
+    renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_last_update),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
@@ -62,8 +61,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-    renderDownload: (resource: IResourceEntity) =>
-      resource?.rs_project_creation_date ? formatDate(resource.rs_project_creation_date) : TABLE_EMPTY_PLACE_HOLDER,
+    renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_creation_date),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
@@ -74,8 +72,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     key: 'rs_project_approval_date',
     title: intl.get('entities.approvedAt'),
     defaultHidden: true,
-    renderDownload: (resource: IResourceEntity) =>
-      resource?.rs_project_approval_date ? formatDate(resource.rs_project_approval_date) : TABLE_EMPTY_PLACE_HOLDER,
+    renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_approval_date),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
@@ -86,7 +83,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.table.Table'),
     renderDownload: (resource: IResourceEntity) => resource?.tables?.length,
     render: (resource: IResourceEntity) => {
-      if (!resource?.tables?.length) return TABLE_EMPTY_PLACE_HOLDER;
+      if (!resource?.tables?.length) return '0';
       let filterField = '';
       let filterValue = '';
       if (resource.rs_is_project) {
@@ -108,7 +105,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.variable.Variable'),
     renderDownload: (resource: IResourceEntity) => resource?.variables?.length,
     render: (resource: IResourceEntity) => {
-      if (!resource?.variables?.length) return TABLE_EMPTY_PLACE_HOLDER;
+      if (!resource?.variables?.length) return '0';
       return (
         <Link href={`/catalog#variables?filterField=resource.rs_name&filterValue=${resource.rs_name}`}>
           {resource.variables?.length}
@@ -119,10 +116,8 @@ const getColumns = (lang: LANG): ColumnType[] => [
   {
     key: 'rs_description_en',
     title: intl.get('entities.description'),
-    renderDownload: (resource: IResourceEntity) => {
-      const description = lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en;
-      return description || TABLE_EMPTY_PLACE_HOLDER;
-    },
+    renderDownload: (resource: IResourceEntity) =>
+      lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en,
     render: (resource: IResourceEntity) => {
       const description = lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en;
       if (!description) return TABLE_EMPTY_PLACE_HOLDER;

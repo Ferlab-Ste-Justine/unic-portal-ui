@@ -149,7 +149,7 @@ const ResourcesTable = () => {
         columns={columns}
         dataSource={dataSource}
         bordered
-        initialColumnState={userInfo?.config.catalog?.tables?.resources?.columns}
+        initialColumnState={userColumns}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
         size={'small'}
