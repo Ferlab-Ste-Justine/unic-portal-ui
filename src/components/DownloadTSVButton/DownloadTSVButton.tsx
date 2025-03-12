@@ -9,7 +9,7 @@ import { fetchTsvReport } from '@/store/report/thunks';
 import { QueryOptions } from '@/types/queries';
 import { ColumnType } from '@/types/tables';
 
-interface OwnProps {
+interface IDownloadTSVButtonProps {
   type?: 'default' | 'primary' | 'text';
   tableName: string;
   variables: QueryOptions;
@@ -22,7 +22,15 @@ interface OwnProps {
   title?: React.ReactNode;
 }
 
-const DownloadTSVButton = ({ tableName, variables, query, type = 'text', userColumns, columns, title }: OwnProps) => {
+const DownloadTSVButton = ({
+  tableName,
+  variables,
+  query,
+  type = 'text',
+  userColumns,
+  columns,
+  title,
+}: IDownloadTSVButtonProps) => {
   const dispatch = useDispatch();
 
   const columnsToDownload: {

@@ -47,7 +47,7 @@ const fetchAllData = async (query: DocumentNode, variables: QueryOptions) => {
   do {
     const { data } = await client.query({
       query,
-      variables: { ...variables, search_after: searchAfter, size: 10 },
+      variables: { ...variables, search_after: searchAfter, size: 10000 },
     });
 
     const hits: any[] = data?.[queryName]?.hits || [];

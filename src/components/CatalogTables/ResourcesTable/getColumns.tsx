@@ -118,7 +118,6 @@ const getColumns = (lang: LANG): ColumnType[] => [
   },
   {
     key: 'rs_description_en',
-    // key: lang === LANG.FR ? 'rs_description_fr' : 'rs_description_en',
     title: intl.get('entities.description'),
     renderDownload: (resource: IResourceEntity) => {
       const description = lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en;
