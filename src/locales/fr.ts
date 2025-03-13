@@ -91,7 +91,7 @@ const fr = {
     resources: 'Ressources',
     contact: 'Contact',
     select: 'Sélectionner',
-    currentVersion: 'Version courrante',
+    currentVersion: 'Version courante',
     history: 'Historique',
     proTable: {
       results: 'Résultats',
