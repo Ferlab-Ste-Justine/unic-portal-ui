@@ -78,6 +78,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    width: 120,
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
@@ -89,6 +90,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.updatedAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    width: 120,
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
