@@ -102,10 +102,10 @@ const EntityVariablePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+        <EntityCard loading={loading} title={intl.get('global.summary')}>
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, variable)} />
         </EntityCard>
-        <EntityCard id={'currentVersion'} loading={loading} title={intl.get('global.categories')}>
+        <EntityCard loading={loading} title={intl.get('global.categories')}>
           <Table
             className={styles.entityTable}
             ref={tableRef}
@@ -117,7 +117,7 @@ const EntityVariablePage = () => {
             scroll={scroll}
           />
         </EntityCard>
-        <EntityCard id={'summary'} loading={loading} title={intl.get('global.history')}>
+        <EntityCard loading={loading} title={intl.get('global.history')}>
           <EntityDescriptions descriptions={getHistory(lang, variable)} />
         </EntityCard>
       </div>

@@ -62,13 +62,13 @@ const EntityTablePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+        <EntityCard loading={loading} title={intl.get('global.summary')}>
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, table)} />
         </EntityCard>
-        <EntityCard id={'variables'} loading={loading} title={intl.get('entities.variable.Variables')}>
+        <EntityCard loading={loading} title={intl.get('entities.variable.Variables')}>
           <EntityDescriptions descriptions={getVariablesDescriptions(lang, table)} />
         </EntityCard>
-        <EntityCard id={'currentVersion'} loading={loading} title={intl.get('global.history')}>
+        <EntityCard loading={loading} title={intl.get('global.history')}>
           <EntityDescriptions descriptions={getHistory(lang, table)} />
         </EntityCard>
       </div>

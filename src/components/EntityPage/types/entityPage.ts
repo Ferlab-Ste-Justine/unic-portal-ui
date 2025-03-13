@@ -7,7 +7,6 @@ export interface IEntityDescriptionsItem {
 }
 
 export interface IEntityCard {
-  id?: string;
   loading: boolean;
   noDataLabel?: string;
   title: string;

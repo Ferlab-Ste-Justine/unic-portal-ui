@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_VARIABLE_ENTITY = gql`
-  query getVariables(
+  query getVariableEntity(
     $match: [FieldValueType]
     $or: [FieldValueType]
     $from: Int
