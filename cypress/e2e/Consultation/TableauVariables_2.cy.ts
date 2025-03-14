@@ -12,7 +12,7 @@ beforeEach(() => {
 describe('Tableau Variables - Valider les liens disponibles', () => {
   it('Lien Name', () => {
     cy.get('[data-row-key="76476"] [class="ant-table-cell"]').eq(0).find('[href]').clickAndWait();
-    cy.get('p').contains('EntityVariablePage').should('exist');
+    cy.get('[class*="page_titleHeader"]').contains('#_Admitted_COVID').should('exist');
   });
 
   it('Lien Table', () => {

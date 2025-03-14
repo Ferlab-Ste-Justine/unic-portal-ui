@@ -51,12 +51,12 @@ describe('Page d\'une table - Vérifier les informations affichées', () => {
   });
 
   it('Panneau History - Created On', () => {
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-label"]').eq(0).contains('Created On').should('exist');
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-09-17').should('exist');
+    cy.get('[id="history"] [class="ant-descriptions-item-label"]').eq(0).contains('Created On').should('exist');
+    cy.get('[id="history"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-09-17').should('exist');
   });
 
   it('Panneau History - Updated On', () => {
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-label"]').eq(1).contains('Updated On').should('exist');
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(1).contains('2024-09-17').should('exist');
+    cy.get('[id="history"] [class="ant-descriptions-item-label"]').eq(1).contains('Updated On').should('exist');
+    cy.get('[id="history"] [class="ant-descriptions-item-content"]').eq(1).contains('2024-09-17').should('exist');
   });
 });
