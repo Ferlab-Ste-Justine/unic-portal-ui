@@ -32,6 +32,7 @@ export const GET_RESOURCE_ENTITY = gql`
           var_name
           var_from_source_systems {
             rs_name
+            rs_code
             stat_etl {
               variable_count
             }
