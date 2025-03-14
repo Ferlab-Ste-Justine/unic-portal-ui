@@ -1,0 +1,26 @@
+
+.entity-description .card {
+  margin-bottom: 6px;
+}
+
+.entityCard{
+  .card *[class$=-descriptions-item-label] {
+    width: 200px;
+  }
+  .card *[class$=-card-body] {
+    padding: 12px;
+  }
+  .card *[class$=-card-head] {
+    padding-left: 12px;
+  }
+
+  .card *[class$=-card-head-title] {
+    padding: 12px 0;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  padding-bottom: 8px;
+}

@@ -11,7 +11,8 @@ import intl from 'react-intl-universal';
 
 import getHistory from '@/app/table/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/table/[...slug]/utils/getSummaryDescriptions';
-import EntityDescriptions from '@/components/EntityPage/EntityDescription';
+import EntityCard from '@/components/EntityPage/EntityCard';
+import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
 import { GET_TABLE_ENTITY } from '@/lib/graphql/queries/getTableEntity.query';
 import { useLang } from '@/store/global';
 import { ITableEntity } from '@/types/entities';
@@ -61,24 +62,15 @@ const EntityTablePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityDescriptions
-          id={'summary'}
-          loading={loading}
-          descriptions={getSummaryDescriptions(lang, table)}
-          title={intl.get('global.summary')}
-        />
-        <EntityDescriptions
-          id={'variables'}
-          loading={loading}
-          descriptions={getVariablesDescriptions(lang, table)}
-          title={intl.get('entities.variable.Variables')}
-        />
-        <EntityDescriptions
-          id={'currentVersion'}
-          loading={loading}
-          descriptions={getHistory(lang, table)}
-          title={intl.get('global.history')}
-        />
+        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+          <EntityDescriptions descriptions={getSummaryDescriptions(lang, table)} />
+        </EntityCard>
+        <EntityCard id={'variables'} loading={loading} title={intl.get('entities.variable.Variables')}>
+          <EntityDescriptions descriptions={getVariablesDescriptions(lang, table)} />
+        </EntityCard>
+        <EntityCard id={'history'} loading={loading} title={intl.get('global.history')}>
+          <EntityDescriptions descriptions={getHistory(lang, table)} />
+        </EntityCard>
       </div>
     </>
   );

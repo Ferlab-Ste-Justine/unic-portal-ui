@@ -2,7 +2,7 @@ import { TABLE_EMPTY_PLACE_HOLDER } from '@ferlab/ui/core/common/constants';
 import { Tag } from 'antd';
 import intl from 'react-intl-universal';
 
-import { IEntityDescriptionsItem } from '@/components/EntityPage/EntityDescription/types/entityPage';
+import { IEntityDescriptionsItem } from '@/components/EntityPage/types/entityPage';
 import { LANG } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
 import getTagColorByType from '@/utils/getTagColorByType';

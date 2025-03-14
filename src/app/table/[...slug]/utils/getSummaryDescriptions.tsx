@@ -6,7 +6,7 @@ import React from 'react';
 import intl from 'react-intl-universal';
 
 import styles from '@/app/resource/[slug]/page.module.css';
-import { IEntityDescriptionsItem } from '@/components/EntityPage/EntityDescription/types/entityPage';
+import { IEntityDescriptionsItem } from '@/components/EntityPage/types/entityPage';
 import { LANG } from '@/types/constants';
 import { ITableEntity } from '@/types/entities';
 

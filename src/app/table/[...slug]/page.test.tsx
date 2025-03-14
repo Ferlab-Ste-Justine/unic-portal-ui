@@ -83,19 +83,19 @@ describe('Table Entity', () => {
     expect(allLinks[1]).toHaveAttribute('href', '/resource/bronchiolite');
     //todo add missing link back to catalogue (filtered) when available
   });
-});
 
-it('calls useQuery with GET_TABLE_ENTITY', () => {
-  render(<EntityTablePage />);
+  it('calls useQuery with GET_TABLE_ENTITY', () => {
+    render(<EntityTablePage />);
 
-  expect(useQuery).toHaveBeenCalledWith(GET_TABLE_ENTITY, {
-    variables: {
-      match: [
-        { field: 'resource.rs_code', value: 'bronchiolite' },
-        { field: 'tab_name', value: 'patient_diagnosis' },
-      ],
-      size: 1,
-    },
+    expect(useQuery).toHaveBeenCalledWith(GET_TABLE_ENTITY, {
+      variables: {
+        match: [
+          { field: 'resource.rs_code', value: 'bronchiolite' },
+          { field: 'tab_name', value: 'patient_diagnosis' },
+        ],
+        size: 1,
+      },
+    });
   });
 });
 
