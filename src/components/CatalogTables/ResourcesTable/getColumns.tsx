@@ -1,10 +1,10 @@
-import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Popover, Tag } from 'antd';
 import Link from 'next/link';
 import intl from 'react-intl-universal';
 
 import { LANG } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
+import { ColumnType } from '@/types/tables';
 import { TABLE_EMPTY_PLACE_HOLDER } from '@/utils/constants';
 import formatDate from '@/utils/formatDate';
 import getTagColorByType from '@/utils/getTagColorByType';
@@ -12,7 +12,7 @@ import { getRSLabelNameByType } from '@/utils/translation';
 
 import styles from './ResourcesTable.module.css';
 
-const getColumns = (lang: LANG): ProColumnType[] => [
+const getColumns = (lang: LANG): ColumnType[] => [
   {
     key: 'rs_code',
     title: intl.get('entities.code'),
@@ -50,6 +50,7 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.updatedAt'),
     sorter: { multiple: 1 },
     width: 120,
+    renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_last_update),
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
@@ -62,7 +63,8 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     sorter: { multiple: 1 },
     defaultHidden: true,
     width: 120,
-    render: (timestamp: string) => {
+    renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_creation_date),
+    render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
     },
@@ -73,7 +75,8 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     title: intl.get('entities.approvedAt'),
     defaultHidden: true,
     width: 120,
-    render: (timestamp: string) => {
+    renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_approval_date),
+    render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
     },
@@ -81,8 +84,9 @@ const getColumns = (lang: LANG): ProColumnType[] => [
   {
     key: 'tables',
     title: intl.get('entities.table.Table'),
+    renderDownload: (resource: IResourceEntity) => resource?.tables?.length,
     render: (resource: IResourceEntity) => {
-      if (!resource?.tables?.length) return TABLE_EMPTY_PLACE_HOLDER;
+      if (!resource?.tables?.length) return '0';
       let filterField = '';
       let filterValue = '';
       if (resource.rs_is_project) {
@@ -102,8 +106,9 @@ const getColumns = (lang: LANG): ProColumnType[] => [
   {
     key: 'variables',
     title: intl.get('entities.variable.Variable'),
+    renderDownload: (resource: IResourceEntity) => resource?.variables?.length,
     render: (resource: IResourceEntity) => {
-      if (!resource?.variables?.length) return TABLE_EMPTY_PLACE_HOLDER;
+      if (!resource?.variables?.length) return '0';
       return (
         <Link href={`/catalog#variables?filterField=resource.rs_name&filterValue=${resource.rs_name}`}>
           {resource.variables?.length}
@@ -112,8 +117,10 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     },
   },
   {
-    key: 'rs_description',
+    key: 'rs_description_en',
     title: intl.get('entities.description'),
+    renderDownload: (resource: IResourceEntity) =>
+      lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en,
     render: (resource: IResourceEntity) => {
       const description = lang === LANG.FR ? resource?.rs_description_fr : resource?.rs_description_en;
       if (!description) return TABLE_EMPTY_PLACE_HOLDER;

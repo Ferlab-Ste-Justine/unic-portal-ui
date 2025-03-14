@@ -92,7 +92,7 @@ Cypress.Commands.add('logout', () => {
   cy.visit('/');
   cy.wait(2000);
 
-  cy.get('[class*="Header_menuTrigger"] [class*="anticon-down"]').eq(1).click();
+  cy.get('[class*="Header_menuTrigger"] [class*="anticon-down"]').eq(0).click();
   cy.get('[data-menu-id*="logout"]').clickAndWait();
 });
 

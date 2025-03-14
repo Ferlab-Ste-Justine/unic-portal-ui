@@ -1,14 +1,14 @@
-import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tag } from 'antd';
 import Link from 'next/link';
 import intl from 'react-intl-universal';
 
 import { LANG } from '@/types/constants';
 import { ISourceType, IVariableEntity } from '@/types/entities';
+import { ColumnType } from '@/types/tables';
 import { TABLE_EMPTY_PLACE_HOLDER } from '@/utils/constants';
 import formatDate from '@/utils/formatDate';
 
-const getColumns = (lang: LANG): ProColumnType[] => [
+const getColumns = (lang: LANG): ColumnType[] => [
   {
     key: 'var_name',
     title: intl.get('entities.name'),
@@ -25,8 +25,9 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     },
   },
   {
-    key: 'tab_label',
+    key: 'var_label_en',
     title: intl.get('entities.label'),
+    renderDownload: (variable: IVariableEntity) => (lang === LANG.FR ? variable?.var_label_fr : variable?.var_label_en),
     render: (variable: IVariableEntity) => {
       const description = lang === LANG.FR ? variable?.var_label_fr : variable?.var_label_en;
       return description || TABLE_EMPTY_PLACE_HOLDER;
@@ -85,7 +86,8 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     sorter: { multiple: 1 },
     defaultHidden: true,
     width: 120,
-    render: (timestamp: string) => {
+    renderDownload: (variable: IVariableEntity) => formatDate(variable?.var_created_at),
+    render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
     },
@@ -97,7 +99,8 @@ const getColumns = (lang: LANG): ProColumnType[] => [
     sorter: { multiple: 1 },
     defaultHidden: true,
     width: 120,
-    render: (timestamp: string) => {
+    renderDownload: (variable: IVariableEntity) => formatDate(variable?.var_last_update),
+    render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
     },

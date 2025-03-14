@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 
 import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
+import DownloadTSVButton from '@/components/DownloadTSVButton';
 import { GET_VARIABLES } from '@/lib/graphql/queries/getVariables';
 import { useLang } from '@/store/global';
 import { useUser } from '@/store/user';
@@ -90,6 +91,9 @@ const VariablesTable = () => {
       pageIndex: DEFAULT_PAGE_INDEX,
     }));
   };
+
+  const userColumns = userInfo?.config.catalog?.tables?.variables?.columns || [];
+  const columns = getColumns(lang);
 
   useEffect(() => {
     if (!loading) {
@@ -192,11 +196,11 @@ const VariablesTable = () => {
       <ProTable
         tableId={'variables-table'}
         loading={loading}
-        columns={getColumns(lang)}
+        columns={columns}
         dataSource={dataSource}
         bordered
         size={'small'}
-        initialColumnState={userInfo?.config.catalog?.tables?.variables?.columns}
+        initialColumnState={userColumns}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
         pagination={{
@@ -243,6 +247,16 @@ const VariablesTable = () => {
           onColumnSortChange: (newState) =>
             // @ts-expect-error - unknown action
             dispatch(updateUserConfig({ catalog: { tables: { variables: { columns: newState } } } })),
+          extra: [
+            <DownloadTSVButton
+              key={'download-variables'}
+              tableName={'variables'}
+              variables={variables}
+              query={GET_VARIABLES}
+              userColumns={userColumns}
+              columns={columns}
+            />,
+          ],
         }}
       />
     </div>
