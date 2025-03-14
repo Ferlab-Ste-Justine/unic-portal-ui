@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom';
 
 import { useQuery } from '@apollo/client';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { useParams } from 'next/navigation';
+import React from 'react';
 
 import EntityTablePage from '@/app/table/[...slug]/page';
 import EntityVariablePage from '@/app/variable/[...slug]/page';
@@ -22,6 +23,13 @@ jest.mock('react-intl-universal', () => ({
 jest.mock('next/navigation', () => ({
   useParams: jest.fn(),
 }));
+
+jest.mock('lodash/debounce', () =>
+  jest.fn((fn) => {
+    fn.cancel = jest.fn();
+    return fn;
+  }),
+);
 
 describe('Variable Entity', () => {
   beforeEach(() => {
@@ -122,6 +130,38 @@ describe('Variable Entity', () => {
         size: 1,
       },
     });
+  });
+
+  it('updates state when typing', () => {
+    render(<EntityVariablePage />);
+    const input = screen.getByPlaceholderText('global.research');
+
+    fireEvent.change(input, { target: { value: 'abc' } });
+
+    expect(input).toHaveValue('abc');
+  });
+
+  it('calls handleSearch on Enter key press', async () => {
+    render(<EntityVariablePage />);
+    const input = screen.getByPlaceholderText('global.research');
+    fireEvent.change(input, { target: { value: 'tee' } });
+
+    // Simulate pressing the Enter key
+    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', charCode: 13 });
+
+    expect(screen.getByPlaceholderText('global.research').value).toBe('tee');
+  });
+
+  it('filters the table based on search input', () => {
+    render(<EntityVariablePage />);
+
+    const input = screen.getByPlaceholderText('global.research');
+    fireEvent.change(input, { target: { value: 'Canceled' } });
+    // fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', charCode: 13 });
+
+    // After the change, check if the table contains only the filtered data
+    expect(screen.getByText('Canceled')).toBeInTheDocument();
+    expect(screen.queryByText('Final')).not.toBeInTheDocument();
   });
 });
 

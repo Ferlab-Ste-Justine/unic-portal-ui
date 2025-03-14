@@ -54,6 +54,8 @@
 }
 
 .entityTable {
+    padding-top: 10px;
+
     tbody {
         tr {
             td {
@@ -63,3 +65,6 @@
     }
 }
 
+.icon {
+    color: var(--gray-5)
+}
