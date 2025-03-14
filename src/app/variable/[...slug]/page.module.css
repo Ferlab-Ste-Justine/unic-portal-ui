@@ -54,6 +54,8 @@
 }
 
 .entityTable {
+    padding-top: 10px;
+
     tbody {
         tr {
             td {
@@ -62,4 +64,3 @@
         }
     }
 }
-
