@@ -79,6 +79,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    width: 120,
     renderDownload: (variable: IVariableEntity) => formatDate(variable?.var_created_at),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
@@ -91,6 +92,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.updatedAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    width: 120,
     renderDownload: (variable: IVariableEntity) => formatDate(variable?.var_last_update),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;

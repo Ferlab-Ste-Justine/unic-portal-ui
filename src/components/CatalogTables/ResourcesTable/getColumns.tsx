@@ -49,8 +49,9 @@ const getColumns = (lang: LANG): ColumnType[] => [
     key: 'rs_last_update',
     title: intl.get('entities.updatedAt'),
     sorter: { multiple: 1 },
+    width: 120,
     renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_last_update),
-    render: (timestamp: number) => {
+    render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
     },
@@ -61,6 +62,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    width: 120,
     renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_creation_date),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
@@ -72,6 +74,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     key: 'rs_project_approval_date',
     title: intl.get('entities.approvedAt'),
     defaultHidden: true,
+    width: 120,
     renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_approval_date),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
