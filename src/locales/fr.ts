@@ -124,6 +124,21 @@ const fr = {
         },
       },
     },
+    report: {
+      error: {
+        title: 'Erreur',
+        message: "Nous n'avons pas pu générer le rapport pour le moment. Veuillez réessayer plus tard.",
+      },
+      inProgress: {
+        title: 'Traitement',
+        fetchReport: 'Récupération du rapport, veuillez patienter',
+      },
+      onSuccess: {
+        title: 'Succès',
+        fetchReport: 'Rapport téléchargé avec succès',
+      },
+      exportTSV: 'Exporter en TSV',
+    },
     notification: {
       genericError: 'Une erreur est apparue',
     },

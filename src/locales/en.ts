@@ -126,6 +126,21 @@ const en = {
         },
       },
     },
+    report: {
+      error: {
+        title: 'Error',
+        message: 'We were unable to generate the report at this time. Please try again later.',
+      },
+      inProgress: {
+        title: 'Processing',
+        fetchReport: 'Fetching Report, please wait',
+      },
+      onSuccess: {
+        title: 'Success',
+        fetchReport: 'Report downloaded successfully',
+      },
+      exportTSV: 'Export as TSV',
+    },
     notification: {
       genericError: 'An error occured',
     },

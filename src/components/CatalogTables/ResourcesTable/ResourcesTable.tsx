@@ -6,6 +6,7 @@ import { OptionProps } from 'antd/lib/select';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
+import DownloadTSVButton from 'src/components/DownloadTSVButton';
 
 import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
@@ -95,6 +96,9 @@ const ResourcesTable = () => {
     }));
   };
 
+  const userColumns = userInfo?.config.catalog?.tables?.resources?.columns || [];
+  const columns = getColumns(lang);
+
   useEffect(() => {
     if (!loading) {
       setRsTypeOptions(
@@ -142,10 +146,10 @@ const ResourcesTable = () => {
       <ProTable
         tableId={'resources-table'}
         loading={loading}
-        columns={getColumns(lang)}
+        columns={columns}
         dataSource={dataSource}
         bordered
-        initialColumnState={userInfo?.config.catalog?.tables?.resources?.columns}
+        initialColumnState={userColumns}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
         size={'small'}
@@ -193,6 +197,16 @@ const ResourcesTable = () => {
           onColumnSortChange: (newState) =>
             // @ts-expect-error - unknown action
             dispatch(updateUserConfig({ catalog: { tables: { resources: { columns: newState } } } })),
+          extra: [
+            <DownloadTSVButton
+              key={'download-resources'}
+              tableName={'resources'}
+              variables={variables}
+              query={GET_RESOURCES}
+              userColumns={userColumns}
+              columns={columns}
+            />,
+          ],
         }}
       />
     </div>
