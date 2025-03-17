@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import queryString from 'query-string';
 
 import useHash from '@/lib/hooks/useHash';
 import getTagColorByType from '@/utils/getTagColorByType';
@@ -18,12 +19,16 @@ describe('InputSelect Component', () => {
     hash: '',
     setHash: mockSetHash,
   });
+  (queryString.parse as jest.Mock).mockReturnValue({
+    option1: 'Option1',
+    option2: 'Option2',
+  });
 
   const defaultProps = {
     operator: 'or' as const,
     options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
+      { value: 'option1', label: 'Option1' },
+      { value: 'option2', label: 'Option2' },
     ],
     selectField: 'testField',
     title: 'Test Title',
@@ -50,12 +55,15 @@ describe('InputSelect Component', () => {
     const selectElement = screen.getByText('Select an option');
     fireEvent.mouseDown(selectElement); // Open the dropdown
 
-    const option = screen.getByText('Option 1');
+    const option = screen.getByText('Option1');
     fireEvent.click(option); // Select option
 
-    expect(mockHandleSetVariables).toHaveBeenCalledWith({
-      or: [{ field: 'testField', value: 'option1' }],
-    });
+    expect(mockHandleSetVariables).toHaveBeenCalledWith(
+      {
+        or: [{ field: 'testField', value: 'option1' }],
+      },
+      ['testField'],
+    );
   });
 
   it('calls handleSetVariables with an empty array when all options are cleared', () => {
@@ -64,7 +72,7 @@ describe('InputSelect Component', () => {
     const selectElement = screen.getByText('Select an option');
     fireEvent.mouseDown(selectElement);
 
-    const option = screen.getByText('Option 1');
+    const option = screen.getByText('Option1');
     fireEvent.click(option);
 
     expect(mockHandleSetVariables).toHaveBeenCalledTimes(1);
@@ -72,17 +80,49 @@ describe('InputSelect Component', () => {
     // Clear selection
     fireEvent.click(screen.getByLabelText('close'));
 
-    expect(mockHandleSetVariables).toHaveBeenCalledWith({
-      or: [],
-    });
+    expect(mockHandleSetVariables).toHaveBeenCalledWith(
+      {
+        or: [],
+      },
+      ['testField'],
+    );
   });
 
   it('renders selected options as tags with correct colors', () => {
     render(<InputSelect {...defaultProps} />);
 
     fireEvent.mouseDown(screen.getByText('Select an option'));
-    fireEvent.click(screen.getByText('Option 1'));
+    fireEvent.click(screen.getByText('Option1'));
 
     expect(getTagColorByType).toHaveBeenCalledWith('option1', 'var(--blue-8)');
+  });
+
+  it('should parse multiple hash parameters and set correct selected values', () => {
+    (useHash as jest.Mock).mockReturnValue({
+      hash: '?option1=Option1&option2=Option2',
+      setHash: mockSetHash,
+    });
+    render(
+      <>
+        <InputSelect {...defaultProps} />
+        <InputSelect {...defaultProps} />
+      </>,
+    );
+
+    // Ensure the parsed hash values are used
+    expect(mockHandleSetVariables).toHaveBeenCalledWith(
+      {
+        or: [
+          { field: 'option1', value: 'Option1' },
+          { field: 'option2', value: 'Option2' },
+        ],
+        // @ts-expect-error double or
+        or: [],
+      },
+      ['testField'],
+    );
+
+    // Ensure setHash is called to clear the hash after parsing
+    expect(mockSetHash).toHaveBeenCalledWith('');
   });
 });

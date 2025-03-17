@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 
 import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
+import { mergeVariables } from '@/components/CatalogTables/utils';
 import DownloadTSVButton from '@/components/DownloadTSVButton';
 import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
 import { useLang } from '@/store/global';
@@ -62,11 +63,8 @@ const ResourcesTable = () => {
   };
 
   const [variables, setVariables] = useState<QueryOptions>(initialVariables);
-  const handleSetVariables = (newVariables: QueryOptions) => {
-    setVariables((v) => ({
-      ...v,
-      ...newVariables,
-    }));
+  const handleSetVariables = (newVariables: QueryOptions, searchFields: string[]) => {
+    setVariables((prevState) => mergeVariables(prevState, newVariables, searchFields));
     /** reset pagination on filters changes */
     setQueryConfig((q) => ({
       ...q,
