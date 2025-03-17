@@ -6,10 +6,10 @@ import { OptionProps } from 'antd/lib/select';
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
-import DownloadTSVButton from 'src/components/DownloadTSVButton';
 
 import InputSearch from '@/components/CatalogTables/InputSearch';
 import InputSelect from '@/components/CatalogTables/InputSelect';
+import DownloadTSVButton from '@/components/DownloadTSVButton';
 import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
 import { useLang } from '@/store/global';
 import { useUser } from '@/store/user';
@@ -163,9 +163,7 @@ const ResourcesTable = () => {
             setQueryConfig((q) => ({
               ...q,
               pageIndex: page,
-              sort: page === 1 ? DEFAULT_RESOURCES_QUERY_SORT : q.sort,
-              searchAfter: page === 1 ? undefined : q.searchAfter,
-              operations: page === 1 ? undefined : q.operations,
+              firstPageFlag: q.firstPageFlag || queryConfig.searchAfter,
             }));
           },
           onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
