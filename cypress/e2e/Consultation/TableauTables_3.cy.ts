@@ -27,14 +27,14 @@ describe('Tableau Tables - Valider les fonctionnalités du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Tri Entity', () => {
     cy.sortTableAndIntercept('Entity', 1, 1);
-    cy.validateTableFirstRow('delivery', 3, false, '[id*="panel-tables"]');
+    cy.validateTableFirstRow('-', 3, false, '[id*="panel-tables"]');
     cy.sortTableAndIntercept('Entity', 1, 1);
     cy.validateTableFirstRow('procedure', 3, false, '[id*="panel-tables"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Domain', () => {
     cy.sortTableAndIntercept('Domain', 1, 1);
-    cy.validateTableFirstRow('imaging', 4, false, '[id*="panel-tables"]');
+    cy.validateTableFirstRow('-', 4, false, '[id*="panel-tables"]');
     cy.sortTableAndIntercept('Domain', 1, 1);
     cy.validateTableFirstRow('transfusion', 4, false, '[id*="panel-tables"]');
   });

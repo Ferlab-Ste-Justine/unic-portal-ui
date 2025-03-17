@@ -19,7 +19,7 @@ describe('Tableau Variables - Valider les fonctionnalités du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Tri Type', () => {
     cy.sortTableAndIntercept('Type', 1, 1);
-    cy.validateTableFirstRow('array', 2, false, '[id*="panel-variables"]');
+    cy.validateTableFirstRow('-', 2, false, '[id*="panel-variables"]');
     cy.sortTableAndIntercept('Type', 1, 1);
     cy.validateTableFirstRow('string', 2, false, '[id*="panel-variables"]');
   });
@@ -55,7 +55,7 @@ describe('Tableau Variables - Valider les fonctionnalités du tableau', () => {
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     cy.sortTableAndIntercept('Type', 1, 1);
     cy.sortTableAndIntercept('Table', 1, 1);
-    cy.validateTableFirstRow('newborn', 5, false, '[id*="panel-variables"]');
+    cy.validateTableFirstRow('induction_indication', 5, false, '[id*="panel-variables"]');
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {

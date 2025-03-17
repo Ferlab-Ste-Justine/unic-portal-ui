@@ -213,9 +213,7 @@ const VariablesTable = () => {
             setQueryConfig((q) => ({
               ...q,
               pageIndex: page,
-              sort: page === 1 ? DEFAULT_VARIABLES_QUERY_SORT : q.sort,
-              searchAfter: page === 1 ? undefined : q.searchAfter,
-              operations: page === 1 ? undefined : q.operations,
+              firstPageFlag: q.firstPageFlag || queryConfig.searchAfter,
             }));
           },
           onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
