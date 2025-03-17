@@ -1,6 +1,5 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
-import { oneMinute } from 'cypress/support/utils';
 
 beforeEach(() => {
   cy.login();

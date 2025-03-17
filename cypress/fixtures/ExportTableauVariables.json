@@ -1,0 +1,18 @@
+{
+  "headers": ["Name",
+              "Label",
+              "Type",
+              "Source Name",
+              "Source",
+              "Table",
+              "Resource",
+              "Created On",
+              "Updated On"],
+  "content": ["#_Admitted_COVID",
+              "Number of patients positive COVID that was hospitalized",
+              "integer",
+              "-",
+              "weekly_summary",
+              "Germes",
+              "2024-09-17"]
+}

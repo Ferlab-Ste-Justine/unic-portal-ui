@@ -1,0 +1,17 @@
+{
+  "headers": ["Name",
+              "Description",
+              "Resource",
+              "Entity",
+              "Domain",
+              "Variable Count",
+              "Created On",
+              "Updated On"],
+  "content": ["accouchement",
+              "Information regarding childbirth",
+              "RESPPA",
+              "delivery",
+              "-",
+              "11",
+              "2024-09-17"]
+}
