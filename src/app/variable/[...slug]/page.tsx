@@ -45,15 +45,12 @@ const EntityVariablePage = () => {
     },
   });
 
-  const tableRef = useCallback(
-    (node: any) => {
-      const height = node?.clientHeight ?? 0;
-      if (height > MAX_TABLE_HEIGHT) {
-        setScroll({ y: MAX_TABLE_HEIGHT });
-      } else setScroll(undefined);
-    },
-    [loading, data],
-  );
+  const tableRef = useCallback((node: any) => {
+    const height = node?.clientHeight ?? 0;
+    if (height > MAX_TABLE_HEIGHT) {
+      setScroll({ y: MAX_TABLE_HEIGHT });
+    } else setScroll(undefined);
+  }, []);
 
   const variable: IVariableEntity = data?.getVariables?.hits[0];
 

@@ -157,7 +157,6 @@ describe('Variable Entity', () => {
 
     const input = screen.getByPlaceholderText('global.research');
     fireEvent.change(input, { target: { value: 'Canceled' } });
-    // fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', charCode: 13 });
 
     // After the change, check if the table contains only the filtered data
     expect(screen.getByText('Canceled')).toBeInTheDocument();
