@@ -51,7 +51,7 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
   });
 
   it('Panneau Categories - Headers', () => {
-    cy.get('[id="categories"] thead th').eq(0).contains('Values').should('exist');
+    cy.get('[id="categories"] thead th').eq(0).contains('Value').should('exist');
     cy.get('[id="categories"] thead th').eq(1).contains('Label').should('exist');
   });
 
