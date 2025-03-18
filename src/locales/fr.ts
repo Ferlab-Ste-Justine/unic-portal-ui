@@ -72,7 +72,7 @@ const fr = {
     source_name: 'Nom de la source',
     algorithmDerivation: 'Algorithme de dérivation',
     notes: 'Notes',
-    values: 'Valeurs',
+    value: 'Valeur',
   },
   global: {
     participants: 'Participants',

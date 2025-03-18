@@ -73,7 +73,7 @@ const en = {
     source_name: 'Source Name',
     algorithmDerivation: 'Derivation Algorithm',
     notes: 'Notes',
-    values: 'Values',
+    value: 'Value',
   },
   global: {
     participants: 'Participants',
