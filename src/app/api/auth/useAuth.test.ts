@@ -92,7 +92,7 @@ describe('useAuth hook', () => {
 
     renderHook(() => useAuth());
 
-    expect(mockDispatch).toHaveBeenCalledWith(fetchUser());
+    expect(mockDispatch).toHaveBeenCalledWith(fetchUser({}));
   });
 
   it('redirects to login if not authenticated and not on login page', () => {

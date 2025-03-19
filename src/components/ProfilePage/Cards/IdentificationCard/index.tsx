@@ -43,8 +43,6 @@ const IdentificationCard = () => {
   const [hasChanged, setHasChanged] = useState<Record<FORM_FIELDS, boolean>>(initialChangedValues);
   const initialValues = useRef<Record<FORM_FIELDS, any>>();
 
-  console.log('userInfo==', userInfo);
-
   const isValueChanged = () => Object.values(hasChanged).some((val) => val);
 
   const onDiscardChanges = () => {
