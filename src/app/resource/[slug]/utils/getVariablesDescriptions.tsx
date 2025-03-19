@@ -56,7 +56,9 @@ const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity):
                   ? variablesCounts.map((value, key) => (
                       <span className={styles.hospitalSystem} key={key}>
                         <div>{`${value[0]} (`}</div>
-                        <Link href={''}>{`${value[1]})`}</Link>
+                        <Link
+                          href={`/catalog#variables?var_from_source_systems.rs_code=${value[0]}&resource.rs_name=${resourceEntity?.rs_name}`}
+                        >{`${value[1]})`}</Link>
                       </span>
                     ))
                   : TABLE_EMPTY_PLACE_HOLDER}
