@@ -7,14 +7,6 @@ export interface IOption {
   value: string;
 }
 
-export const removeOtherKey = (list: string[], otherValue: string) => {
-  const listWithoutOtherKey = list.filter((value) => value !== OTHER_KEY);
-  if (otherValue) {
-    listWithoutOtherKey.push(otherValue);
-  }
-  return listWithoutOtherKey;
-};
-
 /**
  * Sort alphabetically options by label name and translate
  * @param options: the array of options to sort
