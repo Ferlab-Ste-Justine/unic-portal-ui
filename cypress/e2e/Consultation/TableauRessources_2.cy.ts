@@ -24,7 +24,7 @@ describe('Tableau Ressources - Valider les liens disponibles', () => {
     cy.get('[class*="page_titleHeader"]').contains('LVC-Bronchiolite-HSJ').should('exist');
   });
 
-  it('Lien Table', () => {
+  it('Lien Table (Research)', () => {
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(6).find('a').clickAndWait();
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
     cy.get('[data-node-key="tables"]').should('have.class', 'ant-tabs-tab-active');
@@ -32,11 +32,27 @@ describe('Tableau Ressources - Valider les liens disponibles', () => {
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^13 Results$| of 13$)/).should('exist');
   });
 
-  it('Lien Variable', () => {
+  it('Lien Table (Hospital System) [UNICWEB-125]', () => {
+    cy.get('[data-row-key="19"] [class="ant-table-cell"]').eq(6).find('a').clickAndWait();
+    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
+    cy.get('[data-node-key="tables"]').should('have.class', 'ant-tabs-tab-active');
+    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"] [title="centro"]').should('exist');
+    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^419 Results$| of 419$)/).should('exist');
+  });
+
+  it('Lien Variable (Research)', () => {
     cy.get('[data-row-key="59"] [class="ant-table-cell"]').eq(7).find('a').clickAndWait();
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
     cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="LVC-Bronchiolite-HSJ"]').should('exist');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^106 Results$| of 106$)/).should('exist');
+  });
+
+  it('Lien Variable (Hospital System)', () => {
+    cy.get('[data-row-key="19"] [class="ant-table-cell"]').eq(7).find('a').clickAndWait();
+    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
+    cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
+    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="centro"]').should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^13.7K Results$| of 13.7K$)/).should('exist');
   });
 });

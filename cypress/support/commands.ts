@@ -96,6 +96,10 @@ Cypress.Commands.add('logout', () => {
   cy.get('[data-menu-id*="logout"]').clickAndWait();
 });
 
+Cypress.Commands.add('removeFilesFromFolder', (folder: string) => {
+  cy.exec(`/bin/rm ${folder}/*`, {failOnNonZeroExit: false});
+});
+
 Cypress.Commands.add('resetColumns', (eq: number = 0) => {
   cy.get('[data-icon="setting"]').eq(eq).clickAndWait();
   cy.get('button[class*="ColumnSelector_ProTablePopoverColumnResetBtn"]').eq(0).clickAndWait({force: true});
@@ -140,6 +144,48 @@ Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, method
 
   cy.waitWhileSpin(oneMinute);
   cy.wait(1000);
+});
+
+Cypress.Commands.add('validateFileContent', (fixture: string, replacements?: Replacement[]) => {
+  const arrReplacements = replacements !== undefined ? replacements : [];
+  cy.fixture(fixture).then((expectedData) => {
+    cy.exec(`/bin/ls ${Cypress.config('downloadsFolder')}/*`).then((result) => {
+      const filename = result.stdout.trim();
+      cy.readFile(`${filename}`).then((file) => {
+        let fileWithData = file;
+        arrReplacements.forEach((replacement) => {
+          fileWithData = fileWithData.replace(replacement.placeholder, replacement.value);
+        });
+        expectedData.content.forEach((value: any) => {
+          let valueWithData = value
+          arrReplacements.forEach((replacement) => {
+            valueWithData = valueWithData.replace(replacement.placeholder, replacement.value);
+          });
+          assert.include(fileWithData, valueWithData);
+        });
+      });
+    });
+  });
+});
+
+Cypress.Commands.add('validateFileHeaders', (fixture: string) => {
+  cy.fixture(fixture).then((expectedData) => {
+    cy.exec(`/bin/ls ${Cypress.config('downloadsFolder')}/*`).then((result) => {
+      const filename = result.stdout.trim();
+      cy.readFile(`${filename}`).then((file) => {
+        expectedData.headers.forEach((header: any) => {
+          assert.include(file, header);
+        });
+      });
+    });
+  });
+});
+
+Cypress.Commands.add('validateFileName', (namePattern: string) => {
+  cy.exec(`/bin/ls ${Cypress.config('downloadsFolder')}/`+namePattern).then((result) => {
+    const filename = result.stdout.trim();
+    cy.readFile(`${filename}`).should('exist');
+  });
 });
 
 Cypress.Commands.add('validatePaging', (total: string|RegExp, eq: number = 0) => {
@@ -230,6 +276,31 @@ Cypress.Commands.add('visitResourceEntity', (code: string) => {
 
 Cypress.Commands.add('visitTableEntity', (resource: string, name: string) => {
   cy.visitAndIntercept(`/table/${resource}/${name}`, 'POST','**/graphql', 1);
+});
+
+Cypress.Commands.add('visitVariableEntity', (resource: string, table: string,name: string) => {
+  cy.visitAndIntercept(`/variable/${resource}/${table}/${name}`, 'POST','**/graphql', 1);
+});
+
+Cypress.Commands.add('waitUntilFile', (ms: number) => {
+  const start = new Date().getTime();
+
+  function checkFile(): any {
+    const now = new Date().getTime();
+    if (now - start > ms) {
+      throw new Error(`Timed out after ${ms}ms waiting for file`);
+    }
+
+    return cy.task('fileExists', `${Cypress.config('downloadsFolder')}`).then((exists) => {
+      if (exists) {
+        return true;
+      } else {
+        return cy.wait(500).then(checkFile);
+      }
+    });
+  }
+
+  return checkFile();
 });
 
 Cypress.Commands.add('waitWhileSpin', (ms: number) => {

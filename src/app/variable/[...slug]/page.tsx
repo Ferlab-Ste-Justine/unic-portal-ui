@@ -66,7 +66,7 @@ const EntityVariablePage = () => {
 
   const columns = [
     {
-      title: intl.get('entities.values'),
+      title: intl.get('entities.value'),
       dataIndex: 'vsval_code',
       key: 'vsval_code',
       width: 360,
