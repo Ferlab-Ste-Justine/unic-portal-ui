@@ -15,6 +15,7 @@ import getHistory from '@/app/variable/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/variable/[...slug]/utils/getSummaryDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard/EntityCard';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
+import EntityDownloadTSVButton from '@/components/EntityPage/EntityDownloadTSVButton';
 import { GET_VARIABLE_ENTITY } from '@/lib/graphql/queries/getVariableEntity.query';
 import { useLang } from '@/store/global';
 import { LANG } from '@/types/constants';
@@ -81,14 +82,18 @@ const EntityVariablePage = () => {
       title: intl.get('entities.value'),
       dataIndex: 'vsval_code',
       key: 'vsval_code',
+      label: intl.get('entities.value'),
       width: 360,
     },
     {
       title: intl.get('entities.label'),
       dataIndex: lang === LANG.EN ? 'vsval_label_en' : 'vsval_label_fr',
-      key: 'vsval_label_en',
+      label: intl.get('entities.label'),
+      key: lang === LANG.EN ? 'vsval_label_en' : 'vsval_label_fr',
     },
   ];
+
+  const filteredData = filterArray(dataSource);
 
   return (
     <div>
@@ -117,7 +122,19 @@ const EntityVariablePage = () => {
         <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, variable)} />
         </EntityCard>
-        <EntityCard id={'categories'} loading={loading} title={intl.get('global.categories')}>
+        <EntityCard
+          id={'categories'}
+          loading={loading}
+          title={intl.get('global.categories')}
+          extra={
+            <EntityDownloadTSVButton
+              variableName={variable?.var_name}
+              columns={columns}
+              data={filteredData}
+              disabled={filteredData.length === 0}
+            />
+          }
+        >
           <Input
             placeholder={intl.get('global.research')}
             onChange={(e) => onChangeSearch(e.target.value)}
@@ -128,7 +145,7 @@ const EntityVariablePage = () => {
           <Table
             className={styles.entityTable}
             ref={tableRef}
-            dataSource={filterArray(dataSource)}
+            dataSource={filteredData}
             columns={columns}
             bordered
             pagination={false}

@@ -61,4 +61,33 @@ const fetchTsvReport = createAsyncThunk<
   }
 });
 
-export { fetchTsvReport };
+const entityTsvReport = createAsyncThunk<
+  void,
+  {
+    variableName: string;
+    columns: { key: string; label: string; renderDownload?: () => string }[];
+    data: any[];
+  },
+  { rejectValue: string }
+>('global.report/generate/tsv', async ({ variableName, columns, data }, thunkAPI) => {
+  try {
+    const formattedData = formatData(data, columns);
+    const formattedDate = formatDate(new Date());
+    const formattedFileName = `unic-${variableName}-categories-${formattedDate}.tsv`;
+
+    await download(formattedData, formattedFileName);
+
+    thunkAPI.dispatch(
+      globalActions.displayNotification({
+        type: 'success',
+        message: intl.get('global.report.onSuccess.title'),
+        description: intl.get('global.report.onSuccess.fetchReport'),
+      }),
+    );
+  } catch (error) {
+    console.log('entity TsvReport catch error==', error);
+    showErrorReportNotif(thunkAPI);
+  }
+});
+
+export { entityTsvReport, fetchTsvReport };

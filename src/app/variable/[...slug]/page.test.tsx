@@ -31,6 +31,8 @@ jest.mock('lodash/debounce', () =>
   }),
 );
 
+jest.mock('@/components/EntityPage/EntityDownloadTSVButton', () => jest.fn());
+
 describe('Variable Entity', () => {
   beforeEach(() => {
     jest.clearAllMocks();

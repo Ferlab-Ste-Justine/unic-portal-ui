@@ -99,6 +99,7 @@ const en = {
     select: 'Select',
     currentVersion: 'Current version',
     history: 'History',
+    download: 'Download',
     proTable: {
       results: 'Results',
       result: 'Result',

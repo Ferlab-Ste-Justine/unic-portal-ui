@@ -98,6 +98,7 @@ const fr = {
     select: 'Sélectionner',
     currentVersion: 'Version courante',
     history: 'Historique',
+    download: 'Télécharger',
     proTable: {
       results: 'Résultats',
       result: 'Résultat',
