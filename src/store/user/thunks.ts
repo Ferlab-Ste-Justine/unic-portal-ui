@@ -52,9 +52,8 @@ const updateUser = createAsyncThunk<
     if (data && args.displayNotification) {
       thunkAPI.dispatch(
         globalActions.displayNotification({
-          type: 'success',
-          message: intl.get('global.report.onSuccess.title'),
-          description: intl.get('global.report.onSuccess.fetchReport'),
+          type: 'info',
+          message: intl.get('screen.profileSettings.update.success'),
         }),
       );
     }
@@ -111,7 +110,7 @@ const deleteUser = createAsyncThunk<void, void, { rejectValue: string; state: Ro
       error: error,
       data: undefined,
       reject: thunkAPI.rejectWithValue,
-      onSuccess: () => thunkAPI.dispatch(userActions.cleanLogout()),
+      onSuccess: () => thunkAPI.dispatch(userActions.clearUser()),
       onError: () =>
         thunkAPI.dispatch(
           globalActions.displayNotification({

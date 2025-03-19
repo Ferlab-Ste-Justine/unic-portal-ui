@@ -11,6 +11,9 @@ jest.mock('react-intl-universal', () => ({
 jest.mock('@/store/user/thunks', () => ({
   deleteUser: jest.fn(() => ({ type: 'DELETE_USER' })),
 }));
+jest.mock('@/app/api/auth/useAuth', () => ({
+  useAuth: () => ({ logout: jest.fn() }),
+}));
 jest.mock('antd', () => {
   const actualAntd = jest.requireActual('antd');
   return {

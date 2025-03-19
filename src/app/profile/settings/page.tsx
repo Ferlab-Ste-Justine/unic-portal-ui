@@ -8,12 +8,13 @@ import IdentificationCard from '@/components/ProfilePage/Cards/IdentificationCar
 import ResearchDomainCard from '@/components/ProfilePage/Cards/ResearchDomainCard';
 import config from '@/config';
 import { useAxios } from '@/lib/axios';
+import { useLang } from '@/store/global';
 
 import styles from './page.module.css';
-
 const { Title } = Typography;
 
 const ProfileSettings = () => {
+  useLang();
   const result = useAxios(`${config.USERS_API_URL}/userOptions`);
   const { roleOptions = [], researchDomainOptions = [] } = result?.data || {};
 

@@ -93,7 +93,7 @@ describe('FunctionCard Component', () => {
     await waitFor(() => {
       expect(store.getActions()).toContainEqual({
         type: 'UPDATE_USER',
-        payload: { data: { roles: ['admin'] } },
+        payload: { data: { roles: ['admin'] }, displayNotification: true },
       });
     });
   });

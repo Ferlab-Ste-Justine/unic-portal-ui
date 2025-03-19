@@ -74,7 +74,7 @@ describe('ResearchDomainCard', () => {
     await waitFor(() => {
       expect(store.getActions()).toContainEqual({
         type: 'UPDATE_USER',
-        payload: { data: { research_domains: ['biology', 'chemistry'] } },
+        payload: { data: { research_domains: ['biology', 'chemistry'] }, displayNotification: true },
       });
     });
   });

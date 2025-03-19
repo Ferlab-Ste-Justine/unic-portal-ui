@@ -60,7 +60,7 @@ const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
         onFinish={(values: any) => {
           const roles = values[FORM_FIELDS.ROLES];
           // @ts-expect-error - unknown action
-          dispatch(updateUser({ data: { roles } }));
+          dispatch(updateUser({ data: { roles }, displayNotification: true }));
         }}
       >
         <Form.Item

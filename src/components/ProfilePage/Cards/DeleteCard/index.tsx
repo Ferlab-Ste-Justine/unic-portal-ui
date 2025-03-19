@@ -4,6 +4,7 @@ import { Button, Modal, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
+import { useAuth } from '@/app/api/auth/useAuth';
 import { deleteUser } from '@/store/user/thunks';
 
 const { Text, Title } = Typography;
@@ -11,6 +12,7 @@ const { confirm } = Modal;
 
 const DeleteCard = () => {
   const dispatch = useDispatch();
+  const { logout } = useAuth();
 
   const showConfirm = () => {
     confirm({
@@ -23,8 +25,11 @@ const DeleteCard = () => {
         danger: true,
         type: 'primary',
       },
-      // @ts-expect-error - unknown action
-      onOk: () => dispatch(deleteUser()),
+      onOk: () => {
+        // @ts-expect-error - unknown action
+        dispatch(deleteUser());
+        logout();
+      },
     });
   };
 
