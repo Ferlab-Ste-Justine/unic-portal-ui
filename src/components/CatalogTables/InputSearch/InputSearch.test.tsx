@@ -47,12 +47,15 @@ describe('InputSearch Component', () => {
     fireEvent.change(input, { target: { value: 'te' } });
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', charCode: 13 });
     expect(mockHandleSetVariables).toHaveBeenCalledTimes(1);
-    expect(mockHandleSetVariables).toHaveBeenCalledWith({
-      or: [
-        { field: 'field1', value: '*te*', useWildcard: true },
-        { field: 'field2', value: '*te*', useWildcard: true },
-      ],
-    });
+    expect(mockHandleSetVariables).toHaveBeenCalledWith(
+      {
+        or: [
+          { field: 'field1', value: '*te*', useWildcard: true },
+          { field: 'field2', value: '*te*', useWildcard: true },
+        ],
+      },
+      ['field1', 'field2'],
+    );
   });
 
   it('debounces search after typing 3+ chars', async () => {
@@ -62,12 +65,15 @@ describe('InputSearch Component', () => {
     fireEvent.change(input, { target: { value: 'tes' } });
 
     await waitFor(() => {
-      expect(mockHandleSetVariables).toHaveBeenCalledWith({
-        or: [
-          { field: 'field1', value: '*tes*', useWildcard: true },
-          { field: 'field2', value: '*tes*', useWildcard: true },
-        ],
-      });
+      expect(mockHandleSetVariables).toHaveBeenCalledWith(
+        {
+          or: [
+            { field: 'field1', value: '*tes*', useWildcard: true },
+            { field: 'field2', value: '*tes*', useWildcard: true },
+          ],
+        },
+        ['field1', 'field2'],
+      );
     });
   });
 

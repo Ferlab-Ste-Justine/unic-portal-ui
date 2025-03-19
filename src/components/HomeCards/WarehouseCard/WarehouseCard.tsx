@@ -36,7 +36,7 @@ const WarehouseCard = ({ stats }: IStatsCardProps) => {
             <b>{numberFormat(stats?.domain_count || 0)}</b> {intl.get('entities.domains')}
           </Tag>
         </div>
-        <Link href={'/catalog#resource?filterField=rs_type&filterValue=warehouse'}>
+        <Link href={'/catalog#resource?rs_type=warehouse'}>
           <Button>
             {intl.get('screen.home.explore')}
             <ArrowRightOutlined />

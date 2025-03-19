@@ -96,11 +96,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
         filterField = 'resource.rs_type';
         filterValue = resource.rs_type;
       }
-      return (
-        <Link href={`/catalog#tables?filterField=${filterField}&filterValue=${filterValue}`}>
-          {resource.tables.length}
-        </Link>
-      );
+      return <Link href={`/catalog#tables?${filterField}=${filterValue}`}>{resource.tables.length}</Link>;
     },
   },
   {
@@ -109,11 +105,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (resource: IResourceEntity) => resource?.variables?.length,
     render: (resource: IResourceEntity) => {
       if (!resource?.variables?.length) return '0';
-      return (
-        <Link href={`/catalog#variables?filterField=resource.rs_name&filterValue=${resource.rs_name}`}>
-          {resource.variables?.length}
-        </Link>
-      );
+      return <Link href={`/catalog#variables?resource.rs_name=${resource.rs_name}`}>{resource.variables?.length}</Link>;
     },
   },
   {

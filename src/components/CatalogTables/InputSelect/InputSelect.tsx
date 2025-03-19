@@ -66,7 +66,7 @@ const InputSelect = ({
     }
   };
 
-  const handleSelect = (selects: string[], mode?: string) => {
+  const handleSelect = (selects: string[]) => {
     const values = selects?.length ? selects.map((value) => ({ field: selectField, value })) : [];
     /** Keep the fields that are not the same as the selectField to replace only the ones that are by new Values */
 
@@ -77,11 +77,10 @@ const InputSelect = ({
           const isCurrentFieldGroup = group.some((element) => element.field === selectField);
           return !isCurrentFieldGroup;
         }) || [];
-      operatorVariables =
-        mode === 'removeAll' ? [values] : values?.length ? [...otherFieldsOnOperator, values] : otherFieldsOnOperator;
+      operatorVariables = values?.length ? [...otherFieldsOnOperator, values] : otherFieldsOnOperator;
     } else {
       const otherFieldsOnOperator = variables?.[operator]?.filter((element) => element.field !== selectField) || [];
-      operatorVariables = mode === 'removeAll' ? values : [...otherFieldsOnOperator, ...values];
+      operatorVariables = [...otherFieldsOnOperator, ...values];
     }
 
     /** update variables current operator and keep others */
@@ -89,7 +88,7 @@ const InputSelect = ({
       ...variables,
       [operator]: operatorVariables,
     };
-    handleSetVariables(_variables);
+    handleSetVariables(_variables, [selectField]);
   };
 
   /** Reset selects when variables are cleared by parent */
@@ -101,14 +100,17 @@ const InputSelect = ({
 
   useEffect(() => {
     if (hashParams) {
-      const hashParamsObj = queryString.parse(hashParams) as { filterField: string; filterValue: string };
-      if (hashParamsObj?.filterField === selectField) {
-        setSelects([hashParamsObj.filterValue]);
-        handleSelect([hashParamsObj.filterValue], 'removeAll');
-        setHash('');
-      } else if (hashParamsObj?.filterField !== selectField) {
-        setSelects([]);
-      }
+      const hashParamsObj = queryString.parse(hashParams) as Record<string, string | string[]>;
+      // Convert the parsed values into an array of selected filters
+      // resource.rs_name=viewpoint&table.tab_name=accounts into an object { "resource.rs_name": "viewpoint", "table.tab_name": "accounts" }
+      Object.entries(hashParamsObj).forEach(([key, value]) => {
+        if (key === selectField) {
+          selects.push(...(Array.isArray(value) ? value : [value]));
+        }
+      });
+      setSelects(selects);
+      handleSelect(selects);
+      setHash('');
     }
     /** need to keep handleSelect out of dependencies */
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -56,11 +56,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.table.variable_count'),
     render: (table: ITableEntity) => {
       if (!table?.stat_etl?.variable_count) return '0';
-      return (
-        <Link href={`/catalog#variables?filterField=table.tab_name&filterValue=${table.tab_name}`}>
-          {table.stat_etl.variable_count}
-        </Link>
-      );
+      return <Link href={`/catalog#variables?table.tab_name=${table.tab_name}`}>{table.stat_etl.variable_count}</Link>;
     },
   },
   {

@@ -30,7 +30,7 @@ const HospitalSystemsCard = ({ stats }: IStatsCardProps) => {
             <b>{numberFormat(stats?.variable_count || 0)}</b> {intl.get('entities.variable.variables')}
           </Tag>
         </div>
-        <Link href={'/catalog#resource?filterField=rs_type&filterValue=source_system'}>
+        <Link href={'/catalog#resource?rs_type=source_system'}>
           <Button>
             {intl.get('screen.home.explore')}
             <ArrowRightOutlined />

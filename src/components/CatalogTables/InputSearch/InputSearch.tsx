@@ -28,7 +28,7 @@ const InputSearch = ({
     /** add all searchFields as OR with wildcard on */
     const or = _search ? searchFields.map((field) => ({ field, value: `*${_search}*`, useWildcard: true })) : [];
     const _variables = { ...variables, or };
-    handleSetVariables(_variables);
+    handleSetVariables(_variables, searchFields);
   };
 
   const debouncedHandleSearch = debounce(handleSearch, 500);
