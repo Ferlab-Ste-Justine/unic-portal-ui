@@ -150,7 +150,14 @@ const fr = {
     },
     seeLess: 'Voir moins',
     seeMore: 'Voir plus',
-    ferload: 'Ferload',
+    forms: {
+      errors: {
+        minCharacters: 'caractères minimum',
+        requiredField: 'Ce champ est requis',
+        enterValidEmail: 'Entrer un email valide',
+        enterValidUrl: 'Entrer une url valide',
+      },
+    },
   },
   components: {
     dataRelease: {
@@ -177,6 +184,82 @@ const fr = {
         description:
           'Pour savoir comment soumettre vos données, faire une demande d’accès ou pour consulter des guides d’utilisation du portail, visitez le centre de documentation.',
         button: 'Centre de documentation',
+      },
+    },
+    profileSettings: {
+      title: 'Paramètres de profil',
+      viewProfile: 'Voir le profil',
+      cards: {
+        deleteAccount: {
+          title: 'Supprimer le compte',
+          button: 'Supprimer mon compte',
+          notice:
+            "Vous ne pourrez plus vous connecter au portail de données de l'UnIC. Vous pouvez créer un nouveau compte à tout moment.",
+          confirm: {
+            content: 'Êtes-vous sûr(e) de vouloir supprimer définitivement ce compte ?',
+          },
+        },
+        identification: {
+          title: 'Identification',
+          alert:
+            "Vous êtes authentifié(e) avec <strong>{provider}</strong> utilisant <strong>{email}</strong>. Cet e-mail n'est jamais affiché au public et ne peut pas être modifié.",
+          firstName: 'Prénom',
+          yourFirstName: 'Votre prénom',
+          lastName: 'Nom de famille',
+          yourLastName: 'Votre nom de famille',
+          title2: 'Titre',
+          yourTitle: 'Votre titre',
+          institution: 'Institution',
+          yourInstitutionl: 'Votre institution',
+          institutionEmail: 'Email institutionnel',
+          yourInstitutionEmail: 'Votre email institutionnel',
+          editPhotoModalTitle: 'Modifier photo',
+          uploadImageError: 'Impossible de télécharger votre image pour le moment',
+          removePhotoModalTitle: 'Supprimer la photo de profil ?',
+          removePhotoModalButton: 'Oui supprimer la photo',
+          removePhotoModalMessage:
+            'Voulez-vous vraiment supprimer votre photo ? Nous le remplacerons par un avatar par défaut.',
+          uploadPhotoButton: 'Envoyer la photo',
+          removePhotoButton: 'Supprimer la photo',
+          linkedinUrl: 'Veuillez entrer une URL LinkedIn valide',
+        },
+        roleAffiliation: {
+          title: 'Rôle et affiliation',
+          iama: 'Je suis un(e)',
+          bioinformatician_software_developer: 'Bioinformaticien(ne), analyste de données, statisticien(ne)',
+          researcher_in_academic_or_non_profit_institution:
+            'Chercheur(e) dans une institution académique ou sans but lucratif',
+          clinician: 'Clinicien(ne)',
+          employee_in_governmental_agency: 'Employé(e) d’un organisme gouvernemental',
+          representative_of_commercial_or_for_profit_company:
+            "Représentant(e) d'une entreprise commerciale ou à but lucratif",
+          manager: 'Gestionnaire',
+          student: 'Étudiant(e)',
+          other: 'Autre',
+        },
+        researchDomain: {
+          title: 'Domaine de recherche',
+          label: 'Domaine(s) de recherche ou domaine(s) d’intérêt',
+          bioinformatics: 'Bioinformatique',
+          cancer: 'Cancer',
+          neurodevelopmental_conditions: 'Conditions neuro-développementales',
+          population_genomics: 'Génomique des populations',
+          infection_immunity: 'Infection et immunité',
+          ia: 'Intelligence artificielle',
+          rare_diseases: 'Maladies rares',
+          birth_defects: 'Malformations congénitales',
+          neurosciences_mental_health_addiction: 'Neurosciences, santé mentale et toxicomanie',
+          nutrition_metabolism_diabetes: 'Nutrition, métabolisme et diabète',
+          circulatory_respiratory_health: 'Santé circulatoire et respiratoire',
+          general_health: 'Santé générale',
+          musculoskeletal_health_arthritis: 'Santé musculo-squelettique et arthrite',
+          aging: 'Vieillissement',
+          not_applicable: "Ne s'applique pas",
+          other: 'Autre',
+        },
+        checkAll: 'Cochez tout ce qui s’applique',
+        saveChanges: 'Sauvegarder les modifications',
+        discardChanges: 'Annuler les modifications',
       },
     },
     home: {

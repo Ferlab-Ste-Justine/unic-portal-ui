@@ -1,4 +1,4 @@
-import { DownOutlined, LogoutOutlined, ReadOutlined } from '@ant-design/icons';
+import { DownOutlined, LogoutOutlined, ReadOutlined, UserOutlined } from '@ant-design/icons';
 import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
 import { Button, Dropdown, MenuProps, PageHeader, Space } from 'antd';
 import Image from 'next/image';
@@ -52,6 +52,17 @@ const Header = () => {
       },
       {
         type: 'divider',
+      },
+      {
+        key: 'profile_settings',
+        label: (
+          <Link href={'/profile/settings'}>
+            <Space>
+              <UserOutlined />
+              {intl.get('layout.user.menu.settings')}
+            </Space>
+          </Link>
+        ),
       },
       {
         key: 'logout',

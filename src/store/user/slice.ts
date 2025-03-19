@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { handleLogout } from '@/app/api/auth/useAuth';
 import { fetchUser, updateUser, updateUserConfig } from '@/store/user/thunks';
 import { initialState } from '@/store/user/types';
 
@@ -13,6 +14,10 @@ const userSlice = createSlice({
   name: 'user',
   initialState: UserState,
   reducers: {
+    cleanLogout: () => {
+      handleLogout();
+      return UserState;
+    },
     clearUser: (state) => {
       state.userInfo = null;
     },

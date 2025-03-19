@@ -1,20 +1,30 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import intl from 'react-intl-universal';
 
 import { handleThunkApiReponse } from '@/lib/axios';
 import { UserApi } from '@/services/users-api';
+import { globalActions } from '@/store/global';
 import { RootState } from '@/store/types';
+import { userActions } from '@/store/user';
 import { TUser, TUserConfig, TUserUpdate } from '@/store/user/types';
 import mergeDeep from '@/utils/mergeDeep';
 
-const fetchUser = createAsyncThunk<TUser, void, { rejectValue: string; state: RootState }>(
+const fetchUser = createAsyncThunk<
+  TUser,
+  {
+    errCallback?: () => void;
+  },
+  { rejectValue: string; state: RootState }
+>(
   'user/fetch',
-  async (_, thunkAPI) => {
+  async ({ errCallback }, thunkAPI) => {
     const { data, error } = await UserApi.fetch();
 
     if (!error) {
       return data!;
     }
 
+    errCallback?.();
     return thunkAPI.rejectWithValue('User not found');
   },
   {
@@ -32,13 +42,22 @@ const updateUser = createAsyncThunk<
   {
     data: TUserUpdate;
     callback?: () => void;
+    displayNotification?: boolean;
   },
   { rejectValue: string }
 >(
   'user/update',
   async (args, thunkAPI) => {
     const { data, error } = await UserApi.update(args.data);
-
+    if (data && args.displayNotification) {
+      thunkAPI.dispatch(
+        globalActions.displayNotification({
+          type: 'success',
+          message: intl.get('global.report.onSuccess.title'),
+          description: intl.get('global.report.onSuccess.fetchReport'),
+        }),
+      );
+    }
     return handleThunkApiReponse({
       error,
       data: data!,
@@ -83,4 +102,26 @@ const updateUserConfig = createAsyncThunk<TUserConfig, TUserConfig, { rejectValu
   },
 );
 
-export { fetchUser, updateUser, updateUserConfig };
+const deleteUser = createAsyncThunk<void, void, { rejectValue: string; state: RootState }>(
+  'user/delete/user',
+  async (_, thunkAPI) => {
+    const { error } = await UserApi.deleteUser();
+
+    return handleThunkApiReponse({
+      error: error,
+      data: undefined,
+      reject: thunkAPI.rejectWithValue,
+      onSuccess: () => thunkAPI.dispatch(userActions.cleanLogout()),
+      onError: () =>
+        thunkAPI.dispatch(
+          globalActions.displayNotification({
+            type: 'error',
+            message: 'Error',
+            description: 'Unable to delete your account at the moment',
+          }),
+        ),
+    });
+  },
+);
+
+export { deleteUser, fetchUser, updateUser, updateUserConfig };
