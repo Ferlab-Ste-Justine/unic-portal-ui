@@ -59,7 +59,7 @@ const ResearchDomainCard = ({ researchDomainOptions }: { researchDomainOptions: 
         onFinish={(values: any) => {
           const research_domains = values[FORM_FIELDS.RESEARCH_DOMAIN];
           // @ts-expect-error - unknown action
-          dispatch(updateUser({ data: { research_domains } }));
+          dispatch(updateUser({ data: { research_domains }, displayNotification: true }));
         }}
       >
         <Form.Item

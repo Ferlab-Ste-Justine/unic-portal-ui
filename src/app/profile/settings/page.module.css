@@ -13,6 +13,7 @@
   display: flex;
   width: 100%;
 }
+
 .profileSettings .profileSettingsHeader {
   display: flex;
   flex-direction: row;

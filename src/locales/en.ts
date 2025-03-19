@@ -191,6 +191,9 @@ const en = {
     profileSettings: {
       title: 'Profile settings',
       viewProfile: 'View profile',
+      update: {
+        success: 'Your profile has been updated successfully.',
+      },
       cards: {
         deleteAccount: {
           title: 'Delete Account',

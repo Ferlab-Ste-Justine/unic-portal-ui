@@ -189,6 +189,9 @@ const fr = {
     profileSettings: {
       title: 'Paramètres de profil',
       viewProfile: 'Voir le profil',
+      update: {
+        success: 'Votre profil a été mis à jour avec succès.',
+      },
       cards: {
         deleteAccount: {
           title: 'Supprimer le compte',
@@ -210,7 +213,7 @@ const fr = {
           title2: 'Titre',
           yourTitle: 'Votre titre',
           institution: 'Institution',
-          yourInstitutionl: 'Votre institution',
+          yourInstitution: 'Votre institution',
           institutionEmail: 'Email institutionnel',
           yourInstitutionEmail: 'Votre email institutionnel',
           editPhotoModalTitle: 'Modifier photo',
@@ -224,7 +227,7 @@ const fr = {
           linkedinUrl: 'Veuillez entrer une URL LinkedIn valide',
         },
         roleAffiliation: {
-          title: 'Rôle et affiliation',
+          title: 'Fonction',
           iama: 'Je suis un(e)',
           bioinformatician_software_developer: 'Bioinformaticien(ne), analyste de données, statisticien(ne)',
           researcher_in_academic_or_non_profit_institution:

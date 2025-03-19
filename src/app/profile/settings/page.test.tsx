@@ -14,6 +14,9 @@ jest.mock('react-intl-universal', () => ({
 jest.mock('@/lib/axios', () => ({
   useAxios: jest.fn(),
 }));
+jest.mock('@/store/global', () => ({
+  useLang: jest.fn(() => 'EN'),
+}));
 
 describe('ProfileSettingsPage', () => {
   it('renders ProfileSettingsPage and child components correctly', async () => {
