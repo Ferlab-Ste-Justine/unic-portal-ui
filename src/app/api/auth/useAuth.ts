@@ -1,11 +1,23 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 
 import { persistor } from '@/store';
 import { fetchUser } from '@/store/user/thunks';
+
+export const handleLogout = async () => {
+  await fetch('/api/auth/logout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  // Purge persisted Redux state
+  await persistor.purge();
+
+  // Sign out from NextAuth
+  await signOut({ callbackUrl: '/login' }); // Redirect to homepage or desired URL
+};
 
 export const useAuth = () => {
   const dispatch = useDispatch();
@@ -25,18 +37,6 @@ export const useAuth = () => {
     await signIn('keycloak', { callbackUrl: redirectPath }, { ui_locales: locale });
   };
 
-  const handleLogout = useCallback(async () => {
-    await fetch('/api/auth/logout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    });
-    // Purge persisted Redux state
-    await persistor.purge();
-
-    // Sign out from NextAuth
-    await signOut({ callbackUrl: '/login' }); // Redirect to homepage or desired URL
-  }, []);
-
   /** redirect to login page with current path saved */
   useEffect(() => {
     if (!isAuthenticated && !isLoading && !isLogin) {
@@ -47,16 +47,16 @@ export const useAuth = () => {
   /** logout if session error */
   useEffect(() => {
     if (sessionError) {
-      console.debug('useEffect handleLogout Session error', sessionError);
+      console.debug('[useAuth] handleLogout session error', sessionError);
       handleLogout();
     }
-  }, [handleLogout, sessionError]);
+  }, [sessionError]);
 
   /** fetch user after authenticated */
   useEffect(() => {
     if (isAuthenticated) {
-      // @ts-expect-error type UnknownAction
-      dispatch(fetchUser());
+      // @ts-expect-error - UnknownAction
+      dispatch(fetchUser({ errCallback: handleLogout }));
     }
   }, [isAuthenticated, dispatch]);
 

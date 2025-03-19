@@ -26,6 +26,7 @@ export type TUser = {
   linkedin?: string;
   profile_image_key?: string | null;
   locale?: string;
+  title?: string;
 };
 
 export type TUserInsert = Omit<TUser, 'id' | 'keycloak_id' | 'creation_date' | 'update_date'>;
@@ -59,3 +60,13 @@ export type TUserConfig = {
     };
   };
 };
+
+export interface IOption {
+  label: string;
+  value: string;
+}
+
+export interface IUserOptions {
+  roleOptions: IOption[];
+  researchDomainOptions: IOption[];
+}
