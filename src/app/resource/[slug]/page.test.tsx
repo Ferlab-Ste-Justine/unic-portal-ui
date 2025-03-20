@@ -114,6 +114,19 @@ describe('Resource Entity - Project', () => {
 
     expect(() => screen.getByText('entities.startingYear')).toThrow();
   });
+  it('proper links should be in table entity page', () => {
+    render(<EntityResourcePage />);
+    const allLinks = screen.getAllByRole('link');
+
+    //1 title links
+    expect(allLinks[0]).toHaveAttribute('href', '/catalog');
+    //2 links in summary section
+    expect(allLinks[1]).toHaveAttribute('href', '/catalog#variables?resource.rs_name=Pancréatite Aigüe');
+    expect(allLinks[2]).toHaveAttribute(
+      'href',
+      '/catalog#variables?var_from_source_systems.rs_code=clinibaseci&resource.rs_name=Pancréatite Aigüe',
+    );
+  });
 });
 
 describe('Resource Entity - Systeme Hospitalier', () => {

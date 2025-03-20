@@ -79,9 +79,12 @@ describe('Table Entity', () => {
     render(<EntityTablePage />);
     const allLinks = screen.getAllByRole('link');
 
+    //2 title links
     expect(allLinks[0]).toHaveAttribute('href', '/catalog');
     expect(allLinks[1]).toHaveAttribute('href', '/resource/bronchiolite');
-    //todo add missing link back to catalogue (filtered) when available
+    //2 table links
+    expect(allLinks[2]).toHaveAttribute('href', '/resource/bronchiolite');
+    expect(allLinks[3]).toHaveAttribute('href', '/catalog#variables?table.tab_name=patient_diagnosis');
   });
 
   it('calls useQuery with GET_TABLE_ENTITY', () => {

@@ -28,9 +28,7 @@ const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity):
       label: intl.get('entities.number_variables'),
       value: resourceEntity?.stat_etl?.variable_count ? (
         <div>
-          <Link
-            href={''} //TODO fix URL
-          >
+          <Link href={`/catalog#variables?resource.rs_name=${resourceEntity.rs_name}`}>
             {resourceEntity?.stat_etl?.variable_count}
           </Link>
           {` (${intl.get('global.in')} ${resourceEntity?.stat_etl?.table_count} ${intl.get('entities.table.tables')})`}
