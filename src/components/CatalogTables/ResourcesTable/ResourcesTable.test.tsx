@@ -11,6 +11,8 @@ import { DEFAULT_PAGE_SIZE } from '@/utils/constants';
 import ResourcesTable from './ResourcesTable';
 
 jest.mock('@/components/DownloadTSVButton', () => jest.fn());
+jest.mock('@/components/CatalogTables/InputSearch', () => jest.fn());
+jest.mock('@/components/CatalogTables/InputSelect', () => jest.fn());
 jest.mock('react-intl-universal', () => ({
   get: jest.fn((key) => key),
 }));
@@ -21,10 +23,11 @@ jest.mock('react-redux', () => ({
 jest.mock('@/store/user/thunks', () => ({
   updateUserConfig: jest.fn(),
 }));
-jest.mock('@/lib/hooks/useHash');
+jest.mock('@/lib/hooks/useHash', () => jest.fn());
 jest.mock('query-string', () => ({
   parse: jest.fn(),
 }));
+jest.mock('@/components/CatalogTables/utils', () => jest.fn());
 
 describe('ResourcesTable', () => {
   // Mock Redux
