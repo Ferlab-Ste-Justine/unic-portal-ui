@@ -52,7 +52,7 @@ const updateUser = createAsyncThunk<
     if (data && args.displayNotification) {
       thunkAPI.dispatch(
         globalActions.displayNotification({
-          type: 'info',
+          type: 'success',
           message: intl.get('screen.profileSettings.update.success'),
         }),
       );

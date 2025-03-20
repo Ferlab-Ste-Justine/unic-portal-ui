@@ -19,6 +19,7 @@ jest.mock('@/store/user/thunks', () => ({
   })),
 }));
 jest.mock('../utils', () => ({
+  ...jest.requireActual('../utils'),
   sortOptionsLabelsByName: jest.fn((options) => options),
 }));
 

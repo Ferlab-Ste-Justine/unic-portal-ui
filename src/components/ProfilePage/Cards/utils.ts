@@ -7,6 +7,19 @@ export interface IOption {
   value: string;
 }
 
+export const lowerAll = (arr: string[]) => arr.map((val) => val.toLowerCase());
+
+export const hasOtherField = (userFields: string[], options: IOption[]) =>
+  userFields.filter((field) => !options.find((option) => option.value.toLowerCase() === field.toLowerCase()));
+
+export const removeOtherKey = (list: string[], otherValue: string) => {
+  const listWithoutOtherKey = list.filter((value) => value !== OTHER_KEY);
+  if (otherValue) {
+    listWithoutOtherKey.push(otherValue);
+  }
+  return listWithoutOtherKey;
+};
+
 /**
  * Sort alphabetically options by label name and translate
  * @param options: the array of options to sort

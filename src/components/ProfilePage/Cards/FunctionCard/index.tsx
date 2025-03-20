@@ -1,4 +1,4 @@
-import { Checkbox, Form, Space } from 'antd';
+import { Checkbox, Form, Input, Space } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import { useEffect, useRef, useState } from 'react';
 import intl from 'react-intl-universal';
@@ -6,19 +6,20 @@ import { useDispatch } from 'react-redux';
 
 import { useUser } from '@/store/user';
 import { updateUser } from '@/store/user/thunks';
-import { IOption } from '@/store/user/types';
 
 import BaseCard from '../BaseCard';
 import BaseForm from '../BaseForm';
 import formStyles from '../form.module.css';
-import { sortOptionsLabelsByName } from '../utils';
+import { hasOtherField, IOption, lowerAll, OTHER_KEY, removeOtherKey, sortOptionsLabelsByName } from '../utils';
 
 enum FORM_FIELDS {
   ROLES = 'roles',
+  OTHER_ROLES = 'other_roles',
 }
 
 const initialChangedValues = {
   [FORM_FIELDS.ROLES]: false,
+  [FORM_FIELDS.OTHER_ROLES]: false,
 };
 
 const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
@@ -39,7 +40,10 @@ const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
 
   useEffect(() => {
     initialValues.current = {
-      [FORM_FIELDS.ROLES]: userInfo?.roles || [],
+      [FORM_FIELDS.ROLES]: hasOtherField(lowerAll(userInfo?.roles ?? []), roleOptions).length
+        ? [...lowerAll(userInfo?.roles ?? []), OTHER_KEY]
+        : lowerAll(userInfo?.roles ?? []),
+      [FORM_FIELDS.OTHER_ROLES]: hasOtherField(userInfo?.roles ?? [], roleOptions)[0],
     };
     form.setFieldsValue(initialValues.current);
     setHasChanged(initialChangedValues);
@@ -58,7 +62,11 @@ const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
         initialValues={initialValues}
         hasChangedInitialValue={hasChanged}
         onFinish={(values: any) => {
-          const roles = values[FORM_FIELDS.ROLES];
+          const otherField = hasOtherField(values[FORM_FIELDS.ROLES], roleOptions);
+          const roles = removeOtherKey(
+            values[FORM_FIELDS.ROLES].filter((val: string) => !otherField.includes(val)),
+            values[FORM_FIELDS.OTHER_ROLES],
+          );
           // @ts-expect-error - unknown action
           dispatch(updateUser({ data: { roles }, displayNotification: true }));
         }}
@@ -78,8 +86,29 @@ const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
                   {option.label}
                 </Checkbox>
               ))}
+              <Checkbox value={'other'}>{intl.get('screen.profileSettings.cards.roleAffiliation.other')}</Checkbox>
             </Space>
           </Checkbox.Group>
+        </Form.Item>
+        <Form.Item
+          noStyle
+          shouldUpdate={(prevValues, currentValues) =>
+            prevValues[FORM_FIELDS.ROLES] !== currentValues[FORM_FIELDS.ROLES]
+          }
+        >
+          {({ getFieldValue }) =>
+            getFieldValue(FORM_FIELDS.ROLES)?.includes(OTHER_KEY) && (
+              <Form.Item
+                className={formStyles.dynamicField}
+                name={FORM_FIELDS.OTHER_ROLES}
+                label={intl.get('screen.profileSettings.cards.pleaseDescribe')}
+                required={false}
+                rules={[{ required: true, validateTrigger: 'onSubmit' }]}
+              >
+                <Input />
+              </Form.Item>
+            )
+          }
         </Form.Item>
       </BaseForm>
     </BaseCard>

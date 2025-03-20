@@ -260,6 +260,7 @@ const en = {
           not_applicable: 'Not Applicable',
           other: 'Other',
         },
+        pleaseDescribe: 'Please describe',
         checkAll: 'Check all that apply',
         saveChanges: 'Save changes',
         discardChanges: 'Discard changes',
