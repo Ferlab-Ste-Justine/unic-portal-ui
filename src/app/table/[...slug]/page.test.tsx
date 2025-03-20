@@ -84,10 +84,7 @@ describe('Table Entity', () => {
     expect(allLinks[1]).toHaveAttribute('href', '/resource/bronchiolite');
     //2 table links
     expect(allLinks[2]).toHaveAttribute('href', '/resource/bronchiolite');
-    expect(allLinks[3]).toHaveAttribute(
-      'href',
-      '/catalog#variables?filterField=table.tab_name&filterValue=patient_diagnosis',
-    );
+    expect(allLinks[3]).toHaveAttribute('href', '/catalog#variables?table.tab_name=patient_diagnosis');
   });
 
   it('calls useQuery with GET_TABLE_ENTITY', () => {

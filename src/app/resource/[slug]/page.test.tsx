@@ -118,14 +118,13 @@ describe('Resource Entity - Project', () => {
     render(<EntityResourcePage />);
     const allLinks = screen.getAllByRole('link');
 
-    //2 title links
+    //1 title links
     expect(allLinks[0]).toHaveAttribute('href', '/catalog');
-    expect(allLinks[1]).toHaveAttribute('href', '/resource/bronchiolite');
-    //2 table links
-    expect(allLinks[2]).toHaveAttribute('href', '/resource/bronchiolite');
-    expect(allLinks[3]).toHaveAttribute(
+    //2 links in summary section
+    expect(allLinks[1]).toHaveAttribute('href', '/catalog#variables?resource.rs_name=Pancréatite Aigüe');
+    expect(allLinks[2]).toHaveAttribute(
       'href',
-      '/catalog#variables?filterField=table.tab_name&filterValue=patient_diagnosis',
+      '/catalog#variables?var_from_source_systems.rs_code=clinibaseci&resource.rs_name=Pancréatite Aigüe',
     );
   });
 });

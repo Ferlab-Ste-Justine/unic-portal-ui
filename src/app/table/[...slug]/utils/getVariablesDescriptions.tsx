@@ -11,7 +11,7 @@ const getVariablesDescriptions = (lang: LANG, tableEntity?: ITableEntity): IEnti
     {
       label: intl.get('entities.number_variables'),
       value: tableEntity?.stat_etl?.variable_count ? (
-        <Link href={`/catalog#variables?filterField=table.tab_name&filterValue=${tableEntity.tab_name}`}>
+        <Link href={`/catalog#variables?table.tab_name=${tableEntity.tab_name}`}>
           {tableEntity?.stat_etl?.variable_count}
         </Link>
       ) : (
