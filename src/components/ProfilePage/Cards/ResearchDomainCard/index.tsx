@@ -75,7 +75,6 @@ const ResearchDomainCard = ({ researchDomainOptions }: { researchDomainOptions: 
         <Form.Item
           className={formStyles.withCustomHelp}
           name={FORM_FIELDS.RESEARCH_DOMAIN}
-          label={intl.get('screen.profileSettings.cards.researchDomain.label')}
           required={false}
           rules={[{ required: true }]}
         >
