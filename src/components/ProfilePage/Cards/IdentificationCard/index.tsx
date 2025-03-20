@@ -112,11 +112,10 @@ const IdentificationCard = () => {
               >
                 <Input placeholder={intl.get('screen.profileSettings.cards.identification.yourLastName')}></Input>
               </Form.Item>
-
               <Form.Item
                 name={FORM_FIELDS.TITLE}
                 label={<ProLabel title={intl.get('screen.profileSettings.cards.identification.title2')} />}
-                rules={[{ required: true, type: 'string', validateTrigger: 'onSubmit' }]}
+                rules={[{ required: false, type: 'string', validateTrigger: 'onSubmit' }]}
                 required={false}
                 requiredMark='optional'
               >
@@ -140,7 +139,6 @@ const IdentificationCard = () => {
                   placeholder={intl.get('screen.profileSettings.cards.identification.yourInstitutionEmail')}
                 ></Input>
               </Form.Item>
-
               <Form.Item
                 className='noMargin'
                 name={FORM_FIELDS.LINKEDIN}

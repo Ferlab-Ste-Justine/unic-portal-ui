@@ -260,6 +260,7 @@ const fr = {
           not_applicable: "Ne s'applique pas",
           other: 'Autre',
         },
+        pleaseDescribe: 'Veuillez décrire',
         checkAll: 'Cochez tout ce qui s’applique',
         saveChanges: 'Sauvegarder les modifications',
         discardChanges: 'Annuler les modifications',
