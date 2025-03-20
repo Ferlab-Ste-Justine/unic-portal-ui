@@ -1,0 +1,12 @@
+{
+  "headers": ["Value",
+              "Label"],
+  "content": ["CA",
+              "RA",
+              "MN",
+              "OG",
+              "Cardiology",
+              "Radiology",
+              "Nuclear medicine",
+              "Obstetric and gynecology"]
+}
