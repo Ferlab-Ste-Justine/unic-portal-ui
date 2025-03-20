@@ -94,7 +94,7 @@ const en = {
     home: 'Home',
     community: 'Community',
     resources: 'Resources',
-    research: 'Research...',
+    research: 'Search...',
     contact: 'Contact',
     select: 'Select',
     currentVersion: 'Current version',
