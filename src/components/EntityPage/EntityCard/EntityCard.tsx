@@ -5,9 +5,9 @@ import { IEntityCard } from '@/components/EntityPage/types/entityPage';
 
 import styles from './EntityCard.module.css';
 
-const EntityCard = ({ id = '', loading, title, children }: IEntityCard) => (
+const EntityCard = ({ id = '', loading, title, children, extra }: IEntityCard) => (
   <div className={styles.entityCard}>
-    <Card className={styles.card} id={id} loading={loading} title={title}>
+    <Card className={styles.card} id={id} loading={loading} title={title} extra={extra}>
       {children}
     </Card>
   </div>

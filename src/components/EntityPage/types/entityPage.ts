@@ -11,6 +11,7 @@ export interface IEntityCard {
   loading: boolean;
   noDataLabel?: string;
   title: string;
+  extra?: React.ReactNode;
   children: React.ReactNode;
 }
 
