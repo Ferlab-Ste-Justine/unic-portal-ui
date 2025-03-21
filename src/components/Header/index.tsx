@@ -1,4 +1,4 @@
-import { DownOutlined, HomeOutlined, LogoutOutlined, ReadOutlined } from '@ant-design/icons';
+import { DownOutlined, LogoutOutlined, ReadOutlined } from '@ant-design/icons';
 import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
 import { Button, Dropdown, MenuProps, PageHeader, Space } from 'antd';
 import Image from 'next/image';
@@ -79,12 +79,6 @@ const Header = () => {
               />
             </Link>
             <nav className={styles.headerNavList}>
-              <HeaderLink
-                to={'/'}
-                icon={<HomeOutlined />}
-                title={intl.get('global.home')}
-                currentPathName={currentPathName}
-              />
               <HeaderLink
                 to={'/catalog'}
                 icon={<ReadOutlined />}

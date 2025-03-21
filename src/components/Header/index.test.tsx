@@ -7,8 +7,15 @@ import configureStore from 'redux-mock-store';
 import { useAuth } from '@/app/api/auth/useAuth';
 import Header from '@/components/Header';
 
-jest.mock('@/lib/hooks/useNotification');
-jest.mock('@/app/api/auth/useAuth');
+jest.mock('@/lib/hooks/useNotification', () => jest.fn());
+jest.mock('@/store/user/thunks', () => jest.fn());
+jest.mock('@/components/Header/HeaderLink', () => jest.fn());
+jest.mock('@/lib/axios', () => jest.fn());
+jest.mock('@/app/api/auth/useAuth', () => ({
+  useAuth: jest.fn(() => ({
+    logout: () => jest.fn(),
+  })),
+}));
 jest.mock('@/store/global', () => ({
   globalActions: {
     changeLang: jest.fn(),
