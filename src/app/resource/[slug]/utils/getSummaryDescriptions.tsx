@@ -11,10 +11,6 @@ import { getRSLabelNameByType } from '@/utils/translation';
 import styles from '../page.module.css';
 
 const getSummaryDescriptions = (lang: LANG, resourceEntity?: IResourceEntity): IEntityDescriptionsItem[] => [
-  {
-    label: intl.get('entities.name'),
-    value: resourceEntity?.rs_name || TABLE_EMPTY_PLACE_HOLDER,
-  },
   ...(resourceEntity?.rs_is_project
     ? [
         {

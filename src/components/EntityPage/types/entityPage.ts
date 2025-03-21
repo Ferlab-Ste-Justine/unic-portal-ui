@@ -21,5 +21,4 @@ export interface IEntityDescriptions {
 export interface IEntityCardHeader {
   type: string;
   name: React.ReactNode | string;
-  entityType: string;
 }

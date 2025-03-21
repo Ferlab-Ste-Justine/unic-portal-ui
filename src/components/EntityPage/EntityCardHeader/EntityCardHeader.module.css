@@ -1,0 +1,23 @@
+
+.headerContainer {
+  svg {
+    display: block;
+    width: 56px;
+    height: 56px;
+  }
+
+  svg path {
+    fill: var(--gray-6);
+  }
+
+  .title {
+    padding-left: 24px;
+    display: grid;
+  }
+
+  .type {
+    color: var(--gray-7);
+    font-size: 12px;
+    font-weight: 400;
+  }
+}

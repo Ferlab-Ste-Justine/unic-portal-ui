@@ -20,6 +20,7 @@ import { QueryOptions } from '@/types/queries';
 
 import styles from './page.module.css';
 import getVariablesDescriptions from './utils/getVariablesDescriptions';
+import EntityCardHeader from '@/components/EntityPage/EntityCardHeader/EntityCardHeader';
 
 const EntityTablePage = () => {
   const { slug } = useParams() as { slug: string };
@@ -62,7 +63,11 @@ const EntityTablePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+        <EntityCard
+          id={'summary'}
+          loading={loading}
+          title={<EntityCardHeader type={intl.get('entities.table.Table')} name={table?.tab_name} />}
+        >
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, table)} />
         </EntityCard>
         <EntityCard id={'variables'} loading={loading} title={intl.get('entities.variable.Variables')}>
