@@ -14,6 +14,7 @@ import intl from 'react-intl-universal';
 import getHistory from '@/app/variable/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/variable/[...slug]/utils/getSummaryDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard/EntityCard';
+import EntityCardHeader from '@/components/EntityPage/EntityCardHeader/EntityCardHeader';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
 import EntityDownloadTSVButton from '@/components/EntityPage/EntityDownloadTSVButton';
 import { GET_VARIABLE_ENTITY } from '@/lib/graphql/queries/getVariableEntity.query';
@@ -119,7 +120,11 @@ const EntityVariablePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+        <EntityCard
+          id={'summary'}
+          loading={loading}
+          title={<EntityCardHeader type={intl.get('entities.variable.Variable')} name={variable?.var_name} />}
+        >
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, variable)} />
         </EntityCard>
         {variable?.value_set?.values?.length > 0 && (

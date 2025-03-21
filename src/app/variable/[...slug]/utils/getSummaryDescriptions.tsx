@@ -1,9 +1,11 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { TABLE_EMPTY_PLACE_HOLDER } from '@ferlab/ui/core/common/constants';
-import { Col, Row, Tag } from 'antd';
+import { Col, Row, Tag, Tooltip } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 import intl from 'react-intl-universal';
 
+import styles from '@/app/resource/[slug]/page.module.css';
 import { IEntityDescriptionsItem } from '@/components/EntityPage/types/entityPage';
 import { LANG } from '@/types/constants';
 import { IVariableEntity } from '@/types/entities';
@@ -22,10 +24,6 @@ const formatDeviationAlgorithm = (str: string) => {
 };
 
 const getSummaryDescriptions = (lang: LANG, variableEntity?: IVariableEntity): IEntityDescriptionsItem[] => [
-  {
-    label: intl.get('entities.name'),
-    value: variableEntity?.var_name || TABLE_EMPTY_PLACE_HOLDER,
-  },
   {
     label: intl.get('entities.label'),
     value: (lang == LANG.FR ? variableEntity?.var_label_fr : variableEntity?.var_label_en) || TABLE_EMPTY_PLACE_HOLDER,
@@ -58,10 +56,14 @@ const getSummaryDescriptions = (lang: LANG, variableEntity?: IVariableEntity): I
       ? formatDeviationAlgorithm(variableEntity?.var_derivation_algorithm)
       : TABLE_EMPTY_PLACE_HOLDER,
   },
-  {
-    label: intl.get('entities.notes'),
-    value: variableEntity?.var_notes || TABLE_EMPTY_PLACE_HOLDER,
-  },
+  ...(variableEntity?.var_notes
+    ? [
+        {
+          label: intl.get('entities.notes'),
+          value: variableEntity?.var_notes || TABLE_EMPTY_PLACE_HOLDER,
+        },
+      ]
+    : []),
 ];
 
 export default getSummaryDescriptions;

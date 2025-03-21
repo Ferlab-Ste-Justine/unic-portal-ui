@@ -62,13 +62,7 @@ const EntityResourcePage = () => {
         <EntityCard
           id={'summary'}
           loading={loading}
-          title={
-            <EntityCardHeader
-              type={getRSLabelNameByType(resource?.rs_type)}
-              name={resource?.rs_name}
-              entityType={'resource'}
-            />
-          }
+          title={<EntityCardHeader type={resource?.rs_type} name={resource?.rs_name} />}
         >
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, resource)} />
         </EntityCard>
