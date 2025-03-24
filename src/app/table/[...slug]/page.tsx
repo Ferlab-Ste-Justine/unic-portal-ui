@@ -12,6 +12,7 @@ import intl from 'react-intl-universal';
 import getHistory from '@/app/table/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/table/[...slug]/utils/getSummaryDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard';
+import EntityCardHeader from '@/components/EntityPage/EntityCardHeader/EntityCardHeader';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
 import { GET_TABLE_ENTITY } from '@/lib/graphql/queries/getTableEntity.query';
 import { useLang } from '@/store/global';
@@ -20,7 +21,6 @@ import { QueryOptions } from '@/types/queries';
 
 import styles from './page.module.css';
 import getVariablesDescriptions from './utils/getVariablesDescriptions';
-import EntityCardHeader from '@/components/EntityPage/EntityCardHeader/EntityCardHeader';
 
 const EntityTablePage = () => {
   const { slug } = useParams() as { slug: string };
@@ -54,7 +54,7 @@ const EntityTablePage = () => {
           <div className={styles.titleSeparator}>/</div>
         </Link>
         <Link className={styles.titleHeaderLink} href={`/resource/${table?.resource?.rs_code}`}>
-          {table?.resource.rs_name}
+          {table?.resource?.rs_name}
           <div className={styles.titleSeparator}>/</div>
         </Link>
         <Title className={styles.title} level={4}>

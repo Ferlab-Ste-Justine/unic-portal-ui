@@ -1,5 +1,5 @@
 const AccountsStorage = () => (
-  <svg viewBox='0 0 64 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg data-testid='accounts-storage-icon' viewBox='0 0 64 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
     {/*<path*/}
     {/*  d='M43 42.5C54.598 42.5 64 33.098 64 21.5C64 9.90202 54.598 0.5 43 0.5C31.402 0.5 22 9.90202 22 21.5C22 33.098 31.402 42.5 43 42.5Z'*/}
     {/*  fill='#FFE7BA'*/}

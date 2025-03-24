@@ -19,7 +19,6 @@ import { GET_RESOURCE_ENTITY } from '@/lib/graphql/queries/getResourceEntity.que
 import { useLang } from '@/store/global';
 import { IResourceEntity } from '@/types/entities';
 import { QueryOptions } from '@/types/queries';
-import { getRSLabelNameByType } from '@/utils/translation';
 
 import styles from './page.module.css';
 
@@ -62,7 +61,7 @@ const EntityResourcePage = () => {
         <EntityCard
           id={'summary'}
           loading={loading}
-          title={<EntityCardHeader type={resource?.rs_type} name={resource?.rs_name} />}
+          title={<EntityCardHeader type={resource?.rs_type} name={<div>{resource?.rs_name}</div>} />}
         >
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, resource)} />
         </EntityCard>

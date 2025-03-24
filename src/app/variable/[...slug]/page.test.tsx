@@ -97,7 +97,7 @@ describe('Variable Entity', () => {
 
   it('renders all Entity Descriptions', () => {
     render(<EntityVariablePage />);
-    expect(screen.getByText('global.summary')).toBeInTheDocument();
+    expect(screen.getByText('entities.variable.Variable')).toBeInTheDocument();
     expect(screen.getByText('global.categories')).toBeInTheDocument();
     expect(screen.getByText('global.history')).toBeInTheDocument();
   });

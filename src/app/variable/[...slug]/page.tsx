@@ -123,7 +123,13 @@ const EntityVariablePage = () => {
         <EntityCard
           id={'summary'}
           loading={loading}
-          title={<EntityCardHeader type={intl.get('entities.variable.Variable')} name={variable?.var_name} />}
+          title={
+            <EntityCardHeader
+              type={intl.get('entities.variable.Variable')}
+              name={variable?.var_name}
+              extraTag={variable?.var_value_type}
+            />
+          }
         >
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, variable)} />
         </EntityCard>

@@ -1,11 +1,9 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
 import { TABLE_EMPTY_PLACE_HOLDER } from '@ferlab/ui/core/common/constants';
-import { Col, Row, Tag, Tooltip } from 'antd';
+import { Col, Row, Tag } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 import intl from 'react-intl-universal';
 
-import styles from '@/app/resource/[slug]/page.module.css';
 import { IEntityDescriptionsItem } from '@/components/EntityPage/types/entityPage';
 import { LANG } from '@/types/constants';
 import { IVariableEntity } from '@/types/entities';

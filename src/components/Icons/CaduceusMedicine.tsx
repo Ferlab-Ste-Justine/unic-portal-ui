@@ -1,5 +1,5 @@
 const CaduceusMedicine = () => (
-  <svg viewBox='0 0 64 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg data-testid='caduceus-medicine-icon' viewBox='0 0 64 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
     {/*<path*/}
     {/*  d='M42 21.5C42 33.097 32.599 42.5 21 42.5C9.401 42.5 0 33.097 0 21.5C0 9.896 9.401 0.5 21 0.5C32.599 0.5 42 9.896 42 21.5Z'*/}
     {/*  fill='#EFDBFF'*/}

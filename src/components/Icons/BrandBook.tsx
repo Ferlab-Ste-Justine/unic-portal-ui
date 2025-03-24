@@ -1,7 +1,5 @@
-import { IconProps } from '@/components/Icons/index';
-
 const BrandBook = () => (
-  <svg viewBox='0 0 64 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg data-testid='brand-book-icon' viewBox='0 0 64 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
     {/*<path*/}
     {/*  d='M21 64.5C32.598 64.5 42 55.098 42 43.5C42 31.902 32.598 22.5 21 22.5C9.40202 22.5 0 31.902 0 43.5C0 55.098 9.40202 64.5 21 64.5Z'*/}
     {/*  */}

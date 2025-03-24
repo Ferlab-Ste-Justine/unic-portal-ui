@@ -1,4 +1,4 @@
-import { Col, Row, Typography } from 'antd';
+import { Col, Row, Tag } from 'antd';
 import React from 'react';
 
 import { IEntityCardHeader } from '@/components/EntityPage/types/entityPage';
@@ -38,14 +38,19 @@ const getIconByType = (type: string) => {
   }
 };
 
-const EntityCardHeader = ({ name, type }: IEntityCardHeader) => (
+const EntityCardHeader = ({ name, type, extraTag }: IEntityCardHeader) => (
   <Row className={styles.headerContainer}>
     <Col>{getIconByType(type)}</Col>
     <Col className={styles.title}>
-      <div className={styles.type}>{getRSLabelNameByType(type)}</div>
-      <Typography.Title level={3} style={{ margin: 0 }}>
-        {name}
-      </Typography.Title>
+      <Row className={styles.type}>{getRSLabelNameByType(type)}</Row>
+      <Row className={styles.nameWrapper}>
+        <Col className={styles.entityVariableName}>{name}</Col>
+        {extraTag && (
+          <Col className={styles.entityVariableNameTag}>
+            <Tag>{extraTag}</Tag>
+          </Col>
+        )}
+      </Row>
     </Col>
   </Row>
 );

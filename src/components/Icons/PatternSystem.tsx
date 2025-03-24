@@ -1,5 +1,5 @@
 const PatternSystem = () => (
-  <svg viewBox='0 0 56 56' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg data-testid='pattern-system-icon' viewBox='0 0 56 56' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path d='M15.75 1.75H3.5V0H17.5V17.5H0V3.5H1.75V15.75H15.75V1.75Z' />
     <path d='M15.75 40.25H3.5V38.5H17.5V56H0V42H1.75V54.25H15.75V40.25Z' />
     <path d='M42 40.25H54.25V54.25H40.25V42H38.5V56H56V38.5H42V40.25Z' />
