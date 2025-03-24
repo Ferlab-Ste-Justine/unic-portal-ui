@@ -87,16 +87,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (resource: IResourceEntity) => resource?.tables?.length,
     render: (resource: IResourceEntity) => {
       if (!resource?.tables?.length) return '0';
-      let filterField = '';
-      let filterValue = '';
-      if (resource.rs_is_project) {
-        filterField = 'resource.rs_name';
-        filterValue = resource.rs_name;
-      } else if (resource.rs_type === 'source_system') {
-        filterField = 'resource.rs_type';
-        filterValue = resource.rs_type;
-      }
-      return <Link href={`/catalog#tables?${filterField}=${filterValue}`}>{resource.tables.length}</Link>;
+      return <Link href={`/catalog#tables?resource.rs_name=${resource.rs_name}`}>{resource.tables.length}</Link>;
     },
   },
   {

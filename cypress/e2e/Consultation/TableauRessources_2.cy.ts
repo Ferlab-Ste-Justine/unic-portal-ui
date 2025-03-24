@@ -32,7 +32,7 @@ describe('Tableau Ressources - Valider les liens disponibles', () => {
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^13 Results$| of 13$)/).should('exist');
   });
 
-  it('Lien Table (Hospital System) [UNICWEB-125]', () => {
+  it('Lien Table (Hospital System)', () => {
     cy.get('[data-row-key="19"] [class="ant-table-cell"]').eq(6).find('a').clickAndWait();
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
     cy.get('[data-node-key="tables"]').should('have.class', 'ant-tabs-tab-active');
