@@ -9,8 +9,8 @@ jest.mock('@/utils/translation', () => ({
 
 describe('EntityCardHeader', () => {
   it('renders the correct icon for research_project type', () => {
-    render(<EntityCardHeader name='Test Project' type='research_project' />);
-    expect(screen.getByTestId('brand-book-icon')).toBeInTheDocument();
+    render(<EntityCardHeader name='Test Project' type='eqp' />);
+    expect(screen.getByTestId('financial-report-icon')).toBeInTheDocument();
   });
 
   it('renders the correct icon for source_system type', () => {

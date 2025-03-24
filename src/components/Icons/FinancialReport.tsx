@@ -1,9 +1,5 @@
 const FinancialReport = () => (
   <svg data-testid='financial-report-icon' viewBox='0 0 64 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-    {/*<path*/}
-    {/*  d='M20 62.5C31.0457 62.5 40 53.5457 40 42.5C40 31.4543 31.0457 22.5 20 22.5C8.9543 22.5 0 31.4543 0 42.5C0 53.5457 8.9543 62.5 20 62.5Z'*/}
-    {/*  fill='#E0F2FE'*/}
-    {/*/>*/}
     <path fillRule='evenodd' clipRule='evenodd' d='M31 61.5V47.5H33V61.5H31Z' />
     <path
       fillRule='evenodd'

@@ -1,9 +1,9 @@
+import StudyIcon from '@ferlab/ui/core/components/Icons/Futuro/StudyIcon';
 import { Col, Row, Tag } from 'antd';
 import React from 'react';
 
 import { IEntityCardHeader } from '@/components/EntityPage/types/entityPage';
 import AccountsStorage from '@/components/Icons/AccountsStorage';
-import BrandBook from '@/components/Icons/BrandBook';
 import CaduceusMedicine from '@/components/Icons/CaduceusMedicine';
 import FinancialReport from '@/components/Icons/FinancialReport';
 import KeywordingTools from '@/components/Icons/KeywordingTools';
@@ -15,7 +15,7 @@ import styles from './EntityCardHeader.module.css';
 const getResourceIcon = (type: string) => {
   switch (type?.toLowerCase()) {
     case 'research_project':
-      return <BrandBook />;
+      return <StudyIcon />;
     case 'source_system':
       return <CaduceusMedicine />;
     case 'eqp':

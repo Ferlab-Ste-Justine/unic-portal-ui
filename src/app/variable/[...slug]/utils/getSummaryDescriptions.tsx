@@ -54,14 +54,10 @@ const getSummaryDescriptions = (lang: LANG, variableEntity?: IVariableEntity): I
       ? formatDeviationAlgorithm(variableEntity?.var_derivation_algorithm)
       : TABLE_EMPTY_PLACE_HOLDER,
   },
-  ...(variableEntity?.var_notes
-    ? [
-        {
-          label: intl.get('entities.notes'),
-          value: variableEntity?.var_notes || TABLE_EMPTY_PLACE_HOLDER,
-        },
-      ]
-    : []),
+  {
+    label: intl.get('entities.notes'),
+    value: variableEntity?.var_notes || TABLE_EMPTY_PLACE_HOLDER,
+  },
 ];
 
 export default getSummaryDescriptions;
