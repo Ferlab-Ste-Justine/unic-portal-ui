@@ -14,7 +14,9 @@ describe('Page d\'un projet - Valider les liens disponibles', () => {
 
   it('Lien Variable Count', () => {
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).find('[href]').clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('LVC-Bronchiolite-HSJ').should('exist');
+    cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
+    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="LVC-Bronchiolite-HSJ"]').should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^106 Results$| of 106$)/).should('exist');
   });
 
   it('Lien Hospital System', () => {
