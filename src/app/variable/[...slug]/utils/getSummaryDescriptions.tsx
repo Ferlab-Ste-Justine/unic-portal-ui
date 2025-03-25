@@ -42,7 +42,7 @@ const getSummaryDescriptions = (lang: LANG, variableEntity?: IVariableEntity): I
     label: intl.get('entities.table.Table'),
     value: variableEntity?.resource?.rs_name ? (
       <Link href={`/table/${variableEntity?.resource?.rs_code}/${variableEntity?.table?.tab_name}`}>
-        {variableEntity?.table.tab_name}
+        {variableEntity?.table?.tab_name}
       </Link>
     ) : (
       TABLE_EMPTY_PLACE_HOLDER
@@ -52,16 +52,24 @@ const getSummaryDescriptions = (lang: LANG, variableEntity?: IVariableEntity): I
     label: intl.get('entities.type'),
     value: variableEntity?.var_value_type ? <Tag>{variableEntity?.var_value_type}</Tag> : TABLE_EMPTY_PLACE_HOLDER,
   },
-  {
-    label: intl.get('entities.algorithmDerivation'),
-    value: variableEntity?.var_derivation_algorithm
-      ? formatDeviationAlgorithm(variableEntity?.var_derivation_algorithm)
-      : TABLE_EMPTY_PLACE_HOLDER,
-  },
-  {
-    label: intl.get('entities.notes'),
-    value: variableEntity?.var_notes || TABLE_EMPTY_PLACE_HOLDER,
-  },
+  ...(variableEntity?.var_derivation_algorithm
+    ? [
+        {
+          label: intl.get('entities.algorithmDerivation'),
+          value: variableEntity?.var_derivation_algorithm
+            ? formatDeviationAlgorithm(variableEntity?.var_derivation_algorithm)
+            : TABLE_EMPTY_PLACE_HOLDER,
+        },
+      ]
+    : []),
+  ...(variableEntity?.var_notes
+    ? [
+        {
+          label: intl.get('entities.notes'),
+          value: variableEntity?.var_notes || TABLE_EMPTY_PLACE_HOLDER,
+        },
+      ]
+    : []),
 ];
 
 export default getSummaryDescriptions;
