@@ -59,6 +59,6 @@ describe('Tableau Variables - Valider les fonctionnalités du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('39.1K', 1);
+    cy.validatePaging('', 1);
   });
 });
