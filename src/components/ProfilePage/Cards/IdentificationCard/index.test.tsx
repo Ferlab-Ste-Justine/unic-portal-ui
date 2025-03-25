@@ -71,7 +71,7 @@ describe('IdentificationCard', () => {
             last_name: 'Doe',
             title: 'Software Engineer',
             affiliation: 'Tech Corp',
-            email: 'john.doe@techcorp.com',
+            external_individual_email: 'john.doe@techcorp.com',
             linkedin: 'https://www.linkedin.com/in/johndoe',
           },
           displayNotification: true,

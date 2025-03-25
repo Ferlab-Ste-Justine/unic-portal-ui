@@ -22,7 +22,7 @@ enum FORM_FIELDS {
   LAST_NAME = 'last_name',
   TITLE = 'title',
   AFFILIATION = 'affiliation',
-  EMAIL = 'email',
+  EMAIL = 'external_individual_email',
   LINKEDIN = 'linkedin',
 }
 
@@ -64,7 +64,7 @@ const IdentificationCard = () => {
       [FORM_FIELDS.LAST_NAME]: userInfo?.last_name,
       [FORM_FIELDS.TITLE]: userInfo?.title,
       [FORM_FIELDS.AFFILIATION]: userInfo?.affiliation,
-      [FORM_FIELDS.EMAIL]: userInfo?.email,
+      [FORM_FIELDS.EMAIL]: userInfo?.external_individual_email || userInfo?.email,
       [FORM_FIELDS.LINKEDIN]: userInfo?.linkedin,
     };
     form.setFieldsValue(initialValues.current);
@@ -100,7 +100,7 @@ const IdentificationCard = () => {
                 name={FORM_FIELDS.FIRST_NAME}
                 label={<ProLabel title={intl.get('screen.profileSettings.cards.identification.firstName')} />}
                 rules={[{ required: true, type: 'string', validateTrigger: 'onSubmit' }]}
-                required={false}
+                required={true}
               >
                 <Input placeholder={intl.get('screen.profileSettings.cards.identification.yourFirstName')}></Input>
               </Form.Item>
@@ -108,7 +108,7 @@ const IdentificationCard = () => {
                 name={FORM_FIELDS.LAST_NAME}
                 label={<ProLabel title={intl.get('screen.profileSettings.cards.identification.lastName')} />}
                 rules={[{ required: true, type: 'string', validateTrigger: 'onSubmit' }]}
-                required={false}
+                required={true}
               >
                 <Input placeholder={intl.get('screen.profileSettings.cards.identification.yourLastName')}></Input>
               </Form.Item>
@@ -117,7 +117,6 @@ const IdentificationCard = () => {
                 label={<ProLabel title={intl.get('screen.profileSettings.cards.identification.title2')} />}
                 rules={[{ required: false, type: 'string', validateTrigger: 'onSubmit' }]}
                 required={false}
-                requiredMark='optional'
               >
                 <Input placeholder={intl.get('screen.profileSettings.cards.identification.yourTitle')}></Input>
               </Form.Item>
@@ -125,15 +124,21 @@ const IdentificationCard = () => {
                 name={FORM_FIELDS.AFFILIATION}
                 label={<ProLabel title={intl.get('screen.profileSettings.cards.identification.institution')} />}
                 rules={[{ required: true, type: 'string', validateTrigger: 'onSubmit' }]}
-                required={false}
+                required={true}
               >
                 <Input placeholder={intl.get('screen.profileSettings.cards.identification.yourInstitution')}></Input>
               </Form.Item>
               <Form.Item
                 name={FORM_FIELDS.EMAIL}
                 label={<ProLabel title={intl.get('screen.profileSettings.cards.identification.institutionEmail')} />}
-                rules={[{ required: true, type: 'string', validateTrigger: 'onSubmit' }]}
-                required={false}
+                rules={[
+                  {
+                    required: true,
+                    type: 'email',
+                    validateTrigger: 'onSubmit',
+                  },
+                ]}
+                required={true}
               >
                 <Input
                   placeholder={intl.get('screen.profileSettings.cards.identification.yourInstitutionEmail')}
@@ -151,7 +156,6 @@ const IdentificationCard = () => {
                   },
                 ]}
                 required={false}
-                requiredMark='optional'
               >
                 <Input placeholder='https://www.linkedin.com/in/username'></Input>
               </Form.Item>
