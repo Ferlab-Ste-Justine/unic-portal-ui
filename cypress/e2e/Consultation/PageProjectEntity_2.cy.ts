@@ -24,7 +24,7 @@ describe('Page d\'un projet - Valider les liens disponibles', () => {
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
     cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="LVC-Bronchiolite-HSJ"]').should('exist');
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [class*="ant-tag"]').contains('pharmacie').should('exist');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^9 Results$| of 9$)/).should('exist');
+    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [class*="ant-tag"]').contains('staturgence').should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^22 Results$| of 22$)/).should('exist');
   });
 });

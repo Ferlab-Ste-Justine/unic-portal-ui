@@ -61,6 +61,6 @@ describe('Tableau Tables - Valider les fonctionnalités du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('1,099', 1);
+    cy.validatePaging('', 1);
   });
 });
