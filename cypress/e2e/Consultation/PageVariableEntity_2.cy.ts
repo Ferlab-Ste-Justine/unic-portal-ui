@@ -23,12 +23,12 @@ describe('Page d\'une variable - Valider les liens disponibles', () => {
   });
 
   it('Lien Resource', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).find('[href]').clickAndWait();
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(1).find('[href]').clickAndWait();
     cy.get('[class*="page_titleHeader"]').contains('warehouse').should('exist');
   });
 
   it('Lien Table', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).find('[href]').clickAndWait();
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).find('[href]').clickAndWait();
     cy.get('[class*="page_titleHeader"]').contains('medical_imaging').should('exist');
   });
 });
