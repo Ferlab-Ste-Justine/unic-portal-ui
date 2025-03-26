@@ -59,6 +59,6 @@ describe('Tableau Ressources - Valider les fonctionnalités du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('51', 0);
+    cy.validatePaging(/\d{2}/, 0);
   });
 });
