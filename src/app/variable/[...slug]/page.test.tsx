@@ -185,4 +185,38 @@ describe('Resource Entity with no data', () => {
     render(<EntityTablePage />);
     expect(screen.getByText('entities.no_data')).toBeInTheDocument();
   });
+
+  test('entity should not return Categories sections if not required', () => {
+    jest.clearAllMocks();
+    (useQuery as jest.Mock).mockReturnValue({
+      data: {
+        getVariables: {
+          hits: [
+            {
+              var_name: 'labTestStatus',
+              var_value_type: 'string',
+              var_derivation_algorithm: 'AS IS',
+              var_label_fr: 'Statut du test',
+              var_label_en: 'Status of the laboratory test performed',
+              var_created_at: 1723832573323,
+              var_last_update: 1723832573323,
+              resource: {
+                rs_name: 'warehouse',
+                rs_code: 'warehouse',
+              },
+              table: {
+                tab_name: 'lab_results',
+              },
+              value_set: {
+                values: [],
+              },
+            },
+          ],
+        },
+      },
+      loading: false,
+    });
+    render(<EntityTablePage />);
+    expect(screen.queryByText('global.categories')).not.toBeInTheDocument();
+  });
 });
