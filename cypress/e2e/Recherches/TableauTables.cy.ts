@@ -12,7 +12,7 @@ describe('Tableau Tables - Vérifier la fonctionnalité de la recherche Table', 
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
   });
 
-  it('Results by Description fr [UNICWEB-129]', () => {
+  it('Results by Description fr', () => {
     cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('antécédents médicaux');
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
   });
