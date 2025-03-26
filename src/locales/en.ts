@@ -100,6 +100,7 @@ const en = {
     currentVersion: 'Current version',
     history: 'History',
     download: 'Download',
+    about: 'About',
     proTable: {
       results: 'Results',
       result: 'Result',

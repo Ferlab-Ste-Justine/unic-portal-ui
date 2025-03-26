@@ -99,6 +99,7 @@ const fr = {
     currentVersion: 'Version courante',
     history: 'Historique',
     download: 'Télécharger',
+    about: 'À propos',
     proTable: {
       results: 'Résultats',
       result: 'Résultat',

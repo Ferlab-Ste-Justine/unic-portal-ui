@@ -122,37 +122,39 @@ const EntityVariablePage = () => {
         <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, variable)} />
         </EntityCard>
-        <EntityCard
-          id={'categories'}
-          loading={loading}
-          title={intl.get('global.categories')}
-          extra={
-            <EntityDownloadTSVButton
-              variableName={variable?.var_name}
-              columns={columns}
-              data={filteredData}
-              disabled={filteredData.length === 0}
+        {variable?.value_set?.values?.length > 0 && (
+          <EntityCard
+            id={'categories'}
+            loading={loading}
+            title={intl.get('global.categories')}
+            extra={
+              <EntityDownloadTSVButton
+                variableName={variable?.var_name}
+                columns={columns}
+                data={filteredData}
+                disabled={filteredData.length === 0}
+              />
+            }
+          >
+            <Input
+              placeholder={intl.get('global.research')}
+              onChange={(e) => onChangeSearch(e.target.value)}
+              onPressEnter={onPressEnter}
+              allowClear
+              suffix={<SearchOutlined className={styles.icon} />}
             />
-          }
-        >
-          <Input
-            placeholder={intl.get('global.research')}
-            onChange={(e) => onChangeSearch(e.target.value)}
-            onPressEnter={onPressEnter}
-            allowClear
-            suffix={<SearchOutlined className={styles.icon} />}
-          />
-          <Table
-            className={styles.entityTable}
-            ref={tableRef}
-            dataSource={filteredData}
-            columns={columns}
-            bordered
-            pagination={false}
-            size='small'
-            scroll={scroll}
-          />
-        </EntityCard>
+            <Table
+              className={styles.entityTable}
+              ref={tableRef}
+              dataSource={filteredData}
+              columns={columns}
+              bordered
+              pagination={false}
+              size='small'
+              scroll={scroll}
+            />
+          </EntityCard>
+        )}
         <EntityCard id={'history'} loading={loading} title={intl.get('global.history')}>
           <EntityDescriptions descriptions={getHistory(lang, variable)} />
         </EntityCard>
