@@ -13,7 +13,9 @@ const formatDeviationAlgorithm = (str: string) => {
   return (
     <Col>
       {parts.map((p) => (
-        <Row key={p}>{p}</Row>
+        <Row className='monospace-text' key={p}>
+          {p}
+        </Row>
       ))}
     </Col>
   );
