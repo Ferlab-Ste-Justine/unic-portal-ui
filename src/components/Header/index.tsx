@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 
 import { useAuth } from '@/app/api/auth/useAuth';
 import HeaderLink from '@/components/Header/HeaderLink';
+import ExternalLinkIcon from '@/components/Icons/ExternalLinkIcon';
+import config from '@/config';
 import useNotification from '@/lib/hooks/useNotification';
 import { globalActions, useLang } from '@/store/global';
 import { useUser } from '@/store/user';
@@ -90,6 +92,14 @@ const Header = () => {
         }
         extra={
           <Space size={16}>
+            <HeaderLink
+              currentPathName={''}
+              to={config.ABOUT_URL}
+              icon={<ExternalLinkIcon width={14} height={14} />}
+              iconRight
+              title={intl.get('global.about')}
+              target={'_blank'}
+            />
             <Dropdown trigger={['click']} menu={userMenu}>
               <div className={styles.menuTrigger}>
                 <UserAvatar
