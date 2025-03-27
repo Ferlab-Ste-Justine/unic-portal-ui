@@ -100,10 +100,11 @@ const en = {
     currentVersion: 'Current version',
     history: 'History',
     download: 'Download',
+    about: 'About',
     proTable: {
       results: 'Results',
       result: 'Result',
-      noResults: 'No Result',
+      noResults: 'No Results',
       of: 'of',
       selected: 'item selected',
       selectedPlural: 'items selected',
