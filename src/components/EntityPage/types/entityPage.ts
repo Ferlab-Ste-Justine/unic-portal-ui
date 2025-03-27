@@ -10,11 +10,16 @@ export interface IEntityCard {
   id?: string;
   loading: boolean;
   noDataLabel?: string;
-  title: string;
   extra?: React.ReactNode;
+  title: React.ReactNode | string;
   children: React.ReactNode;
 }
 
 export interface IEntityDescriptions {
   descriptions: IEntityDescriptionsItem[];
+}
+export interface IEntityCardHeader {
+  type: string;
+  name: React.ReactNode | string;
+  extraTag?: string;
 }

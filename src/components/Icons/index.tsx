@@ -7,4 +7,5 @@ export type IconProps = {
   svgClass?: string;
   fill?: string;
   onClick?: () => void;
+  color?: string;
 };

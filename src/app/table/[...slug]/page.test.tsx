@@ -33,6 +33,8 @@ describe('Table Entity', () => {
               tab_id: 2077,
               tab_created_at: 1726516882462,
               tab_entity_type: 'diagnosis',
+              tab_domain: 'tab_domain',
+              tab_row_filter: 'tab_row_filter',
               tab_label_en: 'Patient diagnosis',
               tab_label_fr: 'Diagnostic du patient',
               tab_last_update: 1726516882462,
@@ -70,9 +72,16 @@ describe('Table Entity', () => {
 
   it('renders all Entity Descriptions', () => {
     render(<EntityTablePage />);
-    expect(screen.getByText('global.summary')).toBeInTheDocument();
+    expect(screen.getByText('entities.table.Table')).toBeInTheDocument();
     expect(screen.getByText('entities.variable.Variables')).toBeInTheDocument();
     expect(screen.getByText('global.history')).toBeInTheDocument();
+  });
+
+  it('renders [Entity, Domaine, Entity filter] fields if required', () => {
+    render(<EntityTablePage />);
+    expect(screen.getByText('entities.Domain')).toBeInTheDocument();
+    expect(screen.getByText('entities.table.tab_entity_type')).toBeInTheDocument();
+    expect(screen.getByText('entities.rowFilter')).toBeInTheDocument();
   });
 
   it('proper links should be in table entity page', () => {
@@ -120,5 +129,29 @@ describe('Resource Entity with no data', () => {
     });
     render(<EntityTablePage />);
     expect(screen.getByText('entities.no_data')).toBeInTheDocument();
+  });
+
+  it('not renders [Entity, Domaine, Entity filter] fields, if not required', () => {
+    (useQuery as jest.Mock).mockReturnValue({
+      data: {
+        getTables: {
+          hits: [
+            {
+              tab_id: 2077,
+              tab_created_at: 1726516882462,
+              tab_label_en: 'Patient diagnosis',
+              tab_label_fr: 'Diagnostic du patient',
+              tab_last_update: 1726516882462,
+              tab_name: 'patient_diagnosis',
+            },
+          ],
+        },
+      },
+      loading: false,
+    });
+    render(<EntityTablePage />);
+    expect(screen.queryByText('entities.Domain')).toBeNull();
+    expect(screen.queryByText('entities.table.tab_entity_type')).toBeNull();
+    expect(screen.queryByText('entities.rowFilter')).toBeNull();
   });
 });
