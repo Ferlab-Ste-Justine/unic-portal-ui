@@ -14,35 +14,30 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
     cy.get('[class*="page_titleHeader"]').contains('sector').should('exist');
   });
 
-  it('Panneau Summary - Name', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(0).contains('Name').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).contains('sector').should('exist');
-  });
-
   it('Panneau Summary - Label', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(1).contains('Label').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(1).contains('Sector code').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(0).contains('Label').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).contains('Sector code').should('exist');
   });
 
   it('Panneau Summary - Resource', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(2).contains('Resource').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).contains('warehouse').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(1).contains('Resource').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(1).contains('warehouse').should('exist');
   });
 
   it('Panneau Summary - Table', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(3).contains('Table').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).contains('medical_imaging').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(2).contains('Table').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).contains('medical_imaging').should('exist');
   });
 
   it('Panneau Summary - Type', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(4).contains('Type').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(4).contains('string').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(4).find('[class="ant-tag"]').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(3).contains('Type').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).contains('string').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).find('[class="ant-tag"]').should('exist');
   });
 
   it('Panneau Summary - Derivation Algorithm', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(5).contains('Derivation Algorithm').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(5).contains('AS IS (JOIN)').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(4).contains('Derivation Algorithm').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(4).contains('AS IS (JOIN)').should('exist');
   });
 
   it('Panneau Summary - Notes', () => {

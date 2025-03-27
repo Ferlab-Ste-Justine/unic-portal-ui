@@ -18,7 +18,7 @@ describe('Page d\'une table - Valider les liens disponibles', () => {
   });
 
   it('Lien Resource', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(1).find('[href]').clickAndWait();
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).find('[href]').clickAndWait();
     cy.get('[class*="page_titleHeader"]').contains('RESPPA').should('exist');
   });
 

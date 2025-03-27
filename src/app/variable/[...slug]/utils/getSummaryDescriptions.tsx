@@ -23,10 +23,6 @@ const formatDeviationAlgorithm = (str: string) => {
 
 const getSummaryDescriptions = (lang: LANG, variableEntity?: IVariableEntity): IEntityDescriptionsItem[] => [
   {
-    label: intl.get('entities.name'),
-    value: variableEntity?.var_name || TABLE_EMPTY_PLACE_HOLDER,
-  },
-  {
     label: intl.get('entities.label'),
     value: (lang == LANG.FR ? variableEntity?.var_label_fr : variableEntity?.var_label_en) || TABLE_EMPTY_PLACE_HOLDER,
   },
