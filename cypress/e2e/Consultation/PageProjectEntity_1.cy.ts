@@ -49,25 +49,25 @@ describe('Page d\'un projet - Vérifier les informations affichées', () => {
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains(' (in 13 tables)').should('exist');
   });
 
-  it('Panneau Variables - Hospital Systems [UNICWEB-101]', () => {
+  it('Panneau Variables - Hospital Systems', () => {
     cy.get('[id="variables"] [class="ant-descriptions-item-label"]').eq(1).contains('Hospital Systems').should('exist');
     cy.get('[id="variables"] [class*="page_tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent'});
     cy.get('body').contains('Hospital systems used to generate variables for this project.').should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('pharmacie (').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('2354').should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^9$/).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^\)$/).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('icca').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('706').should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^1$/).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('clinibaseci').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('587').should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^1$/).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('medecho').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('431').should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^14$/).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('softlab').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('396').should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^5$/).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('staturgence').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('372').should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^22$/).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('loinc').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('60').should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^2$/).should('exist');
   });
 
   it('Panneau Current version - Published On', () => {
