@@ -43,7 +43,7 @@ const searchFields = [
   'rs_title',
 ];
 
-const ResourcesTable = () => {
+const ResourcesTable = ({ tabKey }: { tabKey: string }) => {
   const lang = useLang();
   const { userInfo } = useUser();
   const dispatch = useDispatch();
@@ -139,6 +139,7 @@ const ResourcesTable = () => {
           handleSetVariables={handleSetVariables}
           variables={variables}
           showSearch={false}
+          currentTabKey={tabKey}
         />
       </div>
       <ProTable

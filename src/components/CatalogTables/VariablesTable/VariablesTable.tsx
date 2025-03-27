@@ -35,7 +35,7 @@ const SCROLL_WRAPPER_ID = 'variables-table-scroll-wrapper';
 
 const searchFields = ['var_label_en', 'var_label_fr', 'var_name'];
 
-const VariablesTable = () => {
+const VariablesTable = ({ tabKey }: { tabKey: string }) => {
   const lang = useLang();
   const { userInfo } = useUser();
   const dispatch = useDispatch();
@@ -160,6 +160,7 @@ const VariablesTable = () => {
           handleSetVariables={handleSetVariables}
           variables={variables}
           showSearch={false}
+          currentTabKey={tabKey}
         />
         <InputSelect
           operator={'match'}
@@ -169,6 +170,7 @@ const VariablesTable = () => {
           placeholder={intl.get('entities.resource.filterBy')}
           handleSetVariables={handleSetVariables}
           variables={variables}
+          currentTabKey={tabKey}
         />
         <InputSelect
           operator={'match'}
@@ -178,6 +180,8 @@ const VariablesTable = () => {
           placeholder={intl.get('entities.table.filterBy')}
           handleSetVariables={handleSetVariables}
           variables={variables}
+          showSearch={false}
+          currentTabKey={tabKey}
         />
         <InputSelect
           operator={'orGroups'}
@@ -189,6 +193,7 @@ const VariablesTable = () => {
           handleSetVariables={handleSetVariables}
           variables={variables}
           showSearch={true}
+          currentTabKey={tabKey}
         />
       </div>
       <ProTable

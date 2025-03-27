@@ -22,6 +22,7 @@ const InputSelect = ({
   variables,
   mode,
   showSearch = true,
+  currentTabKey,
 }: {
   operator: 'match' | 'or' | 'orGroups';
   options: SelectProps['options'];
@@ -32,9 +33,12 @@ const InputSelect = ({
   variables: QueryOptions;
   mode?: SelectProps['mode'];
   showSearch?: boolean;
+  currentTabKey?: string;
 }) => {
   const [selects, setSelects] = useState<string[]>([]);
   const { hash, setHash } = useHash();
+  const tabFromHash = hash.split('?')?.[0]; // query params if present
+  const isDisplayOnTab = tabFromHash === currentTabKey;
   const hashParams = hash.split('?')[1];
 
   const tagRender = (props: CustomTagProps) => {
@@ -98,11 +102,15 @@ const InputSelect = ({
     }
   }, [variables]);
 
+  /** useEffect to handle filter selections from the URL */
   useEffect(() => {
-    if (hashParams) {
+    /** isDisplayOnTab is used to only apply filters on the wanted tab */
+    if (hashParams && isDisplayOnTab) {
       const hashParamsObj = queryString.parse(hashParams) as Record<string, string | string[]>;
-      // Convert the parsed values into an array of selected filters
-      // resource.rs_name=viewpoint&table.tab_name=accounts into an object { "resource.rs_name": "viewpoint", "table.tab_name": "accounts" }
+      /** Convert the parsed values into an array of selected filters:
+       * "resource.rs_name=viewpoint&table.tab_name=accounts" into an object:
+       * { "resource.rs_name": "viewpoint", "table.tab_name": "accounts" }
+       */
       Object.entries(hashParamsObj).forEach(([key, value]) => {
         if (key === selectField) {
           selects.push(...(Array.isArray(value) ? value : [value]));
