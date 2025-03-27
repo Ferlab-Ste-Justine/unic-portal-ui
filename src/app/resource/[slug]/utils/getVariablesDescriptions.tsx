@@ -56,7 +56,8 @@ const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity):
                         <div>{`${value[0]} (`}</div>
                         <Link
                           href={`/catalog#variables?var_from_source_systems.rs_code=${value[0]}&resource.rs_name=${resourceEntity?.rs_name}`}
-                        >{`${value[1]})`}</Link>
+                        >{`${value[1]}`}</Link>
+                        <div>{')'}</div>
                       </span>
                     ))
                   : TABLE_EMPTY_PLACE_HOLDER}
