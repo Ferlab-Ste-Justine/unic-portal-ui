@@ -13,6 +13,7 @@ import getCurrentVersionDescriptions from '@/app/resource/[slug]/utils/getCurren
 import getSummaryDescriptions from '@/app/resource/[slug]/utils/getSummaryDescriptions';
 import getVariablesDescriptions from '@/app/resource/[slug]/utils/getVariablesDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard';
+import EntityCardHeader from '@/components/EntityPage/EntityCardHeader/EntityCardHeader';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
 import { GET_RESOURCE_ENTITY } from '@/lib/graphql/queries/getResourceEntity.query';
 import { useLang } from '@/store/global';
@@ -57,7 +58,11 @@ const EntityResourcePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityCard id={'summary'} loading={loading} title={intl.get('global.summary')}>
+        <EntityCard
+          id={'summary'}
+          loading={loading}
+          title={<EntityCardHeader type={resource?.rs_type} name={<div>{resource?.rs_name}</div>} />}
+        >
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, resource)} />
         </EntityCard>
         <EntityCard id={'variables'} loading={loading} title={intl.get('entities.variable.Variables')}>
