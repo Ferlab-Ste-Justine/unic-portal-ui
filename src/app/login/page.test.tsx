@@ -68,7 +68,6 @@ describe('LoginPage Component', () => {
     expect(screen.getByAltText('login-img')).toBeInTheDocument();
     expect(screen.getByAltText('logo')).toBeInTheDocument();
     expect(screen.getByText('screen.loginPage.title')).toBeInTheDocument();
-    expect(screen.getByText('screen.loginPage.subTitle')).toBeInTheDocument();
     expect(screen.getByText('components.dataRelease.title')).toBeInTheDocument();
     expect(screen.getByText('global.participants')).toBeInTheDocument();
     expect(screen.getByText('entities.project.Projects')).toBeInTheDocument();

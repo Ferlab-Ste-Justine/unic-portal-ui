@@ -50,7 +50,6 @@ const LoginPage = () => {
           </div>
           <Space size={16} direction='vertical'>
             <Text className={styles.loginTitle}>{intl.get('screen.loginPage.title')}</Text>
-            <Text className={styles.loginSubTitle}>{intl.get('screen.loginPage.subTitle')}</Text>
           </Space>
           <Space className={styles.loginButtons} size={16}>
             <Button type='primary' onClick={login} size={'large'} data-cy='Login'>
