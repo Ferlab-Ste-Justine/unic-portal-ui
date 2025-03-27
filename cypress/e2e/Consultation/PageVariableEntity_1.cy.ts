@@ -46,8 +46,7 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
   });
 
   it('Panneau Summary - Notes', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(6).contains('Notes').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(6).contains('-').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').contains('Notes').should('not.exist');
   });
 
   it('Panneau Categories - Headers', () => {
