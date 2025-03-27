@@ -228,7 +228,7 @@ const fr = {
         },
         roleAffiliation: {
           title: 'Fonction',
-          iama: 'Je suis un(e)',
+          iama: 'Je suis un(e) :',
           bioinformatician_software_developer: 'Bioinformaticien(ne), analyste de données, statisticien(ne)',
           researcher_in_academic_or_non_profit_institution:
             'Chercheur(e) dans une institution académique ou sans but lucratif',

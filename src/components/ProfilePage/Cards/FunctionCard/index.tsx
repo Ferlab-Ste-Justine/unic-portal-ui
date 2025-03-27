@@ -10,7 +10,7 @@ import { updateUser } from '@/store/user/thunks';
 import BaseCard from '../BaseCard';
 import BaseForm from '../BaseForm';
 import formStyles from '../form.module.css';
-import { hasOtherField, IOption, lowerAll, OTHER_KEY, removeOtherKey, sortOptionsLabelsByName } from '../utils';
+import { hasOtherField, IOption, lowerAll, OTHER_KEY, removeOtherKey } from '../utils';
 
 enum FORM_FIELDS {
   ROLES = 'roles',
@@ -35,8 +35,6 @@ const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
     setHasChanged(initialChangedValues);
     form.setFieldsValue(initialValues.current);
   };
-
-  const roleOptionsSorted = sortOptionsLabelsByName(roleOptions, 'roleAffiliation');
 
   useEffect(() => {
     initialValues.current = {
@@ -81,9 +79,9 @@ const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
           <Checkbox.Group className={formStyles.checkBoxGroup}>
             <span className={formStyles.help}>{intl.get('screen.profileSettings.cards.checkAll')}</span>
             <Space direction='vertical'>
-              {roleOptionsSorted.map((option) => (
+              {roleOptions.map((option) => (
                 <Checkbox key={option.value} value={option.value}>
-                  {option.label}
+                  {intl.get(`screen.profileSettings.cards.roleAffiliation.${option.value}`)}
                 </Checkbox>
               ))}
               <Checkbox value={'other'}>{intl.get('screen.profileSettings.cards.roleAffiliation.other')}</Checkbox>

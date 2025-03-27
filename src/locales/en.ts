@@ -208,10 +208,10 @@ const en = {
           title: 'Identification',
           alert:
             'You are authenticated with <strong>{provider}</strong> using <strong>{email}</strong>. This email is never shown to the public and cannot be changed.',
-          firstName: 'First Name',
-          yourFirstName: 'Your First Name',
-          lastName: 'Last Name',
-          yourLastName: 'Your Last Name',
+          firstName: 'First name',
+          yourFirstName: 'Your first name',
+          lastName: 'Last name',
+          yourLastName: 'Your last name',
           title2: 'Title',
           yourTitle: 'Your title',
           institution: 'Institution',
@@ -230,7 +230,7 @@ const en = {
         },
         roleAffiliation: {
           title: 'Function',
-          iama: 'I am a',
+          iama: 'I am a:',
           bioinformatician_software_developer: 'Bioinformatician, data analyst, statistician',
           researcher_in_academic_or_non_profit_institution: 'Researcher in an academic or non-profit institution',
           clinician: 'Clinician',
@@ -241,7 +241,7 @@ const en = {
           other: 'Other',
         },
         researchDomain: {
-          title: 'Research Area',
+          title: 'Research area',
           label: 'Research area or areas of interest',
           aging: 'Aging',
           bioinformatics: 'Bioinformatics',

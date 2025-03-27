@@ -20,7 +20,6 @@ jest.mock('@/store/user/thunks', () => ({
 }));
 jest.mock('../utils', () => ({
   ...jest.requireActual('../utils'),
-  sortOptionsLabelsByName: jest.fn((options) => options),
 }));
 
 describe('ResearchDomainCard', () => {
@@ -42,8 +41,8 @@ describe('ResearchDomainCard', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('Biology')).toBeInTheDocument();
-    expect(screen.getByText('Chemistry')).toBeInTheDocument();
+    expect(screen.getByText('screen.profileSettings.cards.researchDomain.biology')).toBeInTheDocument();
+    expect(screen.getByText('screen.profileSettings.cards.researchDomain.chemistry')).toBeInTheDocument();
   });
 
   it('updates state when checkbox is clicked', () => {
@@ -53,7 +52,7 @@ describe('ResearchDomainCard', () => {
       </Provider>,
     );
 
-    const chemistryCheckbox = screen.getByLabelText('Chemistry');
+    const chemistryCheckbox = screen.getByLabelText('screen.profileSettings.cards.researchDomain.chemistry');
     fireEvent.click(chemistryCheckbox);
     expect(chemistryCheckbox).toBeChecked();
   });
@@ -65,7 +64,7 @@ describe('ResearchDomainCard', () => {
       </Provider>,
     );
 
-    const chemistryCheckbox = screen.getByText('Chemistry');
+    const chemistryCheckbox = screen.getByText('screen.profileSettings.cards.researchDomain.chemistry');
     fireEvent.click(chemistryCheckbox);
 
     const saveButton = screen.getByText('screen.profileSettings.cards.saveChanges');

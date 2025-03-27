@@ -10,7 +10,7 @@ import { updateUser } from '@/store/user/thunks';
 import BaseCard from '../BaseCard';
 import BaseForm from '../BaseForm';
 import formStyles from '../form.module.css';
-import { hasOtherField, IOption, lowerAll, OTHER_KEY, removeOtherKey, sortOptionsLabelsByName } from '../utils';
+import { hasOtherField, IOption, lowerAll, OTHER_KEY, removeOtherKey } from '../utils';
 
 enum FORM_FIELDS {
   RESEARCH_DOMAIN = 'research_domain',
@@ -35,8 +35,6 @@ const ResearchDomainCard = ({ researchDomainOptions }: { researchDomainOptions: 
     setHasChanged(initialChangedValues);
     form.setFieldsValue(initialValues.current);
   };
-
-  const researchDomainOptionsSorted = sortOptionsLabelsByName(researchDomainOptions, 'researchDomain');
 
   useEffect(() => {
     initialValues.current = {
@@ -81,9 +79,9 @@ const ResearchDomainCard = ({ researchDomainOptions }: { researchDomainOptions: 
           <Checkbox.Group className={formStyles.checkBoxGroup}>
             <span className={formStyles.help}>{intl.get('screen.profileSettings.cards.checkAll')}</span>
             <Space direction='vertical'>
-              {researchDomainOptionsSorted.map((option) => (
+              {researchDomainOptions.map((option) => (
                 <Checkbox key={option.value} value={option.value}>
-                  {option.label}
+                  {intl.get(`screen.profileSettings.cards.researchDomain.${option.value}`)}
                 </Checkbox>
               ))}
               <Checkbox value={'other'}>{intl.get('screen.profileSettings.cards.researchDomain.other')}</Checkbox>

@@ -20,7 +20,6 @@ jest.mock('@/store/user/thunks', () => ({
 }));
 jest.mock('../utils', () => ({
   ...jest.requireActual('../utils'),
-  sortOptionsLabelsByName: jest.fn((options) => options),
 }));
 
 describe('FunctionCard Component', () => {
@@ -51,14 +50,14 @@ describe('FunctionCard Component', () => {
     expect(screen.getByText('screen.profileSettings.cards.roleAffiliation.title')).toBeInTheDocument();
     expect(screen.getByText('screen.profileSettings.cards.roleAffiliation.iama')).toBeInTheDocument();
     expect(screen.getByText('screen.profileSettings.cards.checkAll')).toBeInTheDocument();
-    expect(screen.getByLabelText('Admin')).toBeInTheDocument();
-    expect(screen.getByLabelText('Editor')).toBeInTheDocument();
+    expect(screen.getByLabelText('screen.profileSettings.cards.roleAffiliation.admin')).toBeInTheDocument();
+    expect(screen.getByLabelText('screen.profileSettings.cards.roleAffiliation.editor')).toBeInTheDocument();
   });
 
   it('selects and tracks checkbox changes', () => {
     renderComponent();
 
-    const adminCheckbox = screen.getByLabelText('Admin');
+    const adminCheckbox = screen.getByLabelText('screen.profileSettings.cards.roleAffiliation.admin');
     fireEvent.click(adminCheckbox);
 
     expect(adminCheckbox).toBeChecked();
@@ -71,7 +70,7 @@ describe('FunctionCard Component', () => {
       </Provider>,
     );
 
-    const adminCheckbox = screen.getByLabelText('Admin');
+    const adminCheckbox = screen.getByLabelText('screen.profileSettings.cards.roleAffiliation.admin');
     fireEvent.click(adminCheckbox);
     expect(adminCheckbox).toBeChecked();
 
@@ -84,7 +83,7 @@ describe('FunctionCard Component', () => {
   it('dispatches updateUser when form is submitted', async () => {
     renderComponent();
 
-    const adminCheckbox = screen.getByLabelText('Admin');
+    const adminCheckbox = screen.getByLabelText('screen.profileSettings.cards.roleAffiliation.admin');
     fireEvent.click(adminCheckbox);
 
     const saveButton = screen.getByText('screen.profileSettings.cards.saveChanges');
