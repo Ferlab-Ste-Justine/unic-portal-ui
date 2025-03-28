@@ -181,8 +181,8 @@ const fr = {
       },
     },
     home: {
-      title: "Portail de données de l'UnIC",
-      subTitle: 'Explorez le catalogue de données, gérez vos projets et accédez à vos jeux de données.',
+      title: "Catalogue de l'UniC",
+      subTitle: 'Explorez les dictionnaires de données de l’UnIC par type de ressource :',
       explore: 'Explorer',
       warehouse: {
         title: 'Entrepôt',
