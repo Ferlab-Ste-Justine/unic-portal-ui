@@ -12,35 +12,36 @@ describe('Page d\'un projet - Vérifier les informations affichées', () => {
     cy.get('[class*="page_titleHeader"]').contains('LVC-Bronchiolite-HSJ').should('exist');
   });
 
-  it('Panneau Summary - Name', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(0).contains('Name').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).contains('LVC-Bronchiolite-HSJ').should('exist');
+  it('Panneau Summary - Header', () => {
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [id="study"]').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_type"]').contains('Research').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_name"]').contains('LVC-Bronchiolite-HSJ').should('exist');
   });
 
   it('Panneau Summary - Title', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(1).contains('Title').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(1).contains('Low-value care; and variation in practice for children hospitalized with bronchiolitis at the CHU Sainte-Justine').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(0).contains('Title').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).contains('Low-value care; and variation in practice for children hospitalized with bronchiolitis at the CHU Sainte-Justine').should('exist');
   });
 
   it('Panneau Summary - Description', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(2).contains('Description').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).contains('Study aimed at evaluating practices surrounding the management of bronchiolitis at the CHUSJ').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(1).contains('Description').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(1).contains('Study aimed at evaluating practices surrounding the management of bronchiolitis at the CHUSJ').should('exist');
   });
 
   it('Panneau Summary - Type', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(3).contains('Type').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).contains('Research').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).find('[class*="ant-tag-cyan"]').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(2).contains('Type').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).contains('Research').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).find('[class*="ant-tag-cyan"]').should('exist');
   });
 
   it('Panneau Summary - Investigator Owner', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(4).contains('Investigator / Owner').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(4).contains('Dr Olivier Drouin').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(3).contains('Investigator / Owner').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).contains('Dr Olivier Drouin').should('exist');
   });
 
   it('Panneau Summary - Approved On', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(5).contains('Approved On').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(5).contains(/^2022-10-(19|20)$/).should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(4).contains('Approved On').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(4).contains(/^2022-10-(19|20)$/).should('exist');
   });
 
   it('Panneau Variables - Variable Count', () => {

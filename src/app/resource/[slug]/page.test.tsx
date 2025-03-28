@@ -79,7 +79,8 @@ describe('Resource Entity - Project', () => {
 
   it('renders all Entity Descriptions', () => {
     render(<EntityResourcePage />);
-    expect(screen.getByText('global.summary')).toBeInTheDocument();
+    //2 times, one in breadcrumbs and one in title
+    expect(screen.getAllByText('Pancréatite Aigüe')).toHaveLength(2);
     expect(screen.getByText('entities.variable.Variables')).toBeInTheDocument();
     expect(screen.getByText('global.currentVersion')).toBeInTheDocument();
   });
@@ -98,7 +99,7 @@ describe('Resource Entity - Project', () => {
   it('entity type should be properly set', () => {
     render(<EntityResourcePage />);
 
-    expect(screen.getByText('entities.research_project')).toBeInTheDocument();
+    expect(screen.getAllByText('entities.research_project')).toHaveLength(2);
   });
 
   it('entity should contain all fields for PROJECT type', () => {
