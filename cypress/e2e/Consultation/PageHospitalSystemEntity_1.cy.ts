@@ -12,6 +12,12 @@ describe('Page d\'un Système hospitalier - Vérifier les informations affichée
     cy.get('[class*="page_titleHeader"]').contains('centro').should('exist');
   });
 
+  it('Panneau Summary - Header', () => {
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [data-testid="caduceus-medicine-icon"]').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_type"]').contains('Hospital System').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_name"]').contains('centro').should('exist');
+  });
+
   it('Panneau Summary - Description', () => {
     cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(0).contains('Description').should('exist');
     cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).contains('Information system for the CHUSJ outpatient clinics. This source includes all electronic forms developed in the different hospital departments').should('exist');
