@@ -20,7 +20,6 @@ export const LINKEDIN_REGEX = /^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(pub|in
 enum FORM_FIELDS {
   FIRST_NAME = 'first_name',
   LAST_NAME = 'last_name',
-  TITLE = 'title',
   AFFILIATION = 'affiliation',
   EMAIL = 'external_individual_email',
   LINKEDIN = 'linkedin',
@@ -29,7 +28,6 @@ enum FORM_FIELDS {
 const initialChangedValues = {
   [FORM_FIELDS.FIRST_NAME]: false,
   [FORM_FIELDS.LAST_NAME]: false,
-  [FORM_FIELDS.TITLE]: false,
   [FORM_FIELDS.AFFILIATION]: false,
   [FORM_FIELDS.EMAIL]: false,
   [FORM_FIELDS.LINKEDIN]: false,
@@ -62,7 +60,6 @@ const IdentificationCard = () => {
     initialValues.current = {
       [FORM_FIELDS.FIRST_NAME]: userInfo?.first_name,
       [FORM_FIELDS.LAST_NAME]: userInfo?.last_name,
-      [FORM_FIELDS.TITLE]: userInfo?.title,
       [FORM_FIELDS.AFFILIATION]: userInfo?.affiliation,
       [FORM_FIELDS.EMAIL]: userInfo?.external_individual_email || userInfo?.email,
       [FORM_FIELDS.LINKEDIN]: userInfo?.linkedin,
@@ -111,14 +108,6 @@ const IdentificationCard = () => {
                 required={true}
               >
                 <Input placeholder={intl.get('screen.profileSettings.cards.identification.yourLastName')}></Input>
-              </Form.Item>
-              <Form.Item
-                name={FORM_FIELDS.TITLE}
-                label={<ProLabel title={intl.get('screen.profileSettings.cards.identification.title2')} />}
-                rules={[{ required: false, type: 'string', validateTrigger: 'onSubmit' }]}
-                required={false}
-              >
-                <Input placeholder={intl.get('screen.profileSettings.cards.identification.yourTitle')}></Input>
               </Form.Item>
               <Form.Item
                 name={FORM_FIELDS.AFFILIATION}

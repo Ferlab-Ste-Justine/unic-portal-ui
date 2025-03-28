@@ -1,3 +1,4 @@
+import ProLabel from '@ferlab/ui/core/components/ProLabel/index';
 import { Checkbox, Form, Input, Space } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import { useEffect, useRef, useState } from 'react';
@@ -15,11 +16,13 @@ import { hasOtherField, IOption, lowerAll, OTHER_KEY, removeOtherKey } from '../
 enum FORM_FIELDS {
   ROLES = 'roles',
   OTHER_ROLES = 'other_roles',
+  TITLE = 'title',
 }
 
 const initialChangedValues = {
   [FORM_FIELDS.ROLES]: false,
   [FORM_FIELDS.OTHER_ROLES]: false,
+  [FORM_FIELDS.TITLE]: false,
 };
 
 const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
@@ -36,12 +39,15 @@ const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
     form.setFieldsValue(initialValues.current);
   };
 
+  console.log('userInfo==', userInfo);
+
   useEffect(() => {
     initialValues.current = {
       [FORM_FIELDS.ROLES]: hasOtherField(lowerAll(userInfo?.roles ?? []), roleOptions).length
         ? [...lowerAll(userInfo?.roles ?? []), OTHER_KEY]
         : lowerAll(userInfo?.roles ?? []),
       [FORM_FIELDS.OTHER_ROLES]: hasOtherField(userInfo?.roles ?? [], roleOptions)[0],
+      [FORM_FIELDS.TITLE]: userInfo?.title,
     };
     form.setFieldsValue(initialValues.current);
     setHasChanged(initialChangedValues);
@@ -66,9 +72,17 @@ const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
             values[FORM_FIELDS.OTHER_ROLES],
           );
           // @ts-expect-error - unknown action
-          dispatch(updateUser({ data: { roles }, displayNotification: true }));
+          dispatch(updateUser({ data: { roles, title: values[FORM_FIELDS.TITLE] }, displayNotification: true }));
         }}
       >
+        <Form.Item
+          name={FORM_FIELDS.TITLE}
+          label={<ProLabel title={intl.get('screen.profileSettings.cards.identification.title2')} />}
+          rules={[{ required: false, type: 'string', validateTrigger: 'onSubmit' }]}
+          required={false}
+        >
+          <Input placeholder={intl.get('screen.profileSettings.cards.identification.yourTitle')}></Input>
+        </Form.Item>
         <Form.Item
           className={formStyles.withCustomHelp}
           name={FORM_FIELDS.ROLES}

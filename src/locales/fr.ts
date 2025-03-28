@@ -155,7 +155,7 @@ const fr = {
       errors: {
         minCharacters: 'caractères minimum',
         requiredField: 'Ce champ est requis',
-        enterValidEmail: 'Entrer un email valide',
+        enterValidEmail: 'Entrer un courriel valide',
         enterValidUrl: 'Entrer une url valide',
       },
     },
@@ -198,9 +198,9 @@ const fr = {
           title: 'Supprimer le compte',
           button: 'Supprimer mon compte',
           notice:
-            "Vous ne pourrez plus vous connecter au portail de données de l'UnIC. Vous pouvez créer un nouveau compte à tout moment.",
+            'Vous ne pourrez plus vous connecter. Toutes vos informations seront supprimées. Vous pouvez créer un nouveau compte à tout moment.',
           confirm: {
-            content: 'Êtes-vous sûr(e) de vouloir supprimer définitivement ce compte ?',
+            content: 'Êtes-vous sûr de vouloir supprimer définitivement votre compte ?',
           },
         },
         identification: {
@@ -212,11 +212,11 @@ const fr = {
           lastName: 'Nom',
           yourLastName: 'Votre nom',
           title2: 'Titre',
-          yourTitle: 'Votre titre',
-          institution: 'Institution',
-          yourInstitution: 'Votre institution',
-          institutionEmail: 'Courriel institutionnel',
-          yourInstitutionEmail: 'Votre courriel institutionnel',
+          yourTitle: 'Ex : Chercheur',
+          institution: 'Institution/Entreprise',
+          yourInstitution: 'Ex : CHUS Sainte-Justine',
+          institutionEmail: 'Courriel professionnel',
+          yourInstitutionEmail: 'email@domain.com',
           editPhotoModalTitle: 'Modifier photo',
           uploadImageError: 'Impossible de télécharger votre image pour le moment',
           removePhotoModalTitle: 'Supprimer la photo de profil ?',

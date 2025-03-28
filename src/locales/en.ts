@@ -200,9 +200,9 @@ const en = {
           title: 'Delete Account',
           button: 'Delete my account',
           notice:
-            'You will no longer be able to sign into the UnIC data portal. You can create a new account at any time.',
+            'You will no longer be able to log in. All your information will be deleted. You can create a new account at any time.',
           confirm: {
-            content: 'Are you sure you want to permanently delete this account?',
+            content: 'Are you sure you want to permanently delete your account?',
           },
         },
         identification: {
@@ -214,11 +214,11 @@ const en = {
           lastName: 'Last name',
           yourLastName: 'Your last name',
           title2: 'Title',
-          yourTitle: 'Your title',
-          institution: 'Institution',
-          yourInstitution: 'Your institution',
+          yourTitle: 'e.g. Research scientist',
+          institution: 'Institution/Company',
+          yourInstitution: 'e.g. CHUS Sainte-Justine',
           institutionEmail: 'Institutional email',
-          yourInstitutionEmail: 'Your institutional email',
+          yourInstitutionEmail: 'email@domain.com',
           editPhotoModalTitle: 'Edit photo',
           uploadImageError: 'Unable to upload your image at the moment',
           removePhotoModalTitle: 'Remove profile photo?',

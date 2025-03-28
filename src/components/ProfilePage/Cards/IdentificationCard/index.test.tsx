@@ -69,7 +69,6 @@ describe('IdentificationCard', () => {
           data: {
             first_name: 'Jane',
             last_name: 'Doe',
-            title: 'Software Engineer',
             affiliation: 'Tech Corp',
             external_individual_email: 'john.doe@techcorp.com',
             linkedin: 'https://www.linkedin.com/in/johndoe',
