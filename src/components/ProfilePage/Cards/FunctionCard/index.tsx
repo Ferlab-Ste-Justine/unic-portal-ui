@@ -39,8 +39,6 @@ const FunctionCard = ({ roleOptions = [] }: { roleOptions: IOption[] }) => {
     form.setFieldsValue(initialValues.current);
   };
 
-  console.log('userInfo==', userInfo);
-
   useEffect(() => {
     initialValues.current = {
       [FORM_FIELDS.ROLES]: hasOtherField(lowerAll(userInfo?.roles ?? []), roleOptions).length
