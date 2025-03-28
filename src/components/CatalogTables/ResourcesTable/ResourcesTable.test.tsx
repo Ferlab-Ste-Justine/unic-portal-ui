@@ -24,6 +24,9 @@ jest.mock('@/store/user/thunks', () => ({
   updateUserConfig: jest.fn(),
 }));
 jest.mock('@/lib/hooks/useHash', () => jest.fn());
+jest.mock('@/store/user', () => ({
+  useUser: () => jest.fn(),
+}));
 jest.mock('query-string', () => ({
   parse: jest.fn(),
 }));
