@@ -21,7 +21,7 @@ describe('Header', () => {
   it('Valider les liens disponibles - Logo', () => {
     cy.visitCatalog();
     cy.get('[class*="Header_logo"]').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC data portal').should('exist');
+    cy.get('[class*="PageLayout_titlePage"]').contains('UniC Data Catalog').should('exist');
   });
 
   it('Valider les liens disponibles - Catalog', () => {
@@ -37,6 +37,6 @@ describe('Header', () => {
 
   it('Valider les liens disponibles - FR', () => {
     cy.get('[class*="Header_langButton"]').contains('FR').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('Portail de données de l\'UnIC').should('exist');
+    cy.get('[class*="PageLayout_titlePage"]').contains('Catalogue de l\'UniC').should('exist');
   });
 });

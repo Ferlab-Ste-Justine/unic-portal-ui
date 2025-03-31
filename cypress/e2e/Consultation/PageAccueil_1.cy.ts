@@ -8,10 +8,11 @@ beforeEach(() => {
 
 describe('Page d\'accueil - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC data portal').should('exist');
+    cy.get('[class*="PageLayout_titlePage"]').contains('UniC Data Catalog').should('exist');
   });
+
   it('Sous-titre', () => {
-    cy.get('[class*="PageLayout_subTitlePage"]').contains('Explore the data catalog, manage your projects, and access your datasets.').should('exist');
+    cy.get('[class*="PageLayout_subTitlePage"]').contains('Explore UnIC data dictionaries by resource type:').should('exist');
   });
 
   it('Carte Warehouse - Icône', () => {
