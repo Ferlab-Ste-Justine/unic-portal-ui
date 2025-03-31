@@ -36,6 +36,7 @@ describe('InputSelect Component', () => {
     handleSetVariables: mockHandleSetVariables,
     variables: {},
     mode: 'multiple' as const,
+    currentTabKey: 'tab1',
   };
 
   beforeEach(() => {
@@ -99,7 +100,7 @@ describe('InputSelect Component', () => {
 
   it('should parse multiple hash parameters and set correct selected values', () => {
     (useHash as jest.Mock).mockReturnValue({
-      hash: '?option1=Option1&option2=Option2',
+      hash: 'tab1?option1=Option1&option2=Option2',
       setHash: mockSetHash,
     });
     render(

@@ -159,7 +159,6 @@ const VariablesTable = ({ tabKey }: { tabKey: string }) => {
           placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}
           variables={variables}
-          showSearch={false}
           currentTabKey={tabKey}
         />
         <InputSelect
