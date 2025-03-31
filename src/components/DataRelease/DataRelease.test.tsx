@@ -16,6 +16,7 @@ jest.mock('react-redux', () => ({
 jest.mock('@/store/global/thunks', () => ({
   fetchStats: jest.fn(),
 }));
+jest.mock('@/store/user', () => jest.fn());
 jest.mock('react-intl-universal', () => ({
   get: jest.fn((key) => key), // Mock translations to return key names
 }));

@@ -47,7 +47,7 @@ export const useAuth = () => {
   /** logout if session error */
   useEffect(() => {
     if (sessionError) {
-      console.debug('useEffect handleLogout Session error', sessionError);
+      console.debug('[useAuth] handleLogout session error', sessionError);
       handleLogout();
     }
   }, [handleLogout, sessionError]);
@@ -55,10 +55,10 @@ export const useAuth = () => {
   /** fetch user after authenticated */
   useEffect(() => {
     if (isAuthenticated) {
-      // @ts-expect-error type UnknownAction
-      dispatch(fetchUser());
+      // @ts-expect-error - UnknownAction
+      dispatch(fetchUser({ errCallback: handleLogout }));
     }
-  }, [isAuthenticated, dispatch]);
+  }, [isAuthenticated, dispatch, handleLogout]);
 
   const _user = {
     ...session?.user,
