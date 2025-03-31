@@ -281,19 +281,23 @@ const en = {
       explore: 'Explore',
       warehouse: {
         title: 'Warehouse',
-        description: 'Explore all data warehouse variables by domain',
+        description:
+          'The UniC warehouse consists of a curated set of variables from hospital systems. These variables are organized by domain and documented according to a standard nomenclature to facilitate their use in research.',
       },
       researchProjects: {
         title: 'Research Projects',
-        description: 'Explore research project data dictionaries',
+        description:
+          'The data dictionaries detailing the characteristics of the dataset variables are produced by UniC for research projects conducted at the CHUSJ.',
       },
       EQPProjects: {
         title: 'EQP Projects',
-        description: 'Explore data dictionaries from quality improvement projects',
+        description:
+          'The data dictionaries detailing the characteristics of the dataset variables are produced by UnIC for quality improvement projects. These projects include, for instance, medical act quality assessment projects and projects developed by the quality improvement department (DQEPE).',
       },
       hospitalSystems: {
         title: 'Hospital Systems',
-        description: 'Explore the list of hospital system tables and variables',
+        description:
+          'The UniC catalog collects and documents data from more than 25 hospital information systems. These systems include medical, administrative, and logistical data. They encompass, for example, admission and appointment systems, laboratories, pharmacy, and emergency services.',
       },
     },
     catalog: {

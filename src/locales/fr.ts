@@ -282,19 +282,23 @@ const fr = {
       explore: 'Explorer',
       warehouse: {
         title: 'Entrepôt',
-        description: 'Explorez l’ensemble des variables de l’entrepôt de données par domaine',
+        description:
+          'L’entrepôt de l’UniC est constitué d’un ensemble sélectionné de variables provenant des systèmes hospitaliers. Ces variables sont organisées par domaine et documentées selon une nomenclature standard pour faciliter leur utilisation pour la recherche.',
       },
       researchProjects: {
         title: 'Projets de recherche',
-        description: 'Explorez les dictionnaires de données des projets de recherche',
+        description:
+          'Les dictionnaires de données détaillant les caractéristiques des variables des jeux de données sont produits par l’UniC pour des projets de recherche menés au CHUSJ.',
       },
       EQPProjects: {
         title: 'Projets EQP',
-        description: 'Explorez les dictionnaires de données des projets d’amélioration de la qualité ',
+        description:
+          'Les dictionnaires de données détaillant les caractéristiques des variables des jeux de données sont produits par l’UniC pour des projets d’évaluation de la qualité et de la performance. Ces projets incluent, par exemple, les projets d’évaluation de la qualité de l’acte médical et les projets développés par la DQEPE.',
       },
       hospitalSystems: {
         title: 'Systèmes hospitaliers',
-        description: 'Explorez la liste des tables et variables des systèmes hospitaliers',
+        description:
+          'Le catalogue de l’UniC recense et documente les données de plus de 25 systèmes d’information hospitaliers. Ces systèmes comportent des données médicales, administratives et logistiques. Ils incluent, par exemple les systèmes des admissions et des rendez-vous, des laboratoires, de la pharmacie et de l’urgence.',
       },
     },
     catalog: {

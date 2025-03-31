@@ -1,13 +1,18 @@
 .homeCard {
     width: 680px;
     min-width: 600px;
-    height: 296px;
     background: linear-gradient(90deg, var(--gray-1) 60%, var(--orange-2) 100%);
+    display: flex;
 
     @media (max-width: 1450px) {
         width: 600px;
     }
 }
+
+.homeCard > * {
+    display: flex;
+}
+
 
 .homeBubbles {
     fill: var(--orange-2);
@@ -44,6 +49,7 @@
     font-weight: 400;
     line-height: 24px;
     color: var(--gray-8);
+    flex: 1;
 }
 
 .homeCardStats {
