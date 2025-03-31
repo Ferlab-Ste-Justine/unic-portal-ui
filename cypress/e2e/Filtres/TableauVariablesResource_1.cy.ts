@@ -24,13 +24,13 @@ describe('Tableau Variables - Vérifier la fonctionnalité du filtre Resource', 
   });
 
   it('Related Table filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 0/*Table*/, 'accouchement');
+    cy.inputDropdownSelectValue('panel-variables', 2/*Table*/, 'accouchement');
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(1).type('LVC-Bronchiolite-HSJ');
     cy.get('[class*="ant-select-dropdown"] [title="LVC-Bronchiolite-HSJ"]').should('not.exist');
   });
 
   it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 2/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+    cy.inputDropdownSelectValue('panel-variables', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(1).type('LVC-Bronchiolite-HSJ');
     cy.get('[class*="ant-select-dropdown"] [title="LVC-Bronchiolite-HSJ"]').should('not.exist');
   });
