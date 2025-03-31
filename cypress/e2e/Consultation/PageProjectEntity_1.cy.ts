@@ -12,6 +12,12 @@ describe('Page d\'un projet - Vérifier les informations affichées', () => {
     cy.get('[class*="page_titleHeader"]').contains('LVC-Bronchiolite-HSJ').should('exist');
   });
 
+  it('Panneau Summary - Header', () => {
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [id="study"]').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_type"]').contains('Research').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_name"]').contains('LVC-Bronchiolite-HSJ').should('exist');
+  });
+
   it('Panneau Summary - Title', () => {
     cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(0).contains('Title').should('exist');
     cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).contains('Low-value care; and variation in practice for children hospitalized with bronchiolitis at the CHU Sainte-Justine').should('exist');

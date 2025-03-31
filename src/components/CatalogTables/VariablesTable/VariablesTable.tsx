@@ -151,13 +151,15 @@ const VariablesTable = () => {
           placeholder={intl.get('entities.variable.filterBy')}
         />
         <InputSelect
-          operator={'match'}
-          options={tabNameOptions}
-          selectField='table.tab_name'
-          title={intl.get('entities.table.Table')}
-          placeholder={intl.get('entities.table.filterBy')}
+          operator={'orGroups'}
+          mode={'tags'}
+          options={rsTypeOptions}
+          selectField='resource.rs_type'
+          title={intl.get('entities.resource.typeOf')}
+          placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}
           variables={variables}
+          showSearch={false}
         />
         <InputSelect
           operator={'match'}
@@ -169,15 +171,13 @@ const VariablesTable = () => {
           variables={variables}
         />
         <InputSelect
-          operator={'orGroups'}
-          mode={'tags'}
-          options={rsTypeOptions}
-          selectField='resource.rs_type'
-          title={intl.get('entities.resource.typeOf')}
-          placeholder={intl.get('global.select')}
+          operator={'match'}
+          options={tabNameOptions}
+          selectField='table.tab_name'
+          title={intl.get('entities.table.Table')}
+          placeholder={intl.get('entities.table.filterBy')}
           handleSetVariables={handleSetVariables}
           variables={variables}
-          showSearch={false}
         />
         <InputSelect
           operator={'orGroups'}

@@ -27,25 +27,25 @@ describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Varia
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains('Reset filters').should('exist');
   });
 
-  it('Related Table filter [UNICWEB-128]', () => {
-    cy.inputDropdownSelectValue('panel-variables', 0/*Table*/, 'accouchement');
+  it('Related Table filter', () => {
+    cy.inputDropdownSelectValue('panel-variables', 2/*Table*/, 'accouchement');
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
 
-  it('Related Resource filter [UNICWEB-128]', () => {
+  it('Related Resource filter', () => {
     cy.inputDropdownSelectValue('panel-variables', 1/*Resource*/, 'LVC-Bronchiolite-HSJ');
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
 
-  it('Related Resource type filter [UNICWEB-128]', () => {
-    cy.inputDropdownSelectValue('panel-variables', 2/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+  it('Related Resource type filter', () => {
+    cy.inputDropdownSelectValue('panel-variables', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('centro');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
 
-  it('Related Source [UNICWEB-128]', () => {
+  it('Related Source', () => {
     cy.inputDropdownSelectValue('panel-variables', 3/*Source*/, 'centro');
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
