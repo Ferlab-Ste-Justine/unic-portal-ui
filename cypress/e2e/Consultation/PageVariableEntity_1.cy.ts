@@ -14,6 +14,13 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
     cy.get('[class*="page_titleHeader"]').contains('sector').should('exist');
   });
 
+  it('Panneau Summary - Header', () => {
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [data-testid="keywording-tools-icon"]').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_type"]').contains('Variable').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_name"]').contains('sector').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardHeader"] [class="ant-tag"]').contains('string').should('exist');
+  });
+
   it('Panneau Summary - Label', () => {
     cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(0).contains('Label').should('exist');
     cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).contains('Sector code').should('exist');
@@ -37,7 +44,7 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
 
   it('Panneau Summary - Derivation Algorithm', () => {
     cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(4).contains('Derivation Algorithm').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(4).contains('AS IS (JOIN)').should('exist');
+    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(4).find('[class*="monospace-text"]').contains('AS IS (JOIN)').should('exist');
   });
 
   it('Panneau Summary - Notes', () => {

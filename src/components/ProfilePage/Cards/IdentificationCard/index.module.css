@@ -1,0 +1,9 @@
+.identificationCardContent {
+  width: 100%;
+}
+
+.profileImageCol {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+}
