@@ -39,7 +39,7 @@ const fr = {
       filterBy: 'Filtrer par table',
       tab_entity_type: 'Entité',
       tab_entity_type_info:
-        'L’entité fait référence à l’objet auquel la variable est associée (ex: la variable «âge» est associée au «patient»). L’entité décrit le contexte ou le niveau auquel les données se rapportent.',
+        'L’entité fait référence à l’objet auquel la variable est associée (ex : la variable «âge» est associée au «patient»). L’entité décrit le contexte ou le niveau auquel les données se rapportent.',
       variable_count: 'Nombre de variables',
     },
     domain: 'domaine',
