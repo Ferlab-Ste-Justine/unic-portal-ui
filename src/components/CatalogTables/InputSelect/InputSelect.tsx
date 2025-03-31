@@ -1,9 +1,10 @@
 import { Select, SelectProps, Tag, Typography } from 'antd';
-import queryString from 'query-string';
 import { CustomTagProps } from 'rc-select/lib/BaseSelect';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 
-import useHash from '@/lib/hooks/useHash';
+import { useGlobals } from '@/store/global';
+import { globalActions } from '@/store/global';
 import { QueryOptions } from '@/types/queries';
 import getTagColorByType from '@/utils/getTagColorByType';
 
@@ -33,13 +34,25 @@ const InputSelect = ({
   variables: QueryOptions;
   mode?: SelectProps['mode'];
   showSearch?: boolean;
-  currentTabKey?: string;
+  currentTabKey: string;
 }) => {
-  const [selects, setSelects] = useState<string[]>([]);
-  const { hash, setHash } = useHash();
-  const tabFromHash = hash.split('?')?.[0]; // query params if present
-  const isDisplayOnTab = tabFromHash === currentTabKey;
-  const hashParams = hash.split('?')[1];
+  const dispatch = useDispatch();
+  const global = useGlobals();
+  const selects = useMemo(
+    () => global.filters.find((filter) => filter.key === selectField && filter.tabKey === currentTabKey)?.values || [],
+    [currentTabKey, global.filters, selectField],
+  );
+
+  const setSelects = useCallback(
+    (selects: string[]) => {
+      const otherFilters = global.filters.filter(
+        (filter) => filter.tabKey !== currentTabKey && filter.key !== selectField,
+      );
+      const newFilters = [...otherFilters, { key: selectField, values: selects, tabKey: currentTabKey }];
+      dispatch(globalActions.setFilters(newFilters));
+    },
+    [currentTabKey, dispatch, global.filters, selectField],
+  );
 
   const tagRender = (props: CustomTagProps) => {
     const { label, value, closable, onClose } = props;
@@ -63,14 +76,12 @@ const InputSelect = ({
   const onChangeSelect = (selects: string[]) => {
     if (Array.isArray(selects)) {
       setSelects(selects);
-      handleSelect(selects);
     } else {
       setSelects(selects ? [selects] : []);
-      handleSelect(selects ? [selects] : []);
     }
   };
 
-  const handleSelect = (selects: string[]) => {
+  const handleSelect = useCallback((selects: string[]) => {
     const values = selects?.length ? selects.map((value) => ({ field: selectField, value })) : [];
     /** Keep the fields that are not the same as the selectField to replace only the ones that are by new Values */
 
@@ -93,36 +104,13 @@ const InputSelect = ({
       [operator]: operatorVariables,
     };
     handleSetVariables(_variables, [selectField]);
-  };
-
-  /** Reset selects when variables are cleared by parent */
-  useEffect(() => {
-    if (!variables?.or?.length && !variables?.match?.length && !variables?.orGroups?.length) {
-      setSelects([]);
-    }
-  }, [variables]);
-
-  /** useEffect to handle filter selections from the URL */
-  useEffect(() => {
-    /** isDisplayOnTab is used to only apply filters on the wanted tab */
-    if (hashParams && isDisplayOnTab) {
-      const hashParamsObj = queryString.parse(hashParams) as Record<string, string | string[]>;
-      /** Convert the parsed values into an array of selected filters:
-       * "resource.rs_name=viewpoint&table.tab_name=accounts" into an object:
-       * { "resource.rs_name": "viewpoint", "table.tab_name": "accounts" }
-       */
-      Object.entries(hashParamsObj).forEach(([key, value]) => {
-        if (key === selectField) {
-          selects.push(...(Array.isArray(value) ? value : [value]));
-        }
-      });
-      setSelects(selects);
-      handleSelect(selects);
-      setHash('');
-    }
-    /** need to keep handleSelect out of dependencies */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hashParams, selectField]);
+  }, []);
+
+  /** call handleSelect when selects changes */
+  useEffect(() => {
+    handleSelect(selects);
+  }, [handleSelect, selects]);
 
   return (
     <div className={styles.filter}>

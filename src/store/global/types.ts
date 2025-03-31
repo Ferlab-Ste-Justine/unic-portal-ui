@@ -9,6 +9,12 @@ export interface IStatistics {
   variables_count: number;
 }
 
+export interface IFilter {
+  key: string;
+  values: string[];
+  tabKey: string;
+}
+
 export type initialState = {
   lang: string;
   notification: NotificationArgsProps | undefined;
@@ -16,4 +22,5 @@ export type initialState = {
   messagesToDestroy: string[];
   stats?: IStatistics;
   isFetchingStats: boolean;
+  filters: IFilter[];
 };

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import intl from 'react-intl-universal';
 
 import { IEntityDescriptionsItem } from '@/components/EntityPage/types/entityPage';
+import { store } from '@/store';
+import { globalActions } from '@/store/global';
 import { LANG } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
 
@@ -28,7 +30,16 @@ const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity):
       label: intl.get('entities.number_variables'),
       value: resourceEntity?.stat_etl?.variable_count ? (
         <div>
-          <Link href={`/catalog#variables?resource.rs_name=${resourceEntity.rs_name}`}>
+          <Link
+            href={`/catalog#variables`}
+            onClick={() =>
+              store.dispatch(
+                globalActions.setFilters([
+                  { key: 'resource.rs_name', values: [resourceEntity.rs_name], tabKey: 'variables' },
+                ]),
+              )
+            }
+          >
             {resourceEntity?.stat_etl?.variable_count}
           </Link>
           {` (${intl.get('global.in')} ${resourceEntity?.stat_etl?.table_count} ${intl.get('entities.table.tables')})`}
@@ -55,7 +66,19 @@ const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity):
                       <span className={styles.hospitalSystem} key={key}>
                         <div>{`${value[0]} (`}</div>
                         <Link
-                          href={`/catalog#variables?var_from_source_systems.rs_code=${value[0]}&resource.rs_name=${resourceEntity?.rs_name}`}
+                          href={`/catalog#variables`}
+                          onClick={() =>
+                            store.dispatch(
+                              globalActions.setFilters([
+                                { key: 'var_from_source_systems.rs_code', values: [value[0]], tabKey: 'variables' },
+                                {
+                                  key: 'resource.rs_name',
+                                  values: [resourceEntity?.rs_name || ''],
+                                  tabKey: 'variables',
+                                },
+                              ]),
+                            )
+                          }
                         >{`${value[1]}`}</Link>
                         <div>{')'}</div>
                       </span>

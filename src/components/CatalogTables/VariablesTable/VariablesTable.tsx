@@ -12,7 +12,7 @@ import InputSelect from '@/components/CatalogTables/InputSelect';
 import { mergeVariables } from '@/components/CatalogTables/utils';
 import DownloadTSVButton from '@/components/DownloadTSVButton';
 import { GET_VARIABLES } from '@/lib/graphql/queries/getVariables';
-import { useLang } from '@/store/global';
+import { globalActions, useLang } from '@/store/global';
 import { useUser } from '@/store/user';
 import { updateUserConfig } from '@/store/user/thunks';
 import { IQueryConfig } from '@/types/constants';
@@ -24,6 +24,7 @@ import {
   DEFAULT_QUERY_CONFIG,
   DEFAULT_VARIABLES_QUERY_SORT,
 } from '@/utils/constants';
+import { VARIABLES_TAB_KEY } from '@/utils/constants';
 import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
 import { getProTableDictionary, getRSLabelNameByType } from '@/utils/translation';
@@ -35,7 +36,7 @@ const SCROLL_WRAPPER_ID = 'variables-table-scroll-wrapper';
 
 const searchFields = ['var_label_en', 'var_label_fr', 'var_name'];
 
-const VariablesTable = ({ tabKey }: { tabKey: string }) => {
+const VariablesTable = () => {
   const lang = useLang();
   const { userInfo } = useUser();
   const dispatch = useDispatch();
@@ -81,6 +82,7 @@ const VariablesTable = ({ tabKey }: { tabKey: string }) => {
 
   const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
+    dispatch(globalActions.resetFiltersForTab(VARIABLES_TAB_KEY));
     setVariables(initialVariables);
     /** reset pagination on filters changes */
     setQueryConfig((q) => ({
@@ -159,7 +161,7 @@ const VariablesTable = ({ tabKey }: { tabKey: string }) => {
           placeholder={intl.get('global.select')}
           handleSetVariables={handleSetVariables}
           variables={variables}
-          currentTabKey={tabKey}
+          currentTabKey={VARIABLES_TAB_KEY}
         />
         <InputSelect
           operator={'match'}
@@ -169,7 +171,7 @@ const VariablesTable = ({ tabKey }: { tabKey: string }) => {
           placeholder={intl.get('entities.resource.filterBy')}
           handleSetVariables={handleSetVariables}
           variables={variables}
-          currentTabKey={tabKey}
+          currentTabKey={VARIABLES_TAB_KEY}
         />
         <InputSelect
           operator={'match'}
@@ -180,7 +182,7 @@ const VariablesTable = ({ tabKey }: { tabKey: string }) => {
           handleSetVariables={handleSetVariables}
           variables={variables}
           showSearch={false}
-          currentTabKey={tabKey}
+          currentTabKey={VARIABLES_TAB_KEY}
         />
         <InputSelect
           operator={'orGroups'}
@@ -192,7 +194,7 @@ const VariablesTable = ({ tabKey }: { tabKey: string }) => {
           handleSetVariables={handleSetVariables}
           variables={variables}
           showSearch={true}
-          currentTabKey={tabKey}
+          currentTabKey={VARIABLES_TAB_KEY}
         />
       </div>
       <ProTable

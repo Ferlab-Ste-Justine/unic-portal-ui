@@ -13,6 +13,7 @@ import { mergeVariables } from '@/components/CatalogTables/utils';
 import DownloadTSVButton from '@/components/DownloadTSVButton';
 import { GET_RESOURCES } from '@/lib/graphql/queries/getResources';
 import { useLang } from '@/store/global';
+import { globalActions } from '@/store/global';
 import { useUser } from '@/store/user';
 import { updateUserConfig } from '@/store/user/thunks';
 import { IQueryConfig } from '@/types/constants';
@@ -24,13 +25,13 @@ import {
   DEFAULT_QUERY_CONFIG,
   DEFAULT_RESOURCES_QUERY_SORT,
 } from '@/utils/constants';
+import { RESOURCES_TAB_KEY } from '@/utils/constants';
 import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
 import { getProTableDictionary, getRSLabelNameByType } from '@/utils/translation';
 
 import getColumns from './getColumns';
 import styles from './ResourcesTable.module.css';
-
 const SCROLL_WRAPPER_ID = 'resources-table-scroll-wrapper';
 
 const searchFields = [
@@ -43,7 +44,7 @@ const searchFields = [
   'rs_title',
 ];
 
-const ResourcesTable = ({ tabKey }: { tabKey: string }) => {
+const ResourcesTable = () => {
   const lang = useLang();
   const { userInfo } = useUser();
   const dispatch = useDispatch();
@@ -85,6 +86,7 @@ const ResourcesTable = ({ tabKey }: { tabKey: string }) => {
 
   const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
+    dispatch(globalActions.resetFiltersForTab(RESOURCES_TAB_KEY));
     setVariables(initialVariables);
     /** reset pagination on filters changes */
     setQueryConfig((q) => ({
@@ -139,7 +141,7 @@ const ResourcesTable = ({ tabKey }: { tabKey: string }) => {
           handleSetVariables={handleSetVariables}
           variables={variables}
           showSearch={false}
-          currentTabKey={tabKey}
+          currentTabKey={RESOURCES_TAB_KEY}
         />
       </div>
       <ProTable

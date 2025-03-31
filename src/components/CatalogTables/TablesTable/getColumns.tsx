@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import intl from 'react-intl-universal';
 
+import { store } from '@/store';
+import { globalActions } from '@/store/global';
 import { LANG } from '@/types/constants';
 import { ITableEntity } from '@/types/entities';
 import { ColumnType } from '@/types/tables';
@@ -56,7 +58,16 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.table.variable_count'),
     render: (table: ITableEntity) => {
       if (!table?.stat_etl?.variable_count) return '0';
-      return <Link href={`/catalog#variables?table.tab_name=${table.tab_name}`}>{table.stat_etl.variable_count}</Link>;
+      const onClick = () => {
+        store.dispatch(
+          globalActions.setFilters([{ key: 'table.tab_name', values: [table.tab_name], tabKey: 'variables' }]),
+        );
+      };
+      return (
+        <Link href={`/catalog#variables`} onClick={onClick}>
+          {table.stat_etl.variable_count}
+        </Link>
+      );
     },
   },
   {

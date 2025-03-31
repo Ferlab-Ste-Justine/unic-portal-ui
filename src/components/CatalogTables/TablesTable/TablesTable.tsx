@@ -13,7 +13,7 @@ import styles from '@/components/CatalogTables/ResourcesTable/ResourcesTable.mod
 import { mergeVariables } from '@/components/CatalogTables/utils';
 import DownloadTSVButton from '@/components/DownloadTSVButton';
 import { GET_TABLES } from '@/lib/graphql/queries/getTables';
-import { useLang } from '@/store/global';
+import { globalActions, useLang } from '@/store/global';
 import { useUser } from '@/store/user';
 import { updateUserConfig } from '@/store/user/thunks';
 import { IQueryConfig } from '@/types/constants';
@@ -25,6 +25,7 @@ import {
   DEFAULT_QUERY_CONFIG,
   DEFAULT_TABLES_QUERY_SORT,
 } from '@/utils/constants';
+import { TABLES_TAB_KEY } from '@/utils/constants';
 import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
 import { getProTableDictionary, getRSLabelNameByType } from '@/utils/translation';
@@ -35,7 +36,7 @@ const SCROLL_WRAPPER_ID = 'tables-table-scroll-wrapper';
 
 const searchFields = ['tab_label_en', 'tab_label_fr', 'tab_name'];
 
-const TablesTable = ({ tabKey }: { tabKey: string }) => {
+const TablesTable = () => {
   const lang = useLang();
   const { userInfo } = useUser();
   const dispatch = useDispatch();
@@ -78,6 +79,7 @@ const TablesTable = ({ tabKey }: { tabKey: string }) => {
 
   const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
+    dispatch(globalActions.resetFiltersForTab(TABLES_TAB_KEY));
     setVariables(initialVariables);
     /** reset pagination on filters changes */
     setQueryConfig((q) => ({
@@ -136,7 +138,7 @@ const TablesTable = ({ tabKey }: { tabKey: string }) => {
           placeholder={intl.get('entities.resource.filterBy')}
           handleSetVariables={handleSetVariables}
           variables={variables}
-          currentTabKey={tabKey}
+          currentTabKey={TABLES_TAB_KEY}
         />
         <InputSelect
           operator={'orGroups'}
@@ -148,7 +150,7 @@ const TablesTable = ({ tabKey }: { tabKey: string }) => {
           handleSetVariables={handleSetVariables}
           variables={variables}
           showSearch={false}
-          currentTabKey={tabKey}
+          currentTabKey={TABLES_TAB_KEY}
         />
       </div>
       <ProTable

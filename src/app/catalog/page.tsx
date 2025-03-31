@@ -9,12 +9,9 @@ import VariablesTable from '@/components/CatalogTables/VariablesTable';
 import PageLayout from '@/components/PageLayout';
 import useHash from '@/lib/hooks/useHash';
 import { useLang } from '@/store/global';
+import { RESOURCES_TAB_KEY, TABLES_TAB_KEY, VARIABLES_TAB_KEY } from '@/utils/constants';
 
 import styles from './page.module.css';
-
-const resourcesTabKey = 'resources';
-const tablesTabKey = 'tables';
-const variablesTabKey = 'variables';
 
 const CatalogPage = () => {
   useLang();
@@ -23,14 +20,14 @@ const CatalogPage = () => {
   const items = [
     {
       label: intl.get('entities.resource.Resources'),
-      key: resourcesTabKey,
-      children: <ResourcesTable tabKey={resourcesTabKey} />,
+      key: RESOURCES_TAB_KEY,
+      children: <ResourcesTable />,
     },
-    { label: intl.get('entities.table.Tables'), key: tablesTabKey, children: <TablesTable tabKey={tablesTabKey} /> },
+    { label: intl.get('entities.table.Tables'), key: TABLES_TAB_KEY, children: <TablesTable /> },
     {
       label: intl.get('entities.variable.Variables'),
-      key: variablesTabKey,
-      children: <VariablesTable tabKey={variablesTabKey} />,
+      key: VARIABLES_TAB_KEY,
+      children: <VariablesTable />,
     },
   ];
   const isValidTab = items.some((item) => item.key === tab);

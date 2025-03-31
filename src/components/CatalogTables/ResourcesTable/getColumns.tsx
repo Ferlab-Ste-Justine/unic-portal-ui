@@ -2,6 +2,8 @@ import { Popover, Tag } from 'antd';
 import Link from 'next/link';
 import intl from 'react-intl-universal';
 
+import { store } from '@/store';
+import { globalActions } from '@/store/global';
 import { LANG } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
 import { ColumnType } from '@/types/tables';
@@ -87,7 +89,16 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (resource: IResourceEntity) => resource?.tables?.length,
     render: (resource: IResourceEntity) => {
       if (!resource?.tables?.length) return '0';
-      return <Link href={`/catalog#tables?resource.rs_name=${resource.rs_name}`}>{resource.tables.length}</Link>;
+      const onClick = () => {
+        store.dispatch(
+          globalActions.setFilters([{ key: 'resource.rs_name', values: [resource.rs_name], tabKey: 'tables' }]),
+        );
+      };
+      return (
+        <Link href={`/catalog#tables`} onClick={onClick}>
+          {resource.tables.length}
+        </Link>
+      );
     },
   },
   {
@@ -96,7 +107,16 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (resource: IResourceEntity) => resource?.variables?.length,
     render: (resource: IResourceEntity) => {
       if (!resource?.variables?.length) return '0';
-      return <Link href={`/catalog#variables?resource.rs_name=${resource.rs_name}`}>{resource.variables?.length}</Link>;
+      const onClick = () => {
+        store.dispatch(
+          globalActions.setFilters([{ key: 'resource.rs_name', values: [resource.rs_name], tabKey: 'variables' }]),
+        );
+      };
+      return (
+        <Link href={`/catalog#variables`} onClick={onClick}>
+          {resource.variables?.length}
+        </Link>
+      );
     },
   },
   {

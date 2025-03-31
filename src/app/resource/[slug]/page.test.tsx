@@ -122,11 +122,8 @@ describe('Resource Entity - Project', () => {
     //1 title links
     expect(allLinks[0]).toHaveAttribute('href', '/catalog');
     //2 links in summary section
-    expect(allLinks[1]).toHaveAttribute('href', '/catalog#variables?resource.rs_name=Pancréatite Aigüe');
-    expect(allLinks[2]).toHaveAttribute(
-      'href',
-      '/catalog#variables?var_from_source_systems.rs_code=clinibaseci&resource.rs_name=Pancréatite Aigüe',
-    );
+    expect(allLinks[1]).toHaveAttribute('href', '/catalog#variables');
+    expect(allLinks[2]).toHaveAttribute('href', '/catalog#variables');
   });
 });
 

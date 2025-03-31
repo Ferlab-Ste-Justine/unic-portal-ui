@@ -1,28 +1,25 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import queryString from 'query-string';
 
-import useHash from '@/lib/hooks/useHash';
+import { globalActions } from '@/store/global';
 import getTagColorByType from '@/utils/getTagColorByType';
 
 import InputSelect from './InputSelect';
 
 jest.mock('@/utils/getTagColorByType', () => jest.fn(() => 'blue')); // Mock tag color function
-jest.mock('query-string', () => ({
-  parse: jest.fn(),
+jest.mock('@/store/global', () => ({
+  globalActions: {
+    setFilters: jest.fn(),
+  },
+  useGlobals: jest.fn(() => ({
+    filters: [],
+  })),
 }));
-jest.mock('@/lib/hooks/useHash');
+jest.mock('react-redux', () => ({
+  useDispatch: () => jest.fn(() => jest.fn()),
+}));
 
 describe('InputSelect Component', () => {
   const mockHandleSetVariables = jest.fn();
-  const mockSetHash = jest.fn();
-  (useHash as jest.Mock).mockReturnValue({
-    hash: '',
-    setHash: mockSetHash,
-  });
-  (queryString.parse as jest.Mock).mockReturnValue({
-    option1: 'Option1',
-    option2: 'Option2',
-  });
 
   const defaultProps = {
     operator: 'or' as const,
@@ -50,47 +47,8 @@ describe('InputSelect Component', () => {
     expect(screen.getByText('Select an option')).toBeInTheDocument();
   });
 
-  it('calls handleSetVariables when an option is selected', () => {
-    render(<InputSelect {...defaultProps} />);
-
-    const selectElement = screen.getByText('Select an option');
-    fireEvent.mouseDown(selectElement); // Open the dropdown
-
-    const option = screen.getByText('Option1');
-    fireEvent.click(option); // Select option
-
-    expect(mockHandleSetVariables).toHaveBeenCalledWith(
-      {
-        or: [{ field: 'testField', value: 'option1' }],
-      },
-      ['testField'],
-    );
-  });
-
-  it('calls handleSetVariables with an empty array when all options are cleared', () => {
-    render(<InputSelect {...defaultProps} />);
-
-    const selectElement = screen.getByText('Select an option');
-    fireEvent.mouseDown(selectElement);
-
-    const option = screen.getByText('Option1');
-    fireEvent.click(option);
-
-    expect(mockHandleSetVariables).toHaveBeenCalledTimes(1);
-
-    // Clear selection
-    fireEvent.click(screen.getByLabelText('close'));
-
-    expect(mockHandleSetVariables).toHaveBeenCalledWith(
-      {
-        or: [],
-      },
-      ['testField'],
-    );
-  });
-
   it('renders selected options as tags with correct colors', () => {
-    render(<InputSelect {...defaultProps} />);
+    render(<InputSelect {...defaultProps} mode={'tags'} />);
 
     fireEvent.mouseDown(screen.getByText('Select an option'));
     fireEvent.click(screen.getByText('Option1'));
@@ -98,32 +56,12 @@ describe('InputSelect Component', () => {
     expect(getTagColorByType).toHaveBeenCalledWith('option1', 'var(--blue-8)');
   });
 
-  it('should parse multiple hash parameters and set correct selected values', () => {
-    (useHash as jest.Mock).mockReturnValue({
-      hash: 'tab1?option1=Option1&option2=Option2',
-      setHash: mockSetHash,
-    });
-    render(
-      <>
-        <InputSelect {...defaultProps} />
-        <InputSelect {...defaultProps} />
-      </>,
-    );
+  it('calls setFilters when a selection is made', () => {
+    render(<InputSelect {...defaultProps} operator={'orGroups'} />);
 
-    // Ensure the parsed hash values are used
-    expect(mockHandleSetVariables).toHaveBeenCalledWith(
-      {
-        or: [
-          { field: 'option1', value: 'Option1' },
-          { field: 'option2', value: 'Option2' },
-        ],
-        // @ts-expect-error double or
-        or: [],
-      },
-      ['testField'],
-    );
+    fireEvent.mouseDown(screen.getByText('Select an option'));
+    fireEvent.click(screen.getByText('Option1'));
 
-    // Ensure setHash is called to clear the hash after parsing
-    expect(mockSetHash).toHaveBeenCalledWith('');
+    expect(globalActions.setFilters).toHaveBeenCalledWith([{ key: 'testField', values: ['option1'], tabKey: 'tab1' }]);
   });
 });
