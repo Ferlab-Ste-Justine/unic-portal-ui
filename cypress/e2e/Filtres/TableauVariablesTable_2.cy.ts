@@ -4,7 +4,7 @@ import '../../support/commands';
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('variables');
-  cy.inputDropdownSelectValue('panel-variables', 0/*Table*/, 'accouchement');
+  cy.inputDropdownSelectValue('panel-variables', 2/*Table*/, 'accouchement');
 });
 
 describe('Tableau Variables - Valider les liens du filtre Table', () => {
