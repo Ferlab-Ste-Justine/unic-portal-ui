@@ -1,4 +1,6 @@
+import { Tooltip } from 'antd';
 import Link from 'next/link';
+import React from 'react';
 import intl from 'react-intl-universal';
 
 import { LANG } from '@/types/constants';
@@ -41,7 +43,14 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.table.tab_entity_type'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-    render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
+    render: (key: string) => {
+      if (!key) return TABLE_EMPTY_PLACE_HOLDER;
+      return (
+        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.table.tab_entity_type_info')}>
+          {key}
+        </Tooltip>
+      );
+    },
   },
   {
     dataIndex: 'tab_domain',
@@ -49,7 +58,14 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.Domain'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-    render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
+    render: (key: string) => {
+      if (!key) return TABLE_EMPTY_PLACE_HOLDER;
+      return (
+        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.DomainInfo')}>
+          {key}
+        </Tooltip>
+      );
+    },
   },
   {
     key: 'stat_etl.variable_count',
@@ -68,7 +84,15 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (table: ITableEntity) => formatDate(table?.tab_created_at),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp);
+      return (
+        <Tooltip
+          arrowPointAtCenter
+          placement='topLeft'
+          title={intl.get('entities.createdAtInfo', { resType: intl.get('entities.table.table') })}
+        >
+          {formatDate(timestamp)}
+        </Tooltip>
+      );
     },
   },
   {
@@ -80,7 +104,15 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (table: ITableEntity) => formatDate(table?.tab_last_update),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp);
+      return (
+        <Tooltip
+          arrowPointAtCenter
+          placement='topLeft'
+          title={intl.get('entities.updatedAtInfo', { resType: intl.get('entities.resource.resource') })}
+        >
+          {formatDate(timestamp)}
+        </Tooltip>
+      );
     },
   },
 ];

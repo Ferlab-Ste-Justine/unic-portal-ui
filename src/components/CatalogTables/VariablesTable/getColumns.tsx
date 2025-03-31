@@ -1,5 +1,6 @@
-import { Tag } from 'antd';
+import { Tag, Tooltip } from 'antd';
 import Link from 'next/link';
+import React from 'react';
 import intl from 'react-intl-universal';
 
 import { LANG } from '@/types/constants';
@@ -56,7 +57,11 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.source'),
     render: (var_from_source_systems: ISourceType[]) => {
       if (!var_from_source_systems?.length) return TABLE_EMPTY_PLACE_HOLDER;
-      return var_from_source_systems.map((sourceSystem: ISourceType) => sourceSystem.rs_code).join(', ');
+      return (
+        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.sourceInfo')}>
+          {var_from_source_systems.map((sourceSystem: ISourceType) => sourceSystem.rs_code).join(', ')}
+        </Tooltip>
+      );
     },
   },
   {
@@ -89,7 +94,15 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (variable: IVariableEntity) => formatDate(variable?.var_created_at),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp);
+      return (
+        <Tooltip
+          arrowPointAtCenter
+          placement='topLeft'
+          title={intl.get('entities.createdAtInfo', { resType: intl.get('entities.variable.variable') })}
+        >
+          {formatDate(timestamp)}
+        </Tooltip>
+      );
     },
   },
   {
@@ -102,7 +115,15 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (variable: IVariableEntity) => formatDate(variable?.var_last_update),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp);
+      return (
+        <Tooltip
+          arrowPointAtCenter
+          placement='topLeft'
+          title={intl.get('entities.updatedAtInfo', { resType: intl.get('entities.variable.variable') })}
+        >
+          {formatDate(timestamp)}
+        </Tooltip>
+      );
     },
   },
 ];

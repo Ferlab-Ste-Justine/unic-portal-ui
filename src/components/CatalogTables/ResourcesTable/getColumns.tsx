@@ -1,5 +1,7 @@
-import { Popover, Tag } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { Popover, Tag, Tooltip } from 'antd';
 import Link from 'next/link';
+import React from 'react';
 import intl from 'react-intl-universal';
 
 import { LANG } from '@/types/constants';
@@ -53,7 +55,15 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_last_update),
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp);
+      return (
+        <Tooltip
+          arrowPointAtCenter
+          placement='topLeft'
+          title={intl.get('entities.updatedAtInfo', { resType: intl.get('entities.resource.resource') })}
+        >
+          {formatDate(timestamp)}
+        </Tooltip>
+      );
     },
   },
   {
@@ -66,7 +76,15 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_creation_date),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp);
+      return (
+        <Tooltip
+          arrowPointAtCenter
+          placement='topLeft'
+          title={intl.get('entities.createdAtInfo', { resType: intl.get('entities.resource.resource') })}
+        >
+          {formatDate(timestamp)}
+        </Tooltip>
+      );
     },
   },
   {
@@ -78,7 +96,15 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_approval_date),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return formatDate(timestamp);
+      return (
+        <Tooltip
+          arrowPointAtCenter
+          placement='topLeft'
+          title={intl.get('entities.approvedAtInfo', { resType: intl.get('entities.resource.resource') })}
+        >
+          {formatDate(timestamp)}
+        </Tooltip>
+      );
     },
   },
   {
