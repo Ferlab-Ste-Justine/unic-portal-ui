@@ -23,10 +23,10 @@ const HomePage = () => {
       subTitle={intl.get('screen.home.subTitle')}
       className={styles.pageLayout}
     >
+      <HospitalSystemsCard stats={sourceSystemStats} />
       <WarehouseCard stats={warehouseStats} />
       <ResearchProjectsCard stats={researchProjectStats} />
       <EQPProjectsCard stats={eqpStats} />
-      <HospitalSystemsCard stats={sourceSystemStats} />
     </PageLayout>
   );
 };

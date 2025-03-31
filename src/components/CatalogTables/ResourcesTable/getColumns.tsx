@@ -1,4 +1,3 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
 import { Popover, Tag, Tooltip } from 'antd';
 import Link from 'next/link';
 import React from 'react';
