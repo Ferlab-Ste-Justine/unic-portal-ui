@@ -268,8 +268,8 @@ const en = {
       },
     },
     home: {
-      title: 'UnIC data portal',
-      subTitle: 'Explore the data catalog, manage your projects, and access your datasets.',
+      title: 'UniC Data Catalog',
+      subTitle: 'Explore UnIC data dictionaries by resource type:',
       explore: 'Explore',
       warehouse: {
         title: 'Warehouse',
