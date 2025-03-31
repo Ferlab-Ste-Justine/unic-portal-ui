@@ -25,7 +25,7 @@ describe('Page Logout', () => {
     cy.get('[class*="DataRelease_colDataReleaseContainer"]').eq(3).contains(/\d{1}/).should('exist');
     cy.get('[class*="DataRelease_colDataReleaseContainer"]').eq(3).contains('Variables').should('exist');
     cy.get('[class*="page_loginTitle"]').contains(/(Portail de données de l'Univers Informationnel du CHU Sainte-Justine.|Data portal of Univers Informationnel du CHU Sainte-Justine.)/).should('exist');
-    cy.get('[class*="page_loginSubTitle"]').contains(/(Explorez le catalogue de données, gérez vos projets et accédez à vos jeux de données.|Explore the data catalog, manage your projects, and access your datasets.)/).should('exist');
+    cy.get('[class*="page_loginSubTitle"]').should('not.exist');
     cy.get('[data-cy="Login"]').contains(/(Connexion|Login)/).should('exist');
     cy.get('[data-cy="Signup"]').contains(/(Créer un compte|Sign up)/).should('exist');
   });
