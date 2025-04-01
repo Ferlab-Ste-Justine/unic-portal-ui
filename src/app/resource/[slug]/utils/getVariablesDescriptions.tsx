@@ -9,6 +9,7 @@ import { store } from '@/store';
 import { globalActions } from '@/store/global';
 import { LANG } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
+import { VARIABLES_TAB_KEY } from '@/utils/constants';
 
 import styles from '../page.module.css';
 
@@ -31,11 +32,11 @@ const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity):
       value: resourceEntity?.stat_etl?.variable_count ? (
         <div>
           <Link
-            href={`/catalog#variables`}
+            href={`/catalog#${VARIABLES_TAB_KEY}`}
             onClick={() =>
               store.dispatch(
                 globalActions.setFilters([
-                  { key: 'resource.rs_name', values: [resourceEntity.rs_name], tabKey: 'variables' },
+                  { key: 'resource.rs_name', values: [resourceEntity.rs_name], tabKey: VARIABLES_TAB_KEY },
                 ]),
               )
             }
@@ -66,15 +67,19 @@ const getVariablesDescriptions = (lang: LANG, resourceEntity?: IResourceEntity):
                       <span className={styles.hospitalSystem} key={key}>
                         <div>{`${value[0]} (`}</div>
                         <Link
-                          href={`/catalog#variables`}
+                          href={`/catalog#${VARIABLES_TAB_KEY}`}
                           onClick={() =>
                             store.dispatch(
                               globalActions.setFilters([
-                                { key: 'var_from_source_systems.rs_code', values: [value[0]], tabKey: 'variables' },
+                                {
+                                  key: 'var_from_source_systems.rs_code',
+                                  values: [value[0]],
+                                  tabKey: VARIABLES_TAB_KEY,
+                                },
                                 {
                                   key: 'resource.rs_name',
                                   values: [resourceEntity?.rs_name || ''],
-                                  tabKey: 'variables',
+                                  tabKey: VARIABLES_TAB_KEY,
                                 },
                               ]),
                             )

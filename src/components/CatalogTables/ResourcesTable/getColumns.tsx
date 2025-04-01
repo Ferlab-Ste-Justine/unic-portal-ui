@@ -7,7 +7,7 @@ import { globalActions } from '@/store/global';
 import { LANG } from '@/types/constants';
 import { IResourceEntity } from '@/types/entities';
 import { ColumnType } from '@/types/tables';
-import { TABLE_EMPTY_PLACE_HOLDER } from '@/utils/constants';
+import { TABLE_EMPTY_PLACE_HOLDER, TABLES_TAB_KEY, VARIABLES_TAB_KEY } from '@/utils/constants';
 import formatDate from '@/utils/formatDate';
 import getTagColorByType from '@/utils/getTagColorByType';
 import { getRSLabelNameByType } from '@/utils/translation';
@@ -89,13 +89,17 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (resource: IResourceEntity) => resource?.tables?.length,
     render: (resource: IResourceEntity) => {
       if (!resource?.tables?.length) return '0';
-      const onClick = () => {
-        store.dispatch(
-          globalActions.setFilters([{ key: 'resource.rs_name', values: [resource.rs_name], tabKey: 'tables' }]),
-        );
-      };
       return (
-        <Link href={`/catalog#tables`} onClick={onClick}>
+        <Link
+          href={`/catalog#${TABLES_TAB_KEY}`}
+          onClick={() =>
+            store.dispatch(
+              globalActions.setFilters([
+                { key: 'resource.rs_name', values: [resource.rs_name], tabKey: TABLES_TAB_KEY },
+              ]),
+            )
+          }
+        >
           {resource.tables.length}
         </Link>
       );
@@ -107,13 +111,17 @@ const getColumns = (lang: LANG): ColumnType[] => [
     renderDownload: (resource: IResourceEntity) => resource?.variables?.length,
     render: (resource: IResourceEntity) => {
       if (!resource?.variables?.length) return '0';
-      const onClick = () => {
-        store.dispatch(
-          globalActions.setFilters([{ key: 'resource.rs_name', values: [resource.rs_name], tabKey: 'variables' }]),
-        );
-      };
       return (
-        <Link href={`/catalog#variables`} onClick={onClick}>
+        <Link
+          href={`/catalog#${VARIABLES_TAB_KEY}`}
+          onClick={() =>
+            store.dispatch(
+              globalActions.setFilters([
+                { key: 'resource.rs_name', values: [resource.rs_name], tabKey: VARIABLES_TAB_KEY },
+              ]),
+            )
+          }
+        >
           {resource.variables?.length}
         </Link>
       );

@@ -7,6 +7,7 @@ import intl from 'react-intl-universal';
 import { IStatsCardProps } from '@/components/HomeCards/type';
 import { store } from '@/store';
 import { globalActions } from '@/store/global';
+import { RESOURCES_TAB_KEY } from '@/utils/constants';
 
 import Bubbles from '../Bubbles';
 import styles from './EQPProjectsCard.module.css';
@@ -33,9 +34,9 @@ const EQPProjectsCard = ({ stats }: IStatsCardProps) => {
           </Tag>
         </div>
         <Link
-          href={'/catalog#resources'}
+          href={`/catalog#${RESOURCES_TAB_KEY}`}
           onClick={() =>
-            store.dispatch(globalActions.setFilters([{ key: 'rs_type', values: ['eqp'], tabKey: 'resources' }]))
+            store.dispatch(globalActions.setFilters([{ key: 'rs_type', values: ['eqp'], tabKey: RESOURCES_TAB_KEY }]))
           }
         >
           <Button>

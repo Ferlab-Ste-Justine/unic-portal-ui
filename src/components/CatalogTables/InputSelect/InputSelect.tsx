@@ -46,7 +46,7 @@ const InputSelect = ({
   const setSelects = useCallback(
     (selects: string[]) => {
       const otherFilters = global.filters.filter(
-        (filter) => filter.tabKey !== currentTabKey && filter.key !== selectField,
+        (filter) => filter.tabKey !== currentTabKey || filter.key !== selectField,
       );
       const newFilters = [...otherFilters, { key: selectField, values: selects, tabKey: currentTabKey }];
       dispatch(globalActions.setFilters(newFilters));

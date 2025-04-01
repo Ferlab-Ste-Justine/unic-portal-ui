@@ -7,6 +7,7 @@ import { store } from '@/store';
 import { globalActions } from '@/store/global';
 import { LANG } from '@/types/constants';
 import { ITableEntity } from '@/types/entities';
+import { VARIABLES_TAB_KEY } from '@/utils/constants';
 
 const getVariablesDescriptions = (lang: LANG, tableEntity?: ITableEntity): IEntityDescriptionsItem[] => {
   return [
@@ -14,11 +15,11 @@ const getVariablesDescriptions = (lang: LANG, tableEntity?: ITableEntity): IEnti
       label: intl.get('entities.number_variables'),
       value: tableEntity?.stat_etl?.variable_count ? (
         <Link
-          href={`/catalog#variables`}
+          href={`/catalog#${VARIABLES_TAB_KEY}`}
           onClick={() =>
             store.dispatch(
               globalActions.setFilters([
-                { key: 'table.tab_name', values: [tableEntity.tab_name], tabKey: 'variables' },
+                { key: 'table.tab_name', values: [tableEntity.tab_name], tabKey: VARIABLES_TAB_KEY },
               ]),
             )
           }
