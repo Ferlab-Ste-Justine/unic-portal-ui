@@ -5,6 +5,8 @@ import Link from 'next/link';
 import intl from 'react-intl-universal';
 
 import { IStatsCardProps } from '@/components/HomeCards/type';
+import { store } from '@/store';
+import { globalActions } from '@/store/global';
 
 import Bubbles from '../Bubbles';
 import AccountsStorage from './AccountsStorage';
@@ -36,7 +38,12 @@ const WarehouseCard = ({ stats }: IStatsCardProps) => {
             <b>{numberFormat(stats?.domain_count || 0)}</b> {intl.get('entities.domains')}
           </Tag>
         </div>
-        <Link href={'/catalog#resource?rs_type=warehouse'}>
+        <Link
+          href={'/catalog#resources'}
+          onClick={() =>
+            store.dispatch(globalActions.setFilters([{ key: 'rs_type', values: ['warehouse'], tabKey: 'resources' }]))
+          }
+        >
           <Button>
             {intl.get('screen.home.explore')}
             <ArrowRightOutlined />
