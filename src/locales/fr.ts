@@ -274,7 +274,7 @@ const fr = {
       },
     },
     home: {
-      title: "Catalogue de l'UniC",
+      title: "Catalogue de l'UnIC",
       subTitle: 'Explorez les dictionnaires de données de l’UnIC par type de ressource :',
       explore: 'Explorer',
       warehouse: {
