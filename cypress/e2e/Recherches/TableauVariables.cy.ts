@@ -28,7 +28,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Varia
   });
 
   it('Related Table filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 0/*Table*/, 'accouchement');
+    cy.inputDropdownSelectValue('panel-variables', 2/*Table*/, 'accouchement');
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
@@ -40,7 +40,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Varia
   });
 
   it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 2/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+    cy.inputDropdownSelectValue('panel-variables', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('centro');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });

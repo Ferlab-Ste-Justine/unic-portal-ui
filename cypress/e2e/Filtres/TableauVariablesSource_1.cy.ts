@@ -24,7 +24,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité du filtre Source', ()
   });
 
   it('Related Table filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 0/*Table*/, 'accouchement');
+    cy.inputDropdownSelectValue('panel-variables', 2/*Table*/, 'accouchement');
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(3).type('centro');
     cy.get('[class*="ant-select-dropdown"] [title="centro"]').should('not.exist');
   });
@@ -36,7 +36,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité du filtre Source', ()
   });
 
   it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 2/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+    cy.inputDropdownSelectValue('panel-variables', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(3).type('centro');
     cy.get('[class*="ant-select-dropdown"] [title="centro"]').should('not.exist');
   });
