@@ -20,7 +20,7 @@ const en = {
       variables: 'variables',
       Variables: 'Variables',
       typeOf: 'Variable type',
-      filterBy: 'Filter by variable',
+      filterBy: 'Search for a variable by keyword',
     },
     resource: {
       resource: 'resource',
@@ -28,7 +28,7 @@ const en = {
       Resource: 'Resource',
       Resources: 'Resources',
       typeOf: 'Resource type',
-      filterBy: 'Filter by resource',
+      filterBy: 'Search for a resource by keyword',
     },
     table: {
       table_id: 'Table ID',
@@ -37,7 +37,7 @@ const en = {
       tables: 'tables',
       Tables: 'Tables',
       typeOf: 'Table type',
-      filterBy: 'Filter by table',
+      filterBy: 'Search for a table by keyword',
       tab_entity_type: 'Entity',
       variable_count: 'Variable Count',
     },
