@@ -2,6 +2,4 @@
     gap: 32px;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: baseline;
 }

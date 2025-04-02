@@ -283,22 +283,22 @@ const fr = {
       warehouse: {
         title: 'Entrepôt',
         description:
-          'L’entrepôt de l’UniC est constitué d’un ensemble sélectionné de variables provenant des systèmes hospitaliers. Ces variables sont organisées par domaine et documentées selon une nomenclature standard pour faciliter leur utilisation pour la recherche.',
+          'L’entrepôt de l’UnIC est constitué d’un ensemble sélectionné de variables provenant des systèmes hospitaliers. Ces variables sont organisées par domaine et documentées selon une nomenclature standard pour faciliter leur utilisation pour la recherche.',
       },
       researchProjects: {
         title: 'Projets de recherche',
         description:
-          'Les dictionnaires de données détaillant les caractéristiques des variables des jeux de données sont produits par l’UniC pour des projets de recherche menés au CHUSJ.',
+          'Les dictionnaires de données détaillant les caractéristiques des variables des jeux de données sont produits par l’UnIC pour des projets de recherche menés au CHUSJ.',
       },
       EQPProjects: {
         title: 'Projets EQP',
         description:
-          'Les dictionnaires de données détaillant les caractéristiques des variables des jeux de données sont produits par l’UniC pour des projets d’évaluation de la qualité et de la performance. Ces projets incluent, par exemple, les projets d’évaluation de la qualité de l’acte médical et les projets développés par la DQEPE.',
+          'Les dictionnaires de données détaillant les caractéristiques des variables des jeux de données sont produits par l’UnIC pour des projets d’évaluation de la qualité et de la performance. Ces projets incluent, par exemple, les projets d’évaluation de la qualité de l’acte médical et les projets développés par la DQEPE.',
       },
       hospitalSystems: {
         title: 'Systèmes hospitaliers',
         description:
-          'Le catalogue de l’UniC recense et documente les données de plus de 25 systèmes d’information hospitaliers. Ces systèmes comportent des données médicales, administratives et logistiques. Ils incluent, par exemple les systèmes des admissions et des rendez-vous, des laboratoires, de la pharmacie et de l’urgence.',
+          'Le catalogue de l’UnIC recense et documente les données de plus de 25 systèmes d’information hospitaliers. Ces systèmes comportent des données médicales, administratives et logistiques. Ils incluent, par exemple les systèmes des admissions et des rendez-vous, des laboratoires, de la pharmacie et de l’urgence.',
       },
     },
     catalog: {

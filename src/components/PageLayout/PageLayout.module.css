@@ -6,6 +6,11 @@
     align-items: center;
     width: 100%;
     margin: auto;
+    max-width: 1442px;
+    /* Fix max-width to center the content with margin: auto */
+    @media (max-width: 1454px) {
+        max-width: min-content;
+    }
 }
 
 .headerPage {
