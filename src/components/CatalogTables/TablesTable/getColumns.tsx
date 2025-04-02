@@ -108,7 +108,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
         <Tooltip
           arrowPointAtCenter
           placement='topLeft'
-          title={intl.get('entities.updatedAtInfo', { resType: intl.get('entities.resource.resource') })}
+          title={intl.get('entities.updatedAtInfo', { resType: intl.get('entities.table.table') })}
         >
           {formatDate(timestamp)}
         </Tooltip>

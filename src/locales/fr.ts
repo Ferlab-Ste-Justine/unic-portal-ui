@@ -58,7 +58,7 @@ const fr = {
     rowFilter: 'Filtre de ligne',
     rowFilterTooltip: 'Filtre appliqué aux entités de la table',
     updatedAt: 'Modifié le',
-    updatedAtInfo: 'Date de la dernière modification du dictionnaire de cette { resType }',
+    updatedAtInfo: 'Date de la dernière modification du dictionnaire de cette {resType}',
     createdAt: 'Créé le',
     createdAtInfo: 'Date de création du dictionnaire de cette {resType}',
     approvedAt: 'Approuvé le',
