@@ -11,6 +11,8 @@ import { DEFAULT_PAGE_SIZE } from '@/utils/constants';
 import TablesTable from './TablesTable';
 
 jest.mock('@/components/DownloadTSVButton', () => jest.fn());
+jest.mock('@/components/CatalogTables/InputSearch', () => jest.fn());
+jest.mock('@/components/CatalogTables/InputSelect', () => jest.fn());
 jest.mock('react-intl-universal', () => ({
   get: jest.fn((key) => key),
 }));
@@ -23,6 +25,12 @@ jest.mock('@/store/user/thunks', () => ({
 }));
 jest.mock('@/store/user', () => ({
   useUser: () => jest.fn(),
+}));
+jest.mock('@/store/global', () => ({
+  globalActions: {
+    resetFiltersForTab: jest.fn(),
+  },
+  useLang: jest.fn(() => 'EN'),
 }));
 jest.mock('@/lib/hooks/useHash');
 jest.mock('query-string', () => ({

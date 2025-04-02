@@ -45,7 +45,7 @@ describe('EQPProjectsCard Component', () => {
     render(<EQPProjectsCard stats={mockStats} />);
 
     const link = screen.getByRole('link', { name: 'screen.home.explore arrow-right' });
-    expect(link).toHaveAttribute('href', '/catalog#resource?rs_type=eqp');
+    expect(link).toHaveAttribute('href', '/catalog#resources');
   });
 
   it('handles missing stats correctly', () => {
