@@ -220,7 +220,7 @@ const fr = {
           title2: 'Titre',
           yourTitle: 'Ex : Chercheur',
           institution: 'Institution/Entreprise',
-          yourInstitution: 'Ex : CHUS Sainte-Justine',
+          yourInstitution: 'Ex : CHU Sainte-Justine',
           institutionEmail: 'Courriel professionnel',
           yourInstitutionEmail: 'email@domain.com',
           editPhotoModalTitle: 'Modifier photo',
@@ -231,7 +231,7 @@ const fr = {
             'Voulez-vous vraiment supprimer votre photo ? Nous le remplacerons par un avatar par défaut.',
           uploadPhotoButton: 'Envoyer la photo',
           removePhotoButton: 'Supprimer la photo',
-          linkedinUrl: 'Veuillez entrer une URL LinkedIn valide',
+          linkedinUrl: 'Entrer une URL LinkedIn valide',
         },
         roleAffiliation: {
           title: 'Fonction',
