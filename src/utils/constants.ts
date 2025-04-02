@@ -1,5 +1,9 @@
 import { IQueryConfig, ISort, SortDirection } from '@/types/constants';
 
+export const RESOURCES_TAB_KEY = 'resources';
+export const TABLES_TAB_KEY = 'tables';
+export const VARIABLES_TAB_KEY = 'variables';
+
 export const DEFAULT_OFFSET = 0;
 export const DEFAULT_PAGE_INDEX = 1;
 export const DEFAULT_PAGE_SIZE = 10;

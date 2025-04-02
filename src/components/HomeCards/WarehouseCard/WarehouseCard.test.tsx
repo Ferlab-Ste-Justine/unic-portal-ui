@@ -49,7 +49,7 @@ describe('WarehouseCard Component', () => {
     render(<WarehouseCard stats={mockStats} />);
 
     const link = screen.getByRole('link', { name: 'screen.home.explore arrow-right' });
-    expect(link).toHaveAttribute('href', '/catalog#resource?rs_type=warehouse');
+    expect(link).toHaveAttribute('href', '/catalog#resources');
   });
 
   it('handles missing stats correctly', () => {

@@ -5,7 +5,7 @@ import { ArgsProps as NotificationArgsProps } from 'antd/lib/notification';
 import intl from 'react-intl-universal';
 
 import locales from '@/locales';
-import { initialState, MessageArgsPropsCustom } from '@/store/global/types';
+import { IFilter, initialState, MessageArgsPropsCustom } from '@/store/global/types';
 import { fetchUser } from '@/store/user/thunks';
 import { LANG } from '@/types/constants';
 
@@ -25,6 +25,7 @@ export const GlobalState: initialState = {
   messagesToDestroy: [],
   stats: undefined,
   isFetchingStats: false,
+  filters: [],
 };
 
 const setLocalConfig = (locale: string) => {
@@ -62,6 +63,14 @@ const globalSlice = createSlice({
     destroyNotification: (state) => ({
       ...state,
       notification: undefined,
+    }),
+    setFilters: (state, action: PayloadAction<IFilter[]>) => ({
+      ...state,
+      filters: action.payload,
+    }),
+    resetFiltersForTab: (state, action: PayloadAction<string>) => ({
+      ...state,
+      filters: state.filters.filter((filter) => filter.tabKey !== action.payload),
     }),
   },
   extraReducers: (builder) => {

@@ -3,10 +3,12 @@ import Link from 'next/link';
 import React from 'react';
 import intl from 'react-intl-universal';
 
+import { store } from '@/store';
+import { globalActions } from '@/store/global';
 import { LANG } from '@/types/constants';
 import { ITableEntity } from '@/types/entities';
 import { ColumnType } from '@/types/tables';
-import { TABLE_EMPTY_PLACE_HOLDER } from '@/utils/constants';
+import { TABLE_EMPTY_PLACE_HOLDER, VARIABLES_TAB_KEY } from '@/utils/constants';
 import formatDate from '@/utils/formatDate';
 
 const getColumns = (lang: LANG): ColumnType[] => [
@@ -72,7 +74,20 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.table.variable_count'),
     render: (table: ITableEntity) => {
       if (!table?.stat_etl?.variable_count) return '0';
-      return <Link href={`/catalog#variables?table.tab_name=${table.tab_name}`}>{table.stat_etl.variable_count}</Link>;
+      return (
+        <Link
+          href={`/catalog#${VARIABLES_TAB_KEY}`}
+          onClick={() =>
+            store.dispatch(
+              globalActions.setFilters([
+                { key: 'table.tab_name', values: [table.tab_name], tabKey: VARIABLES_TAB_KEY },
+              ]),
+            )
+          }
+        >
+          {table.stat_etl.variable_count}
+        </Link>
+      );
     },
   },
   {
