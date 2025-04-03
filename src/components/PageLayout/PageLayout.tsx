@@ -12,13 +12,14 @@ interface IHomePageProps {
   subTitle?: string;
   children: React.ReactNode;
   className?: string;
+  classNameContainer?: string;
 }
 
-const PageLayout = ({ title, subTitle, children, className }: IHomePageProps) => {
+const PageLayout = ({ title, subTitle, children, className, classNameContainer }: IHomePageProps) => {
   useLang();
 
   return (
-    <Layout className={styles.container}>
+    <Layout className={`${styles.container} ${classNameContainer}`}>
       <Space className={styles.headerPage}>
         <div className={styles.titlePageWrapper}>
           <Title level={4} className={styles.titlePage}>
