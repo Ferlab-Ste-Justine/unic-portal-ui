@@ -1,4 +1,3 @@
-import { Tooltip } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 import intl from 'react-intl-universal';
@@ -45,14 +44,8 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.table.tab_entity_type'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-    render: (key: string) => {
-      if (!key) return TABLE_EMPTY_PLACE_HOLDER;
-      return (
-        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.table.tab_entity_type_info')}>
-          {key}
-        </Tooltip>
-      );
-    },
+    tooltip: intl.get('entities.table.tab_entity_type_info'),
+    render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
     dataIndex: 'tab_domain',
@@ -60,14 +53,8 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.Domain'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-    render: (key: string) => {
-      if (!key) return TABLE_EMPTY_PLACE_HOLDER;
-      return (
-        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.DomainInfo')}>
-          {key}
-        </Tooltip>
-      );
-    },
+    tooltip: intl.get('entities.DomainInfo'),
+    render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
     key: 'stat_etl.variable_count',
@@ -96,18 +83,11 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    tooltip: intl.get('entities.createdAtInfo', { resType: intl.get('entities.table.table') }),
     renderDownload: (table: ITableEntity) => formatDate(table?.tab_created_at),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return (
-        <Tooltip
-          arrowPointAtCenter
-          placement='topLeft'
-          title={intl.get('entities.createdAtInfo', { resType: intl.get('entities.table.table') })}
-        >
-          {formatDate(timestamp)}
-        </Tooltip>
-      );
+      return formatDate(timestamp);
     },
   },
   {
@@ -116,18 +96,11 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.updatedAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    tooltip: intl.get('entities.updatedAtInfo', { resType: intl.get('entities.table.table') }),
     renderDownload: (table: ITableEntity) => formatDate(table?.tab_last_update),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return (
-        <Tooltip
-          arrowPointAtCenter
-          placement='topLeft'
-          title={intl.get('entities.updatedAtInfo', { resType: intl.get('entities.table.table') })}
-        >
-          {formatDate(timestamp)}
-        </Tooltip>
-      );
+      return formatDate(timestamp);
     },
   },
 ];

@@ -1,4 +1,4 @@
-import { Tag, Tooltip } from 'antd';
+import { Tag } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 import intl from 'react-intl-universal';
@@ -55,13 +55,10 @@ const getColumns = (lang: LANG): ColumnType[] => [
     key: 'var_from_source_systems.rs_code',
     dataIndex: 'var_from_source_systems',
     title: intl.get('entities.source'),
+    tooltip: intl.get('entities.sourceInfo'),
     render: (var_from_source_systems: ISourceType[]) => {
       if (!var_from_source_systems?.length) return TABLE_EMPTY_PLACE_HOLDER;
-      return (
-        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.sourceInfo')}>
-          {var_from_source_systems.map((sourceSystem: ISourceType) => sourceSystem.rs_code).join(', ')}
-        </Tooltip>
-      );
+      return var_from_source_systems.map((sourceSystem: ISourceType) => sourceSystem.rs_code).join(', ');
     },
   },
   {
@@ -91,18 +88,11 @@ const getColumns = (lang: LANG): ColumnType[] => [
     sorter: { multiple: 1 },
     defaultHidden: true,
     width: 120,
+    tooltip: intl.get('entities.createdAtInfo', { resType: intl.get('entities.variable.variable') }),
     renderDownload: (variable: IVariableEntity) => formatDate(variable?.var_created_at),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return (
-        <Tooltip
-          arrowPointAtCenter
-          placement='topLeft'
-          title={intl.get('entities.createdAtInfo', { resType: intl.get('entities.variable.variable') })}
-        >
-          {formatDate(timestamp)}
-        </Tooltip>
-      );
+      return formatDate(timestamp);
     },
   },
   {
@@ -112,18 +102,11 @@ const getColumns = (lang: LANG): ColumnType[] => [
     sorter: { multiple: 1 },
     defaultHidden: true,
     width: 120,
+    tooltip: intl.get('entities.updatedAtInfo', { resType: intl.get('entities.variable.variable') }),
     renderDownload: (variable: IVariableEntity) => formatDate(variable?.var_last_update),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
-      return (
-        <Tooltip
-          arrowPointAtCenter
-          placement='topLeft'
-          title={intl.get('entities.updatedAtInfo', { resType: intl.get('entities.variable.variable') })}
-        >
-          {formatDate(timestamp)}
-        </Tooltip>
-      );
+      return formatDate(timestamp);
     },
   },
 ];
