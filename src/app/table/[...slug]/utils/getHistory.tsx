@@ -14,7 +14,11 @@ const getCurrentVersionDescriptions = (lang: LANG, tableEntity?: ITableEntity): 
     label: (
       <>
         {intl.get('entities.createdAt')}
-        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.createdAtInfo')}>
+        <Tooltip
+          arrowPointAtCenter
+          placement='topLeft'
+          title={intl.get('entities.createdAtInfo', { resType: intl.get('entities.table.table') })}
+        >
           <InfoCircleOutlined className={styles.tooltipIcon} />
         </Tooltip>
       </>
@@ -27,7 +31,11 @@ const getCurrentVersionDescriptions = (lang: LANG, tableEntity?: ITableEntity): 
     label: (
       <>
         {intl.get('entities.updatedAt')}
-        <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.updatedAtInfo')}>
+        <Tooltip
+          arrowPointAtCenter
+          placement='topLeft'
+          title={intl.get('entities.updatedAtInfo', { resType: intl.get('entities.table.table') })}
+        >
           <InfoCircleOutlined className={styles.tooltipIcon} />
         </Tooltip>
       </>
