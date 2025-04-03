@@ -27,6 +27,12 @@ jest.mock('@/lib/hooks/useHash', () => jest.fn());
 jest.mock('@/store/user', () => ({
   useUser: () => jest.fn(),
 }));
+jest.mock('@/store/global', () => ({
+  globalActions: {
+    resetFiltersForTab: jest.fn(),
+  },
+  useLang: jest.fn(() => 'EN'),
+}));
 jest.mock('query-string', () => ({
   parse: jest.fn(),
 }));

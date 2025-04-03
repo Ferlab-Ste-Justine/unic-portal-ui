@@ -13,7 +13,7 @@ import styles from '@/components/CatalogTables/ResourcesTable/ResourcesTable.mod
 import { mergeVariables } from '@/components/CatalogTables/utils';
 import DownloadTSVButton from '@/components/DownloadTSVButton';
 import { GET_TABLES } from '@/lib/graphql/queries/getTables';
-import { useLang } from '@/store/global';
+import { globalActions, useLang } from '@/store/global';
 import { useUser } from '@/store/user';
 import { updateUserConfig } from '@/store/user/thunks';
 import { IQueryConfig } from '@/types/constants';
@@ -25,6 +25,7 @@ import {
   DEFAULT_QUERY_CONFIG,
   DEFAULT_TABLES_QUERY_SORT,
 } from '@/utils/constants';
+import { TABLES_TAB_KEY } from '@/utils/constants';
 import formatQuerySortList from '@/utils/formatQuerySortList';
 import scrollToTop from '@/utils/scrollToTop';
 import { getProTableDictionary, getRSLabelNameByType } from '@/utils/translation';
@@ -78,6 +79,7 @@ const TablesTable = () => {
 
   const hasFilter = !!variables.orGroups?.length || !!variables.match?.length || !!variables.or?.length;
   const handleClearFilters = () => {
+    dispatch(globalActions.resetFiltersForTab(TABLES_TAB_KEY));
     setVariables(initialVariables);
     /** reset pagination on filters changes */
     setQueryConfig((q) => ({
@@ -136,6 +138,7 @@ const TablesTable = () => {
           placeholder={intl.get('entities.resource.filterBy')}
           handleSetVariables={handleSetVariables}
           variables={variables}
+          currentTabKey={TABLES_TAB_KEY}
         />
         <InputSelect
           operator={'orGroups'}
@@ -147,6 +150,7 @@ const TablesTable = () => {
           handleSetVariables={handleSetVariables}
           variables={variables}
           showSearch={false}
+          currentTabKey={TABLES_TAB_KEY}
         />
       </div>
       <ProTable

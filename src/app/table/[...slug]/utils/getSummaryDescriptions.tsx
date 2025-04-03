@@ -26,7 +26,14 @@ const getSummaryDescriptions = (lang: LANG, tableEntity?: ITableEntity): IEntity
   ...(tableEntity?.tab_entity_type
     ? [
         {
-          label: intl.get('entities.table.tab_entity_type'),
+          label: (
+            <>
+              {intl.get('entities.table.tab_entity_type')}
+              <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.table.tab_entity_type_info')}>
+                <InfoCircleOutlined className={styles.tooltipIcon} />
+              </Tooltip>
+            </>
+          ),
           value: tableEntity?.tab_entity_type || TABLE_EMPTY_PLACE_HOLDER,
         },
       ]
@@ -34,7 +41,14 @@ const getSummaryDescriptions = (lang: LANG, tableEntity?: ITableEntity): IEntity
   ...(tableEntity?.tab_domain
     ? [
         {
-          label: intl.get('entities.Domain'),
+          label: (
+            <>
+              {intl.get('entities.Domain')}
+              <Tooltip arrowPointAtCenter placement='topLeft' title={intl.get('entities.DomainInfo')}>
+                <InfoCircleOutlined className={styles.tooltipIcon} />
+              </Tooltip>
+            </>
+          ),
           value: tableEntity?.tab_domain || TABLE_EMPTY_PLACE_HOLDER,
         },
       ]

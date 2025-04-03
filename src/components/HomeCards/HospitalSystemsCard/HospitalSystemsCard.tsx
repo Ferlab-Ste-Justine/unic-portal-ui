@@ -5,6 +5,9 @@ import Link from 'next/link';
 import intl from 'react-intl-universal';
 
 import { IStatsCardProps } from '@/components/HomeCards/type';
+import { store } from '@/store';
+import { globalActions } from '@/store/global';
+import { RESOURCES_TAB_KEY } from '@/utils/constants';
 
 import Bubbles from '../Bubbles';
 import CaduceusMedecine from './CaduceusMedecine';
@@ -30,7 +33,14 @@ const HospitalSystemsCard = ({ stats }: IStatsCardProps) => {
             <b>{numberFormat(stats?.variable_count || 0)}</b> {intl.get('entities.variable.variables')}
           </Tag>
         </div>
-        <Link href={'/catalog#resource?rs_type=source_system'}>
+        <Link
+          href={`/catalog#${RESOURCES_TAB_KEY}`}
+          onClick={() =>
+            store.dispatch(
+              globalActions.setFilters([{ key: 'rs_type', values: ['source_system'], tabKey: RESOURCES_TAB_KEY }]),
+            )
+          }
+        >
           <Button>
             {intl.get('screen.home.explore')}
             <ArrowRightOutlined />

@@ -9,6 +9,7 @@ import VariablesTable from '@/components/CatalogTables/VariablesTable';
 import PageLayout from '@/components/PageLayout';
 import useHash from '@/lib/hooks/useHash';
 import { useLang } from '@/store/global';
+import { RESOURCES_TAB_KEY, TABLES_TAB_KEY, VARIABLES_TAB_KEY } from '@/utils/constants';
 
 import styles from './page.module.css';
 
@@ -17,9 +18,17 @@ const CatalogPage = () => {
   const { hash, setHash } = useHash();
   const tab = hash.split('?')[0]; // Remove query params if present
   const items = [
-    { label: intl.get('entities.resource.Resources'), key: 'resources', children: <ResourcesTable /> },
-    { label: intl.get('entities.table.Tables'), key: 'tables', children: <TablesTable /> },
-    { label: intl.get('entities.variable.Variables'), key: 'variables', children: <VariablesTable /> },
+    {
+      label: intl.get('entities.resource.Resources'),
+      key: RESOURCES_TAB_KEY,
+      children: <ResourcesTable />,
+    },
+    { label: intl.get('entities.table.Tables'), key: TABLES_TAB_KEY, children: <TablesTable /> },
+    {
+      label: intl.get('entities.variable.Variables'),
+      key: VARIABLES_TAB_KEY,
+      children: <VariablesTable />,
+    },
   ];
   const isValidTab = items.some((item) => item.key === tab);
   const [activeTab, setActiveTab] = useState(isValidTab ? tab : items[0].key);
