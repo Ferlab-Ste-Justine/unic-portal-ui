@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import React from 'react';
 import intl from 'react-intl-universal';
 
 import { store } from '@/store';
@@ -43,6 +44,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.table.tab_entity_type'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    tooltip: intl.get('entities.table.tab_entity_type_info'),
     render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
@@ -51,6 +53,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.Domain'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    tooltip: intl.get('entities.DomainInfo'),
     render: (key: string) => key || TABLE_EMPTY_PLACE_HOLDER,
   },
   {
@@ -80,6 +83,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.createdAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    tooltip: intl.get('entities.createdAtInfo', { resType: intl.get('entities.table.table') }),
     renderDownload: (table: ITableEntity) => formatDate(table?.tab_created_at),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
@@ -92,6 +96,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.updatedAt'),
     sorter: { multiple: 1 },
     defaultHidden: true,
+    tooltip: intl.get('entities.updatedAtInfo', { resType: intl.get('entities.table.table') }),
     renderDownload: (table: ITableEntity) => formatDate(table?.tab_last_update),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;

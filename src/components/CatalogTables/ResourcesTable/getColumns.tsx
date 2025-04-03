@@ -1,5 +1,6 @@
 import { Popover, Tag } from 'antd';
 import Link from 'next/link';
+import React from 'react';
 import intl from 'react-intl-universal';
 
 import { store } from '@/store';
@@ -53,6 +54,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     sorter: { multiple: 1 },
     width: 120,
     renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_last_update),
+    tooltip: intl.get('entities.updatedAtInfo', { resType: intl.get('entities.resource.resource') }),
     render: (timestamp: string) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
       return formatDate(timestamp);
@@ -65,6 +67,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     sorter: { multiple: 1 },
     defaultHidden: true,
     width: 120,
+    tooltip: intl.get('entities.createdAtInfo', { resType: intl.get('entities.resource.resource') }),
     renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_creation_date),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
@@ -77,6 +80,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
     title: intl.get('entities.approvedAt'),
     defaultHidden: true,
     width: 120,
+    tooltip: intl.get('entities.approvedAtInfo', { resType: intl.get('entities.resource.resource') }),
     renderDownload: (resource: IResourceEntity) => formatDate(resource.rs_project_approval_date),
     render: (timestamp: number) => {
       if (!timestamp) return TABLE_EMPTY_PLACE_HOLDER;
