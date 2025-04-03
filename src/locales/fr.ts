@@ -223,7 +223,7 @@ const fr = {
           title2: 'Titre',
           yourTitle: 'Ex : Chercheur',
           institution: 'Institution/Entreprise',
-          yourInstitution: 'Ex : CHUS Sainte-Justine',
+          yourInstitution: 'Ex : CHU Sainte-Justine',
           institutionEmail: 'Courriel professionnel',
           yourInstitutionEmail: 'email@domain.com',
           editPhotoModalTitle: 'Modifier photo',
@@ -234,7 +234,7 @@ const fr = {
             'Voulez-vous vraiment supprimer votre photo ? Nous le remplacerons par un avatar par défaut.',
           uploadPhotoButton: 'Envoyer la photo',
           removePhotoButton: 'Supprimer la photo',
-          linkedinUrl: 'Veuillez entrer une URL LinkedIn valide',
+          linkedinUrl: 'Entrer une URL LinkedIn valide',
         },
         roleAffiliation: {
           title: 'Fonction',
@@ -277,7 +277,7 @@ const fr = {
       },
     },
     home: {
-      title: "Catalogue de l'UniC",
+      title: "Catalogue de l'UnIC",
       subTitle: 'Explorez les dictionnaires de données de l’UnIC par type de ressource :',
       explore: 'Explorer',
       warehouse: {

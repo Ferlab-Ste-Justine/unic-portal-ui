@@ -224,8 +224,8 @@ const en = {
           title2: 'Title',
           yourTitle: 'e.g. Research scientist',
           institution: 'Institution/Company',
-          yourInstitution: 'e.g. CHUS Sainte-Justine',
-          institutionEmail: 'Institutional email',
+          yourInstitution: 'e.g. CHU Sainte-Justine',
+          institutionEmail: 'Professional email',
           yourInstitutionEmail: 'email@domain.com',
           editPhotoModalTitle: 'Edit photo',
           uploadImageError: 'Unable to upload your image at the moment',
@@ -235,7 +235,7 @@ const en = {
             'Are you sure you want to remove your photo? We will replace it with a default avatar.',
           uploadPhotoButton: 'Upload photo',
           removePhotoButton: 'Remove photo',
-          linkedinUrl: 'Please enter a valid LinkedIn URL',
+          linkedinUrl: 'Enter a valid LinkedIn URL',
         },
         roleAffiliation: {
           title: 'Function',
@@ -276,7 +276,7 @@ const en = {
       },
     },
     home: {
-      title: 'UniC Data Catalog',
+      title: 'UnIC Data Catalog',
       subTitle: 'Explore UnIC data dictionaries by resource type:',
       explore: 'Explore',
       warehouse: {
