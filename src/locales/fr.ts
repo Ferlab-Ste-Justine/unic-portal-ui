@@ -20,7 +20,7 @@ const fr = {
       variables: 'variables',
       Variables: 'Variables',
       typeOf: 'Type de variable',
-      filterBy: 'Filtrer par variable',
+      filterBy: 'Chercher une variable par mot-clé',
     },
     resource: {
       resource: 'ressource',
@@ -28,7 +28,7 @@ const fr = {
       resources: 'ressources',
       Resources: 'Ressources',
       typeOf: 'Type de ressource',
-      filterBy: 'Filtrer par ressource',
+      filterBy: 'Chercher une ressource par mot-clé',
     },
     table: {
       table: 'table',
@@ -36,7 +36,7 @@ const fr = {
       tables: 'tables',
       Tables: 'Tables',
       typeOf: 'Type de table',
-      filterBy: 'Filtrer par table',
+      filterBy: 'Chercher une table par mot-clé',
       tab_entity_type: 'Entité',
       tab_entity_type_info:
         'L’entité fait référence à l’objet auquel la variable est associée (ex : la variable «âge» est associée au «patient»). L’entité décrit le contexte ou le niveau auquel les données se rapportent.',
