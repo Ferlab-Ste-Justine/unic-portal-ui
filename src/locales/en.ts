@@ -273,7 +273,7 @@ const en = {
       },
     },
     home: {
-      title: 'UniC Data Catalog',
+      title: 'UnIC Data Catalog',
       subTitle: 'Explore UnIC data dictionaries by resource type:',
       explore: 'Explore',
       warehouse: {

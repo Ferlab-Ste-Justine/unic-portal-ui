@@ -8,7 +8,7 @@ beforeEach(() => {
 
 describe('Page d\'accueil - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    cy.get('[class*="PageLayout_titlePage"]').contains('UniC Data Catalog').should('exist');
+    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Data Catalog').should('exist');
   });
 
   it('Sous-titre', () => {
