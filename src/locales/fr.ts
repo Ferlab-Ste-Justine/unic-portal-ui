@@ -211,6 +211,13 @@ const fr = {
           confirm: {
             content: 'Êtes-vous sûr de vouloir supprimer définitivement votre compte ?',
           },
+          success: {
+            title: 'Compte supprimé',
+            content: 'Votre compte a été supprimé avec succès, ainsi que les informations liées.',
+          },
+          error: {
+            content: 'La suppression de votre compte a échoué. Veuillez nous contacter pour procéder à la suppression ',
+          },
         },
         identification: {
           title: 'Identification',
