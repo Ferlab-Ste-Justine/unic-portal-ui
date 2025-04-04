@@ -46,19 +46,19 @@ export const useAuth = () => {
 
   /** logout if session error */
   useEffect(() => {
-    if (sessionError) {
+    if (sessionError && !isLoading) {
       console.debug('[useAuth] handleLogout session error', sessionError);
       handleLogout();
     }
-  }, [handleLogout, sessionError]);
+  }, [handleLogout, isLoading, sessionError]);
 
   /** fetch user after authenticated */
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !isLoading) {
       // @ts-expect-error - UnknownAction
       dispatch(fetchUser({ errCallback: handleLogout }));
     }
-  }, [isAuthenticated, dispatch, handleLogout]);
+  }, [isAuthenticated, dispatch, handleLogout, isLoading]);
 
   const _user = {
     ...session?.user,
