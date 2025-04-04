@@ -28,11 +28,7 @@ const AuthProvider = ({ children }: React.PropsWithChildren) => {
     login();
   }
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isAuthenticated || isLogin) {
+  if ((isAuthenticated || isLogin) && !isLoading) {
     return <>{children}</>;
   }
 

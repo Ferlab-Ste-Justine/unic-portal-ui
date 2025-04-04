@@ -76,6 +76,7 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   debug: true,
   pages: {
+    //use /post-register to force re-login after post-register keycloak fails
     signIn: '/post-register',
   },
   // https://github.com/nextauthjs/next-auth/discussions/7491
