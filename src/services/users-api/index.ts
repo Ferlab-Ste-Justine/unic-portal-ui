@@ -1,5 +1,5 @@
 import config from '@/config';
-import { sendRequest } from '@/lib/axios';
+import apiInstance, { sendRequest } from '@/lib/axios';
 import { TUser, TUserUpdate } from '@/store/user/types';
 
 export const USERS_API_URL_USER = `${config.USERS_API_URL}/user`;
@@ -23,8 +23,15 @@ const deleteUser = () =>
     url: USERS_API_URL_USER,
   });
 
+const deleteUserDirectly = () =>
+  apiInstance<void>({
+    method: 'DELETE',
+    url: USERS_API_URL_USER,
+  });
+
 export const UserApi = {
   fetch,
   update,
   deleteUser,
+  deleteUserDirectly,
 };
