@@ -212,6 +212,13 @@ const en = {
           confirm: {
             content: 'Are you sure you want to permanently delete your account?',
           },
+          success: {
+            title: 'Account deleted',
+            content: 'Your account has been successfully deleted, along with the related information.',
+          },
+          error: {
+            content: 'The deletion of your account has failed. Please contact us to proceed with the deletion ',
+          },
         },
         identification: {
           title: 'Identification',

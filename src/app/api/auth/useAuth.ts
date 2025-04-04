@@ -25,7 +25,7 @@ export const useAuth = () => {
     await signIn('keycloak', { callbackUrl: redirectPath }, { ui_locales: locale });
   };
 
-  const handleLogout = useCallback(async () => {
+  const handleLogout = useCallback(async (callbackUrl = '/login') => {
     await fetch('/api/auth/logout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,7 +34,7 @@ export const useAuth = () => {
     await persistor.purge();
 
     // Sign out from NextAuth
-    await signOut({ callbackUrl: '/login' }); // Redirect to homepage or desired URL
+    await signOut({ callbackUrl, redirect: true }); // Redirect to homepage or desired URL
   }, []);
 
   /** redirect to login page with current path saved */

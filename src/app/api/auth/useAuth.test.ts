@@ -81,7 +81,7 @@ describe('useAuth hook', () => {
 
     expect(fetch).toHaveBeenCalledWith('/api/auth/logout', expect.any(Object));
     expect(persistor.purge).toHaveBeenCalled();
-    expect(signOut).toHaveBeenCalledWith({ callbackUrl: '/login' });
+    expect(signOut).toHaveBeenCalledWith({ callbackUrl: '/login', redirect: true });
   });
 
   it('dispatches fetchUser when authenticated', () => {
