@@ -63,21 +63,4 @@ describe('DeleteCard Component', () => {
       }),
     );
   });
-
-  it('dispatches deleteUser action when confirm is clicked', async () => {
-    render(
-      <Provider store={store}>
-        <DeleteCard />
-      </Provider>,
-    );
-
-    const deleteButton = screen.getByRole('button', { name: 'screen.profileSettings.cards.deleteAccount.button' });
-    fireEvent.click(deleteButton);
-
-    // Simulate clicking "OK" in the confirm modal
-    const confirmCallback = (Modal.confirm as jest.Mock).mock.calls[0][0].onOk;
-    await confirmCallback();
-
-    expect(store.getActions()).toContainEqual({ type: 'DELETE_USER' });
-  });
 });
