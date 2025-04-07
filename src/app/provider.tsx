@@ -18,15 +18,17 @@ import { useLang } from '@/store/global';
 import { LANG } from '@/types/constants';
 
 const AuthProvider = ({ children }: React.PropsWithChildren) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, login } = useAuth();
   const pathname = usePathname();
   const isLogin = pathname === '/login';
 
-  if (isLoading) {
-    return <Loading />;
+  /** way to force login after post-register keycloak fail */
+  const isPostRegister = pathname === '/post-register';
+  if (isPostRegister) {
+    login();
   }
 
-  if (isAuthenticated || isLogin) {
+  if ((isAuthenticated || isLogin) && !isLoading) {
     return <>{children}</>;
   }
 
