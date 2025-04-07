@@ -24,7 +24,7 @@ describe('Page d\'accueil - Vérifier les informations affichées', () => {
   });
 
   it('Carte Warehouse - Description', () => {
-    cy.get('[class*="WarehouseCard_homeCardDescription"]').contains('Explore all data warehouse variables by domain');
+    cy.get('[class*="WarehouseCard_homeCardDescription"]').contains('The UnIC warehouse consists of a curated set of variables from hospital systems. These variables are organized by domain and documented according to a standard nomenclature to facilitate their use in research.');
   });
 
   it('Carte Warehouse - Statistiques', () => {
@@ -51,7 +51,7 @@ describe('Page d\'accueil - Vérifier les informations affichées', () => {
   });
 
   it('Carte Projects - Description', () => {
-    cy.get('[class*="ResearchProjectsCard_homeCardDescription"]').contains('Explore research project data dictionaries');
+    cy.get('[class*="ResearchProjectsCard_homeCardDescription"]').contains('The data dictionaries detailing the characteristics of the dataset variables are produced by UnIC for research projects conducted at the CHUSJ.');
   });
 
   it('Carte Projects - Statistiques', () => {
@@ -74,7 +74,7 @@ describe('Page d\'accueil - Vérifier les informations affichées', () => {
   });
 
   it('Carte EQP - Description', () => {
-    cy.get('[class*="EQPProjectsCard_homeCardDescription"]').contains('Explore data dictionaries from quality improvement projects');
+    cy.get('[class*="EQPProjectsCard_homeCardDescription"]').contains('The data dictionaries detailing the characteristics of the dataset variables are produced by UnIC for quality improvement projects. These projects include, for instance, medical act quality assessment projects and projects developed by the quality improvement department (DQEPE).');
   });
 
   it('Carte EQP - Statistiques', () => {
@@ -97,7 +97,7 @@ describe('Page d\'accueil - Vérifier les informations affichées', () => {
   });
 
   it('Carte Systems - Description', () => {
-    cy.get('[class*="HospitalSystemsCard_homeCardDescription"]').contains('Explore the list of hospital system tables and variables');
+    cy.get('[class*="HospitalSystemsCard_homeCardDescription"]').contains('The UnIC catalog collects and documents data from more than 25 hospital information systems. These systems include medical, administrative, and logistical data. They encompass, for example, admission and appointment systems, laboratories, pharmacy, and emergency services.');
   });
 
   it('Carte Systems - Statistiques', () => {
