@@ -50,6 +50,19 @@
     display: flex;
 }
 
+.inlineFields {
+    display: flex;
+    justify-content: flex-start;
+    gap: 16px; /* Adjust the gap as needed */
+}
+
 .tooltipIcon {
     padding-left: 4px;
+}
+
+.summaryContent {
+    .link {
+        text-decoration: underline;
+        color: var(--blue-8);
+    }
 }

@@ -3,16 +3,18 @@
 import { ReadOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
 import Empty from '@ferlab/ui/core/components/Empty/index';
+import GridCard from '@ferlab/ui/core/view/v2/GridCard/index';
 import Title from 'antd/lib/typography/Title';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import intl from 'react-intl-universal';
 
+import SummaryContent from '@/app/table/[...slug]/SummaryContent';
 import getHistory from '@/app/table/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/table/[...slug]/utils/getSummaryDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard';
-import EntityCardHeader from '@/components/EntityPage/EntityCardHeader/EntityCardHeader';
+import EntityCardSummary from '@/components/EntityPage/EntityCardSummary/EntityCardSummary';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
 import { GET_TABLE_ENTITY } from '@/lib/graphql/queries/getTableEntity.query';
 import { useLang } from '@/store/global';
@@ -66,10 +68,24 @@ const EntityTablePage = () => {
         <EntityCard
           id={'summary'}
           loading={loading}
-          title={<EntityCardHeader type={intl.get('entities.table.Table')} name={table?.tab_name} />}
+          title={
+            <EntityCardSummary type={intl.get('entities.table.Table')} name={table?.tab_name} content={'undefined'} />
+          }
         >
           <EntityDescriptions descriptions={getSummaryDescriptions(lang, table)} />
         </EntityCard>
+        <GridCard
+          id={'summary'}
+          loading={loading}
+          style={{ padding: 24 }}
+          content={
+            <EntityCardSummary
+              type={intl.get('entities.table.Table')}
+              name={<div>{table?.tab_name}</div>}
+              content={SummaryContent(table)}
+            />
+          }
+        />
         <EntityCard id={'variables'} loading={loading} title={intl.get('entities.variable.Variables')}>
           <EntityDescriptions descriptions={getVariablesDescriptions(lang, table)} />
         </EntityCard>

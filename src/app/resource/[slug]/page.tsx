@@ -3,22 +3,26 @@
 import { ReadOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
 import Empty from '@ferlab/ui/core/components/Empty/index';
+import GridCard from '@ferlab/ui/core/view/v2/GridCard';
+import { Tag } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import intl from 'react-intl-universal';
 
+import SummaryContent from '@/app/resource/[slug]/SummaryContent';
 import getCurrentVersionDescriptions from '@/app/resource/[slug]/utils/getCurrentVersionDescriptions';
-import getSummaryDescriptions from '@/app/resource/[slug]/utils/getSummaryDescriptions';
 import getVariablesDescriptions from '@/app/resource/[slug]/utils/getVariablesDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard';
-import EntityCardHeader from '@/components/EntityPage/EntityCardHeader/EntityCardHeader';
+import EntityCardSummary from '@/components/EntityPage/EntityCardSummary/EntityCardSummary';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
 import { GET_RESOURCE_ENTITY } from '@/lib/graphql/queries/getResourceEntity.query';
 import { useLang } from '@/store/global';
 import { IResourceEntity } from '@/types/entities';
 import { QueryOptions } from '@/types/queries';
+import getTagColorByType from '@/utils/getTagColorByType';
+import { getRSLabelNameByType } from '@/utils/translation';
 
 import styles from './page.module.css';
 
@@ -58,13 +62,21 @@ const EntityResourcePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityCard
+        <GridCard
           id={'summary'}
           loading={loading}
-          title={<EntityCardHeader type={resource?.rs_type} name={<div>{resource?.rs_name}</div>} />}
-        >
-          <EntityDescriptions descriptions={getSummaryDescriptions(lang, resource)} />
-        </EntityCard>
+          style={{ padding: 24 }}
+          content={
+            <EntityCardSummary
+              type={resource?.rs_type}
+              name={<div>{resource?.rs_name}</div>}
+              content={SummaryContent(resource)}
+              extraTag={
+                <Tag color={getTagColorByType(resource?.rs_type)}>{getRSLabelNameByType(resource?.rs_type)}</Tag>
+              }
+            />
+          }
+        />
         <EntityCard id={'variables'} loading={loading} title={intl.get('entities.variable.Variables')}>
           <EntityDescriptions descriptions={getVariablesDescriptions(lang, resource)} />
         </EntityCard>

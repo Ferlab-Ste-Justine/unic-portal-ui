@@ -15,7 +15,7 @@ import getDerivation from '@/app/variable/[...slug]/utils/getDerivation';
 import getHistory from '@/app/variable/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/variable/[...slug]/utils/getSummaryDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard/EntityCard';
-import EntityCardHeader from '@/components/EntityPage/EntityCardHeader/EntityCardHeader';
+import EntityCardSummary from '@/components/EntityPage/EntityCardSummary/EntityCardSummary';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
 import EntityDownloadTSVButton from '@/components/EntityPage/EntityDownloadTSVButton';
 import { GET_VARIABLE_ENTITY } from '@/lib/graphql/queries/getVariableEntity.query';
@@ -125,10 +125,11 @@ const EntityVariablePage = () => {
           id={'summary'}
           loading={loading}
           title={
-            <EntityCardHeader
+            <EntityCardSummary
               type={intl.get('entities.variable.Variable')}
               name={variable?.var_name}
               extraTag={variable?.var_value_type}
+              content={'undefined'}
             />
           }
         >

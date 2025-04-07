@@ -18,8 +18,9 @@ export interface IEntityCard {
 export interface IEntityDescriptions {
   descriptions: IEntityDescriptionsItem[];
 }
-export interface IEntityCardHeader {
+export interface IEntityCardSumary {
   type: string;
   name: React.ReactNode | string;
-  extraTag?: string;
+  extraTag?: React.ReactNode;
+  content: React.ReactNode | string;
 }

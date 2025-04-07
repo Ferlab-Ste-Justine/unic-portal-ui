@@ -1,14 +1,20 @@
 
 .headerContainer {
-  svg {
-    display: block;
-    width: 56px;
-    height: 56px;
+  .fullHeightDivider {
+    height: 100%;
   }
 
-  svg path {
-    fill: var(--gray-6);
+  .iconContainer {
+    svg {
+      display: block;
+      width: 56px;
+      height: 56px;
+    }
+    svg path {
+      fill: var(--gray-6);
+    }
   }
+
 
   .title {
     padding-left: 24px;
@@ -26,12 +32,15 @@
         font-size: 24px;
         font-weight: 600;
         padding-right: 16px;
+        padding-bottom: 5px;
       }
       .entityVariableNameTag {
         font-weight: 400;
       }
     }
   }
-
+  .fullHeightDivider {
+    height: 100%;
+  }
 
 }
