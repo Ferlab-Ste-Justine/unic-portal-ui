@@ -3,7 +3,8 @@
 import { ReadOutlined, SearchOutlined } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
 import Empty from '@ferlab/ui/core/components/Empty/index';
-import { Input, Table } from 'antd';
+import GridCard from '@ferlab/ui/core/view/v2/GridCard/index';
+import { Input, Table, Tag } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import debounce from 'lodash/debounce';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ import intl from 'react-intl-universal';
 import getDerivation from '@/app/variable/[...slug]/utils/getDerivation';
 import getHistory from '@/app/variable/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/variable/[...slug]/utils/getSummaryDescriptions';
+import SummaryContent from '@/app/variable/[...slug]/SummaryContent/SummaryContent';
 import EntityCard from '@/components/EntityPage/EntityCard/EntityCard';
 import EntityCardSummary from '@/components/EntityPage/EntityCardSummary/EntityCardSummary';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
@@ -121,20 +123,22 @@ const EntityVariablePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityCard
-          id={'summary'}
-          loading={loading}
-          title={
-            <EntityCardSummary
-              type={intl.get('entities.variable.Variable')}
-              name={variable?.var_name}
-              extraTag={variable?.var_value_type}
-              content={'undefined'}
-            />
-          }
-        >
-          <EntityDescriptions descriptions={getSummaryDescriptions(lang, variable)} />
-        </EntityCard>
+        <div className={styles.summaryContentContainer}>
+          <GridCard
+            id={'summary'}
+            loading={loading}
+            style={{ padding: 24 }}
+            content={
+              <EntityCardSummary
+                type={intl.get('entities.variable.Variable')}
+                name={variable?.var_name}
+                content={SummaryContent(variable)}
+                extraTag={<Tag>{variable?.var_value_type}</Tag>}
+              />
+            }
+          />
+        </div>
+
         {variable?.value_set?.values?.length > 0 && (
           <EntityCard
             id={'categories'}

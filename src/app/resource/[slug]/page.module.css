@@ -31,14 +31,10 @@
 
 .entityPageContainer {
   padding: var(--default-page-content-padding);
-}
 
-.summaryTitle {
-  width: 100%;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  .summaryContentContainer {
+    padding-bottom: 8px;
+  }
 }
 
 .variables {
@@ -55,3 +51,4 @@
 .tooltipIcon {
   padding-left: 4px;
 }
+

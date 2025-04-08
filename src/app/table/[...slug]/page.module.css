@@ -35,14 +35,10 @@
 
 .entityPageContainer {
     padding: var(--default-page-content-padding);
-}
 
-.summaryTitle {
-    width: 100%;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    .summaryContentContainer {
+        padding-bottom: 8px;
+    }
 }
 
 .variables
@@ -50,19 +46,7 @@
     display: flex;
 }
 
-.inlineFields {
-    display: flex;
-    justify-content: flex-start;
-    gap: 16px; /* Adjust the gap as needed */
-}
-
 .tooltipIcon {
     padding-left: 4px;
 }
 
-.summaryContent {
-    .link {
-        text-decoration: underline;
-        color: var(--blue-8);
-    }
-}

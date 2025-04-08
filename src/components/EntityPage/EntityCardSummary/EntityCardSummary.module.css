@@ -1,7 +1,16 @@
 
 .headerContainer {
+
+  display: flex;
+  flex-direction: row;
+
   .fullHeightDivider {
     height: 100%;
+  }
+
+  .dividerCol {
+    flex: 0 1 auto;
+    border: 23px;
   }
 
   .iconContainer {
@@ -15,6 +24,9 @@
     }
   }
 
+  .headerContainerLeft {
+    padding-left: 24px;
+  }
 
   .title {
     padding-left: 24px;
@@ -33,6 +45,7 @@
         font-weight: 600;
         padding-right: 16px;
         padding-bottom: 5px;
+        word-wrap: break-word;
       }
       .entityVariableNameTag {
         font-weight: 400;
@@ -41,6 +54,34 @@
   }
   .fullHeightDivider {
     height: 100%;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .headerContainer {
+    flex-direction: column;
+
+    .innerRow {
+      flex-direction: column;
+    }
+
+    .title {
+      padding-left: 0;
+    }
+
+    .headerContainerLeft {
+      padding-top: 40px;
+      padding-left: 0;
+    }
+
+    .iconContainer {
+      padding-bottom: 24px;
+    }
+  }
+
+  .fullHeightDivider {
+    display: none;
   }
 
 }

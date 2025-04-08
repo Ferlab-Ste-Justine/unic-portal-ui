@@ -1,5 +1,5 @@
 import StudyIcon from '@ferlab/ui/core/components/Icons/Futuro/StudyIcon';
-import { Col, Divider, Row, Tag } from 'antd';
+import { Col, Divider, Row } from 'antd';
 import React from 'react';
 
 import { IEntityCardSumary } from '@/components/EntityPage/types/entityPage';
@@ -41,7 +41,7 @@ const getIconByType = (type: string) => {
 const EntityCardSummary = ({ name, type, extraTag, content }: IEntityCardSumary) => (
   <Row className={styles.headerContainer}>
     <Col span={11}>
-      <Row>
+      <Row className={styles.innerRow}>
         <Col className={styles.iconContainer}>{getIconByType(type)}</Col>
         <Col className={styles.title}>
           <Row className={styles.type}>{getRSLabelNameByType(type)}</Row>
@@ -52,10 +52,12 @@ const EntityCardSummary = ({ name, type, extraTag, content }: IEntityCardSumary)
         </Col>
       </Row>
     </Col>
-    <Col style={{ flex: '0 1 auto', border: 23 }}>
+    <Col className={styles.dividerCol}>
       <Divider type='vertical' className={styles.fullHeightDivider} />
     </Col>
-    <Col span={11}>{content}</Col>
+    <Col className={styles.headerContainerLeft} span={11}>
+      {content}
+    </Col>
   </Row>
 );
 

@@ -10,9 +10,8 @@ import { useParams } from 'next/navigation';
 import React from 'react';
 import intl from 'react-intl-universal';
 
-import SummaryContent from '@/app/table/[...slug]/SummaryContent';
+import SummaryContent from '@/app/table/[...slug]/SummaryContent/SummaryContent';
 import getHistory from '@/app/table/[...slug]/utils/getHistory';
-import getSummaryDescriptions from '@/app/table/[...slug]/utils/getSummaryDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard';
 import EntityCardSummary from '@/components/EntityPage/EntityCardSummary/EntityCardSummary';
 import EntityDescriptions from '@/components/EntityPage/EntityDescription/EntityDescriptions';
@@ -65,27 +64,20 @@ const EntityTablePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <EntityCard
-          id={'summary'}
-          loading={loading}
-          title={
-            <EntityCardSummary type={intl.get('entities.table.Table')} name={table?.tab_name} content={'undefined'} />
-          }
-        >
-          <EntityDescriptions descriptions={getSummaryDescriptions(lang, table)} />
-        </EntityCard>
-        <GridCard
-          id={'summary'}
-          loading={loading}
-          style={{ padding: 24 }}
-          content={
-            <EntityCardSummary
-              type={intl.get('entities.table.Table')}
-              name={<div>{table?.tab_name}</div>}
-              content={SummaryContent(table)}
-            />
-          }
-        />
+        <div className={styles.summaryContentContainer}>
+          <GridCard
+            id={'summary'}
+            loading={loading}
+            style={{ padding: 24 }}
+            content={
+              <EntityCardSummary
+                type={intl.get('entities.table.Table')}
+                name={<div>{table?.tab_name}</div>}
+                content={SummaryContent(table)}
+              />
+            }
+          />
+        </div>
         <EntityCard id={'variables'} loading={loading} title={intl.get('entities.variable.Variables')}>
           <EntityDescriptions descriptions={getVariablesDescriptions(lang, table)} />
         </EntityCard>

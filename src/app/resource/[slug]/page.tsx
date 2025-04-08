@@ -11,7 +11,7 @@ import { useParams } from 'next/navigation';
 import React from 'react';
 import intl from 'react-intl-universal';
 
-import SummaryContent from '@/app/resource/[slug]/SummaryContent';
+import SummaryContent from '@/app/resource/[slug]/SummaryContent/SummaryContent';
 import getCurrentVersionDescriptions from '@/app/resource/[slug]/utils/getCurrentVersionDescriptions';
 import getVariablesDescriptions from '@/app/resource/[slug]/utils/getVariablesDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard';
@@ -62,21 +62,23 @@ const EntityResourcePage = () => {
       </div>
 
       <div className={styles.entityPageContainer}>
-        <GridCard
-          id={'summary'}
-          loading={loading}
-          style={{ padding: 24 }}
-          content={
-            <EntityCardSummary
-              type={resource?.rs_type}
-              name={<div>{resource?.rs_name}</div>}
-              content={SummaryContent(resource)}
-              extraTag={
-                <Tag color={getTagColorByType(resource?.rs_type)}>{getRSLabelNameByType(resource?.rs_type)}</Tag>
-              }
-            />
-          }
-        />
+        <div className={styles.summaryContentContainer}>
+          <GridCard
+            id={'summary'}
+            loading={loading}
+            style={{ padding: 24 }}
+            content={
+              <EntityCardSummary
+                type={resource?.rs_type}
+                name={<div>{resource?.rs_name}</div>}
+                content={SummaryContent(resource)}
+                extraTag={
+                  <Tag color={getTagColorByType(resource?.rs_type)}>{getRSLabelNameByType(resource?.rs_type)}</Tag>
+                }
+              />
+            }
+          />
+        </div>
         <EntityCard id={'variables'} loading={loading} title={intl.get('entities.variable.Variables')}>
           <EntityDescriptions descriptions={getVariablesDescriptions(lang, resource)} />
         </EntityCard>
