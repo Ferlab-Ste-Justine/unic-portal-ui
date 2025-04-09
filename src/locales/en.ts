@@ -77,6 +77,7 @@ const en = {
     no_data: 'No Data',
     label: 'Label',
     source: 'Source',
+    sources: 'Sources',
     sourceInfo: 'The source refers to the hospital system that is the origin of the variable.',
     source_name: 'Source Name',
     algorithmDerivation: 'Derivation Algorithm',
@@ -109,6 +110,7 @@ const en = {
     history: 'History',
     download: 'Download',
     about: 'About',
+    derivation: 'Derivation',
     proTable: {
       results: 'Results',
       result: 'Result',

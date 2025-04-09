@@ -11,6 +11,7 @@ import { useParams } from 'next/navigation';
 import React, { useCallback, useState } from 'react';
 import intl from 'react-intl-universal';
 
+import getDerivation from '@/app/variable/[...slug]/utils/getDerivation';
 import getHistory from '@/app/variable/[...slug]/utils/getHistory';
 import getSummaryDescriptions from '@/app/variable/[...slug]/utils/getSummaryDescriptions';
 import EntityCard from '@/components/EntityPage/EntityCard/EntityCard';
@@ -164,6 +165,11 @@ const EntityVariablePage = () => {
               size='small'
               scroll={scroll}
             />
+          </EntityCard>
+        )}
+        {(variable?.var_from_variables?.length > 0 || variable?.var_derivation_algorithm) && (
+          <EntityCard id={'derivation'} loading={loading} title={intl.get('global.derivation')}>
+            <EntityDescriptions descriptions={getDerivation(lang, variable)} />
           </EntityCard>
         )}
         <EntityCard id={'history'} loading={loading} title={intl.get('global.history')}>

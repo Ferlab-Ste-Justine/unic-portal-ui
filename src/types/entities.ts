@@ -54,6 +54,24 @@ export interface IVariableEntity {
   value_set: IValueSetType;
   table: ITableEntity;
   search_after: string[];
+  var_from_variables: IVarFromVariable[];
+}
+
+export interface IVarFromVariable {
+  published: boolean;
+  resource: {
+    rs_code: string;
+    rs_id: number;
+    rs_name: string;
+  };
+  table: {
+    tab_id: number;
+    tab_label_en: string;
+    tab_label_fr: string;
+    tab_name: string;
+  };
+  var_id: number;
+  var_name: string;
 }
 
 export interface IResourceEntity {

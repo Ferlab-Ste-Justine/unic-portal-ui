@@ -1,0 +1,14 @@
+.sourceLinkContainer {
+    display: flex;
+    flex-direction: row;
+    color:  var(--gray-6);
+
+    .icon {
+        padding: 0 4px;
+
+        svg {
+            height: 12px;
+            width: 12px;
+        }
+    }
+}

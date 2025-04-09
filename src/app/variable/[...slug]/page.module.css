@@ -35,6 +35,12 @@
     span::first-letter {
         text-transform: capitalize;
     }
+
+    .derivationContainer {
+        padding: 12px;
+        background-color: var(--gray-2);
+        display: inline-block;
+    }
 }
 
 .summaryTitle {

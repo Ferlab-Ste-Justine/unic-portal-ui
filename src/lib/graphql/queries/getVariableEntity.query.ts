@@ -33,6 +33,17 @@ export const GET_VARIABLE_ENTITY = gql`
             vsval_label_fr
           }
         }
+        var_from_variables {
+          var_id
+          var_name
+          resource {
+            rs_code
+            rs_name
+          }
+          table {
+            tab_name
+          }
+        }
       }
     }
   }
