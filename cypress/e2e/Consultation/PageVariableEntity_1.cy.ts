@@ -42,11 +42,6 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
     cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).find('[class="ant-tag"]').should('exist');
   });
 
-  it('Panneau Summary - Derivation Algorithm', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(4).contains('Derivation Algorithm').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(4).find('[class*="monospace-text"]').contains('AS IS (JOIN)').should('exist');
-  });
-
   it('Panneau Summary - Notes', () => {
     cy.get('[id="summary"] [class="ant-descriptions-item-label"]').contains('Notes').should('not.exist');
   });
@@ -65,6 +60,19 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
     cy.get('[id="categories"] [data-row-key="MN"] td').eq(1).contains('Nuclear medicine').should('exist');
     cy.get('[id="categories"] [data-row-key="OG"] td').eq(0).contains('OG').should('exist');
     cy.get('[id="categories"] [data-row-key="OG"] td').eq(1).contains('Obstetric and gynecology').should('exist');
+  });
+
+  it('Panneau Derivation - Sources', () => {
+    cy.get('[id="derivation"] [class="ant-descriptions-item-label"]').eq(0).contains('Sources').should('exist');
+    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"]').contains('radimage').should('exist');
+    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"]').contains('requete').should('exist');
+    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"]').contains('SECTEUR').should('exist');
+    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"] [class*="SourceLink_icon"]').eq(1).should('exist');
+  });
+
+  it('Panneau Derivation - Algorithm', () => {
+    cy.get('[id="derivation"] [class="ant-descriptions-item-label"]').eq(1).contains('Algorithm').should('exist');
+    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(1).find('[class*="monospace-text"]').contains('AS IS (JOIN)').should('exist');
   });
 
   it('Panneau History - Created On', () => {
