@@ -24,20 +24,6 @@ const formatDeviationAlgorithm = (str: string) => {
 };
 
 const getDerivation = (lang: LANG, variableEntity?: IVariableEntity): IEntityDescriptionsItem[] => [
-  ...(variableEntity?.var_derivation_algorithm
-    ? [
-        {
-          label: intl.get('entities.algorithmDerivation'),
-          value: (
-            <div className={styles.derivationContainer}>
-              {variableEntity?.var_derivation_algorithm
-                ? formatDeviationAlgorithm(variableEntity?.var_derivation_algorithm)
-                : TABLE_EMPTY_PLACE_HOLDER}
-            </div>
-          ),
-        },
-      ]
-    : []),
   ...(variableEntity?.var_from_variables?.length
     ? [
         {
@@ -56,6 +42,20 @@ const getDerivation = (lang: LANG, variableEntity?: IVariableEntity): IEntityDes
                 ></SourceLink>
               ))}
             </>
+          ),
+        },
+      ]
+    : []),
+  ...(variableEntity?.var_derivation_algorithm
+    ? [
+        {
+          label: intl.get('entities.algorithmDerivation'),
+          value: (
+            <div className={styles.derivationContainer}>
+              {variableEntity?.var_derivation_algorithm
+                ? formatDeviationAlgorithm(variableEntity?.var_derivation_algorithm)
+                : TABLE_EMPTY_PLACE_HOLDER}
+            </div>
           ),
         },
       ]

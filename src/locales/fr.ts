@@ -80,7 +80,7 @@ const fr = {
     sources: 'Sources',
     sourceInfo: 'La source désigne le système hospitalier qui est à l’origine de la variable.',
     source_name: 'Nom de la source',
-    algorithmDerivation: 'Algorithme de dérivation',
+    algorithmDerivation: 'Algorithme',
     notes: 'Notes',
     value: 'Valeur',
   },

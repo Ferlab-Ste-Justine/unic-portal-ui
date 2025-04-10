@@ -80,7 +80,7 @@ const en = {
     sources: 'Sources',
     sourceInfo: 'The source refers to the hospital system that is the origin of the variable.',
     source_name: 'Source Name',
-    algorithmDerivation: 'Derivation Algorithm',
+    algorithmDerivation: 'Algorithm',
     notes: 'Notes',
     value: 'Value',
   },
