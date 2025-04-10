@@ -77,16 +77,6 @@ const SummaryContent = (variableEntity: IVariableEntity) => {
           )}
         </Col>
       </Row>
-      {variableEntity?.var_derivation_algorithm && (
-        <Row>
-          {FieldContent(
-            intl.get('entities.algorithmDerivation'),
-            variableEntity?.var_derivation_algorithm
-              ? formatDeviationAlgorithm(variableEntity?.var_derivation_algorithm)
-              : TABLE_EMPTY_PLACE_HOLDER,
-          )}
-        </Row>
-      )}
       {variableEntity?.var_notes && (
         <Row>{FieldContent(intl.get('entities.notes'), variableEntity?.var_notes || TABLE_EMPTY_PLACE_HOLDER)}</Row>
       )}
