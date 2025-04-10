@@ -31,4 +31,19 @@ describe('Page d\'une variable - Valider les liens disponibles', () => {
     cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).find('[href]').clickAndWait();
     cy.get('[class*="page_titleHeader"]').contains('medical_imaging').should('exist');
   });
+
+  it('Lien Derivation Resource', () => {
+    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"] [href="/resource/radimage"]').eq(0).clickAndWait();
+    cy.get('[class*="page_titleHeader"]').contains('radimage').should('exist');
+  });
+
+  it('Lien Derivation Table', () => {
+    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"] [href="/table/radimage/requete"]').clickAndWait();
+    cy.get('[class*="page_titleHeader"]').contains('requete').should('exist');
+  });
+
+  it('Lien Derivation Variable', () => {
+    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"] [href="/variable/radimage/requete/SECTEUR"]').clickAndWait();
+    cy.get('[class*="page_titleHeader"]').contains('SECTEUR').should('exist');
+  });
 });
