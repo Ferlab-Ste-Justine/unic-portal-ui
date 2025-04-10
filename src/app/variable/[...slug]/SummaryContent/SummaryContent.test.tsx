@@ -164,25 +164,6 @@ describe('SummaryContent Component', () => {
     expect(tableLink).toHaveAttribute('href', '/table/test-code/Test Table Name');
   });
 
-  it('renders value type as a tag', () => {
-    render(
-      <Provider store={store}>
-        <SummaryContent {...mockVariableEntity} />
-      </Provider>,
-    );
-    expect(screen.getByText('String')).toBeInTheDocument();
-  });
-
-  it('renders derivation algorithm as formatted rows', () => {
-    render(
-      <Provider store={store}>
-        <SummaryContent {...mockVariableEntity} />
-      </Provider>,
-    );
-    expect(screen.getByText('Algorithm1')).toBeInTheDocument();
-    expect(screen.getByText('Algorithm2')).toBeInTheDocument();
-  });
-
   it('renders notes when available', () => {
     render(
       <Provider store={store}>

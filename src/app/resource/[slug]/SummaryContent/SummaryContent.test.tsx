@@ -97,12 +97,13 @@ describe('InputSelect Component', () => {
   });
 
   it('renders approval date in the correct format', () => {
+    const approvalDate = new Date(12345).toLocaleDateString('en-CA');
     render(
       <Provider store={store}>
         <SummaryContent {...mockResourceEntity} />
       </Provider>,
     );
-    expect(screen.getByText('1969-12-31')).toBeInTheDocument();
+    expect(screen.getByText(approvalDate)).toBeInTheDocument();
   });
 
   it('renders starting year when rs_type is source_system', () => {

@@ -1,6 +1,6 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { TABLE_EMPTY_PLACE_HOLDER } from '@ferlab/ui/core/common/constants';
-import { Button, Col, Row, Tag, Tooltip } from 'antd';
+import { Button, Col, Row, Tooltip } from 'antd';
 import React from 'react';
 import intl from 'react-intl-universal';
 
@@ -16,19 +16,6 @@ const FieldContent = (label: string | React.ReactNode, description: string | num
     <div className={styles.fieldContentDescription}>{description}</div>
   </div>
 );
-
-const formatDeviationAlgorithm = (str: string) => {
-  const parts = str.split(',');
-  return (
-    <Col>
-      {parts.map((p) => (
-        <Row className='monospace-text' key={p}>
-          {p}
-        </Row>
-      ))}
-    </Col>
-  );
-};
 
 const SummaryContent = (variableEntity: IVariableEntity) => {
   const lang = useLang();
