@@ -18,7 +18,7 @@ describe('Page d\'une table - Valider les liens disponibles', () => {
   });
 
   it('Lien Resource', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).find('[href]').clickAndWait();
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(0).find('[href]').clickAndWait();
     cy.get('[class*="page_titleHeader"]').contains('warehouse').should('exist');
   });
 
