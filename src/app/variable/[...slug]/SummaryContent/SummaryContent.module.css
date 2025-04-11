@@ -1,0 +1,36 @@
+.summaryContainer {
+  & > div[class*='ant-row']:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  .linkWrapper {
+    color: var(--blue-8);
+
+    & > a[class*='ant-btn-link']  {
+      text-decoration: underline;
+      color: var(--blue-8);
+      padding: 0;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    .linkIcon {
+      margin-left: 8px;
+    }
+  }
+
+  .tooltipIcon {
+    padding-left: 4px;
+  }
+
+  .fieldContentTitle {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .fieldContentDescription {
+    margin: 0;
+  }
+}

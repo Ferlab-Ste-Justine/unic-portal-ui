@@ -41,7 +41,7 @@ describe('Variable Entity', () => {
           hits: [
             {
               var_name: 'labTestStatus',
-              var_value_type: 'string',
+              var_value_type: 'type_string',
               var_derivation_algorithm: 'AS IS',
               var_notes: null,
               var_label_fr: 'Statut du test',
@@ -51,6 +51,19 @@ describe('Variable Entity', () => {
               resource: {
                 rs_name: 'warehouse',
                 rs_code: 'warehouse',
+              },
+              var_source_type: {
+                rs_id: 125,
+                rs_name: 'string',
+                rs_code: 'string',
+                published: false,
+                stat_etl: {
+                  variable_count: 57,
+                  table_count: 3,
+                  project_count: 0,
+                  domain_count: 0,
+                  source_system_count: 0,
+                },
               },
               table: {
                 tab_name: 'lab_results',
@@ -98,7 +111,6 @@ describe('Variable Entity', () => {
     render(<EntityVariablePage />);
     expect(screen.getByText('entities.variable.Variable')).toBeInTheDocument();
     expect(screen.getByText('global.categories')).toBeInTheDocument();
-    expect(screen.getByText('global.history')).toBeInTheDocument();
   });
 
   it('proper links should be in variable entity page', () => {
@@ -162,6 +174,16 @@ describe('Variable Entity', () => {
     // After the change, check if the table contains only the filtered data
     expect(screen.getByText('Canceled')).toBeInTheDocument();
     expect(screen.queryByText('Final')).not.toBeInTheDocument();
+  });
+
+  it('renders derivation algorithm as formatted rows', () => {
+    render(<EntityVariablePage />);
+    expect(screen.getByText('AS IS')).toBeInTheDocument();
+  });
+
+  it('renders value type as a tag', () => {
+    render(<EntityVariablePage />);
+    expect(document.querySelector('.ant-tag')?.textContent).toBe('type_string');
   });
 });
 

@@ -15,35 +15,43 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
   });
 
   it('Panneau Summary - Header', () => {
-    cy.get('[id="summary"] [class*="EntityCardHeader"] [data-testid="keywording-tools-icon"]').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_type"]').contains('Variable').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_name"]').contains('sector').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardHeader"] [class="ant-tag"]').contains('string').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary"] [data-testid="keywording-tools-icon"]').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_title"]').contains('Variable').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_title"]').contains('sector').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_title"] [class="ant-tag"]').contains('string').should('exist');
   });
 
   it('Panneau Summary - Label', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(0).contains('Label').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).contains('Sector code').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(0).contains('Label').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(0).contains('Sector code').should('exist');
   });
 
   it('Panneau Summary - Resource', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(1).contains('Resource').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(1).contains('warehouse').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('Resource').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('warehouse').should('exist');
   });
 
   it('Panneau Summary - Table', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(2).contains('Table').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).contains('medical_imaging').should('exist');
-  });
-
-  it('Panneau Summary - Type', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(3).contains('Type').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).contains('string').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(3).find('[class="ant-tag"]').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('Table').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('medical_imaging').should('exist');
   });
 
   it('Panneau Summary - Notes', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').contains('Notes').should('not.exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"]').contains('Notes').should('not.exist');
+  });
+
+  it('Panneau Summary - Created On', () => {
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('Created On').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).find('[class*="ant-col"]').eq(0).find('[class*="tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent'});
+    cy.get('body').contains('Creation date of the dictionary for this variable').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('2024-08-16').should('exist');
+  });
+
+  it('Panneau Summary - Updated On', () => {
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('Updated On').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).find('[class*="ant-col"]').eq(1).find('[class*="tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent'});
+    cy.get('body').contains('Date of the most recent update of the dictionary for this variable').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('2024-08-16').should('exist');
   });
 
   it('Panneau Categories - Headers', () => {
@@ -73,15 +81,5 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
   it('Panneau Derivation - Algorithm', () => {
     cy.get('[id="derivation"] [class="ant-descriptions-item-label"]').eq(1).contains('Algorithm').should('exist');
     cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(1).find('[class*="monospace-text"]').contains('AS IS (JOIN)').should('exist');
-  });
-
-  it('Panneau History - Created On', () => {
-    cy.get('[id="history"] [class="ant-descriptions-item-label"]').eq(0).contains('Created On').should('exist');
-    cy.get('[id="history"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-08-16').should('exist');
-  });
-
-  it('Panneau History - Updated On', () => {
-    cy.get('[id="history"] [class="ant-descriptions-item-label"]').eq(1).contains('Updated On').should('exist');
-    cy.get('[id="history"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-08-16').should('exist');
   });
 });

@@ -13,25 +13,20 @@ describe('Page d\'un Système hospitalier - Vérifier les informations affichée
   });
 
   it('Panneau Summary - Header', () => {
-    cy.get('[id="summary"] [class*="EntityCardHeader"] [data-testid="caduceus-medicine-icon"]').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_type"]').contains('Hospital System').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardHeader"] [class*="EntityCardHeader_name"]').contains('centro').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary"] [data-testid="caduceus-medicine-icon"]').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_title"] [class*="EntityCardSummary_type"]').contains('Hospital System').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_title"]').contains('centro').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_title"] [class*="ant-tag-purple"]').contains('Hospital System').should('exist');
   });
 
   it('Panneau Summary - Description', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(0).contains('Description').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(0).contains('Information system for the CHUSJ outpatient clinics. This source includes all electronic forms developed in the different hospital departments').should('exist');
-  });
-
-  it('Panneau Summary - Type', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(1).contains('Type').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(1).contains('Hospital System').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(1).find('[class*="ant-tag-purple"]').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('Description').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('Information system for the CHUSJ outpatient clinics. This source includes all electronic forms developed in the different hospital departments').should('exist');
   });
 
   it('Panneau Summary - Collection Starting Year', () => {
-    cy.get('[id="summary"] [class="ant-descriptions-item-label"]').eq(2).contains('Collection Starting Year').should('exist');
-    cy.get('[id="summary"] [class="ant-descriptions-item-content"]').eq(2).contains('2012').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(3).contains('Collection Starting Year').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(3).contains('2012').should('exist');
   });
 
   it('Panneau Variables - Variable Count', () => {
