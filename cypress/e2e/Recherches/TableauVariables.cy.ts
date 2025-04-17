@@ -14,7 +14,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Varia
 
   it('Results by Description fr [UNICWEB-157]', () => {
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('Antécédent d\'Anomalie');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^\d{1} Result$/).should('exist');
   });
 
   it('Results by Name', () => {

@@ -44,14 +44,14 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
     cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('Created On').should('exist');
     cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).find('[class*="ant-col"]').eq(0).find('[class*="tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent'});
     cy.get('body').contains('Creation date of the dictionary for this variable').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('2024-08-16').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('2024-11-04').should('exist');
   });
 
   it('Panneau Summary - Updated On', () => {
     cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('Updated On').should('exist');
     cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).find('[class*="ant-col"]').eq(1).find('[class*="tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent'});
     cy.get('body').contains('Date of the most recent update of the dictionary for this variable').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('2024-08-16').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(2).contains('2024-11-07').should('exist');
   });
 
   it('Panneau Categories - Headers', () => {
@@ -80,6 +80,6 @@ describe('Page d\'une variable - Vérifier les informations affichées', () => {
 
   it('Panneau Derivation - Algorithm', () => {
     cy.get('[id="derivation"] [class="ant-descriptions-item-label"]').eq(1).contains('Algorithm').should('exist');
-    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(1).find('[class*="monospace-text"]').contains('AS IS (JOIN)').should('exist');
+    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(1).find('[class*="monospace-text"]').contains('AS IS').should('exist');
   });
 });

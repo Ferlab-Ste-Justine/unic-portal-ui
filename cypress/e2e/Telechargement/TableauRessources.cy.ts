@@ -17,7 +17,7 @@ beforeEach(() => {
   cy.showColumn('Nagano ID');
   cy.showColumn('Principal Investigator');
   cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('bronchiolite');
-  cy.waitWhileSpin(oneMinute);
+  cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
   
   cy.clickAndIntercept('[id*="panel-resources"] [class*="Header_ProTableHeader"] [data-icon="download"]', 'POST', '**/graphql', 2);
   cy.waitUntilFile(oneMinute);
