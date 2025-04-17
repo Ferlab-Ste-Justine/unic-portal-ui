@@ -15,11 +15,11 @@ describe('Tableau Variables - Valider les liens du filtre Source', () => {
 
   it('Reset filters - Results', () => {
     cy.get('[id*="panel-variables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^13.7K Results$| of 13.7K$)/).should('not.exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^13.8K Results$| of 13.8K$)/).should('not.exist');
   });
 
   it('Clear Input - Results', () => {
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [class="ant-select-clear"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^13.7K Results$| of 13.7K$)/).should('not.exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^13.8K Results$| of 13.8K$)/).should('not.exist');
   });
 });

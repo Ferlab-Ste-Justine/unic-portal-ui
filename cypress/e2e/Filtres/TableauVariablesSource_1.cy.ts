@@ -9,7 +9,7 @@ beforeEach(() => {
 describe('Tableau Variables - Vérifier la fonctionnalité du filtre Source', () => {
   it('Results', () => {
     cy.inputDropdownSelectValue('panel-variables', 3/*Source*/, 'centro');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^13.7K Results$| of 13.7K$)/).should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^13.8K Results$| of 13.8K$)/).should('exist');
   });
 
   it('Lien Reset filters', () => {

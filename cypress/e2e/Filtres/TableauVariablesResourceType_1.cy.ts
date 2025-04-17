@@ -9,7 +9,7 @@ beforeEach(() => {
 describe('Tableau Variables - Vérifier la fonctionnalité du filtre Resource type', () => {
   it('Results', () => {
     cy.inputDropdownSelectValue('panel-variables', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^457 Results$| of 457$)/).should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^466 Results$| of 466$)/).should('exist');
   });
 
   it('Lien Reset filters', () => {

@@ -21,7 +21,7 @@ describe('Page d\'un Système hospitalier - Vérifier les informations affichée
 
   it('Panneau Summary - Description', () => {
     cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('Description').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('Information system for the CHUSJ outpatient clinics. This source includes all electronic forms developed in the different hospital departments').should('exist');
+    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('Information system for the CHU Sainte Justine outpatient clinics including all electronic forms developed in the different hospital departments.').should('exist');
   });
 
   it('Panneau Summary - Collection Starting Year', () => {
@@ -31,16 +31,16 @@ describe('Page d\'un Système hospitalier - Vérifier les informations affichée
 
   it('Panneau Variables - Variable Count', () => {
     cy.get('[id="variables"] [class="ant-descriptions-item-label"]').eq(0).contains('Variable Count').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains('13654').should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains('13677').should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains(' (in 419 tables)').should('exist');
   });
 
   it('Panneau Current version - Published On', () => {
     cy.get('[id="currentVersion"] [class="ant-descriptions-item-label"]').eq(0).contains('Published On').should('exist');
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-08-16').should('exist');
+    cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-10-31').should('exist');
   });
 
-  it('Panneau Current version - Version', () => {
+  it('Panneau Current version - Version [UNICWEB-189]', () => {
     cy.get('[id="currentVersion"] [class="ant-descriptions-item-label"]').eq(1).contains('Version').should('exist');
     cy.get('[id="currentVersion"] [class*="page_tooltipIcon"]').should('not.exist');
     cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(1).contains(/^1$/).should('exist');

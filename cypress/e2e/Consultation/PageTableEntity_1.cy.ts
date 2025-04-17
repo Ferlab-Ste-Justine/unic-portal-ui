@@ -56,13 +56,13 @@ describe('Page d\'une table - Vérifier les informations affichées', () => {
     cy.get('[id="history"] [class="ant-descriptions-item-label"]').eq(0).contains('Created On').should('exist');
     cy.get('[id="history"] [class="ant-descriptions-item-label"]').eq(0).find('[class*="tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent'});
     cy.get('body').contains('Creation date of the dictionary for this table').should('exist');
-    cy.get('[id="history"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-08-16').should('exist');
+    cy.get('[id="history"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-11-04').should('exist');
   });
 
   it('Panneau History - Updated On', () => {
     cy.get('[id="history"] [class="ant-descriptions-item-label"]').eq(1).contains('Updated On').should('exist');
     cy.get('[id="history"] [class="ant-descriptions-item-label"]').eq(1).find('[class*="tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent'});
     cy.get('body').contains('Date of the most recent update of the dictionary for this table').should('exist');
-    cy.get('[id="history"] [class="ant-descriptions-item-content"]').eq(1).contains('2024-08-16').should('exist');
+    cy.get('[id="history"] [class="ant-descriptions-item-content"]').eq(1).contains('2024-11-04').should('exist');
   });
 });

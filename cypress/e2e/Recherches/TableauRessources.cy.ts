@@ -18,7 +18,7 @@ describe('Tableau Ressources - Vérifier la fonctionnalité de la recherche Reso
   });
 
   it('Results by Description fr', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('les tables d\'entrepôt');
+    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('Tables d\'entrepôt');
     cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
   });
 

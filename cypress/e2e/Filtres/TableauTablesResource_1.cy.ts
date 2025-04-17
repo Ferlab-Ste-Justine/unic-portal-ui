@@ -9,7 +9,7 @@ beforeEach(() => {
 describe('Tableau Tables - Vérifier la fonctionnalité du filtre Resource', () => {
   it('Results', () => {
     cy.inputDropdownSelectValue('panel-tables', 0/*Resource*/, 'LVC-Bronchiolite-HSJ');
-    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^13 Results$| of 13$)/).should('exist');
+    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^17 Results$| of 17$)/).should('exist');
   });
 
   it('Lien Reset filters', () => {

@@ -11,8 +11,8 @@
   "content": ["#_Admitted_COVID",
               "Number of patients positive COVID that was hospitalized",
               "integer",
-              "-",
+              "softlab,loinc",
               "weekly_summary",
               "Germes",
-              "2024-09-17"]
+              "2024-11-05"]
 }

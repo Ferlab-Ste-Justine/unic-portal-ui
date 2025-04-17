@@ -14,7 +14,7 @@ describe('Tableau Tables - Vérifier la fonctionnalité du filtre Resource type'
 
   it('Results', () => {
     cy.inputDropdownSelectValue('panel-tables', 1/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^15 Results$| of 15$)/).should('exist');
+    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^16 Results$| of 16$)/).should('exist');
   });
 
   it('Lien Reset filters', () => {

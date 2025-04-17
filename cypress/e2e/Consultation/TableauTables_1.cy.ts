@@ -20,13 +20,13 @@ describe('Tableau Tables - Vérifier les informations affichées', () => {
   });
 
   it('Tableau', () => {
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(0).contains('accouchement').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(1).contains('Information regarding childbirth').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(2).contains('RESPPA').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(3).contains('delivery').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(4).contains('-').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(5).contains('11').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(6).contains('2024-09-17').should('exist');
-    cy.get('[data-row-key="2139"] [class="ant-table-cell"]').eq(7).contains('2024-09-17').should('exist');
+    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(0).contains('accouchement').should('exist');
+    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(1).contains('Information regarding childbirth').should('exist');
+    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(2).contains('RESPPA').should('exist');
+    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(3).contains('delivery').should('exist');
+    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(4).contains('-').should('exist');
+    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(5).contains('11').should('exist');
+    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(6).contains('2024-11-05').should('exist');
+    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(7).contains('2024-11-05').should('exist');
   });
 });
