@@ -13,7 +13,7 @@ beforeEach(() => {
   cy.showColumn('Domain', 1);
   cy.showColumn('Created On', 1);
   cy.showColumn('Updated On', 1);
-  cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('accouchement');
+  cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('complications_accouchement');
   cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
   
   cy.clickAndIntercept('[id*="panel-tables"] [class*="Header_ProTableHeader"] [data-icon="download"]', 'POST', '**/graphql', 2);
