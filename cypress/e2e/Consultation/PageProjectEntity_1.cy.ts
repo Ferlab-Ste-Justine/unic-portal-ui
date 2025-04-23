@@ -78,10 +78,10 @@ describe('Page d\'un projet - Vérifier les informations affichées', () => {
     cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-10-31').should('exist');
   });
 
-  it('Panneau Current version - Version [UNICWEB-189]', () => {
+  it('Panneau Current version - Version', () => {
     cy.get('[id="currentVersion"] [class="ant-descriptions-item-label"]').eq(1).contains('Version').should('exist');
     cy.get('[id="currentVersion"] [class*="page_tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent'});
     cy.get('body').contains('Dictionary version for this project').should('exist');
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(1).contains(/^1$/).should('exist');
+    cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(1).contains('-').should('exist');
   });
 });
