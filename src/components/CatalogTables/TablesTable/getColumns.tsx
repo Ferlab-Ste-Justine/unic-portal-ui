@@ -67,6 +67,7 @@ const getColumns = (lang: LANG): ColumnType[] => [
           onClick={() =>
             store.dispatch(
               globalActions.setFilters([
+                { key: 'resource.rs_name', values: [table.resource.rs_name], tabKey: VARIABLES_TAB_KEY },
                 { key: 'table.tab_name', values: [table.tab_name], tabKey: VARIABLES_TAB_KEY },
               ]),
             )
