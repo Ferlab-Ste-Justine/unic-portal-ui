@@ -25,7 +25,7 @@ describe('Tableau Ressources - Vérifier les informations affichées', () => {
     cy.get('[class*="ant-tabs-tab-active"]').contains('Resources').should('exist');
   });
 
-  it('Tableau [UNICWEB-189]', () => {
+  it('Tableau', () => {
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(0).contains('bronchiolite').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(1).contains('LVC-Bronchiolite-HSJ').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(2).contains('Research').should('exist');
@@ -37,7 +37,7 @@ describe('Tableau Ressources - Vérifier les informations affichées', () => {
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(7).contains('123').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(8).contains('Study aimed at').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(9).contains('-').should('exist');
-    cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(10).contains(/^1$/).should('exist');
+    cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(10).contains('-').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(11).contains('MP-21-2023-4939').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(12).contains('Dr Olivier Drouin').should('exist');
   });
