@@ -55,7 +55,7 @@ describe('Tableau Variables - Valider les fonctionnalités du tableau', () => {
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     cy.sortTableAndIntercept('Type', 1, 1);
     cy.sortTableAndIntercept('Table', 1, 1);
-    cy.validateTableFirstRow(/^d/, 5, false, '[id*="panel-variables"]');
+    cy.validateTableFirstRow(/^a/, 5, false, '[id*="panel-variables"]');
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {

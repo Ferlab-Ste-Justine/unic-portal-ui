@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 import { oneMinute } from 'cypress/support/utils';
-import '../../support/commands';
+import 'cypress/support/commands';
+import { catalogVariableCount } from 'cypress/support/catalog/variables';
 
 beforeEach(() => {
   cy.login();
@@ -48,7 +49,7 @@ describe('Tableau Ressources - Valider les liens disponibles', () => {
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
     cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="LVC-Bronchiolite-HSJ"]').should('exist');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^123 Results$| of 123$)/).should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(new RegExp(`(^${catalogVariableCount.LVCBronchioliteHSJ} Results$| of ${catalogVariableCount.LVCBronchioliteHSJ}$)`)).should('exist');
   });
 
   it('Lien Variable (Hospital System)', () => {
