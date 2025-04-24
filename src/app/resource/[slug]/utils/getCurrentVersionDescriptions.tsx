@@ -29,7 +29,7 @@ const getCurrentVersionDescriptions = (lang: LANG, resourceEntity?: IResourceEnt
         )}
       </>
     ),
-    value: resourceEntity?.rs_last_update ? resourceEntity?.rs_dict_current_version : TABLE_EMPTY_PLACE_HOLDER,
+    value: resourceEntity?.rs_dict_current_version ? resourceEntity?.rs_dict_current_version : TABLE_EMPTY_PLACE_HOLDER,
   },
 ];
 
