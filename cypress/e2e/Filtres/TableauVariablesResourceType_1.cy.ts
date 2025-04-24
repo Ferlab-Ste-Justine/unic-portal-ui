@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { catalogVariableCount } from 'cypress/support/catalog/variables';
 
 beforeEach(() => {
   cy.login();
@@ -9,7 +10,7 @@ beforeEach(() => {
 describe('Tableau Variables - Vérifier la fonctionnalité du filtre Resource type', () => {
   it('Results', () => {
     cy.inputDropdownSelectValue('panel-variables', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^466 Results$| of 466$)/).should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(new RegExp(`(^${catalogVariableCount.Warehouse} Results$| of ${catalogVariableCount.Warehouse}$)`)).should('exist');
   });
 
   it('Lien Reset filters', () => {

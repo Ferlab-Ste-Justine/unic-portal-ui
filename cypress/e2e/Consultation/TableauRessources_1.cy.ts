@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 import { oneMinute } from 'cypress/support/utils';
-import '../../support/commands';
+import 'cypress/support/commands';
+import { catalogVariableCount } from 'cypress/support/catalog/variables';
 
 beforeEach(() => {
   cy.login();
@@ -25,7 +26,7 @@ describe('Tableau Ressources - Vérifier les informations affichées', () => {
     cy.get('[class*="ant-tabs-tab-active"]').contains('Resources').should('exist');
   });
 
-  it('Tableau', () => {
+  it('Tableau [UNICWEB-197]', () => {
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(0).contains('bronchiolite').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(1).contains('LVC-Bronchiolite-HSJ').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(2).contains('Research').should('exist');
@@ -34,7 +35,7 @@ describe('Tableau Ressources - Vérifier les informations affichées', () => {
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(4).contains(/^2023-03-(09|10)$/).should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(5).contains(/^2022-10-(19|20)$/).should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(6).contains('17').should('exist');
-    cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(7).contains('123').should('exist');
+    cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(7).contains(catalogVariableCount.LVCBronchioliteHSJ).should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(8).contains('Study aimed at').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(9).contains('-').should('exist');
     cy.get('[data-row-key="227"] [class="ant-table-cell"]').eq(10).contains('-').should('exist');

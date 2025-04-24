@@ -1,5 +1,7 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { catalogVariableCount } from 'cypress/support/catalog/variables';
+import { entityPageProjectCount } from 'cypress/support/entityPage/project';
 
 beforeEach(() => {
   cy.login();
@@ -46,7 +48,7 @@ describe('Page d\'un projet - Vérifier les informations affichées', () => {
 
   it('Panneau Variables - Variable Count', () => {
     cy.get('[id="variables"] [class="ant-descriptions-item-label"]').eq(0).contains('Variable Count').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains('123').should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains(catalogVariableCount.LVCBronchioliteHSJ).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains(' (in 17 tables)').should('exist');
   });
 
@@ -55,22 +57,22 @@ describe('Page d\'un projet - Vérifier les informations affichées', () => {
     cy.get('[id="variables"] [class*="page_tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent'});
     cy.get('body').contains('Hospital systems used to generate variables for this project.').should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('pharmacie (').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^16$/).should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(entityPageProjectCount.LVCBronchioliteHSJ.pharmacie).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^\)$/).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('icca').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^1$/).should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(entityPageProjectCount.LVCBronchioliteHSJ.icca).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('clinibaseci').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^2$/).should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(entityPageProjectCount.LVCBronchioliteHSJ.clinibaseci).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('medecho').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^25$/).should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(entityPageProjectCount.LVCBronchioliteHSJ.medecho).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('softlab').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^5$/).should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(entityPageProjectCount.LVCBronchioliteHSJ.softlab).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('staturgence').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^22$/).should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(entityPageProjectCount.LVCBronchioliteHSJ.staturgence).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('loinc').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^2$/).should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(entityPageProjectCount.LVCBronchioliteHSJ.loinc).should('exist');
     cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains('laboratoire_systeme').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(/^4$/).should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).contains(entityPageProjectCount.LVCBronchioliteHSJ.laboratoire_systeme).should('exist');
   });
 
   it('Panneau Current version - Published On', () => {

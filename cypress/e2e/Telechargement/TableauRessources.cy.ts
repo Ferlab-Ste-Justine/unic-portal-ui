@@ -1,6 +1,8 @@
 /// <reference types="cypress"/>
-import { getDateTime } from '../../support/utils';
-import { oneMinute } from '../../support/utils';
+import { catalogVariableCount } from 'cypress/support/catalog/variables';
+import { getDateTime } from 'cypress/support/utils';
+import { oneMinute } from 'cypress/support/utils';
+import { Replacement } from 'cypress/support/commands';
 
 const { strDate } = getDateTime();
 
@@ -32,7 +34,10 @@ describe('Tableau Ressources - Exporter les ressources en TSV', () => {
     cy.validateFileHeaders('ExportTableauRessources.json');
   });
 
-  it('Valider le contenu du fichier', () => {
-    cy.validateFileContent('ExportTableauRessources.json');
+  it('Valider le contenu du fichier [UNICWEB-197]', () => {
+    const replacements: Replacement[] = [
+      { placeholder: '{{countLVCBronchioliteHSJ}}', value: catalogVariableCount.LVCBronchioliteHSJ.toString() },
+    ];
+    cy.validateFileContent('ExportTableauRessources.json', replacements);
   });
 });
