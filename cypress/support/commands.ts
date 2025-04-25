@@ -1,5 +1,7 @@
 /// <reference types="cypress"/>
 import createUUID from './createUUID';
+import { CommonSelectors } from 'cypress/pom/shared/Selectors';
+import { getDateTime } from 'cypress/support/utils';
 import { oneMinute } from '../support/utils';
 
 export interface Replacement {
@@ -25,6 +27,31 @@ Cypress.Commands.add('clickAndIntercept', (selector: string, methodHTTP: string,
 Cypress.Commands.add('clickAndWait', { prevSubject: 'element' }, (subject, options) => {
   cy.wrap(subject).click(options);
   cy.waitWhileSpin(oneMinute);
+});
+
+Cypress.Commands.add('getColumnHeadCell', (columnName: string) => {
+  cy.get(CommonSelectors.tableHead).find(CommonSelectors.tableCell).then(($tableCells) => {
+    let matchedCell: JQuery<HTMLElement> | undefined = undefined;
+    $tableCells.each((_index, cell) => {
+      if (cell.textContent?.includes(columnName)) {
+        matchedCell = Cypress.$(cell);
+        return false;
+      };
+    });
+    if (matchedCell) {
+      return matchedCell;
+    };
+  });
+});
+
+Cypress.Commands.add('hideColumn', (column: string|RegExp, eq: number = 0) => {
+  cy.get('[data-icon="setting"]').eq(eq).clickAndWait();
+
+  cy.intercept('PUT', '**/user').as('getPOSTuser');
+  cy.get('[class*="ColumnSelector_ProTablePopoverColumnListWrapper"]').contains(column).find('[type="checkbox"]').uncheck();
+  cy.wait('@getPOSTuser', {timeout: oneMinute});
+
+  cy.get('[class*="Header_ProTableHeader"]').eq(eq).clickAndWait();
 });
 
 Cypress.Commands.add('inputDropdownSelectValue', (tab: string, eq: number, valueLabel: string, isMultiSelect: boolean = false) => {
@@ -108,6 +135,26 @@ Cypress.Commands.add('resetColumns', (eq: number = 0) => {
   cy.get('[class*="Header_ProTableHeader"]').eq(eq).clickAndWait();
 });
 
+Cypress.Commands.add('shouldBeSortable', { prevSubject: 'element' }, (subject, isSortable: boolean) => {
+  const strExpectedSortable = isSortable ? 'have.class' : 'not.have.class';
+  cy.wrap(subject).should(strExpectedSortable, 'ant-table-column-has-sorters');
+});
+
+Cypress.Commands.add('shouldHaveActiveTab', { prevSubject: 'element' }, (subject) => {
+  cy.wrap(subject).should('have.class', 'ant-tabs-tab-active');
+});
+
+Cypress.Commands.add('shouldHavePopover', { prevSubject: 'element' }, (subject, popoverTitle: string, popoverContent: string) => {
+  cy.wrap(subject).trigger('mouseover', { eventConstructor: 'MouseEvent' });
+  cy.get('[class="ant-popover-title"]').contains(popoverTitle).should('exist');
+  cy.get('[class="ant-popover-inner-content"]').contains(popoverContent).should('exist');
+});
+
+Cypress.Commands.add('shouldHaveTooltip', { prevSubject: 'element' }, (subject, tooltipContent: string) => {
+  cy.wrap(subject).trigger('mouseover', { eventConstructor: 'MouseEvent' });
+  cy.get('body').contains(tooltipContent).should('exist');
+});
+
 Cypress.Commands.add('showColumn', (column: string|RegExp, eq: number = 0) => {
   cy.get('[data-icon="setting"]').eq(eq).clickAndWait();
 
@@ -181,8 +228,10 @@ Cypress.Commands.add('validateFileHeaders', (fixture: string) => {
   });
 });
 
-Cypress.Commands.add('validateFileName', (namePattern: string) => {
-  cy.exec(`/bin/ls ${Cypress.config('downloadsFolder')}/`+namePattern).then((result) => {
+Cypress.Commands.add('validateFileName', (entity: string) => {
+  const { strDate } = getDateTime();
+
+  cy.exec(`/bin/ls ${Cypress.config('downloadsFolder')}/unic-${entity}-${strDate.slice(0, 4)}-${strDate.slice(4, 6)}-${strDate.slice(6, 8)}.tsv`).then((result) => {
     const filename = result.stdout.trim();
     cy.readFile(`${filename}`).should('exist');
   });
@@ -322,4 +371,4 @@ Cypress.Commands.add('waitWhileSpin', (ms: number) => {
   return checkForSpinners();
 });
 
-Cypress.Commands.overwrite('log', (subject, message) => cy.task('log', message));
+Cypress.Commands.overwrite('log', (_subject, message) => cy.task('log', message));

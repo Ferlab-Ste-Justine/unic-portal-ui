@@ -1,16 +1,17 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
 
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('tables');
-  cy.inputDropdownSelectValue('panel-tables', 1/*Resource*/, 'LVC-Bronchiolite-HSJ');
+  cy.inputDropdownSelectValue('panel-tables', 0/*Resource*/, data.resourceBronchiolite.name);
 });
 
 describe('Tableau Tables - Valider les liens du filtre Resource', () => {
   it('Reset filters - Clear Input', () => {
     cy.get('[id*="panel-tables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"] [title="LVC-Bronchiolite-HSJ"]').should('not.exist');
+    cy.get(`[id*="panel-tables"] [class*="InputSelect_filter"] [title=${data.resourceBronchiolite.name}]`).should('not.exist');
   });
 
   it('Reset filters - Results', () => {

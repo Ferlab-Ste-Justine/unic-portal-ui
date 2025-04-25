@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 
 beforeEach(() => {
   cy.login();
@@ -9,7 +10,7 @@ beforeEach(() => {
 describe('Page d\'une variable - Valider les liens disponibles', () => {
   it('Lien Title Catalog', () => {
     cy.get('[class*="page_titleHeader"]').find('[href]').eq(0).clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
+    ResourcesTable.validations.pageTitle();
   });
 
   it('Lien Title Resource', () => {

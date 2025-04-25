@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 
 beforeEach(() => {
   cy.login();
@@ -10,7 +11,7 @@ beforeEach(() => {
 
 describe('Tableau Variables - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
+    ResourcesTable.validations.pageTitle();
   });
 
   it('Onglet', () => {

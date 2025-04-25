@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
 
 beforeEach(() => {
   cy.login();
@@ -28,7 +29,7 @@ describe('Tableau Ressources - Vérifier la fonctionnalité du filtre Resource t
   });
 
   it('Related Resource search', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('bronchiolite');
+    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type(data.resourceBronchiolite.code);
     cy.get('[id*="panel-resources"] [class*="InputSelect_filter"]').eq(0).type('warehouse');
     cy.get('[class*="ant-select-dropdown"] [label="Warehouse"] [class*="ant-tag-orange"]').should('not.exist');
   });

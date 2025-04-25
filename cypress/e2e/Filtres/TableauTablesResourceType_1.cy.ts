@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
 
 beforeEach(() => {
   cy.login();
@@ -34,7 +35,7 @@ describe('Tableau Tables - Vérifier la fonctionnalité du filtre Resource type'
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('panel-tables', 1/*Resource*/, 'LVC-Bronchiolite-HSJ');
+    cy.inputDropdownSelectValue('panel-tables', 1/*Resource*/, data.resourceBronchiolite.name);
     cy.get('[id*="panel-tables"] [class*="InputSelect_filter"]').eq(0).type('warehouse');
     cy.get('[class*="ant-select-dropdown"] [label="Warehouse"] [class*="ant-tag-orange"]').should('not.exist');
   });

@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
 
 beforeEach(() => {
   cy.login();
@@ -27,8 +28,8 @@ describe('Tableau Tables - Vérifier la fonctionnalité de la recherche Table', 
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains('Reset filters').should('exist');
   });
 
-  it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('panel-tables', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+  it('Related Resource filter', () => {
+    cy.inputDropdownSelectValue('panel-tables', 0/*Resource*/, data.resourceBronchiolite.name);
     cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('consultation_complication');
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });

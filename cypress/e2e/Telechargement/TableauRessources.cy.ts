@@ -1,43 +1,27 @@
 /// <reference types="cypress"/>
-import { catalogVariableCount } from 'cypress/support/catalog/variables';
-import { getDateTime } from 'cypress/support/utils';
-import { oneMinute } from 'cypress/support/utils';
-import { Replacement } from 'cypress/support/commands';
-
-const { strDate } = getDateTime();
+import { data } from 'cypress/pom/shared/Data';
+import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 
 beforeEach(() => {
   cy.removeFilesFromFolder(Cypress.config('downloadsFolder'));
-
   cy.login();
   cy.visitCatalog();
-  cy.showColumn('Code');
-  cy.showColumn('Created On');
-  cy.showColumn('Approved On');
-  cy.showColumn('Collection Starting Year');
-  cy.showColumn('Version');
-  cy.showColumn('Nagano ID');
-  cy.showColumn('Principal Investigator');
-  cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('bronchiolite');
-  cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
-  
-  cy.clickAndIntercept('[id*="panel-resources"] [class*="Header_ProTableHeader"] [data-icon="download"]', 'POST', '**/graphql', 2);
-  cy.waitUntilFile(oneMinute);
+  ResourcesTable.actions.showAllColumns();
+  ResourcesTable.actions.searchResource(data.resourceBronchiolite.code);
+  ResourcesTable.validations.tableHeader(/^1 Result$/);
+  ResourcesTable.actions.clickDownloadButton();
 });
 
 describe('Tableau Ressources - Exporter les ressources en TSV', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName('unic-resources-'+`${strDate.slice(0, 4)}-${strDate.slice(4, 6)}-${strDate.slice(6, 8)}`+'.tsv');
+    ResourcesTable.validations.fileName();
   });
 
   it('Valider les en-têtes du fichier', () => {
-    cy.validateFileHeaders('ExportTableauRessources.json');
+    ResourcesTable.validations.fileHeaders();
   });
 
   it('Valider le contenu du fichier', () => {
-    const replacements: Replacement[] = [
-      { placeholder: '{{countLVCBronchioliteHSJ}}', value: catalogVariableCount.LVCBronchioliteHSJ.toString() },
-    ];
-    cy.validateFileContent('ExportTableauRessources.json', replacements);
+    ResourcesTable.validations.fileContent(data.resourceBronchiolite);
   });
 });

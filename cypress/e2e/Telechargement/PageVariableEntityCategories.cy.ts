@@ -15,7 +15,7 @@ beforeEach(() => {
 
 describe('Page d\'une variable - Exporter les catégories en TSV', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName('unic-sector-categories-'+`${strDate.slice(0, 4)}-${strDate.slice(4, 6)}-${strDate.slice(6, 8)}`+'.tsv');
+    cy.validateFileName('sector-categories');
   });
 
   it('Valider les en-têtes du fichier', () => {

@@ -1,22 +1,26 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { ResourcePage } from 'cypress/pom/pages/ResourcePage';
+import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
-  cy.visitResourceEntity('centro');
+  cy.visitResourceEntity(data.resourceCentro.name);
 });
 
 describe('Page d\'un Système hospitalier - Valider les liens disponibles', () => {
   it('Lien Title', () => {
-    cy.get('[class*="page_titleHeader"]').find('[href]').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
+    ResourcePage.actions.clickTitleLink();
+    ResourcesTable.validations.pageTitle();
   });
 
   it('Lien Variable Count', () => {
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).find('[href]').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
-    cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="centro"]').should('exist');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^13.7K Results$| of 13.7K$)/).should('exist');
+    ResourcePage.actions.clickVariableCountLink();
+    ResourcesTable.validations.pageTitle();
+    VariablesTable.validations.tabActive();
+    VariablesTable.validations.inputFilterExists(data.resourceCentro.name);
+    VariablesTable.validations.resultsCount(data.resourceCentro.variables.totalCount);
   });
 });
