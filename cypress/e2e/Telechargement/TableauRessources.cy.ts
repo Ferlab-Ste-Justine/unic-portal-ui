@@ -34,7 +34,7 @@ describe('Tableau Ressources - Exporter les ressources en TSV', () => {
     cy.validateFileHeaders('ExportTableauRessources.json');
   });
 
-  it('Valider le contenu du fichier [UNICWEB-197]', () => {
+  it('Valider le contenu du fichier', () => {
     const replacements: Replacement[] = [
       { placeholder: '{{countLVCBronchioliteHSJ}}', value: catalogVariableCount.LVCBronchioliteHSJ.toString() },
     ];
