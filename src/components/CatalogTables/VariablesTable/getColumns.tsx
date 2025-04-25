@@ -35,30 +35,12 @@ const getColumns = (lang: LANG): ColumnType[] => [
     },
   },
   {
-    key: 'var_value_type',
-    dataIndex: 'var_value_type',
-    title: intl.get('entities.type'),
+    key: 'resource.rs_name',
+    title: intl.get('entities.resource.Resource'),
     sorter: { multiple: 1 },
-    render: (var_value_type: string) => (var_value_type ? <Tag>{var_value_type}</Tag> : TABLE_EMPTY_PLACE_HOLDER),
-  },
-  {
-    key: 'var_from_source_systems.rs_name',
-    dataIndex: 'var_from_source_systems',
-    title: intl.get('entities.source_name'),
-    defaultHidden: true,
-    render: (var_from_source_systems: ISourceType[]) => {
-      if (!var_from_source_systems?.length) return TABLE_EMPTY_PLACE_HOLDER;
-      return var_from_source_systems.map((sourceSystem: ISourceType) => sourceSystem.rs_name).join(', ');
-    },
-  },
-  {
-    key: 'var_from_source_systems.rs_code',
-    dataIndex: 'var_from_source_systems',
-    title: intl.get('entities.source'),
-    tooltip: intl.get('entities.sourceInfo'),
-    render: (var_from_source_systems: ISourceType[]) => {
-      if (!var_from_source_systems?.length) return TABLE_EMPTY_PLACE_HOLDER;
-      return var_from_source_systems.map((sourceSystem: ISourceType) => sourceSystem.rs_code).join(', ');
+    render: (variable: IVariableEntity) => {
+      if (!variable?.resource?.rs_name) return TABLE_EMPTY_PLACE_HOLDER;
+      return <Link href={`/resource/${variable.resource.rs_code}`}>{variable.resource.rs_name}</Link>;
     },
   },
   {
@@ -73,12 +55,20 @@ const getColumns = (lang: LANG): ColumnType[] => [
     },
   },
   {
-    key: 'resource.rs_name',
-    title: intl.get('entities.resource.Resource'),
+    key: 'var_value_type',
+    dataIndex: 'var_value_type',
+    title: intl.get('entities.type'),
     sorter: { multiple: 1 },
-    render: (variable: IVariableEntity) => {
-      if (!variable?.resource?.rs_name) return TABLE_EMPTY_PLACE_HOLDER;
-      return <Link href={`/resource/${variable.resource.rs_code}`}>{variable.resource.rs_name}</Link>;
+    render: (var_value_type: string) => (var_value_type ? <Tag>{var_value_type}</Tag> : TABLE_EMPTY_PLACE_HOLDER),
+  },
+  {
+    key: 'var_from_source_systems.rs_code',
+    dataIndex: 'var_from_source_systems',
+    title: intl.get('entities.source'),
+    tooltip: intl.get('entities.sourceInfo'),
+    render: (var_from_source_systems: ISourceType[]) => {
+      if (!var_from_source_systems?.length) return TABLE_EMPTY_PLACE_HOLDER;
+      return var_from_source_systems.map((sourceSystem: ISourceType) => sourceSystem.rs_code).join(', ');
     },
   },
   {
