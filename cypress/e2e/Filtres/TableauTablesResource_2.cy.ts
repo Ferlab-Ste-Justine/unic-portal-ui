@@ -4,7 +4,7 @@ import '../../support/commands';
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('tables');
-  cy.inputDropdownSelectValue('panel-tables', 0/*Resource*/, 'LVC-Bronchiolite-HSJ');
+  cy.inputDropdownSelectValue('panel-tables', 1/*Resource*/, 'LVC-Bronchiolite-HSJ');
 });
 
 describe('Tableau Tables - Valider les liens du filtre Resource', () => {

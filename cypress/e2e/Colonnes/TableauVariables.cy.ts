@@ -21,39 +21,33 @@ describe('Tableau Variables - Colonnes du tableau', () => {
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .find('th[class*="ant-table-cell"]').eq(2)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Type').should('exist');
-    
-    cy.get('thead[class="ant-table-thead"]').eq(1)
-      .contains('Source Name').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(4)
-      .contains('Source Name').should('exist');
+      .contains('Resource').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .find('th[class*="ant-table-cell"]').eq(3)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('Source').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]').eq(1)
-      .find('th[class*="ant-table-cell"]').eq(4)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Table').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
-      .find('th[class*="ant-table-cell"]').eq(5)
+      .find('th[class*="ant-table-cell"]').eq(4)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Resource').should('exist');
+      .contains('Type').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]').eq(1)
+      .find('th[class*="ant-table-cell"]').eq(5)
+      .should('not.have.class', 'ant-table-column-has-sorters')
+      .contains('Source').should('exist');
     
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Created On').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(8)
+      .find('div[class="ant-space-item"]').eq(7)
       .contains('Created On').should('exist');
   
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Updated On').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(9)
+      .find('div[class="ant-space-item"]').eq(8)
       .contains('Updated On').should('exist');
   });
 
@@ -71,13 +65,13 @@ describe('Tableau Variables - Colonnes du tableau', () => {
 
   it('Afficher une colonne masquée', () => {
     cy.get('thead[class="ant-table-thead"]').eq(1)
-      .contains('Source Name').should('not.exist');
+      .contains('Created On').should('not.exist');
 
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').contains('Source Name')
+      .find('div[class="ant-space-item"]').contains('Created On')
       .find('[type="checkbox"]').check({force: true});
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
-      .contains('Source Name').should('exist');
+      .contains('Created On').should('exist');
   });
 });
