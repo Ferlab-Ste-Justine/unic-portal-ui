@@ -1,18 +1,17 @@
 {
   "headers": ["Name",
               "Label",
-              "Type",
-              "Source Name",
-              "Source",
-              "Table",
               "Resource",
+              "Table",
+              "Type",
+              "Source",
               "Created On",
               "Updated On"],
   "content": ["#_Admitted_COVID",
               "Number of patients positive COVID that was hospitalized",
+              "Germes",
+              "weekly_summary",
               "integer",
               "softlab,loinc",
-              "weekly_summary",
-              "Germes",
               "2024-11-05"]
 }

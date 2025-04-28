@@ -9,7 +9,6 @@ beforeEach(() => {
 
   cy.login();
   cy.visitCatalog('variables');
-  cy.showColumn('Source Name', 1);
   cy.showColumn('Created On', 1);
   cy.showColumn('Updated On', 1);
   cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('#_Admitted_COVID');

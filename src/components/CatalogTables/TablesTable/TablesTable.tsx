@@ -131,16 +131,6 @@ const TablesTable = () => {
           placeholder={intl.get('entities.table.filterBy')}
         />
         <InputSelect
-          operator={'match'}
-          options={rsNameOptions}
-          selectField='resource.rs_name'
-          title={intl.get('entities.resource.Resource')}
-          placeholder={intl.get('entities.resource.filterBy')}
-          handleSetVariables={handleSetVariables}
-          variables={variables}
-          currentTabKey={TABLES_TAB_KEY}
-        />
-        <InputSelect
           operator={'orGroups'}
           mode={'tags'}
           options={rsTypeOptions}
@@ -150,6 +140,16 @@ const TablesTable = () => {
           handleSetVariables={handleSetVariables}
           variables={variables}
           showSearch={false}
+          currentTabKey={TABLES_TAB_KEY}
+        />
+        <InputSelect
+          operator={'match'}
+          options={rsNameOptions}
+          selectField='resource.rs_name'
+          title={intl.get('entities.resource.Resource')}
+          placeholder={intl.get('entities.resource.filterBy')}
+          handleSetVariables={handleSetVariables}
+          variables={variables}
           currentTabKey={TABLES_TAB_KEY}
         />
       </div>
