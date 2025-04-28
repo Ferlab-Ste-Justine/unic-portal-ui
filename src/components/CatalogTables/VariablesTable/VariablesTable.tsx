@@ -181,7 +181,6 @@ const VariablesTable = () => {
           placeholder={intl.get('entities.table.filterBy')}
           handleSetVariables={handleSetVariables}
           variables={variables}
-          showSearch={false}
           currentTabKey={VARIABLES_TAB_KEY}
         />
         <InputSelect
