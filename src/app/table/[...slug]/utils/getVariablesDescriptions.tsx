@@ -20,6 +20,11 @@ const getVariablesDescriptions = (lang: LANG, tableEntity?: ITableEntity): IEnti
             store.dispatch(
               globalActions.setFilters([
                 { key: 'table.tab_name', values: [tableEntity.tab_name], tabKey: VARIABLES_TAB_KEY },
+                {
+                  key: 'resource.rs_name',
+                  values: [tableEntity.resource?.rs_name || ''],
+                  tabKey: VARIABLES_TAB_KEY,
+                },
               ]),
             )
           }
