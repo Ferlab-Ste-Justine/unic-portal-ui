@@ -27,6 +27,6 @@ describe('Page d\'une table - Valider les liens disponibles', () => {
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
     cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="pathology"]').should('exist');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^47 Results$| of 47$)/).should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^36 Results$| of 36$)/).should('exist');
   });
 });

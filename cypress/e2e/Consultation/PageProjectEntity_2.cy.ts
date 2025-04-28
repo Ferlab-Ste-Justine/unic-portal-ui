@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
 import { catalogVariableCount } from 'cypress/support/catalog/variables';
+import { entityPageProjectCount } from 'cypress/support/entityPage/project';
 
 beforeEach(() => {
   cy.login();
@@ -20,12 +21,12 @@ describe('Page d\'un projet - Valider les liens disponibles', () => {
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(new RegExp(`(^${catalogVariableCount.LVCBronchioliteHSJ} Results$| of ${catalogVariableCount.LVCBronchioliteHSJ}$)`)).should('exist');
   });
 
-  it('Lien Hospital System', () => {
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).find('[href]').eq(1).clickAndWait();
+  it('Lien Hospital System [UNICWEB-210]', () => {
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).find('[href]').eq(2).clickAndWait();
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
     cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="LVC-Bronchiolite-HSJ"]').should('exist');
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [class*="ant-tag"]').contains('staturgence').should('exist');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^22 Results$| of 22$)/).should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(new RegExp(`(^${entityPageProjectCount.LVCBronchioliteHSJ.staturgence} Results$| of ${entityPageProjectCount.LVCBronchioliteHSJ.staturgence}$)`)).should('exist');
   });
 });
