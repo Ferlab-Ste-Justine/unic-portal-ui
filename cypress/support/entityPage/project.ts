@@ -1,12 +1,12 @@
 export const entityPageProjectCount = {
     LVCBronchioliteHSJ: {
-        medecho: 26,
-        staturgence: 22,
-        pharmacie: 16,
+        medecho: 53,
+        staturgence: 30,
+        pharmacie: 41,
         softlab: 5,
-        laboratoire_systeme: 4,
+        laboratoire_systeme: 9,
         clinibaseci: 2,
-        loinc: 2,
+        loinc: 4,
         icca: 1
     }
 };

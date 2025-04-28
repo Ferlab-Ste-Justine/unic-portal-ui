@@ -1,4 +1,4 @@
 export const catalogVariableCount = {
-    LVCBronchioliteHSJ: 124,
-    Warehouse: 468
+    LVCBronchioliteHSJ: 123,
+    Warehouse: 456
 };

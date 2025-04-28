@@ -49,7 +49,7 @@ describe('Page d\'une table - Vérifier les informations affichées', () => {
 
   it('Panneau Variables - Variable Count', () => {
     cy.get('[id="variables"] [class="ant-descriptions-item-label"]').eq(0).contains('Variable Count').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains(/^47$/).should('exist');
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains(/^36$/).should('exist');
   });
 
   it('Panneau History - Created On', () => {
