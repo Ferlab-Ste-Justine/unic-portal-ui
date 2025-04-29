@@ -21,8 +21,8 @@ describe('Page d\'un projet - Valider les liens disponibles', () => {
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(new RegExp(`(^${catalogVariableCount.LVCBronchioliteHSJ} Results$| of ${catalogVariableCount.LVCBronchioliteHSJ}$)`)).should('exist');
   });
 
-  it('Lien Hospital System [UNICWEB-210]', () => {
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).find('[href]').eq(2).clickAndWait();
+  it('Lien Hospital System', () => {
+    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(1).find('[href]').eq(1).clickAndWait();
     cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
     cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="LVC-Bronchiolite-HSJ"]').should('exist');
