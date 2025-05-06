@@ -36,7 +36,7 @@ describe('Tableau Tables - Valider les fonctionnalités du tableau', () => {
     cy.sortTableAndIntercept('Domain', 1, 1);
     cy.validateTableFirstRow('-', 4, false, '[id*="panel-tables"]');
     cy.sortTableAndIntercept('Domain', 1, 1);
-    cy.validateTableFirstRow(/^t/, 4, false, '[id*="panel-tables"]');
+    cy.validateTableFirstRow(/^V/, 4, false, '[id*="panel-tables"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Created On', () => {
