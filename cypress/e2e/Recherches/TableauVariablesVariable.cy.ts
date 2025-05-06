@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
 
 beforeEach(() => {
   cy.login();
@@ -34,7 +35,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Varia
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 1/*Resource*/, 'LVC-Bronchiolite-HSJ');
+    cy.inputDropdownSelectValue('panel-variables', 1/*Resource*/, data.resourceBronchiolite.name);
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });

@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 
 beforeEach(() => {
   cy.login();
@@ -26,7 +27,7 @@ describe('Header', () => {
 
   it('Valider les liens disponibles - Catalog', () => {
     cy.get('[class*="Header_headerBtn"]').eq(0).clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
+    ResourcesTable.validations.pageTitle();
   });
 
   it('Valider les liens disponibles - About', () => {

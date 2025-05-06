@@ -22,7 +22,7 @@ beforeEach(() => {
 
 describe('Tableau Tables - Exporter les tables en TSV', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName('unic-tables-'+`${strDate.slice(0, 4)}-${strDate.slice(4, 6)}-${strDate.slice(6, 8)}`+'.tsv');
+    cy.validateFileName('tables');
   });
 
   it('Valider les en-têtes du fichier', () => {

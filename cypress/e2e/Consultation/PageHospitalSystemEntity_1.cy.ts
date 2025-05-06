@@ -1,5 +1,7 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { ResourcePage } from 'cypress/pom/pages/ResourcePage';
 
 beforeEach(() => {
   cy.login();
@@ -8,41 +10,30 @@ beforeEach(() => {
 
 describe('Page d\'un Système hospitalier - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    cy.get('[class*="page_titleHeader"] [class*="anticon-read"]').should('exist');
-    cy.get('[class*="page_titleHeader"]').contains('centro').should('exist');
+    ResourcePage.validations.title(data.resourceCentro.name);
   });
 
   it('Panneau Summary - Header', () => {
-    cy.get('[id="summary"] [class*="EntityCardSummary"] [data-testid="caduceus-medicine-icon"]').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardSummary_title"] [class*="EntityCardSummary_type"]').contains('Hospital System').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardSummary_title"]').contains('centro').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardSummary_title"] [class*="ant-tag-purple"]').contains('Hospital System').should('exist');
+    ResourcePage.validations.summary.header(data.resourceCentro);
   });
 
   it('Panneau Summary - Description', () => {
-    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('Description').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).contains('Information system for the CHU Sainte Justine outpatient clinics including all electronic forms developed in the different hospital departments.').should('exist');
+    ResourcePage.validations.summary.description(data.resourceCentro.description);
   });
 
   it('Panneau Summary - Collection Starting Year', () => {
-    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(3).contains('Collection Starting Year').should('exist');
-    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(3).contains('2012').should('exist');
+    ResourcePage.validations.summary.collectionStartingYear(data.resourceCentro.collectionStartingYear);
   });
 
   it('Panneau Variables - Variable Count', () => {
-    cy.get('[id="variables"] [class="ant-descriptions-item-label"]').eq(0).contains('Variable Count').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains('13677').should('exist');
-    cy.get('[id="variables"] [class="ant-descriptions-item-content"]').eq(0).contains(' (in 419 tables)').should('exist');
+    ResourcePage.validations.variables.variableCount(data.resourceCentro);
   });
 
   it('Panneau Current version - Published On', () => {
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-label"]').eq(0).contains('Published On').should('exist');
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(0).contains('2024-10-31').should('exist');
+    ResourcePage.validations.currentVersion.publishedOn(data.resourceCentro.updatedOn);
   });
 
   it('Panneau Current version - Version', () => {
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-label"]').eq(1).contains('Version').should('exist');
-    cy.get('[id="currentVersion"] [class*="page_tooltipIcon"]').should('not.exist');
-    cy.get('[id="currentVersion"] [class="ant-descriptions-item-content"]').eq(1).contains('-').should('exist');
+    ResourcePage.validations.currentVersion.version(data.resourceCentro.version);
   });
 });

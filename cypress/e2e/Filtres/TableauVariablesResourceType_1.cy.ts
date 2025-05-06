@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
-import { catalogVariableCount } from 'cypress/support/catalog/variables';
+import { data } from 'cypress/pom/shared/Data';
+import { formatToK } from 'cypress/pom/shared/Utils';
 
 beforeEach(() => {
   cy.login();
@@ -10,7 +11,7 @@ beforeEach(() => {
 describe('Tableau Variables - Vérifier la fonctionnalité du filtre Resource type', () => {
   it('Results', () => {
     cy.inputDropdownSelectValue('panel-variables', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(new RegExp(`(^${catalogVariableCount.Warehouse} Results$| of ${catalogVariableCount.Warehouse}$)`)).should('exist');
+    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(new RegExp(`(^${formatToK(data.resourceWarehouse.variables.totalCount)} Results$| of ${formatToK(data.resourceWarehouse.variables.totalCount)}$)`)).should('exist');
   });
 
   it('Lien Reset filters', () => {
@@ -31,7 +32,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité du filtre Resource ty
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 1/*Resource*/, 'LVC-Bronchiolite-HSJ');
+    cy.inputDropdownSelectValue('panel-variables', 1/*Resource*/, data.resourceBronchiolite.name);
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(0).type('Warehouse');
     cy.get('[class*="ant-select-dropdown"] [label="Warehouse"] [class*="ant-tag-orange"]').should('not.exist');
   });

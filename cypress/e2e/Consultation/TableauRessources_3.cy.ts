@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
+import 'cypress/support/commands';
 import { oneMinute } from 'cypress/support/utils';
-import '../../support/commands';
 
 beforeEach(() => {
   cy.login();

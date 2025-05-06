@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
 
 beforeEach(() => {
   cy.login();
@@ -30,7 +31,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité du filtre Source', ()
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 1/*Resource*/, 'LVC-Bronchiolite-HSJ');
+    cy.inputDropdownSelectValue('panel-variables', 1/*Resource*/, data.resourceBronchiolite.name);
     cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(3).type('centro');
     cy.get('[class*="ant-select-dropdown"] [title="centro"]').should('not.exist');
   });
