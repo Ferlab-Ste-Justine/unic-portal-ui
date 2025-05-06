@@ -13,7 +13,7 @@ describe('Tableau Variables - Valider les fonctionnalités du tableau', () => {
     cy.sortTableAndWait('Name', 1);
     cy.validateTableFirstRow(/^#/, 0, false, '[id*="panel-variables"]');
     cy.sortTableAndIntercept('Name', 1, 1);
-    cy.validateTableFirstRow(/^É/, 0, false, '[id*="panel-variables"]');
+    cy.validateTableFirstRow(/^Z/, 0, false, '[id*="panel-variables"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Resource', () => {
@@ -51,7 +51,7 @@ describe('Tableau Variables - Valider les fonctionnalités du tableau', () => {
     cy.validateTableFirstRow(/^\d{4}-\d{2}-\d{2}$/, 7, false, '[id*="panel-variables"]');
   });
 
-  it('Valider les fonctionnalités du tableau - Tri multiple', () => {
+  it('Valider les fonctionnalités du tableau - Tri multiple [UNICWEB-212]', () => {
     cy.sortTableAndIntercept('Type', 1, 1);
     cy.sortTableAndIntercept('Table', 1, 1);
     cy.validateTableFirstRow(/^a/, 3, false, '[id*="panel-variables"]');

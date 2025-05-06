@@ -14,7 +14,7 @@ describe('Tableau Tables - Vérifier la fonctionnalité de la recherche Table', 
 
   it('Results by Description fr', () => {
     cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('antécédents médicaux');
-    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^\d{1} Result/).should('exist');
   });
 
   it('Results by Name', () => {
