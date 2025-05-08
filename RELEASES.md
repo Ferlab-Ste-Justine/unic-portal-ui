@@ -1,3 +1,28 @@
+## VERSION 1.2.0 (2025-05-08)
+
+### Features
+
+- [UNICWEB-153](https://ferlab-crsj.atlassian.net/browse/UNICWEB-153) Feature: [Catalogue des tables] Ajout de tooltip sur colonne du tableau Tables dans le catalogue
+- [UNICWEB-154](https://ferlab-crsj.atlassian.net/browse/UNICWEB-154) Feature: [Catalogue des variables] Ajout de tooltip sur colonne du tableau Variable dans le catalogue
+- [UNICWEB-149](https://ferlab-crsj.atlassian.net/browse/UNICWEB-149) Feature: [Catalogue] Ajout tooltip sur colonne de date dans les tableaux du catalogue
+- [UNICWEB-155](https://ferlab-crsj.atlassian.net/browse/UNICWEB-155) Feature: [Catalogue des variables] Modifier l'ordre des filtres du tableau Variables dans le catalogue
+- [UNICWEB-170](https://ferlab-crsj.atlassian.net/browse/UNICWEB-170) Feature: [Inscription et authentification] Modification paramètres fictifs et étiquettes dans Formulaire d’édition du profil
+- [UNICWEB-176](https://ferlab-crsj.atlassian.net/browse/UNICWEB-176) Feature: [Inscription et authentification] Modification paramètres fictifs et étiquettes dans Formulaire création d'un utlisateur
+- [UNICWEB-180](https://ferlab-crsj.atlassian.net/browse/UNICWEB-180) Feature: [Entity] Mise à jour du bloc résumé de chaque page entité
+- [UNICWEB-200](https://ferlab-crsj.atlassian.net/browse/UNICWEB-200) Feature: [Catalog - Variable] Remove column Source Name
+- [UNICWEB-207](https://ferlab-crsj.atlassian.net/browse/UNICWEB-207) Feature: [Catalog Table] Filter Resource type should be before filter Resource
+- [UNICWEB-208](https://ferlab-crsj.atlassian.net/browse/UNICWEB-208) Feature: [Catalog - Variable] Change Default ordering of table columns
+
+### Technical / Other changes
+- [UNICWEB-173](https://ferlab-crsj.atlassian.net/browse/UNICWEB-173) Fix: [Inscription et authentification] Le champs Titre n'est pas dans la bonne section dans Page de creation de compte utilisateur
+- [UNICWEB-174](https://ferlab-crsj.atlassian.net/browse/UNICWEB-174) Fix: [Typo] Titre de laPage d’accueil UniC vs UnIC
+- [UNICWEB-191](https://ferlab-crsj.atlassian.net/browse/UNICWEB-191) Fix: [Resource Entity] Corriger un bug sur la version du dictionnaire.
+- [UNICWEB-195](https://ferlab-crsj.atlassian.net/browse/UNICWEB-195) Fix: [Catalog - Table] Wrong filter redirect on Variable Count
+- [UNICWEB-202](https://ferlab-crsj.atlassian.net/browse/UNICWEB-202) Fix: [Entity Table] Variable count, wrong link query
+- [UNICWEB-206](https://ferlab-crsj.atlassian.net/browse/UNICWEB-206) Fix: [Catalog - Variable] Permettre la recherche dans le field Table
+    
+
+
 ## VERSION 1.1.0 (2025-04-25)
 
 ### Features
