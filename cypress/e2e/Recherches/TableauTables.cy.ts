@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
 import { data } from 'cypress/pom/shared/Data';
+import { formatResourceType } from 'cypress/pom/shared/Utils';
 
 beforeEach(() => {
   cy.login();
@@ -28,14 +29,14 @@ describe('Tableau Tables - Vérifier la fonctionnalité de la recherche Table', 
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains('Reset filters').should('exist');
   });
 
-  it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('panel-tables', 0/*Resource*/, data.resourceBronchiolite.name);
+  it('Related Resource type filter', () => {
+    cy.inputDropdownSelectValue('panel-tables', 0/*Resource type*/, formatResourceType(data.resourceBronchiolite.type));
     cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('consultation_complication');
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('panel-tables', 1/*Resource*/, 'LVC-Bronchiolite-HSJ');
+    cy.inputDropdownSelectValue('panel-tables', 1/*Resource*/, data.resourceBronchiolite.name);
     cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('consultation_complication');
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
