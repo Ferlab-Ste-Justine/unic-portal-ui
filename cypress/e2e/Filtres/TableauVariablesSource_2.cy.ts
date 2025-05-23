@@ -4,7 +4,7 @@ import '../../support/commands';
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('variables');
-  cy.inputDropdownSelectValue('panel-variables', 3/*Source*/, 'centro');
+  cy.inputDropdownSelectValue('[id*="panel-variables"]', 3/*Source*/, 'centro');
 });
 
 describe('Tableau Variables - Valider les liens du filtre Source', () => {

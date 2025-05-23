@@ -54,14 +54,14 @@ Cypress.Commands.add('hideColumn', (column: string|RegExp, eq: number = 0) => {
   cy.get('[class*="Header_ProTableHeader"]').eq(eq).clickAndWait();
 });
 
-Cypress.Commands.add('inputDropdownSelectValue', (tab: string, eq: number, valueLabel: string, isMultiSelect: boolean = false) => {
-  cy.get(`[id*="${tab}"] [class*="InputSelect_filter"]`).eq(eq).type(valueLabel);
+Cypress.Commands.add('inputDropdownSelectValue', (tabSelector: string, eq: number, valueLabel: string, isMultiSelect: boolean = false) => {
+  cy.get(`${tabSelector} [class*="InputSelect_filter"]`).eq(eq).type(valueLabel);
   if (isMultiSelect) {
-    cy.get(`[class*="ant-select-dropdown"] [label="${valueLabel}"]`).clickAndWait();
-    cy.get(`[id*="${tab}"] [class*="InputSelect_title"]`).eq(eq).click();
+    cy.get(`${CommonSelectors.dropdown} [label="${valueLabel}"]`).clickAndWait();
+    cy.get(`${tabSelector} [class*="InputSelect_title"]`).eq(eq).click();
   }
   else {
-    cy.get(`[class*="ant-select-dropdown"] [title="${valueLabel}"]`).clickAndWait();
+    cy.get(`${CommonSelectors.dropdown} [title="${valueLabel}"]`).clickAndWait();
   }
 });
 
@@ -168,7 +168,7 @@ Cypress.Commands.add('showColumn', (column: string|RegExp, eq: number = 0) => {
 Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: number, eq: number = 0) => {
   cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
 
-  cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).clickAndWait({force: true});
+  cy.get(CommonSelectors.tableHead).eq(eq).contains(column).clickAndWait({force: true});
 
   for (let i = 0; i < nbCalls; i++) {
     cy.wait('@getPOSTgraphql', {timeout: oneMinute});
@@ -176,7 +176,7 @@ Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: n
 });
 
 Cypress.Commands.add('sortTableAndWait', (column: string|RegExp, eq: number = 0) => {
-  cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).click({force: true});
+  cy.get(CommonSelectors.tableHead).eq(eq).contains(column).click({force: true});
   cy.wait(1000);
 });
 
@@ -283,7 +283,7 @@ Cypress.Commands.add('validatePaging', (total: string|RegExp, eq: number = 0) =>
 Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq: number = 0, hasCheckbox: boolean = false, selector: string = '') => {
   cy.waitWhileSpin(oneMinute);
   cy.wait(1000);
-  cy.get(selector+' tr[class*="ant-table-row"]').eq(0)
+  cy.get(`${selector} ${CommonSelectors.tableRow}`).eq(0)
   .then(($firstRow) => {
     cy.wrap($firstRow).find('td').eq(eq).contains(expectedValue).should('exist');
     if (hasCheckbox) {

@@ -19,6 +19,11 @@ export const formatToK = (value: string | number): string => {
   return num.toString();
 };
 
+export const getColumnName = (columns: any, columnID: string) => {
+  const columnName: string | undefined = columns.find((col: { id: string; }) => col.id === columnID)?.name;
+  return columnName !== undefined ? columnName : 'undefined';
+};
+
 export const getColumnPosition = (columns: any, columnID: string) => {
   const columnPosition: number | undefined = columns.find((col: { id: string; }) => col.id === columnID)?.position;
   return columnPosition !== undefined ? columnPosition : -1;

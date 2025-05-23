@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
 import { data } from 'cypress/pom/shared/Data';
+import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 
 beforeEach(() => {
   cy.login();
@@ -9,28 +10,28 @@ beforeEach(() => {
 
 describe('Tableau Ressources - Vérifier la fonctionnalité du filtre Resource type', () => {
   it('Dropdown tag', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSelect_filter"]').eq(0).type('warehouse');
-    cy.get('[class*="ant-select-dropdown"] [label="Warehouse"] [class*="ant-tag-orange"]').should('exist');
+    ResourcesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    ResourcesTable.validations.resourceTypeTagFilter(data.resourceWarehouse);
   });
 
   it('Results', () => {
-    cy.inputDropdownSelectValue('panel-resources', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    ResourcesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    ResourcesTable.validations.resultsCount('1');
   });
 
   it('Lien Reset filters', () => {
-    cy.inputDropdownSelectValue('panel-resources', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains('Reset filters').should('exist');
+    ResourcesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    ResourcesTable.validations.resetFilterButton();
   });
 
   it('Input tag', () => {
-    cy.inputDropdownSelectValue('panel-resources', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-resources"] [class*="InputSelect_filter"] [class*="ant-tag-orange"]').contains('Warehouse').should('exist');
+    ResourcesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    ResourcesTable.validations.resourceTypeTagFilter(data.resourceWarehouse);
   });
 
   it('Related Resource search', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type(data.resourceBronchiolite.code);
-    cy.get('[id*="panel-resources"] [class*="InputSelect_filter"]').eq(0).type('warehouse');
-    cy.get('[class*="ant-select-dropdown"] [label="Warehouse"] [class*="ant-tag-orange"]').should('not.exist');
+    ResourcesTable.actions.searchResource(data.resourceBronchiolite.code);
+    ResourcesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    ResourcesTable.validations.resourceTypeTagFilter(data.resourceWarehouse, false/*shouldExist*/);
   });
 });
