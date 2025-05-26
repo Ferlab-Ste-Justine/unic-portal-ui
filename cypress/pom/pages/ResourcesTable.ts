@@ -189,7 +189,7 @@ export const ResourcesTable = {
           ResourcesTable.actions.sortColumn(columnID);
           cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((biggestValue) => {
             const biggest = biggestValue.trim();
-            expect(biggest.localeCompare(smallest)).to.be.gte(0);
+            expect(biggest.localeCompare(smallest)).to.be.at.least(0);
           });
         });
       },
