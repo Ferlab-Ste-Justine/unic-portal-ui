@@ -1,3 +1,4 @@
+/// <reference types="cypress"/>
 export const formatResourceType = (resourceType: string) => {
     const mapping: Record<string, string> = {
       research_project: 'Research',

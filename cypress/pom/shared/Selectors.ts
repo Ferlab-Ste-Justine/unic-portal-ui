@@ -1,4 +1,7 @@
+/// <reference types="cypress"/>
 export const CommonSelectors = {
+    clearSelect: '[class="ant-select-clear"]',
+    closeIcon: '[data-icon="close"]',
     dropdown: '[class*="ant-select-dropdown"]',
     label: (text: string) => `[label="${text}"]`,
     link: '[href], a',

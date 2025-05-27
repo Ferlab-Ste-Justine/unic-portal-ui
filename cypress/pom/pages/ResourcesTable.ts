@@ -1,14 +1,14 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
-import { expect } from 'chai';
 import { formatResourceType, getColumnName, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
-import { formatToK } from 'cypress/pom//shared/Utils';
+import { formatToK } from 'cypress/pom/shared/Utils';
 import { oneMinute } from 'cypress/support/utils';
 import { Replacement } from 'cypress/support/commands';
 
 const selectorPanel = '[id*="panel-resources"]';
 const selectorHead = CommonSelectors.tableHead;
 const selectors = {
+  clearFilterLink: `${selectorPanel} [class*="Header_clearFilterLink"]`,
   downloadButton: `${selectorPanel} [data-icon="download"]`,
   pageTitle: '[class*="PageLayout_titlePage"]',
   proTableHeader: `${selectorPanel} [class*="Header_ProTableHeader"]`,
@@ -133,6 +133,12 @@ const texts = {
 
 export const ResourcesTable = {
     actions: {
+      clearFilters() {
+        cy.get(selectors.clearFilterLink).clickAndWait();
+      },
+      clearInputSelect() {
+        cy.get(`${selectors.selectInput} ${CommonSelectors.clearSelect}`).clickAndWait();
+      },
       clickDownloadButton() {
         cy.get(selectors.downloadButton).clickAndWait();
         cy.waitUntilFile(oneMinute);
@@ -140,9 +146,8 @@ export const ResourcesTable = {
       clickTableCellLink(dataResource: any, columnID: string) {
         cy.get(selectors.tableCell(dataResource)).eq(getColumnPosition(tableColumns, columnID)).find(CommonSelectors.link).clickAndWait();
       },
-      searchResource(text: string) {
-        cy.get(selectors.searchInput).type(text);
-        cy.waitWhileSpin(oneMinute);
+      deleteResourceTypeTag(dataResource: any) {
+        cy.get(`${selectors.selectInput} ${CommonSelectors.tag(getResourceColor(dataResource.type))} ${CommonSelectors.closeIcon}`).clickAndWait();
       },
       selectResourceTypeFilter(dataResource: any) {
         cy.inputDropdownSelectValue(selectorPanel, 0/*Resource type*/, formatResourceType(dataResource.type), true/*isMultiSelect*/);
@@ -165,6 +170,10 @@ export const ResourcesTable = {
       },
       typeResourceTypeFilter(dataResource: any) {
         cy.get(selectors.selectInput).eq(0).type(dataResource.name.toLowerCase());
+      },
+      typeResourceSearchInput(text: string) {
+        cy.get(selectors.searchInput).type(text);
+        cy.waitWhileSpin(oneMinute);
       }
     },
   
@@ -191,7 +200,9 @@ export const ResourcesTable = {
           ResourcesTable.actions.sortColumn(columnID);
           cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((biggestValue) => {
             const biggest = biggestValue.trim();
-            expect(biggest.localeCompare(smallest)).to.be.at.least(0);
+            if (biggest.localeCompare(smallest) < 0) {
+              throw new Error(`Error: "${biggest}" should be >= "${smallest}"`);
+            };
           });
         });
       },
@@ -254,13 +265,18 @@ export const ResourcesTable = {
       resetFilterButton() {
         cy.get(selectors.proTableHeader).contains(texts.resetFilters).should('exist');
       },
-      resourceTypeTagFilter(dataResource: any, shouldExist: boolean = true) {
+      resourceTypeTagDropdown(dataResource: any, shouldExist: boolean = true) {
         const strExist = shouldExist ? 'exist' : 'not.exist';
         cy.get(`${CommonSelectors.dropdown} ${CommonSelectors.label(formatResourceType(dataResource.type))} ${CommonSelectors.tag(getResourceColor(dataResource.type))}`).should(strExist);
       },
-      resultsCount(count: string | number) {
+      resourceTypeTagFilter(dataResource: any, shouldExist: boolean = true) {
+        const strExist = shouldExist ? 'exist' : 'not.exist';
+        cy.get(`${selectors.selectInput} ${CommonSelectors.tag(getResourceColor(dataResource.type))}`).should(strExist);
+      },
+      resultsCount(count: string | number, shouldExist: boolean = true) {
         const countToK = formatToK(count);
-        cy.get(selectors.proTableHeader).contains(new RegExp(`(^${countToK} Result$| of ${countToK}$)`)).should('exist');
+        const strExist = shouldExist ? 'exist' : 'not.exist';
+        cy.get(selectors.proTableHeader).contains(new RegExp(`(^${countToK} Result$| of ${countToK}$)`)).should(strExist);
       },
       tabActive() {
         cy.get(selectors.tab).shouldHaveActiveTab();

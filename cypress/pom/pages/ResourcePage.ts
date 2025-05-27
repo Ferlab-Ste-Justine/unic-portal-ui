@@ -1,3 +1,4 @@
+/// <reference types="cypress"/>
 import { formatResourceType, getResourceColor, getResourceIconSelector } from 'cypress/pom/shared/Utils';
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 

@@ -7,7 +7,7 @@ beforeEach(() => {
   cy.login();
   cy.visitCatalog();
   ResourcesTable.actions.showAllColumns();
-  ResourcesTable.actions.searchResource(data.resourceBronchiolite.code);
+  ResourcesTable.actions.typeResourceSearchInput(data.resourceBronchiolite.code);
   ResourcesTable.validations.resultsCount('1');
   ResourcesTable.actions.clickDownloadButton();
 });

@@ -10,7 +10,7 @@ beforeEach(() => {
   cy.login();
   cy.visitCatalog();
   ResourcesTable.actions.showAllColumns();
-  ResourcesTable.actions.searchResource(data.resourceBronchiolite.code);
+  ResourcesTable.actions.typeResourceSearchInput(data.resourceBronchiolite.code);
 });
 
 describe('Tableau Ressources - Valider les liens disponibles', () => {
