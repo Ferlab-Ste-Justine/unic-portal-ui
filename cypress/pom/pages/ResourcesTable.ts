@@ -1,5 +1,8 @@
+/// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
-import { formatResourceType, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
+import { expect } from 'chai';
+import { formatResourceType, getColumnName, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
+import { formatToK } from 'cypress/pom//shared/Utils';
 import { oneMinute } from 'cypress/support/utils';
 import { Replacement } from 'cypress/support/commands';
 
@@ -8,10 +11,11 @@ const selectorHead = CommonSelectors.tableHead;
 const selectors = {
   downloadButton: `${selectorPanel} [data-icon="download"]`,
   pageTitle: '[class*="PageLayout_titlePage"]',
+  proTableHeader: `${selectorPanel} [class*="Header_ProTableHeader"]`,
   searchInput: `${selectorPanel} [class*="InputSearch_filter"] input`,
+  selectInput: `${selectorPanel} [class*="InputSelect_filter"]`,
   tab: '[data-node-key="resources"]',
   tableCell: (dataResource: any) => `[data-row-key="${dataResource.dataRowKey}"] [class="ant-table-cell"]`,
-  tableHeader: `${selectorPanel} [class*="Header_ProTableHeader"]`,
   tableHeadCell: `${selectorHead} ${CommonSelectors.tableCell}`,
 };
 
@@ -124,6 +128,7 @@ const tableColumns = [
 
 const texts = {
   pageTitle: 'UnIC Catalog',
+  resetFilters: 'Reset filters',
 };
 
 export const ResourcesTable = {
@@ -139,6 +144,9 @@ export const ResourcesTable = {
         cy.get(selectors.searchInput).type(text);
         cy.waitWhileSpin(oneMinute);
       },
+      selectResourceTypeFilter(dataResource: any) {
+        cy.inputDropdownSelectValue(selectorPanel, 0/*Resource type*/, formatResourceType(dataResource.type), true/*isMultiSelect*/);
+      },
       showAllColumns() {
         tableColumns.forEach((column) => {
           if (!column.isVisibleByDefault) {
@@ -146,6 +154,18 @@ export const ResourcesTable = {
           };
         });
       },
+      sortColumn(columnID: string, needIntercept: boolean = true) {
+        const columnName = getColumnName(tableColumns, columnID);
+        if (needIntercept) {
+          cy.sortTableAndIntercept(columnName, 1);
+        }
+        else {
+          cy.sortTableAndWait(columnName);
+        }
+      },
+      typeResourceTypeFilter(dataResource: any) {
+        cy.get(selectors.selectInput).eq(0).type(dataResource.name.toLowerCase());
+      }
     },
   
     validations: {
@@ -159,6 +179,20 @@ export const ResourcesTable = {
         ResourcesTable.actions.showAllColumns();
         tableColumns.forEach((column) => {
           cy.getColumnHeadCell(column.name).shouldBeSortable(column.isSortable);
+        });
+      },
+      columnSorting(columnID: string, needIntercept: boolean = true) {
+        const columnIndex = getColumnPosition(tableColumns, columnID);
+
+        ResourcesTable.actions.sortColumn(columnID, needIntercept);
+        cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((smallestValue) => {
+          const smallest = smallestValue.trim();
+
+          ResourcesTable.actions.sortColumn(columnID);
+          cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((biggestValue) => {
+            const biggest = biggestValue.trim();
+            expect(biggest.localeCompare(smallest)).to.be.at.least(0);
+          });
         });
       },
       columnTooltips() {
@@ -202,14 +236,31 @@ export const ResourcesTable = {
       fileName() {
         cy.validateFileName('resources');
       },
+      firstRowValue(value: string | RegExp, columnID: string) {
+        cy.validateTableFirstRow(value, getColumnPosition(tableColumns, columnID));
+      },
       hiddenColumn(columnName: string) {
         cy.get(selectorHead).contains(columnName).should('not.exist');
+      },
+      paging(total: string | RegExp) {
+        cy.validatePaging(total, 0);
       },
       pageTitle() {
         cy.get(selectors.pageTitle).contains(texts.pageTitle).should('exist');
       },
       popoverDescription(dataResource: any) {
         cy.get(selectors.tableCell(dataResource)).eq(getColumnPosition(tableColumns, 'description')).contains(dataResource.description.slice(0, 13)).shouldHavePopover(dataResource.name, dataResource.description);
+      },
+      resetFilterButton() {
+        cy.get(selectors.proTableHeader).contains(texts.resetFilters).should('exist');
+      },
+      resourceTypeTagFilter(dataResource: any, shouldExist: boolean = true) {
+        const strExist = shouldExist ? 'exist' : 'not.exist';
+        cy.get(`${CommonSelectors.dropdown} ${CommonSelectors.label(formatResourceType(dataResource.type))} ${CommonSelectors.tag(getResourceColor(dataResource.type))}`).should(strExist);
+      },
+      resultsCount(count: string | number) {
+        const countToK = formatToK(count);
+        cy.get(selectors.proTableHeader).contains(new RegExp(`(^${countToK} Result$| of ${countToK}$)`)).should('exist');
       },
       tabActive() {
         cy.get(selectors.tab).shouldHaveActiveTab();
@@ -232,9 +283,6 @@ export const ResourcesTable = {
               break;
           }
         });
-      },
-      tableHeader(expectedText: string|RegExp) {
-        cy.get(selectors.tableHeader).contains(expectedText).should('exist');
       },
     },
   };

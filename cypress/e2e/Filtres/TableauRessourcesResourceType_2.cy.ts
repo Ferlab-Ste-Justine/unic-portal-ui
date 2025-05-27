@@ -4,7 +4,7 @@ import '../../support/commands';
 beforeEach(() => {
   cy.login();
   cy.visitCatalog();
-  cy.inputDropdownSelectValue('panel-resources', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+  cy.inputDropdownSelectValue('[id*="panel-resources"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
 });
 
 describe('Tableau Ressources - Valider les liens du filtre Resource type', () => {

@@ -5,7 +5,7 @@ import { data } from 'cypress/pom/shared/Data';
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('variables');
-  cy.inputDropdownSelectValue('panel-variables', 1/*Resource*/, data.resourceBronchiolite.name);
+  cy.inputDropdownSelectValue('[id*="panel-variables"]', 1/*Resource*/, data.resourceBronchiolite.name);
 });
 
 describe('Tableau Variables - Valider les liens du filtre Resource', () => {

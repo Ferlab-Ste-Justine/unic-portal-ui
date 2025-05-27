@@ -18,18 +18,12 @@ describe('Page d\'un projet - Valider les liens disponibles', () => {
 
   it('Lien Variable Count', () => {
     ResourcePage.actions.clickVariableCountLink();
-    VariablesTable.validations.pageTitle();
-    VariablesTable.validations.tabActive();
-    VariablesTable.validations.inputFilterExists(data.resourceBronchiolite.name);
-    VariablesTable.validations.resultsCount(data.resourceBronchiolite.variables.totalCount);
+    VariablesTable.validations.redirectAndFilterTable(data.resourceBronchiolite.name, data.resourceBronchiolite.variables.totalCount);
   });
 
   it('Lien Hospital System', () => {
     ResourcePage.actions.clickHospitalSystemLink('staturgence');
-    VariablesTable.validations.pageTitle();
-    VariablesTable.validations.tabActive();
-    VariablesTable.validations.inputFilterExists(data.resourceBronchiolite.name);
+    VariablesTable.validations.redirectAndFilterTable(data.resourceBronchiolite.name, data.resourceBronchiolite.variables.hospitalSystems.staturgence.toString());
     VariablesTable.validations.inputFilterTagExists('staturgence');
-    VariablesTable.validations.resultsCount(data.resourceBronchiolite.variables.hospitalSystems.staturgence.toString());
   });
 });

@@ -8,7 +8,7 @@ beforeEach(() => {
   cy.visitCatalog();
   ResourcesTable.actions.showAllColumns();
   ResourcesTable.actions.searchResource(data.resourceBronchiolite.code);
-  ResourcesTable.validations.tableHeader(/^1 Result$/);
+  ResourcesTable.validations.resultsCount('1');
   ResourcesTable.actions.clickDownloadButton();
 });
 

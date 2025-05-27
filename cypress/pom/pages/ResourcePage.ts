@@ -1,6 +1,5 @@
 import { formatResourceType, getResourceColor, getResourceIconSelector } from 'cypress/pom/shared/Utils';
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
-import { data } from 'cypress/pom/shared/Data';
 
 const cardSelector = {
   summary: '[id="summary"]',

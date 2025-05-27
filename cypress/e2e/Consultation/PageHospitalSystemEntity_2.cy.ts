@@ -18,9 +18,6 @@ describe('Page d\'un Système hospitalier - Valider les liens disponibles', () =
 
   it('Lien Variable Count', () => {
     ResourcePage.actions.clickVariableCountLink();
-    ResourcesTable.validations.pageTitle();
-    VariablesTable.validations.tabActive();
-    VariablesTable.validations.inputFilterExists(data.resourceCentro.name);
-    VariablesTable.validations.resultsCount(data.resourceCentro.variables.totalCount);
+    VariablesTable.validations.redirectAndFilterTable(data.resourceCentro.name, data.resourceCentro.variables.totalCount);
   });
 });

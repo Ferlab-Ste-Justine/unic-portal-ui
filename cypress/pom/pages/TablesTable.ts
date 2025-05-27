@@ -1,20 +1,19 @@
 import { formatToK } from 'cypress/pom//shared/Utils';
 
-const panelSelector = '[id*="panel-variables"]';
-
+const selectorPanel = '[id*="panel-tables"]';
 const selectors = {
-  FilterTitleInput: (title: string) => `${panelSelector} [class*="InputSelect_filter"] [title="${title}"]`,
-  filterTagInput: `${panelSelector} [class*="InputSelect_filter"] [class*="ant-tag"]`,
+  FilterTitleInput: (title: string) => `${selectorPanel} [class*="InputSelect_filter"] [title="${title}"]`,
+  filterTagInput: `${selectorPanel} [class*="InputSelect_filter"] [class*="ant-tag"]`,
   pageTitle: '[class*="PageLayout_titlePage"]',
-  proTableHeader: `${panelSelector} [class*="Header_ProTableHeader"]`,
-  tab: '[data-node-key="variables"]',
+  proTableHeader: `${selectorPanel} [class*="Header_ProTableHeader"]`,
+  tab: '[data-node-key="tables"]',
 };
 
 const texts = {
   pageTitle: 'UnIC Catalog',
 };
 
-export const VariablesTable = {
+export const TablesTable = {
     actions: {
     },
   

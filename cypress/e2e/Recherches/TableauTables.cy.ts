@@ -30,13 +30,13 @@ describe('Tableau Tables - Vérifier la fonctionnalité de la recherche Table', 
   });
 
   it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('panel-tables', 0/*Resource type*/, formatResourceType(data.resourceBronchiolite.type));
+    cy.inputDropdownSelectValue('[id*="panel-tables"]', 0/*Resource type*/, formatResourceType(data.resourceBronchiolite.type));
     cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('consultation_complication');
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('panel-tables', 1/*Resource*/, data.resourceBronchiolite.name);
+    cy.inputDropdownSelectValue('[id*="panel-tables"]', 1/*Resource*/, data.resourceBronchiolite.name);
     cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('consultation_complication');
     cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });

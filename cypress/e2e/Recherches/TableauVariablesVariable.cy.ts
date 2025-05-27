@@ -29,25 +29,25 @@ describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Varia
   });
 
   it('Related Table filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 2/*Table*/, 'accouchement');
+    cy.inputDropdownSelectValue('[id*="panel-variables"]', 2/*Table*/, 'accouchement');
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 1/*Resource*/, data.resourceBronchiolite.name);
+    cy.inputDropdownSelectValue('[id*="panel-variables"]', 1/*Resource*/, data.resourceBronchiolite.name);
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
 
   it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('panel-variables', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+    cy.inputDropdownSelectValue('[id*="panel-variables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('centro');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
 
   it('Related Source', () => {
-    cy.inputDropdownSelectValue('panel-variables', 3/*Source*/, 'centro');
+    cy.inputDropdownSelectValue('[id*="panel-variables"]', 3/*Source*/, 'centro');
     cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
     cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });

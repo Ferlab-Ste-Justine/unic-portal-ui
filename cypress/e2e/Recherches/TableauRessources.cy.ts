@@ -44,7 +44,7 @@ describe('Tableau Ressources - Vérifier la fonctionnalité de la recherche Reso
   });
 
   it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('panel-resources', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+    cy.inputDropdownSelectValue('[id*="panel-resources"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
     cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type(data.resourceBronchiolite.code);
     cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
   });
