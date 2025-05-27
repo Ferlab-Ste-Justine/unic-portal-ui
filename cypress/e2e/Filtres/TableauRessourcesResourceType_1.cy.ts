@@ -11,7 +11,7 @@ beforeEach(() => {
 describe('Tableau Ressources - Vérifier la fonctionnalité du filtre Resource type', () => {
   it('Dropdown tag', () => {
     ResourcesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
-    ResourcesTable.validations.resourceTypeTagFilter(data.resourceWarehouse);
+    ResourcesTable.validations.resourceTypeTagDropdown(data.resourceWarehouse);
   });
 
   it('Results', () => {
@@ -26,12 +26,12 @@ describe('Tableau Ressources - Vérifier la fonctionnalité du filtre Resource t
 
   it('Input tag', () => {
     ResourcesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
-    ResourcesTable.validations.resourceTypeTagFilter(data.resourceWarehouse);
+    ResourcesTable.validations.resourceTypeTagDropdown(data.resourceWarehouse);
   });
 
   it('Related Resource search', () => {
-    ResourcesTable.actions.searchResource(data.resourceBronchiolite.code);
+    ResourcesTable.actions.typeResourceSearchInput(data.resourceBronchiolite.code);
     ResourcesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
-    ResourcesTable.validations.resourceTypeTagFilter(data.resourceWarehouse, false/*shouldExist*/);
+    ResourcesTable.validations.resourceTypeTagDropdown(data.resourceWarehouse, false/*shouldExist*/);
   });
 });

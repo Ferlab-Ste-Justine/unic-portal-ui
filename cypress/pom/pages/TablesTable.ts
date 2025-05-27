@@ -1,4 +1,5 @@
-import { formatToK } from 'cypress/pom//shared/Utils';
+/// <reference types="cypress"/>
+import { formatToK } from 'cypress/pom/shared/Utils';
 
 const selectorPanel = '[id*="panel-tables"]';
 const selectors = {

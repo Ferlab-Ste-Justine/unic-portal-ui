@@ -1,3 +1,4 @@
+/// <reference types="cypress"/>
 export const data = {
     resourceBronchiolite: {
       approvedOn: /^2022-10-(19|20)$/,
