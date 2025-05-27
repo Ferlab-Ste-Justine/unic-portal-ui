@@ -1,3 +1,4 @@
+/// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 import { formatResourceType, getColumnName, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
 import { formatToK } from 'cypress/pom//shared/Utils';
