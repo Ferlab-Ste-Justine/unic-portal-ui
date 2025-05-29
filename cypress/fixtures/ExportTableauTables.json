@@ -7,11 +7,12 @@
               "Variable Count",
               "Created On",
               "Updated On"],
-  "content": ["complications_accouchement",
-              "Complications during childbirth",
-              "RESPPA",
-              "delivery",
-              "-",
-              "15",
-              "2024-11-05"]
+  "content": ["{{name}}",
+              "{{description}}",
+              "{{resource}}",
+              "{{entity}}",
+              "{{domain}}",
+              "{{variablesCount}}",
+              "{{createdOn}}",
+              "{{updatedOn}}"]
 }

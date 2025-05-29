@@ -133,25 +133,57 @@ const texts = {
 
 export const ResourcesTable = {
     actions: {
+      /**
+       * Clears all filters in the resources table.
+       */
       clearFilters() {
         cy.get(selectors.clearFilterLink).clickAndWait();
       },
+      /**
+       * Clears the value in the select input.
+       */
       clearInputSelect() {
         cy.get(`${selectors.selectInput} ${CommonSelectors.clearSelect}`).clickAndWait();
       },
+      /**
+       * Clicks the download button and waits for the file to be available.
+       */
       clickDownloadButton() {
         cy.get(selectors.downloadButton).clickAndWait();
         cy.waitUntilFile(oneMinute);
       },
+      /**
+       * Clicks the link in a specific table cell for a given resource and column.
+       * @param dataResource The resource object.
+       * @param columnID The ID of the column.
+       */
       clickTableCellLink(dataResource: any, columnID: string) {
         cy.get(selectors.tableCell(dataResource)).eq(getColumnPosition(tableColumns, columnID)).find(CommonSelectors.link).clickAndWait();
       },
+      /**
+       * Deletes the resource type tag from the filter.
+       * @param dataResource The resource object.
+       */
       deleteResourceTypeTag(dataResource: any) {
         cy.get(`${selectors.selectInput} ${CommonSelectors.tag(getResourceColor(dataResource.type))} ${CommonSelectors.closeIcon}`).clickAndWait();
       },
+      /**
+       * Hides a specific column in the table.
+       * @param columnID The ID of the column to hide.
+       */
+      hideColumn(columnID: string) {
+        cy.hideColumn(getColumnName(tableColumns, columnID));
+      },
+      /**
+       * Selects a resource type in the filter dropdown.
+       * @param dataResource The resource object.
+       */
       selectResourceTypeFilter(dataResource: any) {
         cy.inputDropdownSelectValue(selectorPanel, 0/*Resource type*/, formatResourceType(dataResource.type), true/*isMultiSelect*/);
       },
+      /**
+       * Shows all columns in the table.
+       */
       showAllColumns() {
         tableColumns.forEach((column) => {
           if (!column.isVisibleByDefault) {
@@ -159,6 +191,18 @@ export const ResourcesTable = {
           };
         });
       },
+      /**
+       * Shows a specific column in the table.
+       * @param columnID The ID of the column to show.
+       */
+      showColumn(columnID: string) {
+        cy.showColumn(getColumnName(tableColumns, columnID));
+      },
+      /**
+       * Sorts a column, optionally using an intercept.
+       * @param columnID The ID of the column to sort.
+       * @param needIntercept Whether to use an intercept (default: true).
+       */
       sortColumn(columnID: string, needIntercept: boolean = true) {
         const columnName = getColumnName(tableColumns, columnID);
         if (needIntercept) {
@@ -168,9 +212,17 @@ export const ResourcesTable = {
           cy.sortTableAndWait(columnName);
         }
       },
+      /**
+       * Types the resource name in the resource type filter input.
+       * @param dataResource The resource object.
+       */
       typeResourceTypeFilter(dataResource: any) {
         cy.get(selectors.selectInput).eq(0).type(dataResource.name.toLowerCase());
       },
+      /**
+       * Types text in the resource search input.
+       * @param text The text to type.
+       */
       typeResourceSearchInput(text: string) {
         cy.get(selectors.searchInput).type(text);
         cy.waitWhileSpin(oneMinute);
@@ -178,52 +230,24 @@ export const ResourcesTable = {
     },
   
     validations: {
-      columnPositions() {
-        ResourcesTable.actions.showAllColumns();
-        tableColumns.forEach((column) => {
-          cy.get(selectors.tableHeadCell).eq(column.position).contains(column.name).should('exist');
-        });
+      /**
+       * Checks that a specific column is displayed.
+       * @param columnID The ID of the column to check.
+       */
+      shouldDisplayColumn(columnID: string) {
+        cy.get(selectorHead).contains(getColumnName(tableColumns, columnID)).should('exist');
       },
-      columnSortable() {
-        ResourcesTable.actions.showAllColumns();
-        tableColumns.forEach((column) => {
-          cy.getColumnHeadCell(column.name).shouldBeSortable(column.isSortable);
-        });
+      /**
+       * Checks that the tab is active.
+       */
+      shouldHaveActiveTab() {
+        cy.get(selectors.tab).shouldHaveActiveTab();
       },
-      columnSorting(columnID: string, needIntercept: boolean = true) {
-        const columnIndex = getColumnPosition(tableColumns, columnID);
-
-        ResourcesTable.actions.sortColumn(columnID, needIntercept);
-        cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((smallestValue) => {
-          const smallest = smallestValue.trim();
-
-          ResourcesTable.actions.sortColumn(columnID);
-          cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((biggestValue) => {
-            const biggest = biggestValue.trim();
-            if (biggest.localeCompare(smallest) < 0) {
-              throw new Error(`Error: "${biggest}" should be >= "${smallest}"`);
-            };
-          });
-        });
-      },
-      columnTooltips() {
-        ResourcesTable.actions.showAllColumns();
-        tableColumns.forEach((column) => {
-          if (column.tooltip) {
-            cy.getColumnHeadCell(column.name).shouldHaveTooltip(column.tooltip);
-          }
-        });
-      },
-      columnVisibility() {
-        tableColumns.forEach((column) => {
-          const expectedExist = column.isVisibleByDefault ? 'exist' : 'not.exist';
-          cy.get(selectorHead).contains(column.name).should(expectedExist);
-        });
-      },
-      displayedColumn(columnName: string) {
-        cy.get(selectorHead).contains(columnName).should('exist');
-      },
-      fileContent(dataResource: any) {
+      /**
+       * Validates the content of the exported file.
+       * @param dataResource The resource object containing the expected values.
+       */
+      shouldHaveExportedFileContent(dataResource: any) {
         const replacements: Replacement[] = [
           { placeholder: '{{code}}', value: dataResource.code },
           { placeholder: '{{name}}', value: dataResource.name },
@@ -241,47 +265,136 @@ export const ResourcesTable = {
         ];
         cy.validateFileContent('ExportTableauRessources.json', replacements);
       },
-      fileHeaders() {
+      /**
+       * Validates the headers of the exported file.
+       */
+      shouldHaveExportedFileHeaders() {
         cy.validateFileHeaders('ExportTableauRessources.json');
       },
-      fileName() {
+      /**
+       * Validates the name of the exported file.
+       */
+      shouldHaveExportedFileName() {
         cy.validateFileName('resources');
       },
-      firstRowValue(value: string | RegExp, columnID: string) {
+      /**
+       * Validates the value of the first row for a given column.
+       * @param value The expected value (string or RegExp).
+       * @param columnID The ID of the column to check.
+       */
+      shouldHaveFirstRowValue(value: string | RegExp, columnID: string) {
         cy.validateTableFirstRow(value, getColumnPosition(tableColumns, columnID));
       },
-      hiddenColumn(columnName: string) {
-        cy.get(selectorHead).contains(columnName).should('not.exist');
+      /**
+       * Validates the default visibility of each column.
+       */
+      shouldMatchDefaultColumnVisibility() {
+        tableColumns.forEach((column) => {
+          const expectedExist = column.isVisibleByDefault ? 'exist' : 'not.exist';
+          cy.get(selectorHead).contains(column.name).should(expectedExist);
+        });
       },
-      paging(total: string | RegExp) {
-        cy.validatePaging(total, 0);
+      /**
+       * Checks that a specific column is not displayed.
+       * @param columnID The ID of the column to check.
+       */
+      shouldNotDisplayColumn(columnID: string) {
+        cy.get(selectorHead).contains(getColumnName(tableColumns, columnID)).should('not.exist');
       },
-      pageTitle() {
-        cy.get(selectors.pageTitle).contains(texts.pageTitle).should('exist');
+      /**
+       * Validates that all columns are displayed in the correct order in the table.
+       */
+      shouldShowAllColumns() {
+        ResourcesTable.actions.showAllColumns();
+        tableColumns.forEach((column) => {
+          cy.get(selectors.tableHeadCell).eq(column.position).contains(column.name).should('exist');
+        });
       },
-      popoverDescription(dataResource: any) {
+      /**
+       * Validates the presence of tooltips on columns.
+       */
+      shouldShowColumnTooltips() {
+        ResourcesTable.actions.showAllColumns();
+        tableColumns.forEach((column) => {
+          if (column.tooltip) {
+            cy.getColumnHeadCell(column.name).shouldHaveTooltip(column.tooltip);
+          }
+        });
+      },
+      /**
+       * Validates the presence of the description popover.
+       * @param dataResource The resource object containing the expected description.
+       */
+      shouldShowDescriptionPopover(dataResource: any) {
         cy.get(selectors.tableCell(dataResource)).eq(getColumnPosition(tableColumns, 'description')).contains(dataResource.description.slice(0, 13)).shouldHavePopover(dataResource.name, dataResource.description);
       },
-      resetFilterButton() {
+      /**
+       * Checks that the "No Results" message is displayed.
+       */
+      shouldShowNoResultsMessage() {
+        cy.get(selectors.proTableHeader).contains(/^No Results$/).should('exist');
+      },
+      /**
+       * Checks the page title.
+       */
+      shouldShowPageTitle() {
+        cy.get(selectors.pageTitle).contains(texts.pageTitle).should('exist');
+      },
+      /**
+       * Validates the pagination functionality.
+       */
+      shouldShowPaging(total: string | RegExp) {
+        cy.validatePaging(total, 0);
+      },
+      /**
+       * Checks the presence of the reset filters button.
+       */
+      shouldShowResetFilterButton() {
         cy.get(selectors.proTableHeader).contains(texts.resetFilters).should('exist');
       },
-      resourceTypeTagDropdown(dataResource: any, shouldExist: boolean = true) {
+      /**
+       * Checks the presence of the Resource Type tag in the dropdown.
+       * @param dataResource The resource object containing the type.
+       * @param shouldExist Whether the tag should exist (default: true).
+       */
+      shouldShowResourceTypeTagInDropdown(dataResource: any, shouldExist: boolean = true) {
         const strExist = shouldExist ? 'exist' : 'not.exist';
         cy.get(`${CommonSelectors.dropdown} ${CommonSelectors.label(formatResourceType(dataResource.type))} ${CommonSelectors.tag(getResourceColor(dataResource.type))}`).should(strExist);
       },
-      resourceTypeTagFilter(dataResource: any, shouldExist: boolean = true) {
+      /**
+       * Checks the presence of the Resource Type tag in the filter.
+       * @param dataResource The resource object containing the type.
+       * @param shouldExist Whether the tag should exist (default: true).
+       */
+      shouldShowResourceTypeTagInFilter(dataResource: any, shouldExist: boolean = true) {
         const strExist = shouldExist ? 'exist' : 'not.exist';
         cy.get(`${selectors.selectInput} ${CommonSelectors.tag(getResourceColor(dataResource.type))}`).should(strExist);
       },
-      resultsCount(count: string | number, shouldExist: boolean = true) {
-        const countToK = formatToK(count);
+      /**
+       * Checks the displayed results count.
+       * @param count The expected count (string, number, or RegExp).
+       * @param shouldExist Whether the count should exist (default: true).
+       */
+      shouldShowResultsCount(count: string | number | RegExp, shouldExist: boolean = true) {
+        const strCount = count instanceof RegExp ? count.source : formatToK(count);
         const strExist = shouldExist ? 'exist' : 'not.exist';
-        cy.get(selectors.proTableHeader).contains(new RegExp(`(^${countToK} Result$| of ${countToK}$)`)).should(strExist);
+        const strPlural = strCount === '1' ? '' : 's';
+        cy.get(selectors.proTableHeader).contains(new RegExp(`(^${strCount} Result${strPlural}$| of ${strCount}$)`)).should(strExist);
       },
-      tabActive() {
-        cy.get(selectors.tab).shouldHaveActiveTab();
+      /**
+       * Validates that sortable columns are correctly marked as sortable.
+       */
+      shouldShowSortableColumns() {
+        ResourcesTable.actions.showAllColumns();
+        tableColumns.forEach((column) => {
+          cy.getColumnHeadCell(column.name).shouldBeSortable(column.isSortable);
+        });
       },
-      tableContent(dataResource: any) {
+      /**
+       * Validates the content of all columns in the table for a given resource.
+       * @param dataResource The resource object containing the expected values.
+       */
+      shouldShowTableContent(dataResource: any) {
         tableColumns.forEach((column) => {
           switch (column.id) {
             case 'type':
@@ -298,6 +411,27 @@ export const ResourcesTable = {
               cy.get(selectors.tableCell(dataResource)).eq(column.position).contains(dataResource[column.id]).should('exist');
               break;
           }
+        });
+      },
+      /**
+       * Validates the sorting functionality of a column.
+       * @param columnID The ID of the column to sort.
+       * @param needIntercept Whether to use an intercept for the sorting action (default: true).
+       */
+      shouldSortColumn(columnID: string, needIntercept: boolean = true) {
+        const columnIndex = getColumnPosition(tableColumns, columnID);
+
+        ResourcesTable.actions.sortColumn(columnID, needIntercept);
+        cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((smallestValue) => {
+          const smallest = smallestValue.trim();
+
+          ResourcesTable.actions.sortColumn(columnID);
+          cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((biggestValue) => {
+            const biggest = biggestValue.trim();
+            if (biggest.localeCompare(smallest) < 0) {
+              throw new Error(`Error: "${biggest}" should be >= "${smallest}"`);
+            };
+          });
         });
       },
     },

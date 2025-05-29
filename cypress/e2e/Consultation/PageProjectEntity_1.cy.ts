@@ -10,46 +10,46 @@ beforeEach(() => {
 
 describe('Page d\'un projet - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    ResourcePage.validations.title(data.resourceBronchiolite.name);
+    ResourcePage.validations.shouldHaveTitle(data.resourceBronchiolite.name);
   });
 
   it('Panneau Summary - Header', () => {
-    ResourcePage.validations.summary.header(data.resourceBronchiolite);
+    ResourcePage.validations.summary.shouldHaveHeader(data.resourceBronchiolite);
   });
 
   it('Panneau Summary - Title', () => {
-    ResourcePage.validations.summary.title(data.resourceBronchiolite.title);
+    ResourcePage.validations.summary.shouldHaveTitle(data.resourceBronchiolite.title);
   });
 
   it('Panneau Summary - Description', () => {
-    ResourcePage.validations.summary.description(data.resourceBronchiolite.description);
+    ResourcePage.validations.summary.shouldHaveDescription(data.resourceBronchiolite.description);
   });
 
   it('Panneau Summary - Investigator Owner', () => {
-    ResourcePage.validations.summary.principalInvestigator(data.resourceBronchiolite.principalInvestigator);
+    ResourcePage.validations.summary.shouldHavePrincipalInvestigator(data.resourceBronchiolite.principalInvestigator);
   });
 
   it('Panneau Summary - Nagano ID', () => {
-    ResourcePage.validations.summary.naganoID(data.resourceBronchiolite.naganoID);
+    ResourcePage.validations.summary.shouldHaveNaganoID(data.resourceBronchiolite.naganoID);
   });
 
   it('Panneau Summary - Approved On', () => {
-    ResourcePage.validations.summary.approvedOn(data.resourceBronchiolite.approvedOn);
+    ResourcePage.validations.summary.shouldHaveApprovedOn(data.resourceBronchiolite.approvedOn);
   });
 
   it('Panneau Variables - Variable Count', () => {
-    ResourcePage.validations.variables.variableCount(data.resourceBronchiolite);
+    ResourcePage.validations.variables.shouldHaveVariableCount(data.resourceBronchiolite);
   });
 
   it('Panneau Variables - Hospital Systems', () => {
-    ResourcePage.validations.variables.hostitalSystems(data.resourceBronchiolite.variables.hospitalSystems);
+    ResourcePage.validations.variables.shouldHaveHospitalSystems(data.resourceBronchiolite.variables.hospitalSystems);
   });
 
   it('Panneau Current version - Published On', () => {
-    ResourcePage.validations.currentVersion.publishedOn(data.resourceBronchiolite.updatedOn);
+    ResourcePage.validations.currentVersion.shouldHavePublishedOn(data.resourceBronchiolite.updatedOn);
   });
 
   it('Panneau Current version - Version', () => {
-    ResourcePage.validations.currentVersion.version(data.resourceBronchiolite.version, true/*isTooltip*/);
+    ResourcePage.validations.currentVersion.shouldHaveVersion(data.resourceBronchiolite.version, true/*isTooltip*/);
   });
 });

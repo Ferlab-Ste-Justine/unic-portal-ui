@@ -10,7 +10,7 @@ beforeEach(() => {
 describe('Page d\'une table - Valider les liens disponibles', () => {
   it('Lien Title Catalog', () => {
     cy.get('[class*="page_titleHeader"]').find('[href]').eq(0).clickAndWait();
-    ResourcesTable.validations.pageTitle();
+    ResourcesTable.validations.shouldShowPageTitle();
   });
 
   it('Lien Title Resource', () => {

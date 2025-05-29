@@ -12,18 +12,18 @@ beforeEach(() => {
 
 describe('Tableau Ressources - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    ResourcesTable.validations.pageTitle();
+    ResourcesTable.validations.shouldShowPageTitle();
   });
 
   it('Onglet', () => {
-    ResourcesTable.validations.tabActive();
+    ResourcesTable.validations.shouldHaveActiveTab();
   });
 
   it('Tableau', () => {
-    ResourcesTable.validations.tableContent(data.resourceBronchiolite);
+    ResourcesTable.validations.shouldShowTableContent(data.resourceBronchiolite);
   });
 
   it('Popover Description', () => {
-    ResourcesTable.validations.popoverDescription(data.resourceBronchiolite);
+    ResourcesTable.validations.shouldShowDescriptionPopover(data.resourceBronchiolite);
   });
 });

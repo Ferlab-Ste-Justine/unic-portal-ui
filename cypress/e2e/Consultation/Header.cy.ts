@@ -27,7 +27,7 @@ describe('Header', () => {
 
   it('Valider les liens disponibles - Catalog', () => {
     cy.get('[class*="Header_headerBtn"]').eq(0).clickAndWait();
-    ResourcesTable.validations.pageTitle();
+    ResourcesTable.validations.shouldShowPageTitle();
   });
 
   it('Valider les liens disponibles - About', () => {

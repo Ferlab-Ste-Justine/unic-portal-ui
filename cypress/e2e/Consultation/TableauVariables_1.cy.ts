@@ -11,7 +11,7 @@ beforeEach(() => {
 
 describe('Tableau Variables - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    ResourcesTable.validations.pageTitle();
+    ResourcesTable.validations.shouldShowPageTitle();
   });
 
   it('Onglet', () => {

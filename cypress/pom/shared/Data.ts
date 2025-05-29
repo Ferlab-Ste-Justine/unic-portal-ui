@@ -43,7 +43,7 @@ export const data = {
       name: 'centro',
       principalInvestigator: '-',
       tables: 419,
-      type: 'hostitalsystems',
+      type: 'hospitalsystems',
       updatedOn: '2024-10-31',
       variables: {
         totalCount: '13677',
@@ -59,11 +59,11 @@ export const data = {
       naganoID: '-',
       name: 'warehouse',
       principalInvestigator: '-',
-      tables: 16,
+      tables: 19,
       type: 'warehouse',
       updatedOn: '2024-10-31',
       variables: {
-        totalCount: '479',
+        totalCount: '595',
         hospitalSystems: {
           chartmaxx: 2,
           clinibaseci: 1,
@@ -86,6 +86,17 @@ export const data = {
         },
       },
       version: '-',
+    },
+    tableAccouchement: {
+      createdOn: '2024-11-05',
+      dataRowKey: '1188',
+      description: 'Information regarding childbirth',
+      domain: '-',
+      entity: 'delivery',
+      name: 'accouchement',
+      resource: 'RESPPA',
+      updatedOn: '2024-11-05',
+      variableCount: '11',
     },
   };
   

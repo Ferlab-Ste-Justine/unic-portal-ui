@@ -16,31 +16,31 @@ beforeEach(() => {
 describe('Tableau Ressources - Valider les liens disponibles', () => {
   it('Lien Code', () => {
     ResourcesTable.actions.clickTableCellLink(data.resourceBronchiolite, 'code');
-    ResourcePage.validations.title(data.resourceBronchiolite.name);
+    ResourcePage.validations.shouldHaveTitle(data.resourceBronchiolite.name);
   });
 
   it('Lien Name', () => {
     ResourcesTable.actions.clickTableCellLink(data.resourceBronchiolite, 'name');
-    ResourcePage.validations.title(data.resourceBronchiolite.name);
+    ResourcePage.validations.shouldHaveTitle(data.resourceBronchiolite.name);
   });
 
   it('Lien Table (Research)', () => {
     ResourcesTable.actions.clickTableCellLink(data.resourceBronchiolite, 'tables');
-    TablesTable.validations.redirectAndFilterTable(data.resourceBronchiolite.name, data.resourceBronchiolite.tables);
+    TablesTable.validations.shouldRedirectAndValidateTable(data.resourceBronchiolite.name, data.resourceBronchiolite.tables);
   });
 
   it('Lien Table (Hospital System)', () => {
     ResourcesTable.actions.clickTableCellLink(data.resourceCentro, 'tables');
-    TablesTable.validations.redirectAndFilterTable(data.resourceCentro.name, data.resourceCentro.tables);
+    TablesTable.validations.shouldRedirectAndValidateTable(data.resourceCentro.name, data.resourceCentro.tables);
   });
 
   it('Lien Variable (Research)', () => {
     ResourcesTable.actions.clickTableCellLink(data.resourceBronchiolite, 'variables');
-    VariablesTable.validations.redirectAndFilterTable(data.resourceBronchiolite.name, data.resourceBronchiolite.variables.totalCount);
+    VariablesTable.validations.shouldRedirectAndValidateTable([data.resourceBronchiolite.name], data.resourceBronchiolite.variables.totalCount);
   });
 
   it('Lien Variable (Hospital System)', () => {
     ResourcesTable.actions.clickTableCellLink(data.resourceCentro, 'variables');
-    VariablesTable.validations.redirectAndFilterTable(data.resourceCentro.name, data.resourceCentro.variables.totalCount);
+    VariablesTable.validations.shouldRedirectAndValidateTable([data.resourceCentro.name], data.resourceCentro.variables.totalCount);
   });
 });

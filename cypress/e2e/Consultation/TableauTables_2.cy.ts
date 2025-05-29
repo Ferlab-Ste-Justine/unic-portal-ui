@@ -1,32 +1,30 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { ResourcePage } from 'cypress/pom/pages/ResourcePage';
+import { TablePage } from 'cypress/pom/pages/TablePage';
+import { TablesTable } from 'cypress/pom/pages/TablesTable';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('tables');
-  cy.showColumn('Entity', 1);
-  cy.showColumn('Domain', 1);
-  cy.showColumn('Created On', 1);
-  cy.showColumn('Updated On', 1);
+  TablesTable.actions.showAllColumns();
 });
 
 describe('Tableau Tables - Valider les liens disponibles', () => {
   it('Lien Name', () => {
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(0).find('[href]').clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('accouchement').should('exist');
+    TablesTable.actions.clickTableCellLink(data.tableAccouchement, 'name');
+    TablePage.validations.shouldHaveTitle(data.tableAccouchement.name);
   });
 
   it('Lien Resource', () => {
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(2).find('[href]').clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('RESPPA').should('exist');
+    TablesTable.actions.clickTableCellLink(data.tableAccouchement, 'resource');
+    ResourcePage.validations.shouldHaveTitle(data.tableAccouchement.resource);
   });
 
   it('Lien Variable Count', () => {
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(5).find('a').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Catalog').should('exist');
-    cy.get('[data-node-key="variables"]').should('have.class', 'ant-tabs-tab-active');
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="accouchement"]').should('exist');
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="RESPPA"]').should('exist');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^11 Results$| of 11$)/).should('exist');
+    TablesTable.actions.clickTableCellLink(data.tableAccouchement, 'variableCount');
+    VariablesTable.validations.shouldRedirectAndValidateTable([data.tableAccouchement.name, data.tableAccouchement.resource], data.tableAccouchement.variableCount);
   });
 });
