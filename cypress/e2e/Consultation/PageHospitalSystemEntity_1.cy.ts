@@ -10,30 +10,30 @@ beforeEach(() => {
 
 describe('Page d\'un Système hospitalier - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    ResourcePage.validations.title(data.resourceCentro.name);
+    ResourcePage.validations.shouldHaveTitle(data.resourceCentro.name);
   });
 
   it('Panneau Summary - Header', () => {
-    ResourcePage.validations.summary.header(data.resourceCentro);
+    ResourcePage.validations.summary.shouldHaveHeader(data.resourceCentro);
   });
 
   it('Panneau Summary - Description', () => {
-    ResourcePage.validations.summary.description(data.resourceCentro.description);
+    ResourcePage.validations.summary.shouldHaveDescription(data.resourceCentro.description);
   });
 
   it('Panneau Summary - Collection Starting Year', () => {
-    ResourcePage.validations.summary.collectionStartingYear(data.resourceCentro.collectionStartingYear);
+    ResourcePage.validations.summary.shouldHaveCollectionStartingYear(data.resourceCentro.collectionStartingYear);
   });
 
   it('Panneau Variables - Variable Count', () => {
-    ResourcePage.validations.variables.variableCount(data.resourceCentro);
+    ResourcePage.validations.variables.shouldHaveVariableCount(data.resourceCentro);
   });
 
   it('Panneau Current version - Published On', () => {
-    ResourcePage.validations.currentVersion.publishedOn(data.resourceCentro.updatedOn);
+    ResourcePage.validations.currentVersion.shouldHavePublishedOn(data.resourceCentro.updatedOn);
   });
 
   it('Panneau Current version - Version', () => {
-    ResourcePage.validations.currentVersion.version(data.resourceCentro.version);
+    ResourcePage.validations.currentVersion.shouldHaveVersion(data.resourceCentro.version);
   });
 });

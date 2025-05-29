@@ -8,20 +8,20 @@ beforeEach(() => {
   cy.visitCatalog();
   ResourcesTable.actions.showAllColumns();
   ResourcesTable.actions.typeResourceSearchInput(data.resourceBronchiolite.code);
-  ResourcesTable.validations.resultsCount('1');
+  ResourcesTable.validations.shouldShowResultsCount('1');
   ResourcesTable.actions.clickDownloadButton();
 });
 
 describe('Tableau Ressources - Exporter les ressources en TSV', () => {
   it('Valider le nom du fichier', () => {
-    ResourcesTable.validations.fileName();
+    ResourcesTable.validations.shouldHaveExportedFileName();
   });
 
   it('Valider les en-têtes du fichier', () => {
-    ResourcesTable.validations.fileHeaders();
+    ResourcesTable.validations.shouldHaveExportedFileHeaders();
   });
 
   it('Valider le contenu du fichier', () => {
-    ResourcesTable.validations.fileContent(data.resourceBronchiolite);
+    ResourcesTable.validations.shouldHaveExportedFileContent(data.resourceBronchiolite);
   });
 });

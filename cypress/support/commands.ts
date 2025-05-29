@@ -29,8 +29,8 @@ Cypress.Commands.add('clickAndWait', { prevSubject: 'element' }, (subject, optio
   cy.waitWhileSpin(oneMinute);
 });
 
-Cypress.Commands.add('getColumnHeadCell', (columnName: string) => {
-  cy.get(CommonSelectors.tableHead).find(CommonSelectors.tableCell).then(($tableCells) => {
+Cypress.Commands.add('getColumnHeadCell', (columnName: string, eq: number = 0) => {
+  cy.get(CommonSelectors.tableHead).eq(eq).find(CommonSelectors.tableCell).then(($tableCells) => {
     let matchedCell: JQuery<HTMLElement> | undefined = undefined;
     $tableCells.each((_index, cell) => {
       if (cell.textContent?.includes(columnName)) {

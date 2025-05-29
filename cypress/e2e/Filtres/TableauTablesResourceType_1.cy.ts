@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
-import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 import { data } from 'cypress/pom/shared/Data';
+import { TablesTable } from 'cypress/pom/pages/TablesTable';
 
 beforeEach(() => {
   cy.login();
@@ -10,34 +10,34 @@ beforeEach(() => {
 
 describe('Tableau Tables - Vérifier la fonctionnalité du filtre Resource type', () => {
   it('Dropdown tag', () => {
-    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"]').eq(0).type('warehouse');
-    cy.get(`${CommonSelectors.dropdown} [label="Warehouse"] [class*="ant-tag-orange"]`).should('exist');
+    TablesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    TablesTable.validations.shouldShowResourceTypeTagInDropdown(data.resourceWarehouse);
   });
 
   it('Results', () => {
-    cy.inputDropdownSelectValue('[id*="panel-tables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^17 Results$| of 17$)/).should('exist');
+    TablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    TablesTable.validations.shouldShowResultsCount(data.resourceWarehouse.tables);
   });
 
   it('Lien Reset filters', () => {
-    cy.inputDropdownSelectValue('[id*="panel-tables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains('Reset filters').should('exist');
+    TablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    TablesTable.validations.shouldShowResetFilterButton();
   });
 
   it('Input tag', () => {
-    cy.inputDropdownSelectValue('[id*="panel-tables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"] [class*="ant-tag-orange"]').contains('Warehouse').should('exist');
+    TablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    TablesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceWarehouse);
   });
 
   it('Related Table search', () => {
-    cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('accouchement');
-    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"]').eq(0).type('warehouse');
-    cy.get(`${CommonSelectors.dropdown} [label="Warehouse"] [class*="ant-tag-orange"]`).should('not.exist');
+    TablesTable.actions.typeTableSearchInput(data.tableAccouchement.name);
+    TablesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    TablesTable.validations.shouldShowResourceTypeTagInDropdown(data.resourceWarehouse, false/*shouldExist*/);
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('[id*="panel-tables"]', 1/*Resource*/, data.resourceBronchiolite.name);
-    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"]').eq(0).type('warehouse');
-    cy.get(`${CommonSelectors.dropdown} [label="Warehouse"] [class*="ant-tag-orange"]`).should('not.exist');
+    TablesTable.actions.selectResourceFilter(data.resourceBronchiolite);
+    TablesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    TablesTable.validations.shouldShowResourceTypeTagInDropdown(data.resourceWarehouse, false/*shouldExist*/);
   });
 });

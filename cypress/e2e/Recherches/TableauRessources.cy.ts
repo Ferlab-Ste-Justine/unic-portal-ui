@@ -1,6 +1,8 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
 import { data } from 'cypress/pom/shared/Data';
+import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
+import { varSingleDigit } from 'cypress/pom/shared/Utils';
 
 beforeEach(() => {
   cy.login();
@@ -9,43 +11,43 @@ beforeEach(() => {
 
 describe('Tableau Ressources - Vérifier la fonctionnalité de la recherche Resource', () => {
   it('Results by Code', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('Choriobact');
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    ResourcesTable.actions.typeResourceSearchInput('Choriobact');
+    ResourcesTable.validations.shouldShowResultsCount(1);
   });
 
   it('Results by Description en', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('warehouse tables');
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    ResourcesTable.actions.typeResourceSearchInput('warehouse tables');
+    ResourcesTable.validations.shouldShowResultsCount(1);
   });
 
   it('Results by Description fr', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('Tables d\'entrepôt');
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    ResourcesTable.actions.typeResourceSearchInput('Tables d\'entrepôt');
+    ResourcesTable.validations.shouldShowResultsCount(1);
   });
 
   it('Results by Name', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('chorio-bact');
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    ResourcesTable.actions.typeResourceSearchInput('chorio-bact');
+    ResourcesTable.validations.shouldShowResultsCount(1);
   });
 
   it('Results by Project PI', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('boucoiran');
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/\d{1} Results$/).should('exist');
+    ResourcesTable.actions.typeResourceSearchInput('boucoiran');
+    ResourcesTable.validations.shouldShowResultsCount(varSingleDigit);
   });
 
   it('Results by Title', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('entrepôt de données');
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    ResourcesTable.actions.typeResourceSearchInput('entrepôt de données');
+    ResourcesTable.validations.shouldShowResultsCount(1);
   });
 
   it('Lien Reset filters', () => {
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type('warehouse');
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains('Reset filters').should('exist');
+    ResourcesTable.actions.typeResourceSearchInput(data.resourceBronchiolite.code);
+    ResourcesTable.validations.shouldShowResetFilterButton();
   });
 
   it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('[id*="panel-resources"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-resources"] [class*="InputSearch_filter"] input').type(data.resourceBronchiolite.code);
-    cy.get('[id*="panel-resources"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
+    ResourcesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    ResourcesTable.actions.typeResourceSearchInput(data.resourceBronchiolite.code);
+    ResourcesTable.validations.shouldShowNoResultsMessage();
   });
 });

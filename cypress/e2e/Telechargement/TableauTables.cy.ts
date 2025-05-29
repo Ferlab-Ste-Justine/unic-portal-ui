@@ -1,35 +1,27 @@
 /// <reference types="cypress"/>
-import { getDateTime } from '../../support/utils';
-import { oneMinute } from '../../support/utils';
-
-const { strDate } = getDateTime();
+import { data } from 'cypress/pom/shared/Data';
+import { TablesTable } from 'cypress/pom/pages/TablesTable';
 
 beforeEach(() => {
   cy.removeFilesFromFolder(Cypress.config('downloadsFolder'));
-
   cy.login();
   cy.visitCatalog('tables');
-  cy.showColumn('Entity', 1);
-  cy.showColumn('Domain', 1);
-  cy.showColumn('Created On', 1);
-  cy.showColumn('Updated On', 1);
-  cy.get('[id*="panel-tables"] [class*="InputSearch_filter"] input').type('complications_accouchement');
-  cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
-  
-  cy.clickAndIntercept('[id*="panel-tables"] [class*="Header_ProTableHeader"] [data-icon="download"]', 'POST', '**/graphql', 2);
-  cy.waitUntilFile(oneMinute);
+  TablesTable.actions.showAllColumns();
+  TablesTable.actions.typeTableSearchInput(data.tableAccouchement.description);
+  TablesTable.validations.shouldShowResultsCount('1');
+  TablesTable.actions.clickDownloadButton();
 });
 
 describe('Tableau Tables - Exporter les tables en TSV', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName('tables');
+    TablesTable.validations.shouldHaveExportedFileName();
   });
 
   it('Valider les en-têtes du fichier', () => {
-    cy.validateFileHeaders('ExportTableauTables.json');
+    TablesTable.validations.shouldHaveExportedFileHeaders();
   });
 
   it('Valider le contenu du fichier', () => {
-    cy.validateFileContent('ExportTableauTables.json');
+    TablesTable.validations.shouldHaveExportedFileContent(data.tableAccouchement);
   });
 });

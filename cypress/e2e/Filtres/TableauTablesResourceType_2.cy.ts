@@ -1,30 +1,32 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { TablesTable } from 'cypress/pom/pages/TablesTable';
 
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('tables');
-  cy.inputDropdownSelectValue('[id*="panel-tables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+  TablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
 });
 
 describe('Tableau Tables - Valider les liens du filtre Resource type', () => {
   it('Reset filters - Clear Input tag', () => {
-    cy.get('[id*="panel-tables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"] [class*="ant-tag-orange"]').should('not.exist');
+    TablesTable.actions.clearFilters();
+    TablesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceWarehouse, false/*shouldExist*/)
   });
 
   it('Reset filters - Results', () => {
-    cy.get('[id*="panel-tables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^15 Results$| of 15$)/).should('not.exist');
+    TablesTable.actions.clearFilters();
+    TablesTable.validations.shouldShowResultsCount(data.resourceWarehouse.tables, false/*shouldExist*/);
   });
 
   it('Delete Tag - Results', () => {
-    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"] [class*="ant-tag-orange"] [data-icon="close"]').clickAndWait();
-    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^15 Results$| of 15$)/).should('not.exist');
+    TablesTable.actions.deleteResourceTypeTag(data.resourceWarehouse);
+    TablesTable.validations.shouldShowResultsCount(data.resourceWarehouse.tables, false/*shouldExist*/);
   });
 
   it('Clear Input - Results', () => {
-    cy.get('[id*="panel-tables"] [class*="InputSelect_filter"] [class="ant-select-clear"]').clickAndWait();
-    cy.get('[id*="panel-tables"] [class*="Header_ProTableHeader"]').contains(/(^15 Results$| of 15$)/).should('not.exist');
+    TablesTable.actions.clearInputSelect();
+    TablesTable.validations.shouldShowResultsCount(data.resourceWarehouse.tables, false/*shouldExist*/);
   });
 });

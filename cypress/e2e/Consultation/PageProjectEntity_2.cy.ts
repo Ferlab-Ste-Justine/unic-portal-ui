@@ -13,17 +13,17 @@ beforeEach(() => {
 describe('Page d\'un projet - Valider les liens disponibles', () => {
   it('Lien Title', () => {
     ResourcePage.actions.clickTitleLink();
-    ResourcesTable.validations.pageTitle();
+    ResourcesTable.validations.shouldShowPageTitle();
   });
 
   it('Lien Variable Count', () => {
     ResourcePage.actions.clickVariableCountLink();
-    VariablesTable.validations.redirectAndFilterTable(data.resourceBronchiolite.name, data.resourceBronchiolite.variables.totalCount);
+    VariablesTable.validations.shouldRedirectAndValidateTable([data.resourceBronchiolite.name], data.resourceBronchiolite.variables.totalCount);
   });
 
   it('Lien Hospital System', () => {
     ResourcePage.actions.clickHospitalSystemLink('staturgence');
-    VariablesTable.validations.redirectAndFilterTable(data.resourceBronchiolite.name, data.resourceBronchiolite.variables.hospitalSystems.staturgence.toString());
-    VariablesTable.validations.inputFilterTagExists('staturgence');
+    VariablesTable.validations.shouldRedirectAndValidateTable([data.resourceBronchiolite.name], data.resourceBronchiolite.variables.hospitalSystems.staturgence.toString());
+    VariablesTable.validations.shouldShowFilterTag('staturgence');
   });
 });

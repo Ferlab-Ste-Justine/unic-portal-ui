@@ -13,11 +13,11 @@ beforeEach(() => {
 describe('Page d\'un Système hospitalier - Valider les liens disponibles', () => {
   it('Lien Title', () => {
     ResourcePage.actions.clickTitleLink();
-    ResourcesTable.validations.pageTitle();
+    ResourcesTable.validations.shouldShowPageTitle();
   });
 
   it('Lien Variable Count', () => {
     ResourcePage.actions.clickVariableCountLink();
-    VariablesTable.validations.redirectAndFilterTable(data.resourceCentro.name, data.resourceCentro.variables.totalCount);
+    VariablesTable.validations.shouldRedirectAndValidateTable([data.resourceCentro.name], data.resourceCentro.variables.totalCount);
   });
 });

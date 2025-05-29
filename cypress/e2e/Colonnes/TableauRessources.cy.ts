@@ -9,30 +9,30 @@ beforeEach(() => {
 
 describe('Tableau Ressources - Colonnes du tableau', () => {
   it('Valider l\'affichage par défaut', () => {
-    ResourcesTable.validations.columnVisibility();
+    ResourcesTable.validations.shouldMatchDefaultColumnVisibility();
   });
 
   it('Valider l\'ordre', () => {
-    ResourcesTable.validations.columnPositions();
+    ResourcesTable.validations.shouldShowAllColumns();
   });
 
   it('Valider la propriété de tri', () => {
-    ResourcesTable.validations.columnSortable();
+    ResourcesTable.validations.shouldShowSortableColumns();
   });
 
   it('Valider le tooltip', () => {
-    ResourcesTable.validations.columnTooltips();
+    ResourcesTable.validations.shouldShowColumnTooltips();
   });
 
   it('Masquer une colonne affichée', () => {
-    ResourcesTable.validations.displayedColumn('Name');
-    cy.hideColumn('Name');
-    ResourcesTable.validations.hiddenColumn('Name');
+    ResourcesTable.validations.shouldDisplayColumn('name');
+    ResourcesTable.actions.hideColumn('name');
+    ResourcesTable.validations.shouldNotDisplayColumn('name');
   });
 
   it('Afficher une colonne masquée', () => {
-    ResourcesTable.validations.hiddenColumn('Code');
-    cy.showColumn('Code');
-    ResourcesTable.validations.displayedColumn('Code');
+    ResourcesTable.validations.shouldNotDisplayColumn('code');
+    ResourcesTable.actions.showColumn('code');
+    ResourcesTable.validations.shouldDisplayColumn('code');
   });
 });

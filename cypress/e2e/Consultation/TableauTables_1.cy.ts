@@ -1,33 +1,24 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
-import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
+import { data } from 'cypress/pom/shared/Data';
+import { TablesTable } from 'cypress/pom/pages/TablesTable';
 
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('tables');
-  cy.showColumn('Entity', 1);
-  cy.showColumn('Domain', 1);
-  cy.showColumn('Created On', 1);
-  cy.showColumn('Updated On', 1);
+  TablesTable.actions.showAllColumns();
 });
 
 describe('Tableau Tables - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    ResourcesTable.validations.pageTitle();
+    TablesTable.validations.shouldShowPageTitle();
   });
 
   it('Onglet', () => {
-    cy.get('[class*="ant-tabs-tab-active"]').contains('Tables').should('exist');
+    TablesTable.validations.shouldShowPageTitle();
   });
 
   it('Tableau', () => {
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(0).contains('accouchement').should('exist');
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(1).contains('Information regarding childbirth').should('exist');
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(2).contains('RESPPA').should('exist');
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(3).contains('delivery').should('exist');
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(4).contains('-').should('exist');
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(5).contains('11').should('exist');
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(6).contains('2024-11-05').should('exist');
-    cy.get('[data-row-key="1188"] [class="ant-table-cell"]').eq(7).contains('2024-11-05').should('exist');
+    TablesTable.validations.shouldShowTableContent(data.tableAccouchement);
   });
 });
