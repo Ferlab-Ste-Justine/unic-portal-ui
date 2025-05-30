@@ -1,27 +1,29 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { VariablePage } from 'cypress/pom/pages/VariablePage';
 
 beforeEach(() => {
   cy.login();
-  cy.visitVariableEntity('warehouse', 'transfusion', 'unicproduct');
+  cy.visitVariableEntity(data.variableUnicproduct);
 });
 
 describe('Page d\'une variable - Vérifier la fonctionnalité de la recherche Categories', () => {
   it('Table filtered by Value', () => {
-    cy.get('[id="categories"] input').type('psl');
-    cy.get('[id="categories"] [data-row-key="MDS"] td').should('not.exist');
-    cy.get('[id="categories"] [data-row-key="PSL"] td').should('exist');
+    VariablePage.actions.typeCategorySearchInput('psl');
+    VariablePage.validations.categories.shouldShowCategoryInTable('MDS', false/*shouldExist*/);
+    VariablePage.validations.categories.shouldShowCategoryInTable('PSL');
   });
 
   it('Table filtered by Label en', () => {
-    cy.get('[id="categories"] input').type('Product');
-    cy.get('[id="categories"] [data-row-key="MDS"] td').should('not.exist');
-    cy.get('[id="categories"] [data-row-key="PSL"] td').should('exist');
+    VariablePage.actions.typeCategorySearchInput('Product');
+    VariablePage.validations.categories.shouldShowCategoryInTable('MDS', false/*shouldExist*/);
+    VariablePage.validations.categories.shouldShowCategoryInTable('PSL');
   });
 
   it('Table filtered by Label fr', () => {
-    cy.get('[id="categories"] input').type('produit');
-    cy.get('[id="categories"] [data-row-key="MDS"] td').should('not.exist');
-    cy.get('[id="categories"] [data-row-key="PSL"] td').should('exist');
+    VariablePage.actions.typeCategorySearchInput('produit');
+    VariablePage.validations.categories.shouldShowCategoryInTable('MDS', false/*shouldExist*/);
+    VariablePage.validations.categories.shouldShowCategoryInTable('PSL');
   });
 });

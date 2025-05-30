@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
+import { CommonTexts } from 'cypress/pom/shared/Texts';
 import { formatResourceType, formatToK, getColumnName, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
 import { Replacement } from 'cypress/support/commands';
 import { oneMinute } from 'cypress/support/utils';
@@ -8,7 +9,7 @@ const selectorPanel = '[id*="panel-tables"]';
 const selectorHead = CommonSelectors.tableHead;
 const selectors = {
   clearFilterLink: `${selectorPanel} [class*="Header_clearFilterLink"]`,
-  downloadButton: `${selectorPanel} [data-icon="download"]`,
+  downloadButton: `${selectorPanel} ${CommonSelectors.download}`,
   filterTitleInput: (title: string) => `${selectorPanel} [class*="InputSelect_filter"] ${CommonSelectors.title(title)}`,
   filterTagInput: `${selectorPanel} [class*="InputSelect_filter"] [class*="ant-tag"]`,
   pageTitle: '[class*="PageLayout_titlePage"]',
@@ -50,7 +51,7 @@ const tableColumns = [
     isVisibleByDefault: false,
     isSortable: true,
     position: 3,
-    tooltip: 'The entity refers to the object to which the variable is associated (e.g. the variable “age” is associated with “patient”). The entity describes the context or level to which the data pertains.',
+    tooltip: CommonTexts.tableEntityTooltip,
   },
   {
     id: 'domain',
@@ -58,7 +59,7 @@ const tableColumns = [
     isVisibleByDefault: false,
     isSortable: true,
     position: 4,
-    tooltip: 'The entity refers to the object to which the variable is associated (e.g. the variable “age” is associated with “patient”). The entity describes the context or level to which the data pertains.',
+    tooltip: CommonTexts.tableDomainTooltip,
   },
   {
     id: 'variableCount',
@@ -74,7 +75,7 @@ const tableColumns = [
     isVisibleByDefault: false,
     isSortable: true,
     position: 6,
-    tooltip: 'Creation date of the dictionary for this table',
+    tooltip: CommonTexts.createdOnTooltip('table'),
   },
   {
     id: 'updatedOn',
@@ -82,19 +83,14 @@ const tableColumns = [
     isVisibleByDefault: false,
     isSortable: true,
     position: 7,
-    tooltip: 'Date of the most recent update of the dictionary for this table',
+    tooltip: CommonTexts.updatedOnTooltip('table'),
   },
 ];
-
-const texts = {
-  pageTitle: 'UnIC Catalog',
-  resetFilters: 'Reset filters',
-};
 
 export const TablesTable = {
     actions: {
       /**
-       * Clears all filters in the resources table.
+       * Clears all filters in the table.
        */   
       clearFilters() {
         cy.get(selectors.clearFilterLink).clickAndWait();
@@ -125,7 +121,7 @@ export const TablesTable = {
        * @param dataResource The resource object.
        */
       deleteResourceTypeTag(dataResource: any) {
-        cy.get(`${selectors.selectInput} ${CommonSelectors.tag(getResourceColor(dataResource.type))} ${CommonSelectors.closeIcon}`).clickAndWait();
+        cy.get(`${selectors.selectInput} ${CommonSelectors.tagColor(getResourceColor(dataResource.type))} ${CommonSelectors.closeIcon}`).clickAndWait();
       },
       /**
        * Hides a specific column in the table.
@@ -225,7 +221,7 @@ export const TablesTable = {
         const replacements: Replacement[] = [
           { placeholder: '{{name}}', value: dataTable.name },
           { placeholder: '{{description}}', value: dataTable.description },
-          { placeholder: '{{resource}}', value: dataTable.resource },
+          { placeholder: '{{resource}}', value: dataTable.resourceName },
           { placeholder: '{{entity}}', value: dataTable.entity },
           { placeholder: '{{domain}}', value: dataTable.domain },
           { placeholder: '{{variablesCount}}', value: dataTable.variableCount },
@@ -303,27 +299,12 @@ export const TablesTable = {
         });
       },
       /**
-       * Validates the presence of the description popover.
-       * @param dataTable The table object containing the expected description.
-       */
-      shouldShowDescriptionPopover(dataTable: any) {
-        cy.get(selectors.tableCell(dataTable)).eq(getColumnPosition(tableColumns, 'description')).contains(dataTable.description.slice(0, 13)).shouldHavePopover(dataTable.name, dataTable.description);
-      },
-      /**
        * Checks that a filter input with the given value exists.
        * @param value The value to check in the filter input.
        * @param shouldExist Whether the input should exist (default: true).
        */
       shouldShowFilterInput(value: string, shouldExist: boolean = true) {
         cy.get(selectors.filterTitleInput(value)).should('exist');
-      },
-      /**
-       * Checks that a filter tag with the given value exists.
-       * @param value The value to check in the filter tag.
-       * @param shouldExist Whether the tag should exist (default: true).
-       */
-      shouldShowFilterTag(value: string, shouldExist: boolean = true) {
-        cy.get(selectors.filterTagInput).contains(value).should('exist');
       },
       /**
        * Checks that the "No Results" message is displayed.
@@ -341,13 +322,13 @@ export const TablesTable = {
        * Checks the page title.
        */
       shouldShowPageTitle() {
-        cy.get(selectors.pageTitle).contains(texts.pageTitle).should('exist');
+        cy.get(selectors.pageTitle).contains(CommonTexts.catalogPageTitle).should('exist');
       },
       /**
        * Checks the presence of the reset filters button.
        */
       shouldShowResetFilterButton() {
-        cy.get(selectors.proTableHeader).contains(texts.resetFilters).should('exist');
+        cy.get(selectors.proTableHeader).contains(CommonTexts.resetFiltersButton).should('exist');
       },
       /**
        * Checks the presence of the Resource name in the dropdown.
@@ -374,7 +355,7 @@ export const TablesTable = {
        */
       shouldShowResourceTypeTagInDropdown(dataResource: any, shouldExist: boolean = true) {
         const strExist = shouldExist ? 'exist' : 'not.exist';
-        cy.get(`${CommonSelectors.dropdown} ${CommonSelectors.label(formatResourceType(dataResource.type))} ${CommonSelectors.tag(getResourceColor(dataResource.type))}`).should(strExist);
+        cy.get(`${CommonSelectors.dropdown} ${CommonSelectors.label(formatResourceType(dataResource.type))} ${CommonSelectors.tagColor(getResourceColor(dataResource.type))}`).should(strExist);
       },
       /**
        * Checks the presence of the Resource Type tag in the filter.
@@ -383,7 +364,7 @@ export const TablesTable = {
        */
       shouldShowResourceTypeTagInFilter(dataResource: any, shouldExist: boolean = true) {
         const strExist = shouldExist ? 'exist' : 'not.exist';
-        cy.get(`${selectors.selectInput} ${CommonSelectors.tag(getResourceColor(dataResource.type))}`).should(strExist);
+        cy.get(`${selectors.selectInput} ${CommonSelectors.tagColor(getResourceColor(dataResource.type))}`).should(strExist);
       },
       /**
        * Checks the displayed results count.
@@ -412,6 +393,9 @@ export const TablesTable = {
       shouldShowTableContent(dataTable: any) {
         tableColumns.forEach((column) => {
           switch (column.id) {
+            case 'resource':
+              cy.get(selectors.tableCell(dataTable)).eq(column.position).contains(dataTable[`${column.id}Name`]).should('exist');
+              break;
             default:
               cy.get(selectors.tableCell(dataTable)).eq(column.position).contains(dataTable[column.id]).should('exist');
               break;

@@ -1,28 +1,25 @@
 /// <reference types="cypress"/>
-import { getDateTime } from '../../support/utils';
-import { oneMinute } from '../../support/utils';
-
-const { strDate } = getDateTime();
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { VariablePage } from 'cypress/pom/pages/VariablePage';
 
 beforeEach(() => {
   cy.removeFilesFromFolder(Cypress.config('downloadsFolder'));
-
   cy.login();
-  cy.visitVariableEntity('warehouse', 'medical_imaging', 'sector');  
-  cy.get('[id="categories"] [data-icon="download"]').clickAndWait();
-  cy.waitUntilFile(oneMinute);
+  cy.visitVariableEntity(data.variableSector);
+  VariablePage.actions.clickCategoriesDownloadButton();
 });
 
 describe('Page d\'une variable - Exporter les catégories en TSV', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName('sector-categories');
+    VariablePage.validations.categories.shouldHaveExportedFileName(data.variableSector);
   });
 
   it('Valider les en-têtes du fichier', () => {
-    cy.validateFileHeaders('PageVariableEntityCategories.json');
+    VariablePage.validations.categories.shouldHaveExportedFileHeaders();
   });
 
   it('Valider le contenu du fichier', () => {
-    cy.validateFileContent('PageVariableEntityCategories.json');
+    VariablePage.validations.categories.shouldHaveExportedFileContent(data.variableSector);
   });
 });

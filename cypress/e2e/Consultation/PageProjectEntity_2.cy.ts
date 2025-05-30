@@ -7,7 +7,7 @@ import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
-  cy.visitResourceEntity(data.resourceBronchiolite.code);
+  cy.visitResourceEntity(data.resourceBronchiolite);
 });
 
 describe('Page d\'un projet - Valider les liens disponibles', () => {

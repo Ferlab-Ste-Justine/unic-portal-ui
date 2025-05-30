@@ -1,10 +1,10 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
 import { data } from 'cypress/pom/shared/Data';
-import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 import { ResourcePage } from 'cypress/pom/pages/ResourcePage';
-import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
+import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 import { TablesTable } from 'cypress/pom/pages/TablesTable';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
@@ -16,12 +16,12 @@ beforeEach(() => {
 describe('Tableau Ressources - Valider les liens disponibles', () => {
   it('Lien Code', () => {
     ResourcesTable.actions.clickTableCellLink(data.resourceBronchiolite, 'code');
-    ResourcePage.validations.shouldHaveTitle(data.resourceBronchiolite.name);
+    ResourcePage.validations.shouldHaveTitle(data.resourceBronchiolite);
   });
 
   it('Lien Name', () => {
     ResourcesTable.actions.clickTableCellLink(data.resourceBronchiolite, 'name');
-    ResourcePage.validations.shouldHaveTitle(data.resourceBronchiolite.name);
+    ResourcePage.validations.shouldHaveTitle(data.resourceBronchiolite);
   });
 
   it('Lien Table (Research)', () => {

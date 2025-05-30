@@ -1,26 +1,27 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
 import { data } from 'cypress/pom/shared/Data';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('variables');
-  cy.inputDropdownSelectValue('[id*="panel-variables"]', 1/*Resource*/, data.resourceBronchiolite.name);
+  VariablesTable.actions.selectResourceFilter(data.resourceBronchiolite);
 });
 
 describe('Tableau Variables - Valider les liens du filtre Resource', () => {
   it('Reset filters - Clear Input', () => {
-    cy.get('[id*="panel-variables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get(`[id*="panel-variables"] [class*="InputSelect_filter"] [title=${data.resourceBronchiolite.name}]`).should('not.exist');
+    VariablesTable.actions.clearFilters();
+    VariablesTable.validations.shouldShowObjectInFilter(data.resourceBronchiolite, false/*shouldExist*/);
   });
 
   it('Reset filters - Results', () => {
-    cy.get('[id*="panel-variables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^106 Results$| of 106$)/).should('not.exist');
+    VariablesTable.actions.clearFilters();
+    VariablesTable.validations.shouldShowResultsCount(data.resourceBronchiolite.variables.totalCount, false/*shouldExist*/);
   });
 
   it('Clear Input - Results', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [class="ant-select-clear"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^106 Results$| of 106$)/).should('not.exist');
+    VariablesTable.actions.clearInputSelect();
+    VariablesTable.validations.shouldShowResultsCount(data.resourceBronchiolite.variables.totalCount, false/*shouldExist*/);
   });
 });

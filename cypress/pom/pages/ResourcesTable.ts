@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
+import { CommonTexts } from 'cypress/pom/shared/Texts';
 import { formatResourceType, getColumnName, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
 import { formatToK } from 'cypress/pom/shared/Utils';
 import { oneMinute } from 'cypress/support/utils';
@@ -9,7 +10,7 @@ const selectorPanel = '[id*="panel-resources"]';
 const selectorHead = CommonSelectors.tableHead;
 const selectors = {
   clearFilterLink: `${selectorPanel} [class*="Header_clearFilterLink"]`,
-  downloadButton: `${selectorPanel} [data-icon="download"]`,
+  downloadButton: `${selectorPanel} ${CommonSelectors.download}`,
   pageTitle: '[class*="PageLayout_titlePage"]',
   proTableHeader: `${selectorPanel} [class*="Header_ProTableHeader"]`,
   searchInput: `${selectorPanel} [class*="InputSearch_filter"] input`,
@@ -50,7 +51,7 @@ const tableColumns = [
     isVisibleByDefault: true,
     isSortable: true,
     position: 3,
-    tooltip: 'Date of the most recent update of the dictionary for this resource',
+    tooltip: CommonTexts.updatedOnTooltip('resource'),
   },
   {
     id: 'createdOn',
@@ -58,7 +59,7 @@ const tableColumns = [
     isVisibleByDefault: false,
     isSortable: true,
     position: 4,
-    tooltip: 'Creation date of the dictionary for this resource',
+    tooltip: CommonTexts.createdOnTooltip('resource'),
   },
   {
     id: 'approvedOn',
@@ -126,15 +127,10 @@ const tableColumns = [
   },
 ];
 
-const texts = {
-  pageTitle: 'UnIC Catalog',
-  resetFilters: 'Reset filters',
-};
-
 export const ResourcesTable = {
     actions: {
       /**
-       * Clears all filters in the resources table.
+       * Clears all filters in the table.
        */
       clearFilters() {
         cy.get(selectors.clearFilterLink).clickAndWait();
@@ -165,7 +161,7 @@ export const ResourcesTable = {
        * @param dataResource The resource object.
        */
       deleteResourceTypeTag(dataResource: any) {
-        cy.get(`${selectors.selectInput} ${CommonSelectors.tag(getResourceColor(dataResource.type))} ${CommonSelectors.closeIcon}`).clickAndWait();
+        cy.get(`${selectors.selectInput} ${CommonSelectors.tagColor(getResourceColor(dataResource.type))} ${CommonSelectors.closeIcon}`).clickAndWait();
       },
       /**
        * Hides a specific column in the table.
@@ -338,7 +334,7 @@ export const ResourcesTable = {
        * Checks the page title.
        */
       shouldShowPageTitle() {
-        cy.get(selectors.pageTitle).contains(texts.pageTitle).should('exist');
+        cy.get(selectors.pageTitle).contains(CommonTexts.catalogPageTitle).should('exist');
       },
       /**
        * Validates the pagination functionality.
@@ -350,7 +346,7 @@ export const ResourcesTable = {
        * Checks the presence of the reset filters button.
        */
       shouldShowResetFilterButton() {
-        cy.get(selectors.proTableHeader).contains(texts.resetFilters).should('exist');
+        cy.get(selectors.proTableHeader).contains(CommonTexts.resetFiltersButton).should('exist');
       },
       /**
        * Checks the presence of the Resource Type tag in the dropdown.
@@ -359,7 +355,7 @@ export const ResourcesTable = {
        */
       shouldShowResourceTypeTagInDropdown(dataResource: any, shouldExist: boolean = true) {
         const strExist = shouldExist ? 'exist' : 'not.exist';
-        cy.get(`${CommonSelectors.dropdown} ${CommonSelectors.label(formatResourceType(dataResource.type))} ${CommonSelectors.tag(getResourceColor(dataResource.type))}`).should(strExist);
+        cy.get(`${CommonSelectors.dropdown} ${CommonSelectors.label(formatResourceType(dataResource.type))} ${CommonSelectors.tagColor(getResourceColor(dataResource.type))}`).should(strExist);
       },
       /**
        * Checks the presence of the Resource Type tag in the filter.
@@ -368,7 +364,7 @@ export const ResourcesTable = {
        */
       shouldShowResourceTypeTagInFilter(dataResource: any, shouldExist: boolean = true) {
         const strExist = shouldExist ? 'exist' : 'not.exist';
-        cy.get(`${selectors.selectInput} ${CommonSelectors.tag(getResourceColor(dataResource.type))}`).should(strExist);
+        cy.get(`${selectors.selectInput} ${CommonSelectors.tagColor(getResourceColor(dataResource.type))}`).should(strExist);
       },
       /**
        * Checks the displayed results count.
@@ -399,7 +395,7 @@ export const ResourcesTable = {
           switch (column.id) {
             case 'type':
               cy.get(selectors.tableCell(dataResource)).eq(column.position).contains(formatResourceType(dataResource.type)).should('exist');
-              cy.get(selectors.tableCell(dataResource)).eq(column.position).find(CommonSelectors.tag(getResourceColor(dataResource.type))).should('exist');
+              cy.get(selectors.tableCell(dataResource)).eq(column.position).find(CommonSelectors.tagColor(getResourceColor(dataResource.type))).should('exist');
               break;
             case 'variables':
               cy.get(selectors.tableCell(dataResource)).eq(column.position).contains(dataResource[column.id].totalCount).should('exist');

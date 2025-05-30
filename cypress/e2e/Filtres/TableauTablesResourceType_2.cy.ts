@@ -12,7 +12,7 @@ beforeEach(() => {
 describe('Tableau Tables - Valider les liens du filtre Resource type', () => {
   it('Reset filters - Clear Input tag', () => {
     TablesTable.actions.clearFilters();
-    TablesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceWarehouse, false/*shouldExist*/)
+    TablesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceWarehouse, false/*shouldExist*/);
   });
 
   it('Reset filters - Results', () => {

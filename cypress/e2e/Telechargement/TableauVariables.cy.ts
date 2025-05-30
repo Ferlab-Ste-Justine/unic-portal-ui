@@ -1,33 +1,29 @@
 /// <reference types="cypress"/>
-import { getDateTime } from '../../support/utils';
+import 'cypress/support/commands';
 import { oneMinute } from '../../support/utils';
-
-const { strDate } = getDateTime();
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
+import { data } from 'cypress/pom/shared/Data';
 
 beforeEach(() => {
   cy.removeFilesFromFolder(Cypress.config('downloadsFolder'));
-
   cy.login();
   cy.visitCatalog('variables');
-  cy.showColumn('Created On', 1);
-  cy.showColumn('Updated On', 1);
-  cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('#_Admitted_COVID');
-  cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
-  
-  cy.clickAndIntercept('[id*="panel-variables"] [class*="Header_ProTableHeader"] [data-icon="download"]', 'POST', '**/graphql', 2);
-  cy.waitUntilFile(oneMinute);
+  VariablesTable.actions.showAllColumns();
+  VariablesTable.actions.typeVariableSearchInput(data.variableAdmittedCOVID.name);
+  VariablesTable.validations.shouldShowResultsCount('1');
+  VariablesTable.actions.clickDownloadButton();
 });
 
 describe('Tableau Variables - Exporter les variables en TSV', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName('variables');
+    VariablesTable.validations.shouldHaveExportedFileName();
   });
 
   it('Valider les en-têtes du fichier', () => {
-    cy.validateFileHeaders('ExportTableauVariables.json');
+    VariablesTable.validations.shouldHaveExportedFileHeaders();
   });
 
   it('Valider le contenu du fichier', () => {
-    cy.validateFileContent('ExportTableauVariables.json');
+    VariablesTable.validations.shouldHaveExportedFileContent(data.variableAdmittedCOVID);
   });
 });

@@ -1,8 +1,8 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
 import { data } from 'cypress/pom/shared/Data';
-import { varSingleDigit } from 'cypress/pom/shared/Utils';
 import { TablesTable } from 'cypress/pom/pages/TablesTable';
+import { varSingleDigit } from 'cypress/pom/shared/Utils';
 
 beforeEach(() => {
   cy.login();

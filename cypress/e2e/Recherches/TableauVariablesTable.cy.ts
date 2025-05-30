@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
-import { CommonSelectors } from 'cypress/pom/shared/Selectors';
+import { data } from 'cypress/pom/shared/Data';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
@@ -9,8 +10,8 @@ beforeEach(() => {
 
 describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Table', () => {
   it('By Name', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(2).type('Maternal_');
-    cy.get(`${CommonSelectors.dropdown} [title="maternal_ultrasound"]`).should('exist');
-    cy.get(`${CommonSelectors.dropdown} [title="accouchement"]`).should('not.exist');
+    VariablesTable.actions.typeTableFilter('Maternal_');
+    VariablesTable.validations.shouldShowObjectInDropdown(data.tableMaternalUltrasound);
+    VariablesTable.validations.shouldShowObjectInDropdown(data.tableAccouchement, false/*shouldExist*/);
   });
 });

@@ -7,11 +7,11 @@
               "Source",
               "Created On",
               "Updated On"],
-  "content": ["#_Admitted_COVID",
-              "Number of patients positive COVID that was hospitalized",
-              "Germes",
-              "weekly_summary",
-              "integer",
-              "softlab,loinc",
-              "2024-11-05"]
+  "content": ["{{name}}",
+              "{{label}}",
+              "{{resource}}",
+              "{{table}}",
+              "{{source}}",
+              "{{createdOn}}",
+              "{{updatedOn}}"]
 }

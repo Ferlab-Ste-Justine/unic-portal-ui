@@ -5,12 +5,12 @@ import { ResourcePage } from 'cypress/pom/pages/ResourcePage';
 
 beforeEach(() => {
   cy.login();
-  cy.visitResourceEntity(data.resourceBronchiolite.code);
+  cy.visitResourceEntity(data.resourceBronchiolite);
 });
 
 describe('Page d\'un projet - Vérifier les informations affichées', () => {
   it('Titre', () => {
-    ResourcePage.validations.shouldHaveTitle(data.resourceBronchiolite.name);
+    ResourcePage.validations.shouldHaveTitle(data.resourceBronchiolite);
   });
 
   it('Panneau Summary - Header', () => {
@@ -18,23 +18,23 @@ describe('Page d\'un projet - Vérifier les informations affichées', () => {
   });
 
   it('Panneau Summary - Title', () => {
-    ResourcePage.validations.summary.shouldHaveTitle(data.resourceBronchiolite.title);
+    ResourcePage.validations.summary.shouldHaveTitle(data.resourceBronchiolite);
   });
 
   it('Panneau Summary - Description', () => {
-    ResourcePage.validations.summary.shouldHaveDescription(data.resourceBronchiolite.description);
+    ResourcePage.validations.summary.shouldHaveDescription(data.resourceBronchiolite);
   });
 
   it('Panneau Summary - Investigator Owner', () => {
-    ResourcePage.validations.summary.shouldHavePrincipalInvestigator(data.resourceBronchiolite.principalInvestigator);
+    ResourcePage.validations.summary.shouldHavePrincipalInvestigator(data.resourceBronchiolite);
   });
 
   it('Panneau Summary - Nagano ID', () => {
-    ResourcePage.validations.summary.shouldHaveNaganoID(data.resourceBronchiolite.naganoID);
+    ResourcePage.validations.summary.shouldHaveNaganoID(data.resourceBronchiolite);
   });
 
   it('Panneau Summary - Approved On', () => {
-    ResourcePage.validations.summary.shouldHaveApprovedOn(data.resourceBronchiolite.approvedOn);
+    ResourcePage.validations.summary.shouldHaveApprovedOn(data.resourceBronchiolite);
   });
 
   it('Panneau Variables - Variable Count', () => {
@@ -42,14 +42,14 @@ describe('Page d\'un projet - Vérifier les informations affichées', () => {
   });
 
   it('Panneau Variables - Hospital Systems', () => {
-    ResourcePage.validations.variables.shouldHaveHospitalSystems(data.resourceBronchiolite.variables.hospitalSystems);
+    ResourcePage.validations.variables.shouldHaveHospitalSystems(data.resourceBronchiolite);
   });
 
   it('Panneau Current version - Published On', () => {
-    ResourcePage.validations.currentVersion.shouldHavePublishedOn(data.resourceBronchiolite.updatedOn);
+    ResourcePage.validations.currentVersion.shouldHavePublishedOn(data.resourceBronchiolite);
   });
 
   it('Panneau Current version - Version', () => {
-    ResourcePage.validations.currentVersion.shouldHaveVersion(data.resourceBronchiolite.version, true/*isTooltip*/);
+    ResourcePage.validations.currentVersion.shouldHaveVersion(data.resourceBronchiolite, true/*isTooltip*/);
   });
 });

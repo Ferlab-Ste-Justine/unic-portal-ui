@@ -1,30 +1,32 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('variables');
-  cy.inputDropdownSelectValue('[id*="panel-variables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
+  VariablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
 });
 
 describe('Tableau Variables - Valider les liens du filtre Resource type', () => {
   it('Reset filters - Clear Input tag', () => {
-    cy.get('[id*="panel-variables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [class*="ant-tag-orange"]').should('not.exist');
+    VariablesTable.actions.clearFilters();
+    VariablesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceWarehouse, false/*shouldExist*/);
   });
 
   it('Reset filters - Results', () => {
-    cy.get('[id*="panel-variables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^457 Results$| of 457$)/).should('not.exist');
+    VariablesTable.actions.clearFilters();
+    VariablesTable.validations.shouldShowResultsCount(data.resourceWarehouse.variables.totalCount, false/*shouldExist*/);
   });
 
   it('Delete Tag - Results', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [class*="ant-tag-orange"] [data-icon="close"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^457 Results$| of 457$)/).should('not.exist');
+    VariablesTable.actions.deleteResourceTypeTag(data.resourceWarehouse);
+    VariablesTable.validations.shouldShowResultsCount(data.resourceWarehouse.variables.totalCount, false/*shouldExist*/);
   });
 
   it('Clear Input - Results', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [class="ant-select-clear"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^457 Results$| of 457$)/).should('not.exist');
+    VariablesTable.actions.clearInputSelect();
+    VariablesTable.validations.shouldShowResultsCount(data.resourceWarehouse.variables.totalCount, false/*shouldExist*/);
   });
 });
