@@ -1,22 +1,18 @@
 /// <reference types="cypress"/>
-/* Work In Progress */
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
+import { CommonTexts } from '../shared/Texts';
 
 const cardSelector = {
+  history: '[id="history"]',
   summary: '[id="summary"]',
   variables: '[id="variables"]',
-  currentVersion: '[id="currentVersion"]',
 };
 
 const selectors = {
-  currentVersion: {
-    label: `${cardSelector.currentVersion} [class="ant-descriptions-item-label"]`,
-    content: `${cardSelector.currentVersion} [class="ant-descriptions-item-content"]`,
-    tooltipIcon: `${cardSelector.currentVersion} ${CommonSelectors.tooltipIcon}`,
-  },
-  title: {
-    header: '[class*="page_titleHeader"]',
-    headerIcon: '[class*="page_titleHeader"] [class*="anticon-read"]',
+  history: {
+    content: `${cardSelector.history} [class="ant-descriptions-item-content"]`,
+    label: `${cardSelector.history} [class="ant-descriptions-item-label"]`,
+    tooltipIcon: `${cardSelector.history} ${CommonSelectors.tooltipIcon}`,
   },
   summary: {
     header: {
@@ -24,41 +20,37 @@ const selectors = {
       title: `${cardSelector.summary} [class*="EntityCardSummary_title"]`,
     },
     content: `${cardSelector.summary} [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]`,
+    tooltipIcon: `${cardSelector.summary} [class*="SummaryContent_tooltipIcon"]`,
+  },
+  title: {
+    header: '[class*="page_titleHeader"]',
+    headerIcon: '[class*="page_titleHeader"] [class*="anticon-read"]',
   },
   variables: {
-    label: `${cardSelector.variables} [class="ant-descriptions-item-label"]`,
     content: `${cardSelector.variables} [class="ant-descriptions-item-content"]`,
-    tooltipIcon: `${cardSelector.variables} ${CommonSelectors.tooltipIcon}`,
-    hospitalSystemItems: '[class*="page_hospitalSystem"]',
+    label: `${cardSelector.variables} [class="ant-descriptions-item-label"]`,
   },
-};
-
-const texts = {
-  hostpitalSystemsTooltip: 'Hospital systems used to generate variables for this project.',
-  versionTooltip: 'Dictionary version for this project',
 };
 
 export const TablePage = {
   actions: {
     /**
-     * Clicks the link for a specific hospital system in the variables section.
-     * @param hospitalSystem The name of the hospital system to click.
+     * Clicks the resource link in the summary section.
      */
-    clickHospitalSystemLink(hospitalSystem: string) {
-      cy.get(selectors.variables.content).eq(1).find(selectors.variables.hospitalSystemItems).then(($elements) => {
-        $elements.each((index, element) => {
-          if (element.textContent?.includes(hospitalSystem)) {
-            cy.get(selectors.variables.content).eq(1).find(CommonSelectors.link).eq(index).clickAndWait();
-            return false;
-          };
-        });
-      });
+    clickResourceLink() {
+      cy.get(selectors.summary.content).eq(0).find(CommonSelectors.link).clickAndWait();
     },
     /**
-     * Clicks the main title link of the resource page.
+     * Clicks the catalog title link of the table page.
      */
-    clickTitleLink() {
-      cy.get(selectors.title.header).find(CommonSelectors.link).clickAndWait();
+    clickTitleCatalogLink() {
+      cy.get(selectors.title.header).find(CommonSelectors.link).eq(0).clickAndWait();
+    },
+    /**
+     * Clicks the resource title link of the table page.
+     */
+    clickTitleResourceLink() {
+      cy.get(selectors.title.header).find(CommonSelectors.link).eq(1).clickAndWait();
     },
     /**
      * Clicks the variable count link in the variables section.
@@ -69,120 +61,94 @@ export const TablePage = {
   },
   
   validations: {
-    currentVersion: {
+    history: {
       /**
-       * Validates the "Published On" date in the current version section.
-       * @param resourceUpdatedOn The expected date (string or RegExp).
+       * Validates the "Created On" date in the history section.
+       * @param dataTable The table object containing the expected values.
        */
-      shouldHavePublishedOn(tableUpdatedOn: string|RegExp) {
-        cy.get(selectors.currentVersion.label).eq(0).contains('Published On').should('exist');
-        cy.get(selectors.currentVersion.content).eq(0).contains(tableUpdatedOn).should('exist');
+      shouldHaveCreatedOn(dataTable: any) {
+        cy.get(selectors.history.label).eq(0).contains('Created On').should('exist');
+        cy.get(selectors.history.tooltipIcon).eq(0).shouldHaveTooltip(CommonTexts.createdOnTooltip('table'));
+        cy.get(selectors.history.content).eq(0).contains(dataTable.createdOn).should('exist');
       },
       /**
-       * Validates the version value and optionally the tooltip in the current version section.
-       * @param resourceVersion The expected version string.
-       * @param isTooltip Whether to check the tooltip (default: false).
+       * Validates the "Updated On" date in the history section.
+       * @param dataTable The table object containing the expected values.
        */
-      shouldHaveVersion(tableVersion: string, isTooltip: boolean = false) {
-        cy.get(selectors.currentVersion.label).eq(1).contains('Version').should('exist');
-        cy.get(selectors.currentVersion.content).eq(1).contains(tableVersion).should('exist');
-        if (isTooltip) {
-          cy.get(selectors.currentVersion.tooltipIcon).shouldHaveTooltip(texts.versionTooltip);
-        }
-        else {
-          cy.get(selectors.currentVersion.tooltipIcon).should('not.exist');
-        };
+      shouldHaveUpdatedOn(dataTable: any) {
+        cy.get(selectors.history.label).eq(1).contains('Updated On').should('exist');
+        cy.get(selectors.history.tooltipIcon).eq(1).shouldHaveTooltip(CommonTexts.updatedOnTooltip('table'));
+        cy.get(selectors.history.content).eq(1).contains(dataTable.updatedOn).should('exist');
       },
     },
     summary: {
       /**
-       * Validates the collection starting year in the summary section.
-       * @param resourceCollectionStartingYear The expected year.
+       * Validates the description in the summary section.
+       * @param dataTable The table object containing the expected values.
        */
-      shouldHaveCollectionStartingYear(tableCollectionStartingYear: string) {
-        cy.get(selectors.summary.content).eq(3).contains('Collection Starting Year').should('exist');
-        cy.get(selectors.summary.content).eq(3).contains(tableCollectionStartingYear).should('exist');
+      shouldHaveDescription(dataTable: any) {
+        cy.get(selectors.summary.content).eq(1).contains('Description').should('exist');
+        cy.get(selectors.summary.content).eq(1).contains(dataTable.description).should('exist');
       },
       /**
-       * Validates the header section of the summary card for the given resource.
-       * @param resource The resource object.
+       * Validates the domain in the summary section.
+       * @param dataTable The table object containing the expected values.
        */
-      shouldHaveHeader(table: any) {
+      shouldHaveDomain(dataTable: any) {
+        cy.get(selectors.summary.content).eq(2).contains('Domain').should('exist');
+        cy.get(selectors.summary.tooltipIcon).eq(1).shouldHaveTooltip(CommonTexts.tableDomainTooltip);
+        cy.get(selectors.summary.content).eq(2).contains(dataTable.domain).should('exist');
+      },
+      /**
+       * Validates the entity in the summary section.
+       * @param dataTable The table object containing the expected values.
+       */
+      shouldHaveEntity(dataTable: any) {
+        cy.get(selectors.summary.content).eq(2).contains('Entity').should('exist');
+        cy.get(selectors.summary.tooltipIcon).eq(0).shouldHaveTooltip(CommonTexts.tableEntityTooltip);
+        cy.get(selectors.summary.content).eq(2).contains(dataTable.entity).should('exist');
+      },
+      /**
+       * Validates the header section of the summary card for the given table.
+       * @param dataTable The table object containing the expected values.
+       */
+      shouldHaveHeader(dataTable: any) {
         cy.get(selectors.summary.header.icon).should('exist');
         cy.get(selectors.summary.header.title).contains('Table').should('exist');
-        cy.get(selectors.summary.header.title).contains(table.name).should('exist');
+        cy.get(selectors.summary.header.title).contains(dataTable.name).should('exist');
       },
       /**
-       * Validates the "Approved On" date in the summary section.
-       * @param resourceApprovedOn The expected date (string or RegExp).
+       * Validates the resource in the summary section.
+       * @param dataTable The table object containing the expected values.
        */
-      shouldHaveApprovedOn(tableApprovedOn: string|RegExp) {
-        cy.get(selectors.summary.content).eq(3).contains('Approved On').should('exist');
-        cy.get(selectors.summary.content).eq(3).contains(tableApprovedOn).should('exist');
+      shouldHaveResource(dataTable: any) {
+        cy.get(selectors.summary.content).eq(0).contains('Resource').should('exist');
+        cy.get(selectors.summary.content).eq(0).contains(dataTable.resourceName).should('exist');
       },
       /**
-       * Validates the description in the summary section.
-       * @param resourceDescription The expected description.
+       * Validates the absence of row filter in the summary section.
        */
-      shouldHaveDescription(tableDescription: string) {
-        cy.get(selectors.summary.content).eq(1).contains('Description').should('exist');
-        cy.get(selectors.summary.content).eq(1).contains(tableDescription).should('exist');
-      },
-      /**
-       * Validates the Nagano ID in the summary section.
-       * @param resourceNaganoID The expected Nagano ID.
-       */
-      shouldHaveNaganoID(tableNaganoID: string) {
-        cy.get(selectors.summary.content).eq(3).contains('Nagano ID').should('exist');
-        cy.get(selectors.summary.content).eq(3).contains(tableNaganoID).should('exist');
-      },
-      /**
-       * Validates the principal investigator in the summary section.
-       * @param resourcePrincipalInvestigator The expected investigator name.
-       */
-      shouldHavePrincipalInvestigator(tablePrincipalInvestigator: string) {
-        cy.get(selectors.summary.content).eq(2).contains('Investigator / Owner').should('exist');
-        cy.get(selectors.summary.content).eq(2).contains(tablePrincipalInvestigator).should('exist');
-      },
-      /**
-       * Validates the title in the summary section.
-       * @param resourceTitle The expected title.
-       */
-      shouldHaveTitle(tableTitle: string) {
-        cy.get(selectors.summary.content).eq(0).contains('Title').should('exist');
-        cy.get(selectors.summary.content).eq(0).contains(tableTitle).should('exist');
+      shouldNotHaveRowFilter() {
+        cy.get(selectors.summary.content).contains('Row Filter').should('not.exist');
       },
     },
     /**
-     * Validates the main title of the resource page.
-     * @param resourceName The expected resource name.
+     * Validates the main title of the table page.
+     * @param dataTable The table object containing the expected values.
      */
-    shouldHaveTitle(tableName: string) {
+    shouldHaveTitle(dataTable: any) {
       cy.get(selectors.title.headerIcon).should('exist');
-      cy.get(selectors.title.header).contains(tableName).should('exist');
+      cy.get(selectors.title.header).contains(dataTable.resourceName).should('exist');
+      cy.get(selectors.title.header).contains(dataTable.name).should('exist');
     },
     variables: {
       /**
-       * Validates the hospital systems listed in the variables section.
-       * @param resourceHospitalSystems The expected hospital systems object.
+       * Validates the variable count in the variables section.
+       * @param dataTable The table object containing the expected values.
        */
-      shouldHaveHospitalSystems(tableHospitalSystems: any) {
-        cy.get(selectors.variables.label).eq(1).contains('Hospital Systems').should('exist');
-        cy.get(selectors.variables.tooltipIcon).shouldHaveTooltip(texts.hostpitalSystemsTooltip);
-
-        Object.entries(tableHospitalSystems).forEach(([name, count]) => {
-          cy.get(selectors.variables.content).eq(1).contains(`${name} (`).should('exist');
-          cy.get(selectors.variables.content).eq(1).contains(`${count}`).should('exist');
-        });
-      },
-      /**
-       * Validates the variable count and table count in the variables section.
-       * @param table The table object.
-       */
-      shouldHaveVariableCount(table: any) {
+      shouldHaveVariableCount(dataTable: any) {
         cy.get(selectors.variables.label).eq(0).contains('Variable Count').should('exist');
-        cy.get(selectors.variables.content).eq(0).contains(table.variables.totalCount).should('exist');
-        cy.get(selectors.variables.content).eq(0).contains(` (in ${table.tables} tables)`).should('exist');
+        cy.get(selectors.variables.content).eq(0).contains(dataTable.variableCount).should('exist');
       },
     },
   },

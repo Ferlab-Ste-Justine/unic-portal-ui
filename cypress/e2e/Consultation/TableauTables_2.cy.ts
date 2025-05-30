@@ -15,16 +15,16 @@ beforeEach(() => {
 describe('Tableau Tables - Valider les liens disponibles', () => {
   it('Lien Name', () => {
     TablesTable.actions.clickTableCellLink(data.tableAccouchement, 'name');
-    TablePage.validations.shouldHaveTitle(data.tableAccouchement.name);
+    TablePage.validations.shouldHaveTitle(data.tableAccouchement);
   });
 
   it('Lien Resource', () => {
     TablesTable.actions.clickTableCellLink(data.tableAccouchement, 'resource');
-    ResourcePage.validations.shouldHaveTitle(data.tableAccouchement.resource);
+    ResourcePage.validations.shouldHaveTitle(data.resourceResppa);
   });
 
   it('Lien Variable Count', () => {
     TablesTable.actions.clickTableCellLink(data.tableAccouchement, 'variableCount');
-    VariablesTable.validations.shouldRedirectAndValidateTable([data.tableAccouchement.name, data.tableAccouchement.resource], data.tableAccouchement.variableCount);
+    VariablesTable.validations.shouldRedirectAndValidateTable([data.tableAccouchement.name, data.tableAccouchement.resourceName], data.tableAccouchement.variableCount);
   });
 });

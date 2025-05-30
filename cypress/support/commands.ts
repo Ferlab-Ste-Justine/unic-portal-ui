@@ -301,7 +301,7 @@ Cypress.Commands.add('validateTableResultsCount', (expectedCount: string|RegExp,
 
 Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
   cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
-  cy.visit(url);
+  cy.visit(url.replace(/#/g, '%23'));
 
   for (let i = 0; i < nbCalls; i++) {
     cy.wait('@getRouteMatcher', {timeout: oneMinute});
@@ -319,16 +319,16 @@ Cypress.Commands.add('visitCatalog', (tab?: string) => {
   cy.resetColumns(eq);
 });
 
-Cypress.Commands.add('visitResourceEntity', (code: string) => {
-  cy.visitAndIntercept(`/resource/${code}`, 'POST','**/graphql', 1);
+Cypress.Commands.add('visitResourceEntity', (dataResource: any) => {
+  cy.visitAndIntercept(`/resource/${dataResource.code}`, 'POST','**/graphql', 1);
 });
 
-Cypress.Commands.add('visitTableEntity', (resource: string, name: string) => {
-  cy.visitAndIntercept(`/table/${resource}/${name}`, 'POST','**/graphql', 1);
+Cypress.Commands.add('visitTableEntity', (dataTable: any) => {
+  cy.visitAndIntercept(`/table/${dataTable.resourceCode}/${dataTable.name}`, 'POST','**/graphql', 1);
 });
 
-Cypress.Commands.add('visitVariableEntity', (resource: string, table: string,name: string) => {
-  cy.visitAndIntercept(`/variable/${resource}/${table}/${name}`, 'POST','**/graphql', 1);
+Cypress.Commands.add('visitVariableEntity', (dataVariable: any) => {
+  cy.visitAndIntercept(`/variable/${dataVariable.resourceCode}/${dataVariable.table}/${dataVariable.name}`, 'POST','**/graphql', 1);
 });
 
 Cypress.Commands.add('waitUntilFile', (ms: number) => {

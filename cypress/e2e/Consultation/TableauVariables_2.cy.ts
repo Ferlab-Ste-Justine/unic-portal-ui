@@ -1,26 +1,30 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { ResourcePage } from 'cypress/pom/pages/ResourcePage';
+import { TablePage } from 'cypress/pom/pages/TablePage';
+import { VariablePage } from 'cypress/pom/pages/VariablePage';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('variables');
-  cy.showColumn('Created On', 1);
-  cy.showColumn('Updated On', 1);
+  VariablesTable.actions.showAllColumns();
 });
 
 describe('Tableau Variables - Valider les liens disponibles', () => {
   it('Lien Name', () => {
-    cy.get('[data-row-key="46063"] [class="ant-table-cell"]').eq(0).find('[href]').clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('#_Admitted_COVID').should('exist');
+    VariablesTable.actions.clickTableCellLink(data.variableAdmittedCOVID, 'name');
+    VariablePage.validations.shouldHaveTitle(data.variableAdmittedCOVID);
   });
 
   it('Lien Resource', () => {
-    cy.get('[data-row-key="46063"] [class="ant-table-cell"]').eq(2).find('[href]').clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('Germes').should('exist');
+    VariablesTable.actions.clickTableCellLink(data.variableAdmittedCOVID, 'resource');
+    ResourcePage.validations.shouldHaveTitle(data.resourceGermes);
   });
 
   it('Lien Table', () => {
-    cy.get('[data-row-key="46063"] [class="ant-table-cell"]').eq(3).find('[href]').clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('weekly_summary').should('exist');
+    VariablesTable.actions.clickTableCellLink(data.variableAdmittedCOVID, 'table');
+    TablePage.validations.shouldHaveTitle(data.tableWeeklySummary);
   });
 });

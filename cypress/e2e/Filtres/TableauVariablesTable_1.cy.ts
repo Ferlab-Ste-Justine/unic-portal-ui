@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
-import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 import { data } from 'cypress/pom/shared/Data';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
@@ -10,36 +10,36 @@ beforeEach(() => {
 
 describe('Tableau Variables - Vérifier la fonctionnalité du filtre Table', () => {
   it('Results', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 2/*Table*/, 'accouchement');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^11 Results$| of 11$)/).should('exist');
+    VariablesTable.actions.selectTableFilter(data.tableAccouchement);
+    VariablesTable.validations.shouldShowResultsCount(data.tableAccouchement.variableCount);
   });
 
   it('Lien Reset filters', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 2/*Table*/, 'accouchement');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains('Reset filters').should('exist');
+    VariablesTable.actions.selectTableFilter(data.tableAccouchement);
+    VariablesTable.validations.shouldShowResetFilterButton();
   });
 
   it('Related Variable search', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('#_Admitted_COVID');
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(2).type('accouchement');
-    cy.get(`${CommonSelectors.dropdown} [title="accouchement"]`).should('not.exist');
+    VariablesTable.actions.typeVariableSearchInput(data.variableAdmittedCOVID.name);
+    VariablesTable.actions.typeTableFilter(data.tableAccouchement);
+    VariablesTable.validations.shouldShowObjectInDropdown(data.tableAccouchement, false/*shouldExist*/);
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 1/*Resource*/, data.resourceBronchiolite.name);
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(2).type('accouchement');
-    cy.get(`${CommonSelectors.dropdown} [title="accouchement"]`).should('not.exist');
+    VariablesTable.actions.selectResourceFilter(data.resourceBronchiolite);
+    VariablesTable.actions.typeTableFilter(data.tableAccouchement);
+    VariablesTable.validations.shouldShowObjectInDropdown(data.tableAccouchement, false/*shouldExist*/);
   });
 
   it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(2).type('accouchement');
-    cy.get(`${CommonSelectors.dropdown} [title="accouchement"]`).should('not.exist');
+    VariablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.actions.typeTableFilter(data.tableAccouchement);
+    VariablesTable.validations.shouldShowObjectInDropdown(data.tableAccouchement, false/*shouldExist*/);
   });
 
   it('Related Source', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 3/*Source*/, 'centro');
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(2).type('accouchement');
-    cy.get(`${CommonSelectors.dropdown} [title="accouchement"]`).should('not.exist');
+    VariablesTable.actions.selectSourceFilter(data.sourceCentro);
+    VariablesTable.actions.typeTableFilter(data.tableAccouchement);
+    VariablesTable.validations.shouldShowObjectInDropdown(data.tableAccouchement, false/*shouldExist*/);
   });
 });

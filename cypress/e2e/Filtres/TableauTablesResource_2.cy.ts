@@ -12,7 +12,7 @@ beforeEach(() => {
 describe('Tableau Tables - Valider les liens du filtre Resource', () => {
   it('Reset filters - Clear Input', () => {
     TablesTable.actions.clearFilters();
-    TablesTable.validations.shouldShowResourceInFilter(data.resourceBronchiolite.name, false/*shouldExist*/);
+    TablesTable.validations.shouldShowResourceInFilter(data.resourceBronchiolite, false/*shouldExist*/);
   });
 
   it('Reset filters - Results', () => {

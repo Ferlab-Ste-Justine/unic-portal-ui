@@ -7,7 +7,7 @@ import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
-  cy.visitResourceEntity(data.resourceCentro.name);
+  cy.visitResourceEntity(data.resourceCentro);
 });
 
 describe('Page d\'un Système hospitalier - Valider les liens disponibles', () => {

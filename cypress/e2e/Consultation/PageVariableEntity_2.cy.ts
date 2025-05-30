@@ -1,50 +1,54 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { ResourcePage } from 'cypress/pom/pages/ResourcePage';
 import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
+import { TablePage } from 'cypress/pom/pages/TablePage';
+import { VariablePage } from 'cypress/pom/pages/VariablePage';
 
 beforeEach(() => {
   cy.login();
-  cy.visitVariableEntity('warehouse', 'medical_imaging', 'sector');
+  cy.visitVariableEntity(data.variableAdmittedCOVID);
 });
 
 describe('Page d\'une variable - Valider les liens disponibles', () => {
   it('Lien Title Catalog', () => {
-    cy.get('[class*="page_titleHeader"]').find('[href]').eq(0).clickAndWait();
+    VariablePage.actions.clickTitleCatalogLink();
     ResourcesTable.validations.shouldShowPageTitle();
   });
 
   it('Lien Title Resource', () => {
-    cy.get('[class*="page_titleHeader"]').find('[href]').eq(1).clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('warehouse').should('exist');
+    VariablePage.actions.clickTitleResourceLink();
+    ResourcePage.validations.shouldHaveTitle(data.resourceGermes);
   });
 
   it('Lien Title Table', () => {
-    cy.get('[class*="page_titleHeader"]').find('[href]').eq(2).clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('medical_imaging').should('exist');
+    VariablePage.actions.clickTitleTableLink();
+    TablePage.validations.shouldHaveTitle(data.tableWeeklySummary)
   });
 
   it('Lien Resource', () => {
-    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).find('[href]').eq(0).clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('warehouse').should('exist');
+    VariablePage.actions.clickResourceLink();
+    ResourcePage.validations.shouldHaveTitle(data.resourceGermes);
   });
 
   it('Lien Table', () => {
-    cy.get('[id="summary"] [class*="EntityCardSummary_headerContainerLeft"] [class*="ant-row"]').eq(1).find('[href]').eq(1).clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('medical_imaging').should('exist');
+    VariablePage.actions.clickTableLink();
+    TablePage.validations.shouldHaveTitle(data.tableWeeklySummary);
   });
 
   it('Lien Derivation Resource', () => {
-    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"] [href="/resource/radimage"]').eq(0).clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('radimage').should('exist');
+    VariablePage.actions.clickDerivationResourceLink(data.variableAdmittedCOVID);
+    ResourcePage.validations.shouldHaveTitle(data.resourceGermes);
   });
 
   it('Lien Derivation Table', () => {
-    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"] [href="/table/radimage/requete"]').clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('requete').should('exist');
+    VariablePage.actions.clickDerivationTableLink(data.variableAdmittedCOVID);
+    TablePage.validations.shouldHaveTitle(data.tablePatient);
   });
 
   it('Lien Derivation Variable', () => {
-    cy.get('[id="derivation"] [class="ant-descriptions-item-content"]').eq(0).find('[class*="SourceLink"] [href="/variable/radimage/requete/SECTEUR"]').clickAndWait();
-    cy.get('[class*="page_titleHeader"]').contains('SECTEUR').should('exist');
+    VariablePage.actions.clickDerivationVariableLink(data.variableAdmittedCOVID);
+    VariablePage.validations.shouldHaveTitle(data.variableTestLabel);
   });
 });

@@ -1,25 +1,27 @@
 /// <reference types="cypress"/>
-import '../../support/commands';
+import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
   cy.visitCatalog('variables');
-  cy.inputDropdownSelectValue('[id*="panel-variables"]', 2/*Table*/, 'accouchement');
+  VariablesTable.actions.selectTableFilter(data.tableAccouchement);
 });
 
 describe('Tableau Variables - Valider les liens du filtre Table', () => {
   it('Reset filters - Clear Input', () => {
-    cy.get('[id*="panel-variables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [title="accouchement"]').should('not.exist');
+    VariablesTable.actions.clearFilters();
+    VariablesTable.validations.shouldShowObjectInFilter(data.tableAccouchement, false/*shouldExist*/);
   });
 
   it('Reset filters - Results', () => {
-    cy.get('[id*="panel-variables"] [class*="Header_clearFilterLink"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^11 Results$| of 11$)/).should('not.exist');
+    VariablesTable.actions.clearFilters();
+    VariablesTable.validations.shouldShowResultsCount(data.tableAccouchement.variableCount, false/*shouldExist*/);
   });
 
   it('Clear Input - Results', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"] [class="ant-select-clear"]').clickAndWait();
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/(^11 Results$| of 11$)/).should('not.exist');
+    VariablesTable.actions.clearInputSelect();
+    VariablesTable.validations.shouldShowResultsCount(data.tableAccouchement.variableCount, false/*shouldExist*/);
   });
 });

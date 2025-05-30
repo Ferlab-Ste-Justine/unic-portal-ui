@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
 import { data } from 'cypress/pom/shared/Data';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
@@ -9,46 +10,46 @@ beforeEach(() => {
 
 describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Variable', () => {
   it('Results by Description en', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('Congenital Anomaly');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    VariablesTable.actions.typeVariableSearchInput('Congenital Anomaly');
+    VariablesTable.validations.shouldShowResultsCount('1');
   });
 
   it('Results by Description fr [UNICWEB-157]', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('Antécédent d\'Anomalie');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^\d{1} Result$/).should('exist');
+    VariablesTable.actions.typeVariableSearchInput('Antécédent d\'Anomalie');
+    VariablesTable.validations.shouldShowResultsCount(/\d{1}/);
   });
 
   it('Results by Name', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('familialantecedentcongenitalanomaliesrelative');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^1 Result$/).should('exist');
+    VariablesTable.actions.typeVariableSearchInput('familialantecedentcongenitalanomaliesrelative');
+    VariablesTable.validations.shouldShowResultsCount('1');
   });
 
   it('Lien Reset filters', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains('Reset filters').should('exist');
+    VariablesTable.actions.typeVariableSearchInput('anomaly');
+    VariablesTable.validations.shouldShowResetFilterButton();
   });
 
   it('Related Table filter', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 2/*Table*/, 'accouchement');
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
+    VariablesTable.actions.selectTableFilter(data.tableAccouchement);
+    VariablesTable.actions.typeVariableSearchInput('anomaly');
+    VariablesTable.validations.shouldShowNoResultsMessage();
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 1/*Resource*/, data.resourceBronchiolite.name);
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
+    VariablesTable.actions.selectResourceFilter(data.resourceBronchiolite);
+    VariablesTable.actions.typeVariableSearchInput('anomaly');
+    VariablesTable.validations.shouldShowNoResultsMessage();
   });
 
   it('Related Resource type filter', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('centro');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
+    VariablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.actions.typeVariableSearchInput('centro');
+    VariablesTable.validations.shouldShowNoResultsMessage();
   });
 
   it('Related Source', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 3/*Source*/, 'centro');
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('anomaly');
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(/^No Results$/).should('exist');
+    VariablesTable.actions.selectSourceFilter(data.sourceCentro)
+    VariablesTable.actions.typeVariableSearchInput('anomaly');
+    VariablesTable.validations.shouldShowNoResultsMessage();
   });
 });

@@ -1,8 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
-import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 import { data } from 'cypress/pom/shared/Data';
-import { formatToK } from 'cypress/pom/shared/Utils';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.login();
@@ -10,37 +9,47 @@ beforeEach(() => {
 });
 
 describe('Tableau Variables - Vérifier la fonctionnalité du filtre Resource type', () => {
+  it('Dropdown tag', () => {
+    VariablesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.validations.shouldShowResourceTypeTagInDropdown(data.resourceWarehouse);
+  });
+
   it('Results', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains(new RegExp(`(^${formatToK(data.resourceWarehouse.variables.totalCount)} Results$| of ${formatToK(data.resourceWarehouse.variables.totalCount)}$)`)).should('exist');
+    VariablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.validations.shouldShowResultsCount(data.resourceWarehouse.variables.totalCount);
   });
 
   it('Lien Reset filters', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 0/*Resource type*/, 'Warehouse', true/*isMultiSelect*/);
-    cy.get('[id*="panel-variables"] [class*="Header_ProTableHeader"]').contains('Reset filters').should('exist');
+    VariablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.validations.shouldShowResetFilterButton();
+  });
+
+  it('Input tag', () => {
+    VariablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceWarehouse);
   });
 
   it('Related Variable search', () => {
-    cy.get('[id*="panel-variables"] [class*="InputSearch_filter"] input').type('#_Admitted_COVID');
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(0).type('Warehouse');
-    cy.get(`${CommonSelectors.dropdown} [label="Warehouse"] [class*="ant-tag-orange"]`).should('not.exist');
+    VariablesTable.actions.typeVariableSearchInput(data.variableAdmittedCOVID.name);
+    VariablesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.validations.shouldShowResourceTypeTagInDropdown(data.resourceWarehouse, false/*shouldExist*/);
   });
 
   it('Related Table filter', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 2/*Table*/, 'accouchement');
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(0).type('Warehouse');
-    cy.get(`${CommonSelectors.dropdown} [label="Warehouse"] [class*="ant-tag-orange"]`).should('not.exist');
+    VariablesTable.actions.selectTableFilter(data.tableAccouchement);
+    VariablesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.validations.shouldShowResourceTypeTagInDropdown(data.resourceWarehouse, false/*shouldExist*/);
   });
 
   it('Related Resource filter', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 1/*Resource*/, data.resourceBronchiolite.name);
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(0).type('Warehouse');
-    cy.get(`${CommonSelectors.dropdown} [label="Warehouse"] [class*="ant-tag-orange"]`).should('not.exist');
+    VariablesTable.actions.selectResourceFilter(data.resourceBronchiolite);
+    VariablesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.validations.shouldShowResourceTypeTagInDropdown(data.resourceWarehouse, false/*shouldExist*/);
   });
 
   it('Related Source', () => {
-    cy.inputDropdownSelectValue('[id*="panel-variables"]', 3/*Source*/, 'centro');
-    cy.get('[id*="panel-variables"] [class*="InputSelect_filter"]').eq(0).type('Warehouse');
-    cy.get(`${CommonSelectors.dropdown} [label="Warehouse"] [class*="ant-tag-orange"]`).should('not.exist');
+    VariablesTable.actions.selectSourceFilter(data.sourceCentro);
+    VariablesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
+    VariablesTable.validations.shouldShowResourceTypeTagInDropdown(data.resourceWarehouse, false/*shouldExist*/);
   });
 });
