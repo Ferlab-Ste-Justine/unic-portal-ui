@@ -1,14 +1,17 @@
 /// <reference types="cypress"/>
 import createUUID from './createUUID';
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
-import { getDateTime } from 'cypress/support/utils';
-import { oneMinute } from '../support/utils';
+import { getDateTime, oneMinute } from 'cypress/pom/shared/Utils';
+import { Replacement } from 'cypress/pom/shared/Types';
 
-export interface Replacement {
-  placeholder: string;
-  value: string;
-}
-
+/**
+ * Clicks an element, intercepts a route, and waits for a specified number of calls.
+ * @param selector The selector of the element to click.
+ * @param methodHTTP The HTTP method to intercept.
+ * @param routeMatcher The route matcher string.
+ * @param nbCalls The number of calls to wait for.
+ * @param eq The index of the element to click (default: 0).
+ */
 Cypress.Commands.add('clickAndIntercept', (selector: string, methodHTTP: string, routeMatcher: string, nbCalls: number, eq?: number) => {
   if (!eq) {
     eq = 0;
@@ -24,11 +27,21 @@ Cypress.Commands.add('clickAndIntercept', (selector: string, methodHTTP: string,
   cy.waitWhileSpin(oneMinute);
 });
 
+/**
+ * Clicks the given element and waits for any loading spinners to disappear.
+ * @param subject The element to click.
+ * @param options Optional click options.
+ */
 Cypress.Commands.add('clickAndWait', { prevSubject: 'element' }, (subject, options) => {
   cy.wrap(subject).click(options);
   cy.waitWhileSpin(oneMinute);
 });
 
+/**
+ * Returns the table header cell matching the given column name.
+ * @param columnName The name of the column.
+ * @param eq The index of the table (default: 0).
+ */
 Cypress.Commands.add('getColumnHeadCell', (columnName: string, eq: number = 0) => {
   cy.get(CommonSelectors.tableHead).eq(eq).find(CommonSelectors.tableCell).then(($tableCells) => {
     let matchedCell: JQuery<HTMLElement> | undefined = undefined;
@@ -44,6 +57,11 @@ Cypress.Commands.add('getColumnHeadCell', (columnName: string, eq: number = 0) =
   });
 });
 
+/**
+ * Hides a column in the table by unchecking it in the column selector.
+ * @param column The column name or RegExp to match.
+ * @param eq The index of the table (default: 0).
+ */
 Cypress.Commands.add('hideColumn', (column: string|RegExp, eq: number = 0) => {
   cy.get('[data-icon="setting"]').eq(eq).clickAndWait();
 
@@ -54,6 +72,13 @@ Cypress.Commands.add('hideColumn', (column: string|RegExp, eq: number = 0) => {
   cy.get('[class*="Header_ProTableHeader"]').eq(eq).clickAndWait();
 });
 
+/**
+ * Types a value in a dropdown select input and selects the option.
+ * @param tabSelector The selector for the tab containing the input.
+ * @param eq The index of the input.
+ * @param valueLabel The label of the value to select.
+ * @param isMultiSelect Whether the select is multi-select (default: false).
+ */
 Cypress.Commands.add('inputDropdownSelectValue', (tabSelector: string, eq: number, valueLabel: string, isMultiSelect: boolean = false) => {
   cy.get(`${tabSelector} [class*="InputSelect_filter"]`).eq(eq).type(valueLabel);
   if (isMultiSelect) {
@@ -65,6 +90,9 @@ Cypress.Commands.add('inputDropdownSelectValue', (tabSelector: string, eq: numbe
   }
 });
 
+/**
+ * Logs in the user using the authentication API and sets the session.
+ */
 Cypress.Commands.add('login', () => {
   cy.session(['user'], () => {
     cy.visit('/');
@@ -115,6 +143,9 @@ Cypress.Commands.add('login', () => {
  });
 });
 
+/**
+ * Logs out the current user.
+ */
 Cypress.Commands.add('logout', () => {
   cy.visit('/');
   cy.wait(2000);
@@ -123,10 +154,18 @@ Cypress.Commands.add('logout', () => {
   cy.get('[data-menu-id*="logout"]').clickAndWait();
 });
 
+/**
+ * Removes all files from the specified folder.
+ * @param folder The folder path.
+ */
 Cypress.Commands.add('removeFilesFromFolder', (folder: string) => {
   cy.exec(`/bin/rm ${folder}/*`, {failOnNonZeroExit: false});
 });
 
+/**
+ * Resets the columns in the table to their default state.
+ * @param eq The index of the table (default: 0).
+ */
 Cypress.Commands.add('resetColumns', (eq: number = 0) => {
   cy.get('[data-icon="setting"]').eq(eq).clickAndWait();
   cy.get('button[class*="ColumnSelector_ProTablePopoverColumnResetBtn"]').eq(0).clickAndWait({force: true});
@@ -135,26 +174,51 @@ Cypress.Commands.add('resetColumns', (eq: number = 0) => {
   cy.get('[class*="Header_ProTableHeader"]').eq(eq).clickAndWait();
 });
 
+/**
+ * Asserts that the given element is sortable or not.
+ * @param subject The element to check.
+ * @param isSortable Whether the column should be sortable.
+ */
 Cypress.Commands.add('shouldBeSortable', { prevSubject: 'element' }, (subject, isSortable: boolean) => {
   const strExpectedSortable = isSortable ? 'have.class' : 'not.have.class';
   cy.wrap(subject).should(strExpectedSortable, 'ant-table-column-has-sorters');
 });
 
+/**
+ * Asserts that the given tab is active.
+ * @param subject The tab element.
+ */
 Cypress.Commands.add('shouldHaveActiveTab', { prevSubject: 'element' }, (subject) => {
   cy.wrap(subject).should('have.class', 'ant-tabs-tab-active');
 });
 
+/**
+ * Asserts that the given element has a popover with the specified title and content.
+ * @param subject The element to check.
+ * @param popoverTitle The expected popover title.
+ * @param popoverContent The expected popover content.
+ */
 Cypress.Commands.add('shouldHavePopover', { prevSubject: 'element' }, (subject, popoverTitle: string, popoverContent: string) => {
   cy.wrap(subject).trigger('mouseover', { eventConstructor: 'MouseEvent' });
   cy.get('[class="ant-popover-title"]').contains(popoverTitle).should('exist');
   cy.get('[class="ant-popover-inner-content"]').contains(popoverContent).should('exist');
 });
 
+/**
+ * Asserts that the given element has a tooltip with the specified content.
+ * @param subject The element to check.
+ * @param tooltipContent The expected tooltip content.
+ */
 Cypress.Commands.add('shouldHaveTooltip', { prevSubject: 'element' }, (subject, tooltipContent: string) => {
   cy.wrap(subject).trigger('mouseover', { eventConstructor: 'MouseEvent' });
   cy.get('body').contains(tooltipContent).should('exist');
 });
 
+/**
+ * Shows a column in the table by checking it in the column selector.
+ * @param column The column name or RegExp to match.
+ * @param eq The index of the table (default: 0).
+ */
 Cypress.Commands.add('showColumn', (column: string|RegExp, eq: number = 0) => {
   cy.get('[data-icon="setting"]').eq(eq).clickAndWait();
 
@@ -165,6 +229,12 @@ Cypress.Commands.add('showColumn', (column: string|RegExp, eq: number = 0) => {
   cy.get('[class*="Header_ProTableHeader"]').eq(eq).clickAndWait();
 });
 
+/**
+ * Sorts a table column and waits for the specified number of GraphQL calls.
+ * @param column The column name or RegExp to sort.
+ * @param nbCalls The number of GraphQL calls to wait for.
+ * @param eq The index of the table (default: 0).
+ */
 Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: number, eq: number = 0) => {
   cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
 
@@ -175,11 +245,24 @@ Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: n
   };
 });
 
+/**
+ * Sorts a table column and waits for a short delay.
+ * @param column The column name or RegExp to sort.
+ * @param eq The index of the table (default: 0).
+ */
 Cypress.Commands.add('sortTableAndWait', (column: string|RegExp, eq: number = 0) => {
   cy.get(CommonSelectors.tableHead).eq(eq).contains(column).click({force: true});
   cy.wait(1000);
 });
 
+/**
+ * Types text in an input and waits for a specified number of intercepted calls.
+ * @param selector The selector for the input.
+ * @param text The text to type.
+ * @param methodHTTP The HTTP method to intercept.
+ * @param routeMatcher The route matcher string.
+ * @param nbCalls The number of calls to wait for.
+ */
 Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
   cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
 
@@ -193,6 +276,11 @@ Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, method
   cy.wait(1000);
 });
 
+/**
+ * Validates the content of a downloaded file against a fixture, with optional replacements.
+ * @param fixture The fixture file name.
+ * @param replacements Optional array of replacements to apply.
+ */
 Cypress.Commands.add('validateFileContent', (fixture: string, replacements?: Replacement[]) => {
   const arrReplacements = replacements !== undefined ? replacements : [];
   cy.fixture(fixture).then((expectedData) => {
@@ -215,6 +303,10 @@ Cypress.Commands.add('validateFileContent', (fixture: string, replacements?: Rep
   });
 });
 
+/**
+ * Validates the headers of a downloaded file against a fixture.
+ * @param fixture The fixture file name.
+ */
 Cypress.Commands.add('validateFileHeaders', (fixture: string) => {
   cy.fixture(fixture).then((expectedData) => {
     cy.exec(`/bin/ls ${Cypress.config('downloadsFolder')}/*`).then((result) => {
@@ -228,6 +320,10 @@ Cypress.Commands.add('validateFileHeaders', (fixture: string) => {
   });
 });
 
+/**
+ * Validates the name of a downloaded file for a given entity.
+ * @param entity The entity name.
+ */
 Cypress.Commands.add('validateFileName', (entity: string) => {
   const { strDate } = getDateTime();
 
@@ -237,6 +333,11 @@ Cypress.Commands.add('validateFileName', (entity: string) => {
   });
 });
 
+/**
+ * Validates the pagination functionality of a table.
+ * @param total The expected total results (string or RegExp).
+ * @param eq The index of the table (default: 0).
+ */
 Cypress.Commands.add('validatePaging', (total: string|RegExp, eq: number = 0) => {
   if (typeof total === 'string') {
     total = new RegExp(total);
@@ -280,6 +381,13 @@ Cypress.Commands.add('validatePaging', (total: string|RegExp, eq: number = 0) =>
   cy.get('div[class*="Pagination"]').eq(eq).find('button[type="button"]').contains('First').parent('button').should('be.disabled');
 });
 
+/**
+ * Validates the value of the first row in a table.
+ * @param expectedValue The expected value (string or RegExp).
+ * @param eq The column index (default: 0).
+ * @param hasCheckbox Whether the row has a checkbox (default: false).
+ * @param selector Optional selector for the table.
+ */
 Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq: number = 0, hasCheckbox: boolean = false, selector: string = '') => {
   cy.waitWhileSpin(oneMinute);
   cy.wait(1000);
@@ -294,11 +402,24 @@ Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq:
   });
 });
 
+/**
+ * Validates the results count displayed in a table.
+ * @param expectedCount The expected count (string or RegExp).
+ * @param shouldExist Whether the count should exist (default: true).
+ * @param eq The index of the table (default: 0).
+ */
 Cypress.Commands.add('validateTableResultsCount', (expectedCount: string|RegExp, shouldExist: boolean = true, eq: number = 0) => {
   const strExist = shouldExist ? 'exist' : 'not.exist';
   cy.get('div[class*="ProTableHeader"]').eq(eq).contains(expectedCount).should(strExist);
 });
 
+/**
+ * Visits a URL and waits for a specified number of intercepted calls.
+ * @param url The URL to visit.
+ * @param methodHTTP The HTTP method to intercept.
+ * @param routeMatcher The route matcher string.
+ * @param nbCalls The number of calls to wait for.
+ */
 Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
   cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
   cy.visit(url.replace(/#/g, '%23'));
@@ -310,6 +431,10 @@ Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, rout
   cy.waitWhileSpin(oneMinute);
 });
 
+/**
+ * Visits the catalog page and selects the specified tab.
+ * @param tab The tab to select (default: 'resources').
+ */
 Cypress.Commands.add('visitCatalog', (tab?: string) => {
   const strTab = tab !== undefined ? tab : 'resources';
   let eq = strTab === 'resources' ? 0 : 1;
@@ -319,18 +444,34 @@ Cypress.Commands.add('visitCatalog', (tab?: string) => {
   cy.resetColumns(eq);
 });
 
+/**
+ * Visits the resource entity page for the given resource.
+ * @param dataResource The resource object.
+ */
 Cypress.Commands.add('visitResourceEntity', (dataResource: any) => {
   cy.visitAndIntercept(`/resource/${dataResource.code}`, 'POST','**/graphql', 1);
 });
 
+/**
+ * Visits the table entity page for the given table.
+ * @param dataTable The table object.
+ */
 Cypress.Commands.add('visitTableEntity', (dataTable: any) => {
   cy.visitAndIntercept(`/table/${dataTable.resourceCode}/${dataTable.name}`, 'POST','**/graphql', 1);
 });
 
+/**
+ * Visits the variable entity page for the given variable.
+ * @param dataVariable The variable object.
+ */
 Cypress.Commands.add('visitVariableEntity', (dataVariable: any) => {
   cy.visitAndIntercept(`/variable/${dataVariable.resourceCode}/${dataVariable.table}/${dataVariable.name}`, 'POST','**/graphql', 1);
 });
 
+/**
+ * Waits until a file appears in the downloads folder or times out.
+ * @param ms The maximum time to wait in milliseconds.
+ */
 Cypress.Commands.add('waitUntilFile', (ms: number) => {
   const start = new Date().getTime();
 
@@ -352,6 +493,10 @@ Cypress.Commands.add('waitUntilFile', (ms: number) => {
   return checkFile();
 });
 
+/**
+ * Waits until all loading spinners disappear or times out.
+ * @param ms The maximum time to wait in milliseconds.
+ */
 Cypress.Commands.add('waitWhileSpin', (ms: number) => {
   const start = new Date().getTime();
 
@@ -371,4 +516,9 @@ Cypress.Commands.add('waitWhileSpin', (ms: number) => {
   return checkForSpinners();
 });
 
+/**
+ * Overwrites the Cypress log command to also log to the terminal.
+ * @param _subject The subject (unused).
+ * @param message The message to log.
+ */
 Cypress.Commands.overwrite('log', (_subject, message) => cy.task('log', message));

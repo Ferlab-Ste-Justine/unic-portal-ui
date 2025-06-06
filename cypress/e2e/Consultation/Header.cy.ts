@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
+import { HomePage } from 'cypress/pom/pages/HomePage';
 import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 
 beforeEach(() => {
@@ -9,35 +10,26 @@ beforeEach(() => {
 
 describe('Header', () => {
   it('Vérifier les informations affichées', () => {
-    cy.get('[class*="Header_logo"]').should('exist');
-    cy.get('[class*="Header_headerBtn"] [data-icon="read"]').should('exist');
-    cy.get('[class*="Header_headerBtn"]').contains('Catalog').should('exist');
-    cy.get('[class*="Header_headerBtn"]').contains('About').should('exist');
-    cy.get('[class*="Header_headerBtn"] [class="anticon"]').should('exist');
-    cy.get('[class*="Header_userAvatar"]').contains('CN').should('exist');
-    cy.get('[class*="Header_userName"]').contains('cypress').should('exist');
-    cy.get('[class*="Header_langButton"]').contains('FR').should('exist');
+    HomePage.validations.header.shouldHaveHeaderElements();
   });
 
   it('Valider les liens disponibles - Logo', () => {
     cy.visitCatalog();
-    cy.get('[class*="Header_logo"]').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('UnIC Data Catalog').should('exist');
+    HomePage.actions.clickLogo();
+    HomePage.validations.shouldHaveTitle();
   });
 
   it('Valider les liens disponibles - Catalog', () => {
-    cy.get('[class*="Header_headerBtn"]').eq(0).clickAndWait();
+    HomePage.actions.clickCatalogButton();
     ResourcesTable.validations.shouldShowPageTitle();
   });
 
   it('Valider les liens disponibles - About', () => {
-    cy.get('[class*="Header_mainHeader"] a').eq(2)
-      .should('have.attr', 'href', 'https://recherche.chusj.org/fr/Plateformes-communes/Grandes-initiatives-institutionnelles/UnIC/Guichet-UnIC-pour-les-chercheurs/Accueil')
-      .contains('About');
+    HomePage.validations.header.shouldHaveAboutLink();
   });
 
   it('Valider les liens disponibles - FR', () => {
-    cy.get('[class*="Header_langButton"]').contains('FR').clickAndWait();
-    cy.get('[class*="PageLayout_titlePage"]').contains('Catalogue de l\'UnIC').should('exist');
+    HomePage.actions.clickLanguageButton();
+    HomePage.validations.shouldHaveTitle(true/*isFR*/);
   });
 });

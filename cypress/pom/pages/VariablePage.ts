@@ -1,8 +1,8 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
-import { CommonTexts } from '../shared/Texts';
-import { oneMinute } from 'cypress/support/utils';
-import { Replacement } from 'cypress/support/commands';
+import { CommonTexts } from 'cypress/pom/shared/Texts';
+import { oneMinute } from 'cypress/pom/shared/Utils';
+import { Replacement } from 'cypress/pom/shared/Types';
 
 const cardSelector = {
   categories: '[id="categories"]',
@@ -12,7 +12,7 @@ const cardSelector = {
 
 const selectors = {
   categories: {
-    downloadButton: `${cardSelector.categories} ${CommonSelectors.download}`,
+    downloadButton: `${cardSelector.categories} ${CommonSelectors.downloadIcon}`,
     searchInput: `${cardSelector.categories} input`,
     table: (dataRowKey: string) => `${cardSelector.categories} [data-row-key="${dataRowKey}"] td`,
     tableHeaders: `${cardSelector.categories} th`,

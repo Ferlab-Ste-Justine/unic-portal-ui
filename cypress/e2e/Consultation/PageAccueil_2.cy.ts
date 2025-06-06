@@ -1,5 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
+import { data } from 'cypress/pom/shared/Data';
+import { HomePage } from 'cypress/pom/pages/HomePage';
 import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 
 beforeEach(() => {
@@ -9,26 +11,26 @@ beforeEach(() => {
 
 describe('Page d\'accueil - Valider les liens disponibles', () => {
   it('Carte Warehouse - Bouton', () => {
-    cy.get('[class*="WarehouseCard_homeCardContent"] button').clickAndWait();
+    HomePage.actions.clickWarehouseExploreButton();
     ResourcesTable.validations.shouldShowPageTitle();
-    cy.get('[id*="panel-resources"] [class*="InputSelect_filter"] [class*="ant-tag-orange"]').contains('Warehouse').should('exist');
+    ResourcesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceWarehouse);
   });
 
   it('Carte Projects - Bouton', () => {
-    cy.get('[class*="ResearchProjectsCard_homeCardContent"] button').clickAndWait();
+    HomePage.actions.clickProjectsExploreButton();
     ResourcesTable.validations.shouldShowPageTitle();
-    cy.get('[id*="panel-resources"] [class*="InputSelect_filter"] [class*="ant-tag-cyan"]').contains('Research').should('exist');
+    ResourcesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceBronchiolite);
   });
 
   it('Carte EQP - Bouton', () => {
-    cy.get('[class*="EQPProjectsCard_homeCardContent"] button').clickAndWait();
+    HomePage.actions.clickEQPExploreButton();
     ResourcesTable.validations.shouldShowPageTitle();
-    cy.get('[id*="panel-resources"] [class*="InputSelect_filter"] [class*="ant-tag-blue"]').contains('EQP').should('exist');
+    ResourcesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceInhalateurs);
   });
 
   it('Carte Systems - Bouton', () => {
-    cy.get('[class*="HospitalSystemsCard_homeCardContent"] button').clickAndWait();
+    HomePage.actions.clickHospitalSystemsExploreButton();
     ResourcesTable.validations.shouldShowPageTitle();
-    cy.get('[id*="panel-resources"] [class*="InputSelect_filter"] [class*="ant-tag-purple"]').contains('Hospital System').should('exist');
+    ResourcesTable.validations.shouldShowResourceTypeTagInFilter(data.resourceCentro);
   });
 });

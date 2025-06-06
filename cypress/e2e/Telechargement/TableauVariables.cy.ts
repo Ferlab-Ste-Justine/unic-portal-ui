@@ -1,8 +1,7 @@
 /// <reference types="cypress"/>
 import 'cypress/support/commands';
-import { oneMinute } from '../../support/utils';
-import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 import { data } from 'cypress/pom/shared/Data';
+import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
 beforeEach(() => {
   cy.removeFilesFromFolder(Cypress.config('downloadsFolder'));
