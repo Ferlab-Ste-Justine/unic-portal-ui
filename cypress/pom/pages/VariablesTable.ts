@@ -2,14 +2,14 @@
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 import { CommonTexts } from 'cypress/pom/shared/Texts';
 import { formatResourceType, formatToK, getColumnName, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
-import { oneMinute } from 'cypress/support/utils';
-import { Replacement } from 'cypress/support/commands';
+import { oneMinute } from 'cypress/pom/shared/Utils';
+import { Replacement } from 'cypress/pom/shared/Types';
 
 const selectorPanel = '[id*="panel-variables"]';
 const selectorHead = CommonSelectors.tableHead;
 const selectors = {
   clearFilterLink: `${selectorPanel} [class*="Header_clearFilterLink"]`,
-  downloadButton: `${selectorPanel} ${CommonSelectors.download}`,
+  downloadButton: `${selectorPanel} ${CommonSelectors.downloadIcon}`,
   filterTitleInput: (title: string) => `${selectorPanel} [class*="InputSelect_filter"] [title="${title}"]`,
   filterTagInput: `${selectorPanel} [class*="InputSelect_filter"] [class*="ant-tag"]`,
   pageTitle: '[class*="PageLayout_titlePage"]',

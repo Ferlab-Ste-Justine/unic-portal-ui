@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
-import { CommonTexts } from '../shared/Texts';
+import { CommonTexts } from 'cypress/pom/shared/Texts';
 
 const cardSelector = {
   history: '[id="history"]',

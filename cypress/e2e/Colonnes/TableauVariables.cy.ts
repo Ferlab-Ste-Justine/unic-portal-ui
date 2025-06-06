@@ -7,7 +7,7 @@ beforeEach(() => {
   cy.visitCatalog('variables');
 });
 
-describe('Tableau Ressources - Colonnes du tableau', () => {
+describe('Tableau Variables - Colonnes du tableau', () => {
   it('Valider l\'affichage par défaut', () => {
     VariablesTable.validations.shouldMatchDefaultColumnVisibility();
   });

@@ -14,7 +14,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Varia
     VariablesTable.validations.shouldShowResultsCount('1');
   });
 
-  it('Results by Description fr [UNICWEB-157]', () => {
+  it('Results by Description fr', () => {
     VariablesTable.actions.typeVariableSearchInput('Antécédent d\'Anomalie');
     VariablesTable.validations.shouldShowResultsCount(/\d{1}/);
   });

@@ -1,9 +1,27 @@
 /// <reference types="cypress"/>
 
 /**
+ * Constant represents one minute
+ */
+export const oneMinute = 60*1000;
+
+/**
  * Regular expression matching a single digit.
  */
 export const varSingleDigit = new RegExp('\\d{1}');
+
+/**
+ * Builds a RegExp that matches either of the two provided strings exactly.
+ * Escapes special RegExp characters in both strings.
+ * @param textEN The english string to match.
+ * @param textFR The french string to match.
+ * @returns A RegExp matching either textEN or textFR.
+ */
+export const buildBilingualRegExp = (textEN: string, textFR: string): RegExp => {
+  const escapeRegExp = (str: string) =>
+    str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`^(${escapeRegExp(textEN)}|${escapeRegExp(textFR)})$`);
+};
 
 /**
  * Formats the resource type to its display label.
@@ -88,4 +106,19 @@ export const getResourceIconSelector = (resourceType: string) => {
     };
 
     return mapping[resourceType];
+};
+
+/**
+ * Returns the current date and time as formatted strings.
+ * @returns An object containing:
+ *  - strDate: the date in YYYYMMDD format
+ *  - strTime: the time in HHMM format
+ */
+export const getDateTime = () => {
+    const date = new Date();
+    const joinWithPadding = (l: number[]) => l.reduce((xs, x) => xs + `${x}`.padStart(2, '0'), '');
+    const strDate = joinWithPadding([date.getFullYear(), date.getMonth() + 1, date.getDate()]);
+    const strTime = joinWithPadding([date.getHours(), date.getMinutes()]);
+
+    return { strDate, strTime };
 };

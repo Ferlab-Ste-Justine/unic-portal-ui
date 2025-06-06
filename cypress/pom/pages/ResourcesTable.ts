@@ -3,14 +3,14 @@ import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 import { CommonTexts } from 'cypress/pom/shared/Texts';
 import { formatResourceType, getColumnName, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
 import { formatToK } from 'cypress/pom/shared/Utils';
-import { oneMinute } from 'cypress/support/utils';
-import { Replacement } from 'cypress/support/commands';
+import { oneMinute } from 'cypress/pom/shared/Utils';
+import { Replacement } from 'cypress/pom/shared/Types';
 
 const selectorPanel = '[id*="panel-resources"]';
 const selectorHead = CommonSelectors.tableHead;
 const selectors = {
   clearFilterLink: `${selectorPanel} [class*="Header_clearFilterLink"]`,
-  downloadButton: `${selectorPanel} ${CommonSelectors.download}`,
+  downloadButton: `${selectorPanel} ${CommonSelectors.downloadIcon}`,
   pageTitle: '[class*="PageLayout_titlePage"]',
   proTableHeader: `${selectorPanel} [class*="Header_ProTableHeader"]`,
   searchInput: `${selectorPanel} [class*="InputSearch_filter"] input`,

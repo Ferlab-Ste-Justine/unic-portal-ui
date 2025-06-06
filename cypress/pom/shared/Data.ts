@@ -68,6 +68,24 @@ export const data = {
       },
       version: 'Not Used',
     },
+    resourceInhalateurs: {
+      approvedOn: 'Not Used',
+      code: 'inhalateurs',
+      collectionStartingYear: 'Not Used',
+      createdOn: 'Not Used',
+      dataRowKey: 'Not Used',
+      description: 'Not Used',
+      naganoID: 'Not Used',
+      name: 'inhalateurs',
+      principalInvestigator: 'Not Used',
+      tables: null,
+      type: 'eqp',
+      updatedOn: 'Not Used',
+      variables: {
+        totalCount: 'Not Used',
+      },
+      version: 'Not Used',
+    },
     resourceResppa: {
       approvedOn: 'Not Used',
       code: 'Not Used',
@@ -192,6 +210,7 @@ export const data = {
       updatedOn: 'Not Used',
       variableCount: 'Not Used',
     },
+    totalParticipants: '2.5M',
     variableAdmittedCOVID: {
       categories: null,
       createdOn: '2024-11-05',
