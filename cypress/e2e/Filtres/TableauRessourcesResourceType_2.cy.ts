@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import 'cypress/pom/support/commands';
+import 'cypress/support/commands';
 import { data } from 'cypress/pom/shared/Data';
 import { ResourcesTable } from 'cypress/pom/pages/ResourcesTable';
 
