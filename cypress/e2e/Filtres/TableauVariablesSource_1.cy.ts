@@ -11,7 +11,7 @@ beforeEach(() => {
 describe('Tableau Variables - Vérifier la fonctionnalité du filtre Source', () => {
   it('Results', () => {
     VariablesTable.actions.selectSourceFilter(data.resourceCentro);
-    VariablesTable.validations.shouldShowResultsCount(data.resourceCentro.variables.totalCount);
+    VariablesTable.validations.shouldShowResultsCount(data.resourceCentro.variables.totalCountForSource);
   });
 
   it('Lien Reset filters', () => {

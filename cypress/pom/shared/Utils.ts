@@ -47,11 +47,25 @@ export const formatResourceType = (resourceType: string) => {
 export const formatToK = (value: string | number): string => {
   const num = typeof value === 'string' ? parseInt(value, 10) : value;
   
-  if (num >= 1000) {
+  if (num >= 10000) {
     return `${(num / 1000).toFixed(1)}K`;
   };
 
-  return num.toString();
+  return formatWithCommaThousands(num);
+};
+
+/**
+ * Formats a number to a string with a comma as the thousands separator (e.g., 3677 -> '3,677').
+ * If a RegExp is provided, returns its source.
+ * @param value The value to format (string, number, or RegExp).
+ * @returns The formatted string.
+ */
+export const formatWithCommaThousands = (value: string | RegExp | number): string => {
+  if (value instanceof RegExp) {
+    return value.source;
+  }
+  const num = typeof value === 'string' ? parseInt(value, 10) : value;
+  return num.toLocaleString('fr-FR').replace(/\u202f/g, ',');
 };
 
 /**
@@ -121,4 +135,17 @@ export const getDateTime = () => {
     const strTime = joinWithPadding([date.getHours(), date.getMinutes()]);
 
     return { strDate, strTime };
+};
+
+/**
+ * Converts a string to a RegExp.
+ * Optionally adds ^ and $ to match the whole string.
+ * @param str The string to convert.
+ * @param exact If true, adds ^ and $ to the pattern (default: false).
+ * @returns The constructed RegExp.
+ */
+export const stringToRegExp = (str: string, exact: boolean = false): RegExp => {
+  const replacedStr = str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regexpStr = exact ? `^${replacedStr}$` : replacedStr;
+  return new RegExp(regexpStr);
 };

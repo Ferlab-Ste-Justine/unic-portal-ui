@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 import { CommonTexts } from 'cypress/pom/shared/Texts';
-import { formatResourceType, formatToK, getColumnName, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
+import { formatResourceType, formatToK, getColumnName, getColumnPosition, getResourceColor, stringToRegExp } from 'cypress/pom/shared/Utils';
 import { Replacement } from 'cypress/pom/shared/Types';
 import { oneMinute } from 'cypress/pom/shared/Utils';
 
@@ -150,7 +150,7 @@ export const TablesTable = {
       showAllColumns() {
         tableColumns.forEach((column) => {
           if (!column.isVisibleByDefault) {
-            cy.showColumn(column.name, 1);
+            cy.showColumn(stringToRegExp(column.name, true/*exact*/), 1);
           };
         });
       },
@@ -159,7 +159,7 @@ export const TablesTable = {
        * @param columnID The ID of the column to show.
        */
       showColumn(columnID: string) {
-        cy.showColumn(getColumnName(tableColumns, columnID), 1);
+        cy.showColumn(stringToRegExp(getColumnName(tableColumns, columnID), true/*exact*/), 1);
       },
       /**
        * Sorts a column, optionally using an intercept.
@@ -169,11 +169,11 @@ export const TablesTable = {
       sortColumn(columnID: string, needIntercept: boolean = true) {
         const columnName = getColumnName(tableColumns, columnID);
         if (needIntercept) {
-          cy.sortTableAndIntercept(columnName, 1, 1);
+          cy.sortTableAndIntercept(stringToRegExp(columnName, true/*exact*/), 1);
         }
         else {
-          cy.sortTableAndWait(columnName, 1);
-        }
+          cy.sortTableAndWait(stringToRegExp(columnName, true/*exact*/));
+        };
       },
       /**
        * Types the resource name in the resource filter input.
@@ -256,7 +256,7 @@ export const TablesTable = {
       shouldMatchDefaultColumnVisibility() {
         tableColumns.forEach((column) => {
           const expectedExist = column.isVisibleByDefault ? 'exist' : 'not.exist';
-          cy.get(selectorHead).eq(1).contains(column.name).should(expectedExist);
+          cy.get(selectorHead).eq(1).contains(stringToRegExp(column.name, true/*exact*/)).should(expectedExist);
         });
       },
       /**
@@ -284,7 +284,7 @@ export const TablesTable = {
       shouldShowAllColumns() {
         TablesTable.actions.showAllColumns();
         tableColumns.forEach((column) => {
-          cy.get(`${selectorHead}`).eq(1).find(`${CommonSelectors.tableCell}`).eq(column.position).contains(column.name).should('exist');
+          cy.get(`${selectorHead}`).eq(1).find(`${CommonSelectors.tableCell}`).eq(column.position).contains(stringToRegExp(column.name, true/*exact*/)).should('exist');
         });
       },
       /**
@@ -294,7 +294,7 @@ export const TablesTable = {
         TablesTable.actions.showAllColumns();
         tableColumns.forEach((column) => {
           if (column.tooltip) {
-            cy.get(CommonSelectors.tableHead).eq(1).find(CommonSelectors.tableCell).contains(column.name).shouldHaveTooltip(column.tooltip);
+            cy.get(CommonSelectors.tableHead).eq(1).find(CommonSelectors.tableCell).contains(stringToRegExp(column.name, true/*exact*/)).shouldHaveTooltip(column.tooltip);
           }
         });
       },

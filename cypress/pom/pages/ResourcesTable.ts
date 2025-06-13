@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 import { CommonTexts } from 'cypress/pom/shared/Texts';
-import { formatResourceType, getColumnName, getColumnPosition, getResourceColor } from 'cypress/pom/shared/Utils';
+import { formatResourceType, getColumnName, getColumnPosition, getResourceColor, stringToRegExp } from 'cypress/pom/shared/Utils';
 import { formatToK } from 'cypress/pom/shared/Utils';
 import { oneMinute } from 'cypress/pom/shared/Utils';
 import { Replacement } from 'cypress/pom/shared/Types';
@@ -183,7 +183,7 @@ export const ResourcesTable = {
       showAllColumns() {
         tableColumns.forEach((column) => {
           if (!column.isVisibleByDefault) {
-            cy.showColumn(column.name);
+            cy.showColumn(stringToRegExp(column.name, true/*exact*/));
           };
         });
       },
@@ -192,7 +192,7 @@ export const ResourcesTable = {
        * @param columnID The ID of the column to show.
        */
       showColumn(columnID: string) {
-        cy.showColumn(getColumnName(tableColumns, columnID));
+        cy.showColumn(stringToRegExp(getColumnName(tableColumns, columnID), true/*exact*/));
       },
       /**
        * Sorts a column, optionally using an intercept.
@@ -202,11 +202,11 @@ export const ResourcesTable = {
       sortColumn(columnID: string, needIntercept: boolean = true) {
         const columnName = getColumnName(tableColumns, columnID);
         if (needIntercept) {
-          cy.sortTableAndIntercept(columnName, 1);
+          cy.sortTableAndIntercept(stringToRegExp(columnName, true/*exact*/), 1);
         }
         else {
-          cy.sortTableAndWait(columnName);
-        }
+          cy.sortTableAndWait(stringToRegExp(columnName, true/*exact*/));
+        };
       },
       /**
        * Types the resource name in the resource type filter input.
@@ -287,7 +287,7 @@ export const ResourcesTable = {
       shouldMatchDefaultColumnVisibility() {
         tableColumns.forEach((column) => {
           const expectedExist = column.isVisibleByDefault ? 'exist' : 'not.exist';
-          cy.get(selectorHead).contains(column.name).should(expectedExist);
+          cy.get(selectorHead).contains(stringToRegExp(column.name, true/*exact*/)).should(expectedExist);
         });
       },
       /**
@@ -303,7 +303,7 @@ export const ResourcesTable = {
       shouldShowAllColumns() {
         ResourcesTable.actions.showAllColumns();
         tableColumns.forEach((column) => {
-          cy.get(selectors.tableHeadCell).eq(column.position).contains(column.name).should('exist');
+          cy.get(selectors.tableHeadCell).eq(column.position).contains(stringToRegExp(column.name, true/*exact*/)).should('exist');
         });
       },
       /**
