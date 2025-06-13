@@ -48,7 +48,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Varia
   });
 
   it('Related Source', () => {
-    VariablesTable.actions.selectSourceFilter(data.sourceCentro)
+    VariablesTable.actions.selectSourceFilter(data.resourceCentro)
     VariablesTable.actions.typeVariableSearchInput('anomaly');
     VariablesTable.validations.shouldShowNoResultsMessage();
   });

@@ -38,7 +38,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité du filtre Table', () 
   });
 
   it('Related Source', () => {
-    VariablesTable.actions.selectSourceFilter(data.sourceCentro);
+    VariablesTable.actions.selectSourceFilter(data.resourceCentro);
     VariablesTable.actions.typeTableFilter(data.tableAccouchement);
     VariablesTable.validations.shouldShowObjectInDropdown(data.tableAccouchement, false/*shouldExist*/);
   });

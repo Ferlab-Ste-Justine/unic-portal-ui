@@ -141,10 +141,6 @@ export const data = {
       },
       version: '-',
     },
-    sourceCentro: {
-      name: 'centro',
-      variableCount: '13800',
-    },
     tableAccouchement: {
       createdOn: '2024-11-05',
       dataRowKey: '1188',

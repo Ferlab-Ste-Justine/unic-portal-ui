@@ -38,7 +38,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité du filtre Resource', 
   });
 
   it('Related Source', () => {
-    VariablesTable.actions.selectSourceFilter(data.sourceCentro);
+    VariablesTable.actions.selectSourceFilter(data.resourceCentro);
     VariablesTable.actions.typeResourceFilter(data.resourceBronchiolite);
     VariablesTable.validations.shouldShowObjectInDropdown(data.resourceBronchiolite, false/*shouldExist*/);
   });
