@@ -43,7 +43,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité de la recherche Varia
 
   it('Related Resource type filter', () => {
     VariablesTable.actions.selectResourceTypeFilter(data.resourceWarehouse);
-    VariablesTable.actions.typeVariableSearchInput('centro');
+    VariablesTable.actions.typeVariableSearchInput(data.variableAdmittedCOVID.name);
     VariablesTable.validations.shouldShowNoResultsMessage();
   });
 
