@@ -48,7 +48,7 @@ describe('Tableau Variables - Vérifier la fonctionnalité du filtre Resource ty
   });
 
   it('Related Source', () => {
-    VariablesTable.actions.selectSourceFilter(data.sourceCentro);
+    VariablesTable.actions.selectSourceFilter(data.resourceCentro);
     VariablesTable.actions.typeResourceTypeFilter(data.resourceWarehouse);
     VariablesTable.validations.shouldShowResourceTypeTagInDropdown(data.resourceWarehouse, false/*shouldExist*/);
   });
