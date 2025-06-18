@@ -169,10 +169,10 @@ export const TablesTable = {
       sortColumn(columnID: string, needIntercept: boolean = true) {
         const columnName = getColumnName(tableColumns, columnID);
         if (needIntercept) {
-          cy.sortTableAndIntercept(stringToRegExp(columnName, true/*exact*/), 1);
+          cy.sortTableAndIntercept(stringToRegExp(columnName, true/*exact*/), 1, 1);
         }
         else {
-          cy.sortTableAndWait(stringToRegExp(columnName, true/*exact*/));
+          cy.sortTableAndWait(stringToRegExp(columnName, true/*exact*/), 1);
         };
       },
       /**
