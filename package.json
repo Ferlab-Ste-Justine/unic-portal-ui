@@ -74,6 +74,9 @@
     "ts-node": "^10.9.2",
     "typescript": "^5"
   },
+  "overrides": {
+    "form-data": "^4.0.4"
+  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix"
