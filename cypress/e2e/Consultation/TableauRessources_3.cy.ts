@@ -32,7 +32,7 @@ describe('Tableau Ressources - Valider les fonctionnalités du tableau', () => {
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     ResourcesTable.actions.sortColumn('type');
     ResourcesTable.actions.sortColumn('code');
-    ResourcesTable.validations.shouldHaveFirstRowValue(/^i/, 'code');
+    ResourcesTable.validations.shouldHaveFirstRowValue(/^f/, 'code');
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
