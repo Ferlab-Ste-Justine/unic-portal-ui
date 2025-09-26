@@ -1,5 +1,7 @@
 /// <reference types="cypress"/>
 
+import { CommonSelectors } from "./Selectors";
+
 /**
  * Constant represents one minute
  */
@@ -80,14 +82,27 @@ export const getColumnName = (columns: any, columnID: string) => {
 };
 
 /**
- * Gets the position (index) of a column from a columns array by column ID.
+ * Gets the position (index) of a column in the application table by column ID.
+ * @param tableHead The table head.
  * @param columns The array of column objects.
  * @param columnID The ID of the column.
- * @returns The column position, or -1 if not found.
+ * @param eq The index of the table (default: 0).
+ * @returns A Cypress chain containing the column position (0-based) or -1 if not found
  */
-export const getColumnPosition = (columns: any, columnID: string) => {
-  const columnPosition: number | undefined = columns.find((col: { id: string; }) => col.id === columnID)?.position;
-  return columnPosition !== undefined ? columnPosition : -1;
+export const getColumnPosition = (tableHead: string, columns: any, columnID: string, eq: number = 0) => {
+  const columnName = getColumnName(columns, columnID);
+  return cy.get(`${tableHead}`).eq(eq).find(`${CommonSelectors.tableCellHead}`).then($cells => {
+    let position;
+    if (columnName.startsWith('[')) {
+      position = Array.from($cells).findIndex($cell => {
+        return Cypress.$($cell).find(columnName).length > 0;
+      });
+    } else {
+      position = Array.from($cells).findIndex($cell => $cell.textContent?.match(stringToRegExp(columnName, true)));
+    }
+
+    return position;
+  });
 };
 
 /**
@@ -135,6 +150,16 @@ export const getDateTime = () => {
     const strTime = joinWithPadding([date.getHours(), date.getMinutes()]);
 
     return { strDate, strTime };
+};
+
+/**
+ * Checks if the current environment is a FERLEASE environment.
+ * Determines this by checking if CYPRESS_BASE_URL contains 'unicweb-' or 'unic-'.
+ * @returns True if running in a FERLEASE environment, false otherwise.
+ */
+export const isFerlease = (): boolean => {
+  const url = process.env.CYPRESS_BASE_URL !== undefined ? process.env.CYPRESS_BASE_URL : '';
+  return (url.includes('unicweb-') || url.includes('unic-'));
 };
 
 /**

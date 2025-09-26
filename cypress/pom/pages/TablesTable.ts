@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from 'cypress/pom/shared/Selectors';
 import { CommonTexts } from 'cypress/pom/shared/Texts';
-import { formatResourceType, formatToK, getColumnName, getColumnPosition, getResourceColor, stringToRegExp } from 'cypress/pom/shared/Utils';
+import { formatResourceType, formatToK, getColumnName, getColumnPosition, getResourceColor, isFerlease, stringToRegExp } from 'cypress/pom/shared/Utils';
 import { Replacement } from 'cypress/pom/shared/Types';
 import { oneMinute } from 'cypress/pom/shared/Utils';
 
@@ -114,7 +114,11 @@ export const TablesTable = {
        * @param columnID The ID of the column.
        */
       clickTableCellLink(dataResource: any, columnID: string) {
-        cy.get(selectors.tableCell(dataResource)).eq(getColumnPosition(tableColumns, columnID)).find(CommonSelectors.link).clickAndWait();
+        cy.then(() => getColumnPosition(selectorHead, tableColumns, columnID, 1).then((position) => {
+          if (position !== -1 || !isFerlease()) { // -1 position can only occur in a Ferlease
+            cy.get(selectors.tableCell(dataResource)).eq(position).find(CommonSelectors.link).clickAndWait();
+          };
+        }));
       },
       /**
        * Deletes the resource type tag from the filter.
@@ -248,7 +252,11 @@ export const TablesTable = {
        * @param columnID The ID of the column to check.
        */
       shouldHaveFirstRowValue(value: string | RegExp, columnID: string) {
-        cy.validateTableFirstRow(value, getColumnPosition(tableColumns, columnID), false/*hasCheckbox*/, selectorPanel);
+        cy.then(() => getColumnPosition(selectorHead, tableColumns, columnID, 1).then((position) => {
+          if (position !== -1 || !isFerlease()) { // -1 position can only occur in a Ferlease
+            cy.validateTableFirstRow(value, position, false/*hasCheckbox*/, selectorPanel);
+          };
+        }));
       },
       /**
        * Validates the default visibility of each column.
@@ -408,20 +416,22 @@ export const TablesTable = {
        * @param needIntercept Whether to use an intercept for the sorting action (default: true).
        */
       shouldSortColumn(columnID: string, needIntercept: boolean = true) {
-        const columnIndex = getColumnPosition(tableColumns, columnID);
+        cy.then(() => getColumnPosition(selectorHead, tableColumns, columnID, 1).then((position) => {
+          if (position !== -1 || !isFerlease()) { // -1 position can only occur in a Ferlease
+            TablesTable.actions.sortColumn(columnID, needIntercept);
+            cy.get(`${selectorPanel} ${CommonSelectors.tableRow}`).eq(0).find('td').eq(position).invoke('text').then((smallestValue) => {
+              const smallest = smallestValue.trim();
 
-        TablesTable.actions.sortColumn(columnID, needIntercept);
-        cy.get(`${selectorPanel} ${CommonSelectors.tableRow}`).eq(0).find('td').eq(columnIndex).invoke('text').then((smallestValue) => {
-          const smallest = smallestValue.trim();
-
-          TablesTable.actions.sortColumn(columnID);
-          cy.get(`${selectorPanel} ${CommonSelectors.tableRow}`).eq(0).find('td').eq(columnIndex).invoke('text').then((biggestValue) => {
-            const biggest = biggestValue.trim();
-            if (biggest.localeCompare(smallest) < 0) {
-              throw new Error(`Error: "${biggest}" should be >= "${smallest}"`);
-            };
-          });
-        });
+              TablesTable.actions.sortColumn(columnID);
+              cy.get(`${selectorPanel} ${CommonSelectors.tableRow}`).eq(0).find('td').eq(position).invoke('text').then((biggestValue) => {
+                const biggest = biggestValue.trim();
+                if (biggest.localeCompare(smallest) < 0) {
+                  throw new Error(`Error: "${biggest}" should be >= "${smallest}"`);
+                };
+              });
+            });
+          };
+        }));
       },
     },
   };

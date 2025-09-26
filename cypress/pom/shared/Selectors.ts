@@ -12,6 +12,7 @@ export const CommonSelectors = {
     readIcon: '[data-icon="read"]',
     sourceLink: '[class*="SourceLink"]',
     tableCell: '[class*="ant-table-cell"]',
+    tableCellHead: 'th',
     tableHead: 'thead[class="ant-table-thead"]',
     tableRow: 'tr[class*="ant-table-row"]',
     tag: `[class="ant-tag"]`,
