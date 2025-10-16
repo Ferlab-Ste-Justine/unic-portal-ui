@@ -3,24 +3,27 @@ import 'cypress/support/commands';
 import { data } from 'cypress/pom/shared/Data';
 import { VariablesTable } from 'cypress/pom/pages/VariablesTable';
 
-beforeEach(() => {
-  cy.login();
-  cy.visitCatalog('variables');
-  VariablesTable.actions.selectResourceFilter(data.resourceBronchiolite);
-});
-
 describe('Tableau Variables - Valider les liens du filtre Resource', () => {
+  const setupTest = () => {
+    cy.login();
+    cy.visitCatalog('variables');
+    VariablesTable.actions.selectResourceFilter(data.resourceBronchiolite);
+  };
+
   it('Reset filters - Clear Input', () => {
+    setupTest();
     VariablesTable.actions.clearFilters();
     VariablesTable.validations.shouldShowObjectInFilter(data.resourceBronchiolite, false/*shouldExist*/);
   });
 
   it('Reset filters - Results', () => {
+    setupTest();
     VariablesTable.actions.clearFilters();
     VariablesTable.validations.shouldShowResultsCount(data.resourceBronchiolite.variables.totalCount, false/*shouldExist*/);
   });
 
   it('Clear Input - Results', () => {
+    setupTest();
     VariablesTable.actions.clearInputSelect();
     VariablesTable.validations.shouldShowResultsCount(data.resourceBronchiolite.variables.totalCount, false/*shouldExist*/);
   });
