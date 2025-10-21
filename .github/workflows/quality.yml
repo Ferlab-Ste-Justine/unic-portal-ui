@@ -9,18 +9,6 @@ on:
     branches:
       - main
 
-permissions:
-  actions: write
-  checks: write
-  contents: write
-  deployments: write
-  issues: write
-  packages: write
-  pull-requests: write
-  repository-projects: write
-  security-events: write
-  statuses: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,6 +35,23 @@ jobs:
         echo "" >> results.log
         echo "`npm run test:github  2>&1 | sed 's/=//g' | tail -n 11`" >> results.log
         echo " " >> results.log
+    - name: Upload test artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: results-log
+        path: results.log
+
+  comment-on-pr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+    - name: Download test artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: results-log
+        path: results.log
     - uses: marocchino/sticky-pull-request-comment@v2
       with:
         header: Project Coverage and Test
