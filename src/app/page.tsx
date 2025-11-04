@@ -20,7 +20,6 @@ const HomePage = () => {
   return (
     <PageLayout
       title={intl.get('screen.home.title')}
-      subTitle={intl.get('screen.home.subTitle')}
       className={styles.pageLayout}
       classNameContainer={styles.pageLayoutContainer}
     >
