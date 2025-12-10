@@ -11,6 +11,7 @@
 !.yarn/versions
 
 # testing
+/.cache
 /coverage
 /cypress/downloads
 /cypress/screenshots

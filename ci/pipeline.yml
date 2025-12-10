@@ -81,6 +81,32 @@ jobs:
     trigger: false
     params:
       submodule_recursive: true
+
+  - task: dependencies
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: ferlabcrsj/cypress-included-custom
+          tag: latest
+      inputs:
+        - name: git-portal-ui
+      outputs:
+        - name: git-portal-ui
+      run:
+        path: bash
+        args:
+          - -c
+          - |
+            set -e  # Exit on error
+            # Navigate to the project directory
+            cd git-portal-ui
+
+            # Install dependencies
+            CYPRESS_CACHE_FOLDER=.cache/Cypress
+            npm install
+
   - in_parallel:
       fail_fast: false
       steps:
@@ -109,13 +135,11 @@ jobs:
                 # Navigate to the project directory
                 pushd git-portal-ui
 
-                # Install dependencies
-                npm install
-
                 mv .env.qa .env
                 sed -i 's/CYPRESS_USER_PASSWORD=""/CYPRESS_USER_PASSWORD="'$CYPRESS_PASSWORD'"/' .env
 
                 # Run Cypress tests
+                CYPRESS_CACHE_FOLDER=.cache/Cypress
                 npx cypress run --config-file cypress.config.ts --config retries=5 --browser chrome --reporter junit --reporter-options "mochaFile=test-results/results-[hash].xml" --spec "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}"
                 
                 # Generate a timestamp
