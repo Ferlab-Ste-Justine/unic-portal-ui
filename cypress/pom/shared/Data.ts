@@ -30,7 +30,7 @@ export const data = {
           staturgence: 28,
         },
       },
-      version: '2023-06-01',
+      version: '2025-09-18',
     },
     resourceCentro: {
       approvedOn: '-',
@@ -114,11 +114,11 @@ export const data = {
       naganoID: '-',
       name: 'warehouse',
       principalInvestigator: '-',
-      tables: 19,
+      tables: 21,
       type: 'warehouse',
       updatedOn: '2024-10-31',
       variables: {
-        totalCount: '596',
+        totalCount: '703',
         hospitalSystems: {
           clinibaseci: 1,
           eclinibase: 17,
