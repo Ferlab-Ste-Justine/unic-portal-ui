@@ -17,6 +17,7 @@
 /cypress/screenshots
 /cypress/results
 .testquality
+.copilot
 
 # next.js
 /.next/
