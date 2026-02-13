@@ -30,9 +30,7 @@ const link = ApolloLink.from([authLink, httpLink]);
 
 const client = new ApolloClient({
   link,
-  cache: new InMemoryCache({
-    addTypename: true,
-  }),
+  cache: new InMemoryCache(),
   defaultOptions: {
     query: {
       fetchPolicy: 'cache-first', // Caching for regular queries
