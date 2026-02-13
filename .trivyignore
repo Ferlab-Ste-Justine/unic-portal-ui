@@ -1,2 +1,14 @@
 #cross-spawn (package.json) │ CVE-2024-21538 │ HIGH
 CVE-2024-21538
+
+# CVE-2025-64756 - glob - FALSE POSITIVE
+# Vulnerable versions: 10.2.0-10.5.0 and 11.0.0-11.1.0
+# Installed versions: glob@13.0.2 (not vulnerable) and glob@7.2.3 (not vulnerable)
+CVE-2025-64756
+
+# CVE-2026-23745, CVE-2026-23950, CVE-2026-24842 - node-tar - FALSE POSITIVE Fixed by override
+# Vulnerable versions: <= 7.5.2 (CVE-2026-23745), <= 7.5.3 (CVE-2026-23950), < 7.5.7 (CVE-2026-24842)
+# Installed version: tar@7.5.7 (forced override in package.json L77)
+CVE-2026-23745
+CVE-2026-23950
+CVE-2026-24842
