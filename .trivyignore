@@ -12,3 +12,7 @@ CVE-2025-64756
 CVE-2026-23745
 CVE-2026-23950
 CVE-2026-24842
+
+# With antd v4 and next v14, we have some vulnerabilities in minimatch but no antd upgrade will be done
+GHSA-9g9p-9gw9-jx7f
+GHSA-h25m-26qc-wcjf
