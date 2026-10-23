@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /// <reference types="cypress"/>
-import { rmdir } from 'fs/promises';
+import { rm } from 'fs/promises';
 import fs from 'fs';
 import path from 'path';
 import * as dotenv from 'dotenv';
@@ -13,7 +13,7 @@ const pluginConfig = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOpti
       console.log('deleting folder %s', folderName);
 
       return new Promise((resolve, reject) => {
-        rmdir(folderName, { maxRetries: 10, recursive: true })
+        rm(folderName, { maxRetries: 10, recursive: true })
           .then(() => resolve(null))
           .catch((err: any) => {
             console.error(err);
