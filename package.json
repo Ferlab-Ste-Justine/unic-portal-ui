@@ -84,7 +84,7 @@
     "!src/cypress/**/*.{ts,tsx}": "echo Ignoring Cypress files"
   },
   "engines": {
-    "node": ">=18.20.4",
+    "node": ">=26.12.1",
     "npm": ">=10.7.0"
   },
   "repository": {
